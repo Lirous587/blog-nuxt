@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
-  devtools: { enabled: false },
+  devtools: { enabled: true },
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
   },
@@ -12,10 +12,12 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],
-  css: ["element-plus/dist/index.css", "~/assets/css/tailwind.css"],
-  build: {
-    transpile: process.env.prod ? ["element-plus"] : [],
-  },
+  css: [
+    "~/assets/css/tailwind.css",
+    "~/assets/css/custom.css",
+    "~/assets/fonts/font.css",
+    "~/assets/icon/icon.css",
+  ],
   nitro: {},
   postcss: {
     plugins: {

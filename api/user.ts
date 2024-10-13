@@ -1,11 +1,12 @@
-export const getUserInfo = (id: string) => {
-  return api.get(`/user?id=${id}`);
-};
+export function getIndexInfo() {
+  return axios.get("/base/index");
+}
 
-export const postUserInfo = (form: object) => {
-  return api.post(`/user`, form);
-};
+export function getEssayList(form) {
+  let q = queryToUrl(form);
+  return axios.get(`/base/essay_list${q}`);
+}
 
-export const needTokenRequest = () => {
-  return api.get("/user/private");
-};
+export function getEssayMsg(id) {
+  return axios.get(`/base/essay_content?id=${id}`);
+}
