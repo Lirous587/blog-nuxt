@@ -11,7 +11,7 @@ const apiCore = (url, opt) => {
 
   const nuxtApp = useNuxtApp();
 
-  return useFetch(url, {
+  return apiFun()(url, {
     baseURL: config.public.apiBase,
     retry: false,
     onRequest({ options }) {
@@ -61,10 +61,22 @@ const commonApi = (method, url, options) => {
       if (res.status.value === "success") {
         resolve(res.data.value);
       } else {
-        reject(res.error.value.data?.msg || res.error.value);
+        if (res.error.value?.data) {
+          reject(res.error.value.data?.msg || res.error.value);
+        } else {
+          reject(res.error.value);
+        }
       }
     });
   });
+};
+
+const disposeReactive = (form) => {
+  let data = {};
+  for (const key in form) {
+    data[key] = form[key];
+  }
+  return data;
 };
 
 export const api = {
@@ -72,20 +84,23 @@ export const api = {
     return commonApi("GET", url, options);
   },
   post(url, form, options = {}) {
+    const formData = disposeReactive(form);
     return commonApi("POST", url, {
-      body: form,
+      body: formData,
       ...options,
     });
   },
-  push(url, form, options = {}) {
-    return commonApi("PUSH", url, {
-      body: form,
+  put(url, form, options = {}) {
+    const formData = disposeReactive(form);
+    return commonApi("PUT", url, {
+      body: formData,
       ...options,
     });
   },
   delete(url, form, options = {}) {
+    const formData = disposeReactive(form);
     return commonApi("DELETE", url, {
-      body: form,
+      body: formData,
       ...options,
     });
   },
