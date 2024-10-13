@@ -1,26 +1,43 @@
-<template>
-  <div></div>
-</template>
+<template></template>
 
 <script setup>
 import { searchData } from "~/api/keyword";
+
+definePageMeta({
+  middleware: "search-data",
+});
+
 const route = useRoute();
+const result = ref([]);
+const loading = ref(false);
 
 const form = reactive({
-  ifAdd: true,
   keyword: "",
+  ifAdd: true,
 });
-form.keyword = route.query.keyword;
 
-onMounted(() => {
-  searchData(form).then((res) => {
-    if (res.data) {
-      result.value = res.data;
-    } else {
-      ElMessage.warning("没有查找到相关数据");
+const searchEssay = async (keyword) => {
+  if (!keyword) return;
+
+  loading.value = true;
+
+  await searchData(form)
+    .then((res) => {
+      result.value = res.data || [];
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+watch(
+  () => route.query.keyword,
+  async (keyword) => {
+    if (import.meta.client) {
+      form.keyword = keyword;
+      await searchEssay(keyword);
     }
-  });
-});
+  },
+  { immediate: true }
+);
 </script>
-
-<style></style>

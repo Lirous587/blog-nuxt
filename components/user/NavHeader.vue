@@ -1,10 +1,6 @@
-<script setup>
-const input = ref("");
-</script>
-
 <template>
   <div class="h-[100%] header-box flex justify-between">
-    <div class="pl-5 w-[60%] flex items-center gap-x-8">
+    <div class="pl-5 w-[55%] flex items-center gap-x-6">
       <NuxtLink to="/">
         <div class="text-lg title-name">罹景的博客</div>
       </NuxtLink>
@@ -28,7 +24,7 @@ const input = ref("");
       </NuxtLink>
       <!-- about -->
       <el-dropdown>
-        <NuxtLink to="/about">
+        <NuxtLink to="/about" class="whitespace-nowrap">
           <span class="iconfont">&#xe8a4;</span>
           <span class="title-kind">关于</span>
           <el-icon>
@@ -54,12 +50,12 @@ const input = ref("");
       </el-dropdown>
     </div>
 
-    <div class="pr-5 w-[40%] flex items-center gap-x-4 justify-end">
+    <div class="pr-5 w-[45%] flex items-center gap-x-4 justify-end">
       <div class="pl-5">
-        <UserSearch></UserSearch>
+        <UserSearchData></UserSearchData>
       </div>
       <div
-        class="h-[30px] w-[30px] flex justify-center items-center bg-red-100 rounded-full"
+        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center bg-red-100 rounded-full"
       >
         <el-icon>
           <Moon></Moon>
@@ -81,7 +77,7 @@ const input = ref("");
 }
 
 .title-name {
-  @apply cursor-pointer text-lg;
+  @apply cursor-pointer text-lg whitespace-nowrap;
   text-align: center;
   background: linear-gradient(
     to right,
@@ -93,7 +89,7 @@ const input = ref("");
   background-clip: text;
 }
 .title-kind {
-  @apply cursor-pointer text-lg;
+  @apply cursor-pointer text-lg whitespace-nowrap;
   text-align: center;
   background: linear-gradient(to right, rgb(18, 111, 219), rgb(204, 129, 17));
   color: transparent;
