@@ -6,18 +6,17 @@
     :visibility-height="300"
   />
   <el-container>
-    <el-header class="!p-0">
+    <el-header class="!p-0 w-full">
       <UserNavHeader></UserNavHeader>
+      <UserHomeDecoration></UserHomeDecoration>
     </el-header>
-    <div class="h-[2000px] bg-light-50">这是一些数据</div>
-
-    
-
-    <el-row :gutter="0">
-      <el-main class="mt-[60px]">
-        <slot />
-      </el-main>
-    </el-row>
+    <div class="mt-[100vh]"></div>
+    <!-- <div>
+      <Test></Test>
+    </div> -->
+    <el-main class="mt-[60px]">
+      <slot />
+    </el-main>
   </el-container>
 
   <div style="width: 100%">

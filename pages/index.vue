@@ -11,15 +11,4 @@ useHead({
   title: metaTitle,
   meta: [{ name: "keywords", content: metaKeywords }],
 });
-import { getIndexInfo } from "~/api/user";
-
-const list = ref([]);
-
-const initData = () => {
-  getIndexInfo().then((res) => {
-    console.log(res);
-    list.value = res.data;
-  });
-};
-await initData();
 </script>

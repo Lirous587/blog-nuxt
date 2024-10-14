@@ -1,8 +1,8 @@
 <template>
   <div class="header-box">
-    <div class="pl-5 w-[55%] flex items-center gap-x-6">
+    <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
       <NuxtLink to="/" class="nav">
-        <div class="text-lg title-name">罹景的博客</div>
+        <div class="text-lg title-name flex-shrink-0">罹景的博客</div>
       </NuxtLink>
       <NuxtLink to="/" class="nav">
         <div class="flex items-center">
@@ -23,7 +23,7 @@
         </div>
       </NuxtLink>
       <!-- about -->
-      <el-dropdown class="nav border-none outline-transparent">
+      <el-dropdown class="nav border-none">
         <NuxtLink to="/about" class="whitespace-nowrap outline-transparent">
           <span class="iconfont">&#xe8a4;</span>
           <span class="title-kind">关于</span>
@@ -49,8 +49,7 @@
         </template>
       </el-dropdown>
     </div>
-
-    <div class="pr-5 w-[45%] flex items-center gap-x-4 justify-end">
+    <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
         <UserSearchData></UserSearchData>
       </div>
@@ -71,8 +70,8 @@
 <style scoped>
 .header-box {
   @apply fixed flex justify-between  top-0 right-0 shadow-lg h-[60px] w-full z-10;
-  backdrop-filter: blur(20px) saturate(5);
-  -webkit-backdrop-filter: blur(10px); /* 为Safari浏览器添加前缀 */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .title-name {
@@ -88,14 +87,14 @@
   background-clip: text;
 }
 .title-kind {
-  @apply cursor-pointer text-lg whitespace-nowrap;
+  @apply cursor-pointer text-lg;
   text-align: center;
   background: linear-gradient(to right, rgb(18, 111, 219), rgb(204, 129, 17));
   color: transparent;
   background-clip: text;
 }
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: "iconfont";
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
