@@ -25,7 +25,8 @@ const apiCore = async (url, opt) => {
     onResponse({ request, response, options }) {
       // Process the response data
       if (response.status >= 200 && response.status <= 300) {
-        // console.log(response._data);
+        console.log("客户端请求");
+        console.log(response._data);
       }
     },
     onResponseError({ request, response, options }) {
@@ -48,18 +49,20 @@ const apiCore = async (url, opt) => {
 };
 
 const commonApi = (method, url, options) => {
-  return new Promise((resolve, reject) => {
-    apiCore(url, {
-      method,
-      ...options,
-    })
-      .then((res) => {
-        resolve(res);
+  if (import.meta.client) {
+    return new Promise((resolve, reject) => {
+      apiCore(url, {
+        method,
+        ...options,
       })
-      .catch((err) => {
-        reject(err.data.msg || "请求错误");
-      });
-  });
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err.data.msg || "请求错误");
+        });
+    });
+  }
 };
 
 export const clientApi = {
