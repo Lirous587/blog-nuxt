@@ -14,7 +14,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return abortNavigation();
     }
   }
-
-  // 对于所有其他情况，允许导航继续
   return;
 });

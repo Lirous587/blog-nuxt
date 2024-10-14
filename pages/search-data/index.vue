@@ -1,4 +1,8 @@
-<template></template>
+<template>
+  <div v-for="item in result" :key="item.id">
+    {{ item }}
+  </div>
+</template>
 
 <script setup>
 import { searchData } from "~/api/keyword";
@@ -16,8 +20,8 @@ const form = reactive({
   ifAdd: true,
 });
 
-const searchEssay = async (keyword) => {
-  if (!keyword) return;
+const searchEssay = async () => {
+  if (!form.keyword) return;
 
   loading.value = true;
 
@@ -33,10 +37,8 @@ const searchEssay = async (keyword) => {
 watch(
   () => route.query.keyword,
   async (keyword) => {
-    if (import.meta.client) {
-      form.keyword = keyword;
-      await searchEssay(keyword);
-    }
+    form.keyword = keyword;
+    searchEssay();
   },
   { immediate: true }
 );
