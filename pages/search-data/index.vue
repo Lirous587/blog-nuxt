@@ -1,7 +1,5 @@
 <template>
-  <div v-for="item in result" :key="item.id">
-    {{ item }}
-  </div>
+  <UserEssayList :list="result"></UserEssayList>
 </template>
 
 <script setup>

@@ -1,30 +1,30 @@
 <template>
-  <div class="h-[100%] header-box flex justify-between">
+  <div class="header-box">
     <div class="pl-5 w-[55%] flex items-center gap-x-6">
-      <NuxtLink to="/">
+      <NuxtLink to="/" class="nav">
         <div class="text-lg title-name">罹景的博客</div>
       </NuxtLink>
-      <NuxtLink to="/">
+      <NuxtLink to="/" class="nav">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a7;</span>
           <span class="title-kind">首页</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/heart-word">
+      <NuxtLink to="/heart-word" class="nav">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a6;</span>
           <span class="title-kind">心语</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/friend-link">
+      <NuxtLink to="/friend-link" class="nav">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a5;</span>
           <span class="title-kind">友情链接</span>
         </div>
       </NuxtLink>
       <!-- about -->
-      <el-dropdown>
-        <NuxtLink to="/about" class="whitespace-nowrap">
+      <el-dropdown class="nav border-none outline-transparent">
+        <NuxtLink to="/about" class="whitespace-nowrap outline-transparent">
           <span class="iconfont">&#xe8a4;</span>
           <span class="title-kind">关于</span>
           <el-icon>
@@ -70,8 +70,7 @@
 
 <style scoped>
 .header-box {
-  @apply fixed left-0 top-0 right-0 h-[60px] z-10;
-  background-color: rgba(255, 255, 255, 0.9); /* 半透明白色背景 */
+  @apply fixed flex justify-between  top-0 right-0 shadow-lg h-[60px] w-full z-10;
   backdrop-filter: blur(20px) saturate(5);
   -webkit-backdrop-filter: blur(10px); /* 为Safari浏览器添加前缀 */
 }
@@ -101,5 +100,15 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.nav {
+  @apply duration-300 relative  hover:scale-125;
+}
+.nav::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transform  duration-500 ease-in-out;
+}
+.nav:hover::after {
+  @apply w-full;
 }
 </style>
