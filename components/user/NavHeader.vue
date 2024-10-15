@@ -1,32 +1,94 @@
 <template>
   <div class="header-box">
     <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
+      <div class="md:hidden flex items-center">
+        <HamburgerIcon
+          color="red"
+          :size="20"
+          @update:model-value="selectOpen"
+        ></HamburgerIcon>
+        <div
+          class="absolute inset-0 bg-white bg-opacity-70 top-[60px] shadow-xl transition-all duration-500 flex justify-around items-center overflow-hidden"
+          :class="{
+            'h-[60px]': mobileMenuVisiable,
+            'h-[0]': !mobileMenuVisiable,
+          }"
+        >
+          <NuxtLink to="/" class="nav">
+            <div class="flex items-center">
+              <span class="iconfont">&#xe8a7;</span>
+              <span class="color-text">首页</span>
+            </div>
+          </NuxtLink>
+          <NuxtLink to="/heart-word" class="nav">
+            <div class="flex items-center">
+              <span class="iconfont">&#xe8a6;</span>
+              <span class="color-text">心语</span>
+            </div>
+          </NuxtLink>
+          <NuxtLink to="/friend-link" class="nav">
+            <div class="flex items-center">
+              <span class="iconfont">&#xe8a5;</span>
+              <span class="color-text">友情链接</span>
+            </div>
+          </NuxtLink>
+          <!-- about -->
+          <el-dropdown class="nav border-none">
+            <div class="whitespace-nowrap outline-transparent">
+              <span class="iconfont">&#xe8a4;</span>
+              <span class="color-text">关于</span>
+              <el-icon>
+                <arrow-down />
+              </el-icon>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>
+                  <NuxtLink to="/introdution" class="flex items-center">
+                    <el-icon color="pink"><VideoCamera /></el-icon>
+                    博客介绍
+                  </NuxtLink>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <NuxtLink to="/knowledge" class="flex items-center">
+                    <el-icon color="pink"><Collection /></el-icon>
+                    知识库
+                  </NuxtLink>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </div>
       <NuxtLink to="/" class="nav">
-        <div class="text-lg title-name flex-shrink-0">罹景的博客</div>
+        <div class="text-lg color-text flex-shrink-0">罹景的博客</div>
       </NuxtLink>
-      <NuxtLink to="/" class="nav">
+      <NuxtLink to="/" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a7;</span>
-          <span class="title-kind">首页</span>
+          <span class="color-text">首页</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/heart-word" class="nav">
+      <NuxtLink to="/heart-word" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a6;</span>
-          <span class="title-kind">心语</span>
+          <span class="color-text">心语</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/friend-link" class="nav">
+      <NuxtLink to="/friend-link" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a5;</span>
-          <span class="title-kind">友情链接</span>
+          <span class="color-text">友情链接</span>
         </div>
       </NuxtLink>
       <!-- about -->
       <el-dropdown class="nav border-none">
-        <NuxtLink to="/about" class="whitespace-nowrap outline-transparent">
+        <NuxtLink
+          to="/about"
+          class="whitespace-nowrap outline-transparent hidden md:block"
+        >
           <span class="iconfont">&#xe8a4;</span>
-          <span class="title-kind">关于</span>
+          <span class="color-text">关于</span>
           <el-icon>
             <arrow-down />
           </el-icon>
@@ -35,13 +97,13 @@
           <el-dropdown-menu>
             <el-dropdown-item>
               <NuxtLink to="/introdution" class="flex items-center">
-                <el-icon><VideoCamera /></el-icon>
+                <el-icon color="pink"><VideoCamera /></el-icon>
                 博客介绍
               </NuxtLink>
             </el-dropdown-item>
             <el-dropdown-item>
               <NuxtLink to="/knowledge" class="flex items-center">
-                <el-icon><Collection /></el-icon>
+                <el-icon color="pink"><Collection /></el-icon>
                 知识库
               </NuxtLink>
             </el-dropdown-item>
@@ -67,6 +129,14 @@
   </div>
 </template>
 
+<script setup>
+const mobileMenuVisiable = ref(false);
+
+const selectOpen = (status) => {
+  mobileMenuVisiable.value = status;
+};
+</script>
+
 <style scoped>
 .header-box {
   @apply fixed flex justify-between  top-0 right-0 shadow-lg h-[60px] w-full z-10;
@@ -74,7 +144,7 @@
   -webkit-backdrop-filter: blur(10px);
 }
 
-.title-name {
+.color-text {
   @apply cursor-pointer text-lg whitespace-nowrap;
   text-align: center;
   background: linear-gradient(
@@ -86,13 +156,7 @@
   color: transparent;
   background-clip: text;
 }
-.title-kind {
-  @apply cursor-pointer text-lg;
-  text-align: center;
-  background: linear-gradient(to right, rgb(18, 111, 219), rgb(204, 129, 17));
-  color: transparent;
-  background-clip: text;
-}
+
 .iconfont {
   font-family: "iconfont";
   font-size: 16px;

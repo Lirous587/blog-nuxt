@@ -2,7 +2,7 @@
   <div class="my-5 flex">
     <div
       v-if="loading"
-      class="hidden flex-shrink-0 lg:w-[350px] md:w-[250px] md:flex md:flex-col gap-4 ml-5"
+      class="collapse flex-shrink-0 md:visible lg:w-[350px] md:w-[250px] md:flex md:flex-col gap-4 ml-5"
     >
       <UserIndexEssay :list="recommentEssayList"></UserIndexEssay>
       <UserIndexLabel :list="labelList"></UserIndexLabel>
