@@ -2,18 +2,24 @@
   <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
-      <span>分类</span>
+      <span>分类专栏</span>
     </div>
-    <div class="flex flex-wrap gap-2">
-      <NuxtLink
-        v-for="item in coloredList"
-        :key="item.id"
-        :to="'/kind' + item.router"
-        class="py-2 px-3 rounded-lg"
-        :style="{ backgroundColor: item.color }"
-      >
-        {{ item.name }}
-      </NuxtLink>
+    <div class="flex flex-col gap-2">
+      <div v-for="item in list">
+        <NuxtLink
+          :key="item.id"
+          :to="'/kind' + item.router"
+          class="flex items-center justify-between"
+        >
+          <div class="flex items-center gap-2 ml-2">
+            <el-icon>
+              <component :is="item.icon"></component>
+            </el-icon>
+            {{ item.name }}
+          </div>
+          <div class="mr-3">{{ item.count }}篇</div>
+        </NuxtLink>
+      </div>
     </div>
   </el-card>
 </template>
@@ -24,22 +30,5 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-});
-
-const coloredList = ref([]);
-
-function generateColor(seed) {
-  return `rgba(
-  ${Math.floor(Math.random() * 255)},
-  ${Math.floor(Math.random() * 255)},
-  ${Math.floor(Math.random() * 255)},
-  ${Math.max(Math.random() * 0.7, 0.3)})`;
-}
-
-onMounted(() => {
-  coloredList.value = props.list.map((item, index) => ({
-    ...item,
-    color: generateColor(index),
-  }));
 });
 </script>
