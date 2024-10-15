@@ -10,11 +10,10 @@
       <UserNavHeader></UserNavHeader>
       <UserHomeDecoration></UserHomeDecoration>
     </el-header>
-    <div class="mt-[100vh]"></div>
-    <!-- <div>
-      <Test></Test>
-    </div> -->
-    <el-main class="mt-[60px]">
+    <div class="fixed bottom-0 left-0 right-0 h-[60px]">
+      <UserWave></UserWave>
+    </div>
+    <el-main class="mt-[100vh] !p-0 bg-white">
       <slot />
     </el-main>
   </el-container>
