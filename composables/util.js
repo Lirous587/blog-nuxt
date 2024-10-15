@@ -10,3 +10,7 @@ export function queryToUrl(query) {
   r = r ? "?" + r : "";
   return r;
 }
+
+export function formateDate(timeStr) {
+  return timeStr.split("Z")[0].split("T").join("-");
+}

@@ -2,7 +2,7 @@
   <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
-      <span>分类专栏</span>
+      <span class="text-blue-500">分类专栏</span>
     </div>
     <div class="flex flex-col gap-2">
       <div v-for="item in list">
@@ -11,13 +11,15 @@
           :to="'/kind' + item.router"
           class="flex items-center justify-between"
         >
-          <div class="flex items-center gap-2 ml-2">
+          <div class="flex items-center gap-2 ml-2 flex-shrink-0">
             <el-icon>
-              <component :is="item.icon"></component>
+              <component class="text-pink-500" :is="item.icon"></component>
             </el-icon>
-            {{ item.name }}
+            <span class="text-green-500">
+              {{ item.name }}
+            </span>
           </div>
-          <div class="mr-3">{{ item.count }}篇</div>
+          <div class="mr-3 flex-shrink-0 text-red-500">{{ item.essayCount }}篇</div>
         </NuxtLink>
       </div>
     </div>

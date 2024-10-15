@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     // Keys within public are also exposed client-side
     public: {
       apiBase: "http://127.0.0.1:8080/api",
+      imgBase: "http://127.0.0.1:8080/api/img",
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],

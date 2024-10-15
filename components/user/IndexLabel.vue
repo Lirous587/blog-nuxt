@@ -2,14 +2,14 @@
   <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
-      <span>标签</span>
+      <span class="text-blue-500">标签</span>
     </div>
     <div class="flex flex-wrap gap-2">
       <NuxtLink
         v-for="item in coloredList"
         :key="item.id"
         :to="'/classify' + item.router"
-        class="py-2 px-3 rounded-lg"
+        class="py-2 px-2 rounded-lg text-gray-700"
         :style="{ backgroundColor: item.color }"
       >
         {{ item.name }}

@@ -1,33 +1,35 @@
 <template>
-  <div class="py-5">
-    <el-row :gutter="20">
-      <el-col :span="6">
-        <div class="ml-[10%] mr-[10%]" v-if="classifyList.length > 0">
-          <UserIndexClassify :list="classifyList"></UserIndexClassify>
-          <UserIndexKind class="mt-5" :list="kindList"></UserIndexKind>
-        </div>
-      </el-col>
-      <el-col :span="18"> </el-col>
-    </el-row>
+  <div class="my-5 flex">
+    <div
+      v-if="loading"
+      class="hidden flex-shrink-0 lg:w-[350px] md:w-[250px] md:flex md:flex-col gap-4 ml-5"
+    >
+      <UserIndexEssay :list="recommentEssayList"></UserIndexEssay>
+      <UserIndexLabel :list="labelList"></UserIndexLabel>
+      <UserIndexKind :list="kindList"></UserIndexKind>
+    </div>
+
+    <div>
+      <UserEssayList :list="essayList"></UserEssayList>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { getIndexInfo } from "~/api/user";
-
-const classifyList = ref([]);
+const essayList = ref([]);
+const labelList = ref([]);
 const kindList = ref([]);
+const loading = ref(false);
+const recommentEssayList = ref([]);
 
-const getIndexData = () => {
-  getIndexInfo().then((res) => {
-    const menu = res.data.menu;
-    if (Array.isArray(menu)) {
-      menu.forEach((o) => {
-        classifyList.value.push(...o.classifyList);
-        kindList.value.push(o.kind);
-      });
-    }
+const getIndexData = async () => {
+  await getIndexInfo().then((res) => {
+    recommentEssayList.value = res.data.essayList;
+    labelList.value = res.data.labelList;
+    kindList.value = res.data.kindList;
+    loading.value = true;
   });
 };
-getIndexData();
+await getIndexData();
 </script>
