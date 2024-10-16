@@ -12,5 +12,5 @@ export function queryToUrl(query) {
 }
 
 export function formateDate(timeStr) {
-  return timeStr.split("Z")[0].split("T").join("-");
+  return timeStr.split("Z")[0].split("T").join(" ");
 }

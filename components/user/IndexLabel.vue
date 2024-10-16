@@ -9,7 +9,7 @@
         v-for="item in coloredList"
         :key="item.id"
         :to="'/classify' + item.router"
-        class="py-2 px-2 rounded-lg text-gray-700"
+        class="py-2 px-2 rounded-lg text-white"
         :style="{ backgroundColor: item.color }"
       >
         {{ item.name }}

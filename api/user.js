@@ -4,7 +4,7 @@ export function getIndexInfo() {
 
 export function getEssayList(form) {
   let q = queryToUrl(form);
-  return axios.get(`/base/essay_list${q}`);
+  return api.get(`/base/essay_list${q}`);
 }
 
 // export function getEssayMsg(id) {

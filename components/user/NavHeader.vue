@@ -83,7 +83,7 @@
       </NuxtLink>
       <!-- about -->
       <el-dropdown class="nav border-none">
-        <NuxtLink
+        <div
           to="/about"
           class="whitespace-nowrap outline-transparent hidden md:block"
         >
@@ -92,7 +92,7 @@
           <el-icon>
             <arrow-down />
           </el-icon>
-        </NuxtLink>
+        </div>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
