@@ -5,11 +5,11 @@
       class="absolute inset-0 top-[50%] translate-y-[-50%] flex flex-col justify-center items-center"
       v-show="loading"
     >
-      <UserTypeWriter
+      <TypeWriter
         class="p-3 rounded-xl text-3xl text-white text-opacity-60 bg-black bg-opacity-40 mb-5"
         firstWord="春花秋月何时了"
         lastWord="往事知多少"
-      ></UserTypeWriter>
+      />
 
       <div class="flex justify-center items-center">
         <div
