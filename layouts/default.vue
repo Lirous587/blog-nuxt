@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import NavAside from "~/components/admin/NavAside.vue";
+</script>
+
 <template>
   <el-backtop
     class="hidden-sm-and-up"
@@ -15,10 +19,12 @@
     </div>
     <el-main>
       <div class="mt-[100vh] opacity-95 bg-white flex">
-        <div class="my-5 flex ml-20">
-          <UserIndexAside></UserIndexAside>
+        <div
+          class="hidden my-5 ml-5 flex-col w-[160px] md:flex md:w-[240px] lg:my-10 lg:w-[300px] xl:w-[350px] lg:ml-10 xl:ml-20"
+        >
+          <UserNavAside></UserNavAside>
         </div>
-        <div class="my-5 mx-auto flex-1 md:flex-[0.9] md:mx-10">
+        <div class="my-5 mx-5 flex-1 md:flex-[0.9] md:mx-10">
           <slot />
         </div>
       </div>

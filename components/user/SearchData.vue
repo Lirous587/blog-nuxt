@@ -4,7 +4,7 @@
     placeholder="搜索"
     v-model="keyword"
     clearable
-    @change="search"
+    @keydown.enter="search"
   >
     <template #suffix>
       <el-icon class="cursor-pointer" @click="search">

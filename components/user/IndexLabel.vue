@@ -8,7 +8,7 @@
       <NuxtLink
         v-for="item in coloredList"
         :key="item.id"
-        :to="'/classify' + item.router"
+        :to="'/label/' + item.id + '/0'"
         class="py-2 px-2 rounded-lg text-white"
         :style="{ backgroundColor: item.color }"
       >

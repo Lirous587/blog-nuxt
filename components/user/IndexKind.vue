@@ -8,7 +8,7 @@
       <div v-for="item in list">
         <NuxtLink
           :key="item.id"
-          :to="'/kind' + item.router"
+          :to="'/kind/' + item.id + '/0'"
           class="flex items-center justify-between"
         >
           <div class="flex items-center gap-2 ml-2 flex-shrink-0">
@@ -19,7 +19,9 @@
               {{ item.name }}
             </span>
           </div>
-          <div class="mr-3 flex-shrink-0 text-red-500">{{ item.essayCount }}篇</div>
+          <div class="mr-3 flex-shrink-0 text-red-500">
+            {{ item.essayCount }}篇
+          </div>
         </NuxtLink>
       </div>
     </div>

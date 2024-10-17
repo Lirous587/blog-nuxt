@@ -1,7 +1,11 @@
 <template>
   <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-xl">
     <div class="flex flex-col items-center justify-around gap-y-3">
-      <el-avatar src="/avator.jpg" :size="80" class="animate-spin"></el-avatar>
+      <el-avatar
+        src="/avator.jpg"
+        :size="80"
+        class="hover:rotate-180 hover:scale-110 transition-transform duration-300 ease-in-out"
+      ></el-avatar>
       <h2 class="text-2xl text-green-500">罹景</h2>
       <div class="flex items-center justify-around gap-5">
         <div

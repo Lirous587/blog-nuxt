@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="loading"
-    class="hidden my-4 flex-shrink-0 gap-4 w-[350px] lg:flex flex-col"
-  >
+  <div v-if="loading" class="flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
     <UserAuthorCard
       class="bg-gradient-to-br from-green-200 to-blue-100"
       :authorData
