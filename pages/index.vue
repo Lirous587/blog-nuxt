@@ -11,8 +11,13 @@ const essayList = ref([]);
 const loading = ref(false);
 const totalPage = ref(1);
 
+const queryForm = reactive({
+  page: 1,
+  pageSize: 5,
+});
+
 const getList = async () => {
-  getEssayList()
+  getEssayList(queryForm)
     .then((res) => {
       const data = res.data;
       essayList.value = data.list;

@@ -1,14 +1,17 @@
 <template>
   <div v-if="loading">
     <UserEssayList :list="essayList"></UserEssayList>
-    <Paging :total-pages="totalPage"></Paging>
+    <Paging
+      :pre-href="'/kind/' + queryForm.label"
+      :total-pages="totalPage"
+    ></Paging>
   </div>
 </template>
 
 <script setup>
 const route = useRoute();
-
 const queryForm = reactive({
+  kind: route.params.name,
   page: route.params.page,
   pageSize: 5,
 });
