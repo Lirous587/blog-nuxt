@@ -1,30 +1,37 @@
 <template>
-  <UserEssayList :list="essayList"></UserEssayList>
-  <Paging :total-pages="10"></Paging>
+  <div v-if="loading">
+    <UserEssayList :list="essayList"></UserEssayList>
+    <Paging :total-pages="totalPage"></Paging>
+  </div>
 </template>
 
 <script setup>
 import { getEssayList } from "~/api/user";
 const essayList = ref([]);
 const loading = ref(false);
-const page = reactive({
-  current: 1,
-  total: 1,
-});
+const totalPage = ref(1);
 const route = useRoute();
 
-page.current = route.params.page;
+const queryForm = reactive({
+  page: route.params.page,
+  pageSize: 5,
+});
 
-const getIndexData = async () => {
-  getEssayList()
+const getList = async () => {
+  getEssayList(queryForm)
     .then((res) => {
       const data = res.data;
       essayList.value = data.list;
-      page.total = data.totalPages;
+      totalPage.value = data.totalPages;
     })
     .finally(() => {
       loading.value = true;
     });
 };
-await getIndexData();
+await getList();
+
+watch(route.params.page, async (page) => {
+  queryForm.page = page;
+  await getList(page);
+});
 </script>

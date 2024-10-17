@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="loading">
     <UserEssayList :list="essayList"></UserEssayList>
-    <Paging :total-pages="10"></Paging>
+    <Paging :total-pages="totalPage"></Paging>
   </div>
 </template>
 
@@ -9,16 +9,18 @@
 import { getEssayList } from "~/api/user";
 const essayList = ref([]);
 const loading = ref(false);
+const totalPage = ref(1);
 
-const getIndexData = async () => {
+const getList = async () => {
   getEssayList()
     .then((res) => {
-      essayList.value = res.data.list;
+      const data = res.data;
+      essayList.value = data.list;
+      totalPage.value = data.totalPages;
     })
     .finally(() => {
       loading.value = true;
     });
 };
-
-await getIndexData();
+await getList();
 </script>

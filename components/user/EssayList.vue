@@ -34,7 +34,7 @@
         </div>
 
         <div
-          class="flex flex-wrap items-center cursor-pointer line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
+          class="flex flex-wrap items-center line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
         >
           <el-tag type="primary">
             <div class="flex items-center">
@@ -47,7 +47,7 @@
           <el-tag
             type="info"
             v-for="label in item.label"
-            class="cursor-pointer inline-block m-1"
+            class="inline-block m-1"
           >
             {{ label }}
           </el-tag>

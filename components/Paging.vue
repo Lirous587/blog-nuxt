@@ -2,24 +2,27 @@
   <div class="flex justify-center">
     <NuxtLink
       :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
-      class="bg-neutral-200 text-neutral-400 h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center"
+      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
     >
-      <el-icon><DArrowLeft /></el-icon>
+      <el-icon><ArrowLeft /></el-icon>
     </NuxtLink>
     <NuxtLink
       v-for="(item, index) in list"
       :to="preHref + '/' + item.page"
       :key="index"
-      class="bg-neutral-200 h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white"
-      :class="{ '!bg-sky-400': item.page == currentPage }"
+      class="bg-neutral-200 hover:text-blue-300 hover:shadow-md h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white transition-all duration-200 shadow-sm"
+      :class="{
+        '!bg-sky-400': item.page == currentPage,
+        'pointer-events-none': item.page == currentPage,
+      }"
     >
       {{ item.value }}
     </NuxtLink>
     <NuxtLink
       :to="preHref + '/' + Math.min(totalPages, currentPage + Number(1))"
-      class="bg-neutral-200 text-neutral-400 h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center"
+      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
     >
-      <el-icon><DArrowRight /></el-icon>
+      <el-icon><ArrowRight /></el-icon>
     </NuxtLink>
   </div>
 </template>
@@ -43,7 +46,12 @@ const props = defineProps({
 
 const initList = () => {
   if (props.totalPages <= 3 + offset * 2) {
-    return Array.from({ length: props.totalPages }, (_, i) => i + 1);
+    return Array.from({ length: props.totalPages }, (_, i) => {
+      return {
+        value: i + 1,
+        page: i + 1,
+      };
+    });
   }
   let middelArr = [];
   let start = Math.max(2, currentPage - offset);
