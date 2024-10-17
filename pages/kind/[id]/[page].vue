@@ -11,7 +11,7 @@
 <script setup>
 const route = useRoute();
 const queryForm = reactive({
-  kind: route.params.name,
+  kind_id: route.params.id,
   page: route.params.page,
   pageSize: 5,
 });

@@ -8,7 +8,7 @@
       <div v-for="item in list">
         <NuxtLink
           :key="item.id"
-          :to="'/kind/' + item.name + '/1'"
+          :to="'/kind/' + item.id + '/1'"
           class="flex items-center justify-between"
         >
           <div class="flex items-center gap-2 ml-2 flex-shrink-0">

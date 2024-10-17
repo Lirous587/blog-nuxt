@@ -36,21 +36,25 @@
         <div
           class="flex flex-wrap items-center line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
         >
-          <el-tag type="primary">
-            <div class="flex items-center">
-              <el-icon><Menu /></el-icon>
-              <span>
-                {{ item.kind }}
-              </span>
-            </div>
-          </el-tag>
-          <el-tag
-            type="info"
-            v-for="label in item.label"
+          <NuxtLink :to="'/kind/' + item.kind_id + '/1'">
+            <el-tag type="primary">
+              <div class="flex items-center">
+                <el-icon><Menu /></el-icon>
+                <span>
+                  {{ item.kind_name }}
+                </span>
+              </div>
+            </el-tag>
+          </NuxtLink>
+          <NuxtLink
+            v-for="label in item.label_list"
             class="inline-block m-1"
+            :to="'/label/' + item.kind_id + '/1'"
           >
-            {{ label }}
-          </el-tag>
+            <el-tag type="info">
+              {{ label.name }}
+            </el-tag>
+          </NuxtLink>
         </div>
 
         <small class="flex justify-between text-xs text-gray-400">
