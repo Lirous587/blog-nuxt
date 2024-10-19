@@ -1,14 +1,12 @@
 <template>
-  <div v-if="pending">正在渲染</div>
-  <div v-else>
-    <UserEssayList :list="essayList"></UserEssayList>
-    <Paging :total-page="totalPage"></Paging>
-  </div>
+  <UserEssayList :list="essayList" :loading="pending"></UserEssayList>
+  <Paging v-if="!pending" :total-page="totalPage"></Paging>
 </template>
 
 <script setup>
+const route = useRoute();
 const queryForm = reactive({
-  page: 1,
+  page: route.params.page || 1,
   pageSize: 5,
 });
 

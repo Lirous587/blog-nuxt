@@ -8,10 +8,11 @@ export const lazyLoadEssayList = async (queryForm) => {
   const { data: essay, pending } = await useLazyFetch(`/base/essay_list${q}`, {
     baseURL: config.public.apiBase,
   });
-
+  essayList.value = [];
   watch(
     essay,
     (newEssay) => {
+      essayList.value = [];
       if (newEssay?.data) {
         const res = newEssay.data;
         essayList.value = res.essay_list;

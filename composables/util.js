@@ -1,5 +1,3 @@
-import { getEssayList } from "~/api/user";
-
 // 将query参数转为url
 export function queryToUrl(query) {
   let q = [];
