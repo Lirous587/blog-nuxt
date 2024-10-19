@@ -19,7 +19,7 @@
       {{ item.value }}
     </NuxtLink>
     <NuxtLink
-      :to="preHref + '/' + Math.min(totalPages, currentPage + Number(1))"
+      :to="preHref + '/' + Math.min(totalPage, currentPage + Number(1))"
       class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
     >
       <el-icon><ArrowRight /></el-icon>
@@ -34,7 +34,7 @@ const route = useRoute();
 const currentPage = parseInt(route.params.page) || 1;
 
 const props = defineProps({
-  totalPages: {
+  totalPage: {
     type: Number,
     require: true,
   },
@@ -45,8 +45,8 @@ const props = defineProps({
 });
 
 const initList = () => {
-  if (props.totalPages <= 3 + offset * 2) {
-    return Array.from({ length: props.totalPages }, (_, i) => {
+  if (props.totalPage <= 3 + offset * 2) {
+    return Array.from({ length: props.totalPage }, (_, i) => {
       return {
         value: i + 1,
         page: i + 1,
@@ -55,7 +55,7 @@ const initList = () => {
   }
   let middelArr = [];
   let start = Math.max(2, currentPage - offset);
-  let end = Math.min(props.totalPages - 1, currentPage + offset);
+  let end = Math.min(props.totalPage - 1, currentPage + offset);
   middelArr = Array.from(
     {
       length: end - start + 1,
@@ -65,10 +65,10 @@ const initList = () => {
   if (middelArr[0] - 1 > 1) {
     middelArr.unshift("...");
   }
-  if (props.totalPages - middelArr[middelArr.length - 1] > 1) {
+  if (props.totalPage - middelArr[middelArr.length - 1] > 1) {
     middelArr.push("...");
   }
-  let resultArr = [1, ...middelArr, props.totalPages].map((o, index) => {
+  let resultArr = [1, ...middelArr, props.totalPage].map((o, index) => {
     return {
       value: o,
       page: index + 1,

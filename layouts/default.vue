@@ -18,7 +18,7 @@ import NavAside from "~/components/admin/NavAside.vue";
       <Wave />
     </div>
     <el-main>
-      <div class="mt-[100vh] opacity-95 bg-white flex">
+      <div class="opacity-95 bg-white flex">
         <div
           class="hidden my-5 ml-5 flex-col w-[160px] md:flex md:w-[240px] lg:my-10 lg:w-[300px] xl:w-[350px] lg:ml-10 xl:ml-20"
         >

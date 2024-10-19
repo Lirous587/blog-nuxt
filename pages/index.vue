@@ -1,7 +1,8 @@
 <template>
-  <div v-if="loading">
+  <div v-if="pending">正在渲染</div>
+  <div v-else>
     <UserEssayList :list="essayList"></UserEssayList>
-    <Paging :total-pages="totalPage"></Paging>
+    <Paging :total-page="totalPage"></Paging>
   </div>
 </template>
 
@@ -10,8 +11,6 @@ const queryForm = reactive({
   page: 1,
   pageSize: 5,
 });
-const { getList, essayList, loading, totalPage } =
-  useCommonGetEssayList(queryForm);
 
-await getList();
+const { essayList, pending, totalPage } = await lazyLoadEssayList(queryForm);
 </script>

@@ -1,28 +1,14 @@
 <template>
-  <div v-if="loading">
-    <UserEssayList :list="essayList"></UserEssayList>
-    <Paging :total-pages="totalPage"></Paging>
-  </div>
+  <UserEssayList :list="essayList" :loading="pending"></UserEssayList>
+  <Paging v-if="!pending" :total-page="totalPage"></Paging>
 </template>
 
 <script setup>
 const route = useRoute();
-
 const queryForm = reactive({
-  page: route.params.page,
+  page: route.params.page || 1,
   pageSize: 5,
 });
 
-const { getList, form, essayList, loading, totalPage } =
-  useCommonGetEssayList(queryForm);
-
-await getList();
-
-watch(
-  () => route.params.page,
-  async (page) => {
-    form.page = page;
-    await getList();
-  }
-);
+const { essayList, pending, totalPage } = await lazyLoadEssayList(queryForm);
 </script>
