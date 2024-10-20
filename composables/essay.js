@@ -15,7 +15,7 @@ export const lazyLoadEssayList = async (queryForm) => {
       essayList.value = [];
       if (newEssay?.data) {
         const res = newEssay.data;
-        essayList.value = res.essay_list;
+        essayList.value = res.essayList;
         totalPage.value = res.totalPage;
       }
     },

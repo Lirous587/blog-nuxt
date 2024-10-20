@@ -1,6 +1,10 @@
 <template>
   <UserEssayList :list="essayList" :loading="pending"></UserEssayList>
-  <Paging v-if="!pending" :total-page="totalPage"></Paging>
+  <Paging
+    v-if="!pending"
+    :total-page="totalPage"
+    :preHref="'/kind' + '/' + queryForm.kind_id"
+  ></Paging>
 </template>
 
 <script setup>

@@ -44,10 +44,10 @@ const authorData = reactive({
 
 const getIndexData = async () => {
   getIndexInfo().then((res) => {
-    const responseData = res.data;
-    recommentEssayList.value = responseData.essayList;
-    labelList.value = responseData.labelList;
-    kindList.value = responseData.kindList;
+    const data = res.data;
+    recommentEssayList.value = data.essayList;
+    labelList.value = data.labelList;
+    kindList.value = data.kindList;
 
     authorData.label.count = labelList.value.length;
     authorData.kind.count = kindList.value.length;

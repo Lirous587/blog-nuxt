@@ -6,7 +6,7 @@
     </div>
     <div class="flex flex-wrap gap-2">
       <NuxtLink
-        v-for="item in coloredList"
+        v-for="item in list"
         :key="item.id"
         :to="'/label/' + item.id + '/1'"
         class="py-2 px-2 rounded-lg text-white"
@@ -24,22 +24,5 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-});
-
-const coloredList = ref([]);
-
-function generateColor(seed) {
-  return `rgba(
-  ${Math.floor(Math.random() * 255)},
-  ${Math.floor(Math.random() * 255)},
-  ${Math.floor(Math.random() * 255)},
-  ${Math.max(Math.random() * 0.7, 0.3)})`;
-}
-
-onMounted(() => {
-  coloredList.value = props.list.map((item, index) => ({
-    ...item,
-    color: generateColor(index),
-  }));
 });
 </script>

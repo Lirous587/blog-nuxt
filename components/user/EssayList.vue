@@ -74,20 +74,20 @@
                 <div
                   class="flex flex-wrap items-center line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
                 >
-                  <NuxtLink :to="'/kind/' + item.kind_id + '/1'">
+                  <NuxtLink :to="'/kind/' + item.kindID + '/1'">
                     <el-tag type="primary">
                       <div class="flex items-center">
                         <el-icon><Menu /></el-icon>
                         <span>
-                          {{ item.kind_name }}
+                          {{ item.kindName }}
                         </span>
                       </div>
                     </el-tag>
                   </NuxtLink>
                   <NuxtLink
-                    v-for="label in item.label_list"
+                    v-for="label in item.labelList"
                     class="inline-block m-1"
-                    :to="'/label/' + item.kind_id + '/1'"
+                    :to="'/label/' + item.kindID + '/1'"
                   >
                     <el-tag type="info">
                       {{ label.name }}
