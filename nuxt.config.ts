@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     "~/assets/fonts/font.css",
     "~/assets/icon/icon.css",
   ],
-  nitro: {},
+
   postcss: {
     plugins: {
       tailwindcss: {},

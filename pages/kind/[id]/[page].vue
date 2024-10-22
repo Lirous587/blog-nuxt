@@ -3,14 +3,14 @@
   <Paging
     v-if="!pending"
     :total-page="totalPage"
-    :preHref="'/kind' + '/' + queryForm.kind_id"
+    :preHref="'/kind' + '/' + queryForm.kindID"
   ></Paging>
 </template>
 
 <script setup>
 const route = useRoute();
 const queryForm = reactive({
-  kind_id: route.params.id,
+  kindID: route.params.id,
   page: route.params.page || 1,
   pageSize: 5,
 });

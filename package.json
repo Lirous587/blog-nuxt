@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@element-plus/nuxt": "^1.0.9",
+    "@kangc/v-md-editor": "next",
     "@pinia/nuxt": "^0.5.5",
     "@popperjs/core": "^2.11.8",
-    "element-plus": "^2.8.5",
+    "babel-plugin-prismjs": "^2.1.0",
     "dayjs": "^1.11.13",
+    "element-plus": "^2.8.5",
     "nuxt": "^3.13.0",
-    "pinia": "^2.2.4"
+    "pinia": "^2.2.4",
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",

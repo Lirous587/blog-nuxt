@@ -3,7 +3,7 @@
   <Paging
     v-if="!pending"
     :total-page="totalPage"
-    :preHref="'/kind' + '/' + queryForm.labelID"
+    :preHref="'/label' + '/' + queryForm.labelID"
   ></Paging>
 </template>
 
