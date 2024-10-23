@@ -8,6 +8,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: "page-validation",
+});
 const route = useRoute();
 const queryForm = reactive({
   kindID: route.params.id,

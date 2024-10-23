@@ -61,3 +61,9 @@ const getIndexData = async () => {
 
 await getIndexData();
 </script>
+
+<style scoped>
+* {
+  font-family: "myFont";
+}
+</style>

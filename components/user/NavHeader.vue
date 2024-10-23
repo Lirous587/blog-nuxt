@@ -138,6 +138,9 @@ const selectOpen = (status) => {
 </script>
 
 <style scoped>
+* {
+  font-family: "myFont";
+}
 .header-box {
   @apply fixed flex justify-between  top-0 right-0 shadow-lg h-[60px] w-full z-10;
   backdrop-filter: blur(5px);

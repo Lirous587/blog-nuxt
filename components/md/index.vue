@@ -9,14 +9,11 @@
     :disabled-menus="[]"
     @copy-code-success="handleCopyCodeSuccess"
     :mode="ifEdit ? 'editable' : 'preview'"
+    class="font-mono"
   />
 </template>
 
 <script setup>
-const nuxtApp = useNuxtApp();
-import VueMarkdownEditor from "./md";
-nuxtApp.vueApp.use(VueMarkdownEditor);
-
 const props = defineProps({
   height: {
     type: String,
@@ -65,3 +62,9 @@ async function handleUploadImage(event, insertImage, files) {
   // }
 }
 </script>
+
+<style scoped>
+:deep(.vuepress-markdown-body) {
+  @apply font-mono;
+}
+</style>

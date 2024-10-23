@@ -1,8 +1,5 @@
 <template>
-  <div
-    shadow="always"
-    class="!rounded-xl hover:!shadow-lg my-8 bg-gradient-to-br from-pink-50 to-green-100"
-  >
+  <div>
     <el-skeleton animated :throttle="200" :loading="loading">
       <template #template>
         <el-card shadow="always" v-for="item in 5" class="!rounded-xl my-8">
@@ -132,3 +129,9 @@ const props = defineProps({
   },
 });
 </script>
+
+<style scoped>
+* {
+  font-family: "myFont";
+}
+</style>
