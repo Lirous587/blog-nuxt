@@ -83,3 +83,9 @@ const initList = () => {
 };
 list.value = initList();
 </script>
+
+<style scoped>
+* {
+  font-family: "myFont";
+}
+</style>

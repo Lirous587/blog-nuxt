@@ -1,5 +1,7 @@
 <template>
-  <div class="header-box">
+  <div
+    class="fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10"
+  >
     <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
       <div class="md:hidden flex items-center">
         <HamburgerIcon
@@ -12,7 +14,7 @@
           v-model="mobileMenuVisiable"
           :open-delay="250"
           title="文章导航"
-          size="70%"
+          :size="320"
           direction="ltr"
           append-to-body
           @close="iconRef.close()"
@@ -23,7 +25,7 @@
       <NuxtLink to="/" class="nav hidden md:block">
         <div class="text-lg color-text flex-shrink-0">罹景的博客</div>
       </NuxtLink>
-      <NuxtLink to="/" class="nav md:block">
+      <NuxtLink to="/" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a7;</span>
           <span class="color-text">首页</span>
@@ -56,14 +58,18 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>
-              <NuxtLink to="/introdution" class="flex items-center">
-                <el-icon color="pink"><VideoCamera /></el-icon>
-                博客介绍
+              <NuxtLink
+                target="_blank"
+                to="https://github.com/Lijingwoquan"
+                class="flex items-center"
+              >
+                <el-icon color="red" size="16"><Star /></el-icon>
+                关于作者
               </NuxtLink>
             </el-dropdown-item>
             <el-dropdown-item>
               <NuxtLink to="/knowledge" class="flex items-center">
-                <el-icon color="pink"><Collection /></el-icon>
+                <el-icon color="red"><Collection /></el-icon>
                 知识库
               </NuxtLink>
             </el-dropdown-item>
@@ -107,11 +113,6 @@ watch(route, () => {
 <style scoped>
 * {
   font-family: "myFont";
-}
-.header-box {
-  @apply fixed flex justify-between top-0 right-0 shadow-lg h-[60px]  w-full z-10;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .color-text {
