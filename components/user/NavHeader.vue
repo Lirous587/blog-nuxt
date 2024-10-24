@@ -6,64 +6,24 @@
           color="red"
           :size="20"
           @update:model-value="selectOpen"
+          ref="iconRef"
         ></HamburgerIcon>
-        <div
-          class="absolute inset-0 bg-white bg-opacity-70 top-[60px] shadow-xl transition-all duration-500 flex justify-around items-center overflow-hidden"
-          :class="{
-            'h-[60px]': mobileMenuVisiable,
-            'h-[0]': !mobileMenuVisiable,
-          }"
+        <el-drawer
+          v-model="mobileMenuVisiable"
+          :open-delay="250"
+          title="文章导航"
+          size="70%"
+          direction="ltr"
+          append-to-body
+          @close="iconRef.close()"
         >
-          <NuxtLink to="/" class="nav">
-            <div class="flex items-center">
-              <span class="iconfont">&#xe8a7;</span>
-              <span class="color-text">首页</span>
-            </div>
-          </NuxtLink>
-          <NuxtLink to="/heart-word" class="nav">
-            <div class="flex items-center">
-              <span class="iconfont">&#xe8a6;</span>
-              <span class="color-text">心语</span>
-            </div>
-          </NuxtLink>
-          <NuxtLink to="/friend-link" class="nav">
-            <div class="flex items-center">
-              <span class="iconfont">&#xe8a5;</span>
-              <span class="color-text">友情链接</span>
-            </div>
-          </NuxtLink>
-          <!-- about -->
-          <el-dropdown class="nav border-none">
-            <div class="whitespace-nowrap outline-transparent">
-              <span class="iconfont">&#xe8a4;</span>
-              <span class="color-text">关于</span>
-              <el-icon>
-                <arrow-down />
-              </el-icon>
-            </div>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>
-                  <NuxtLink to="/introdution" class="flex items-center">
-                    <el-icon color="pink"><VideoCamera /></el-icon>
-                    博客介绍
-                  </NuxtLink>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <NuxtLink to="/knowledge" class="flex items-center">
-                    <el-icon color="pink"><Collection /></el-icon>
-                    知识库
-                  </NuxtLink>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </div>
+          <UserNavAside></UserNavAside>
+        </el-drawer>
       </div>
-      <NuxtLink to="/" class="nav">
+      <NuxtLink to="/" class="nav hidden md:block">
         <div class="text-lg color-text flex-shrink-0">罹景的博客</div>
       </NuxtLink>
-      <NuxtLink to="/" class="nav hidden md:block">
+      <NuxtLink to="/" class="nav md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a7;</span>
           <span class="color-text">首页</span>
@@ -111,6 +71,7 @@
         </template>
       </el-dropdown>
     </div>
+
     <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
         <UserSearchData></UserSearchData>
@@ -131,10 +92,16 @@
 
 <script setup>
 const mobileMenuVisiable = ref(false);
+const iconRef = ref(null);
 
 const selectOpen = (status) => {
   mobileMenuVisiable.value = status;
 };
+
+const route = useRoute();
+watch(route, () => {
+  mobileMenuVisiable.value = false;
+});
 </script>
 
 <style scoped>
@@ -142,7 +109,7 @@ const selectOpen = (status) => {
   font-family: "myFont";
 }
 .header-box {
-  @apply fixed flex justify-between  top-0 right-0 shadow-lg h-[60px] w-full z-10;
+  @apply fixed flex justify-between top-0 right-0 shadow-lg h-[60px]  w-full z-10;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
 }

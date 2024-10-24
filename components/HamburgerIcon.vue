@@ -36,6 +36,16 @@ const toggleMenu = () => {
   isOpen.value = !isOpen.value;
   emits("update:modelValue", isOpen.value);
 };
+const close = () => {
+  isOpen.value = false;
+};
+const open = () => {
+  isOpen.value = true;
+};
+defineExpose({
+  close,
+  open,
+});
 </script>
 
 <style scoped>

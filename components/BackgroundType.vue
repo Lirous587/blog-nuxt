@@ -43,6 +43,10 @@ const imgLoad = () => {
 </script>
 
 <style scoped>
+* {
+  font-family: "myFont";
+}
+
 .float-action {
   animation: float 1.5s ease-in-out infinite;
 }

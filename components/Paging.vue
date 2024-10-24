@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center" v-if="pageConfim()">
     <NuxtLink
       :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
       class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
@@ -44,7 +44,12 @@ const props = defineProps({
   },
 });
 
+const pageConfim = () => {
+  return typeof props.totalPage === "number";
+};
+
 const initList = () => {
+  if (!pageConfim()) return;
   if (props.totalPage <= 3 + offset * 2) {
     return Array.from({ length: props.totalPage }, (_, i) => {
       return {
