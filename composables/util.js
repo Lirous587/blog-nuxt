@@ -1,3 +1,13 @@
+import { ElNotification } from "element-plus";
+
+export function toast(message, type = "success") {
+  ElNotification({
+    message: message,
+    type: type,
+    duration: 1500,
+  });
+}
+
 // 将query参数转为url
 export function queryToUrl(query) {
   let q = [];

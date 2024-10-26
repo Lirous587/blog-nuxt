@@ -76,7 +76,7 @@ const handleInputConfirm = () => {
     tags.value.push(tag);
     showEdit.value.push(false);
   } else {
-    ElMessage.warning("已有该keyword");
+    toast("已有该keyword", "warning");
   }
   inputVisible.value = false;
   inputValue.value = "";

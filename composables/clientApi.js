@@ -10,7 +10,6 @@ const apiCore = async (url, opt) => {
     method: opt.method || "get",
     onRequest({ options }) {
       let token = getToken();
-      console.log(token);
       if (token) {
         options.headers = {
           Authorization: `Bearer ${token}`,
@@ -38,10 +37,7 @@ const apiCore = async (url, opt) => {
       }
 
       if (import.meta.client) {
-        ElMessage({
-          message: response?._data.msg || "未知错误",
-          type: "error",
-        });
+        ElMessage.error(response?._data.msg || "未知错误");
       }
     },
     ...opt,

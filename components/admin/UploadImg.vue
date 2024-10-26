@@ -2,7 +2,7 @@
   <el-upload
     ref="upload"
     name="img"
-    :action="apiBase + 'manager/uploadImg'"
+    :action="apiBase + '/manager/uploadImg'"
     :limit="1"
     :show-file-list="false"
     :on-exceed="handleExceed"

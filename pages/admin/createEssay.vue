@@ -118,6 +118,7 @@ const form = reactive({
 });
 const drawerVisiableRef = ref(false);
 const handelCreate = () => {
-  createEssay(form);
+  uploadImgRef.value.submitUpload();
+  // createEssay(form);
 };
 </script>

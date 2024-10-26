@@ -167,6 +167,7 @@ onMounted(() => {
     });
   }
 });
+
 onUnmounted(() => {
   if (!ifEdit.value) {
     mainBox.removeEventListener("scroll", throttledScroll.value);

@@ -25,8 +25,8 @@ const apiCore = async (url, opt) => {
     onResponse({ request, response, options }) {
       // Process the response data
       if (response.status >= 200 && response.status <= 300) {
-        // console.log("服务端端请求");
-        // console.log(response._data);
+        console.log("服务端端请求");
+        console.log(response._data);
       }
     },
     onResponseError({ request, response, options }) {
@@ -38,10 +38,7 @@ const apiCore = async (url, opt) => {
       }
 
       if (import.meta.client) {
-        ElMessage({
-          message: response?._data.msg || "未知错误",
-          type: "error",
-        });
+        ElMessage.error(response?._data.msg || "未知错误");
       }
     },
     ...opt,
