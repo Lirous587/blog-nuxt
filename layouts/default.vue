@@ -1,11 +1,4 @@
 <template>
-  <el-backtop
-    class="hidden-sm-and-up"
-    :right="40"
-    :bottom="30"
-    :visibility-height="300"
-  />
-
   <UserNavHeader></UserNavHeader>
 
   <BackgroundType></BackgroundType>
@@ -20,19 +13,17 @@
     </el-aside>
 
     <el-container>
-      <el-main>
-        <el-scrollbar>
-          <div class="mx-10 md:mx-15 lg:mx-20 xl:mx-30 md:w-[80%]">
-            <slot />
-            <RecordBottom></RecordBottom>
-          </div>
-        </el-scrollbar>
+      <el-main id="mainBox">
+        <div class="md:ml-10 lg:ml-15 xl:ml-20 md:w-[70%]">
+          <slot />
+          <RecordBottom></RecordBottom>
+        </div>
       </el-main>
     </el-container>
   </el-container>
 
   <UserNavBottom></UserNavBottom>
-  
+
   <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
     <Wave />
   </div>

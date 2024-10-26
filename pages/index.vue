@@ -1,14 +1,22 @@
 <template>
-  <UserEssayList :list="essayList" :loading="pending"></UserEssayList>
-  <Paging v-if="!pending" :total-page="totalPage"></Paging>
+  <UserEssayList :list="essayList"></UserEssayList>
+  <Paging :total-page="totalPage"></Paging>
 </template>
 
 <script setup>
+import { getEssayList } from "~/api/essay";
+
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
   pageSize: 5,
 });
+const essayList = ref([]);
+const totalPage = ref(1);
 
-const { essayList, pending, totalPage } = await lazyLoadEssayList(queryForm);
+await getEssayList(queryForm).then((res) => {
+  const data = res.data;
+  essayList.value = data.essayList;
+  totalPage.value = data.totalPage;
+});
 </script>

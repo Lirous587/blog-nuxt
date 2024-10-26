@@ -1,13 +1,14 @@
 <template>
-  <UserEssayList :list="essayList" :loading="pending"></UserEssayList>
+  <UserEssayList :list="essayList"></UserEssayList>
   <Paging
-    v-if="!pending"
     :total-page="totalPage"
     :preHref="'/kind' + '/' + queryForm.kindID"
   ></Paging>
 </template>
 
 <script setup>
+import { getEssayList } from "~/api/essay";
+
 definePageMeta({
   middleware: "page-validation",
 });
@@ -18,5 +19,11 @@ const queryForm = reactive({
   pageSize: 5,
 });
 
-const { essayList, pending, totalPage } = await lazyLoadEssayList(queryForm);
+const essayList = ref([]);
+const totalPage = ref(1);
+await getEssayList(queryForm).then((res) => {
+  const data = res.data;
+  essayList.value = data.essayList;
+  totalPage.value = data.totalPage;
+});
 </script>

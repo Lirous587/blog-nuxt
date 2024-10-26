@@ -1,7 +1,55 @@
 <template>
-  <div>
+  <div class="mt-5" v-if="loading">
+    <div class="ml-5 mr-5">
+      <div class="flex justify-between items-center">
+        <TypeWriter
+          class="text-lg font-bold"
+          :first-word="data.name"
+          :last-word="formateDate(data.createdTime)"
+          :typingSpeed="100"
+        ></TypeWriter>
+
+        <div class="flex items-center gap-x-1 text-gray-500">
+          <el-icon size="14"><View /></el-icon>
+          {{ data.visitedTimes }}
+        </div>
+      </div>
+
+      <div class="text-sm text-gray-500 ml-2">
+        {{ data.introduction }}
+      </div>
+      <div class="flex mt-2 flex-wrap items-center ml-2">
+        <el-tag type="primary" size="small">
+          <NuxtLink :to="'/kind/' + data.kindID + '/1'">
+            {{ data.kindName }}
+          </NuxtLink>
+        </el-tag>
+        <el-tag
+          type="info"
+          size="small"
+          class="mx-1"
+          v-for="label in data.labelList"
+        >
+          <NuxtLink :to="'/label/' + label.id + '/1'">
+            {{ label.name }}
+          </NuxtLink>
+        </el-tag>
+      </div>
+    </div>
+
     <ClientOnly>
-      <Md v-model:content="essayContent"></Md>
+      <Md v-model:content="data.content"></Md>
+
+      <el-collapse
+        :accordion="true"
+        v-if="
+          Array.isArray(data.nearEssayList) && data.nearEssayList.length > 0
+        "
+      >
+        <el-collapse-item title="同时期文章">
+          <UserEssayList :list="data.nearEssayList"></UserEssayList>
+        </el-collapse-item>
+      </el-collapse>
     </ClientOnly>
   </div>
 </template>
@@ -11,14 +59,20 @@ import { getEssay } from "~/api/essay";
 
 const route = useRoute();
 const id = route.params.id;
-const essayContent = ref("");
+
+const data = ref({});
+
+const loading = ref(false);
 
 getEssay(id)
   .then((res) => {
-    essayContent.value = res.data.content;
+    data.value = res.data;
   })
   .catch((err) => {
     ElMessage.error("文章不存在");
     if (err.code === 1005) navigateTo("/");
+  })
+  .finally(() => {
+    loading.value = true;
   });
 </script>
