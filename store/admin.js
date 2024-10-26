@@ -5,8 +5,8 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
   const labelList = ref([]);
   const kindList = ref([]);
 
-  const updateAll = () => {
-    getIndexInfo().then((res) => {
+  const updateAll = async () => {
+    await getIndexInfo().then((res) => {
       const data = res.data;
       labelList.value = data.labelList;
       kindList.value = data.kindList;

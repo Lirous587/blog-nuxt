@@ -9,8 +9,8 @@ const apiCore = async (url, opt) => {
   return await $fetch(requestUrl, {
     method: opt.method || "get",
     onRequest({ options }) {
-      let token = "";
-      token = useCookie("auth_token").value;
+      let token = getToken();
+      console.log(token);
       if (token) {
         options.headers = {
           Authorization: `Bearer ${token}`,

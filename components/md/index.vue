@@ -33,37 +33,23 @@
       </div>
 
       <div class="fixed flex flex-col bottom-[70px] right-10 z-30 gap-y-2">
-        <el-tooltip
-          class="box-item"
-          effect="dark"
-          content="文章目录"
-          placement="right"
+        <div
+          @click.stop="anchorVisiable = !anchorVisiable"
+          class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+        >
+          <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
+        </div>
+        <div
+          @click="toTop"
+          class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
         >
           <div
-            @click.stop="anchorVisiable = !anchorVisiable"
-            class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+            ref="toIconRef"
+            class="transition-all duration-300 flex items-center justify-center"
           >
-            <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
+            <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
           </div>
-        </el-tooltip>
-        <el-tooltip
-          class="box-item"
-          effect="dark"
-          content="回到顶部"
-          placement="right"
-        >
-          <div
-            @click="toTop"
-            class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
-          >
-            <div
-              ref="toIconRef"
-              class="transition-all duration-300 flex items-center justify-center"
-            >
-              <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
-            </div>
-          </div>
-        </el-tooltip>
+        </div>
       </div>
     </div>
   </div>
@@ -74,7 +60,7 @@ const props = defineProps({
   height: {
     type: String,
     required: false,
-    default: "650px",
+    default: "700px",
   },
   mode: {
     type: String,
@@ -85,6 +71,7 @@ const props = defineProps({
 
 const content = defineModel("content", {
   type: String,
+  required: true,
 });
 
 const ifEdit = computed(() => {

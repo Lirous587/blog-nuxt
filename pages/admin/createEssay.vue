@@ -7,22 +7,21 @@
   >
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
-        <el-select v-model="form.kind" class="input" placeholder="选择分类">
-          <!-- <el-option
-            v-for="item in classifyList"
-            :key="item.name"
-            :label="item.name"
-            :value="item.name"
-          /> -->
-        </el-select>
+        <AdminSelectKind
+          v-model:kindID="form.kindID"
+          :list="kindList"
+        ></AdminSelectKind>
+      </el-form-item>
+
+      <el-form-item label="标签">
+        <AdminSelectLabels
+          :list="labelList"
+          v-model:ids="form.labelIds"
+        ></AdminSelectLabels>
       </el-form-item>
 
       <el-form-item label="文章名">
         <el-input v-model="form.name" placeholder="文章名" />
-      </el-form-item>
-
-      <el-form-item label="路由">
-        <el-input v-model="form.router" placeholder="路由" />
       </el-form-item>
 
       <el-form-item label="介绍">
@@ -34,7 +33,28 @@
       </el-form-item>
 
       <el-form-item label="文章图片">
-        <!-- <uploadImg v-model:imgUrl="form.imgUrl" ref="uploadImgRef"></uploadImg> -->
+        <AdminUploadImg
+          v-model:imgUrl="form.imgUrl"
+          ref="uploadImgRef"
+        ></AdminUploadImg>
+      </el-form-item>
+
+      <el-form-item label="关键词">
+        <DynamicAddTag v-model:tags="form.keywords"> </DynamicAddTag>
+      </el-form-item>
+
+      <el-form-item label="是否置顶">
+        <el-radio-group v-model="form.ifTop">
+          <el-radio :value="true" size="large">是</el-radio>
+          <el-radio :value="false" size="large">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+
+      <el-form-item label="是否推荐">
+        <el-radio-group v-model="form.ifRecommend">
+          <el-radio :value="true" size="large">是</el-radio>
+          <el-radio :value="false" size="large">否</el-radio>
+        </el-radio-group>
       </el-form-item>
 
       <el-form-item>
@@ -52,7 +72,7 @@
   </el-drawer>
 
   <div class="mx-3 my-3">
-    <Md v-model:centent="form.content" height="800px" mode="edit"></Md>
+    <Md v-model:content="form.content" mode="edit"></Md>
   </div>
 
   <!-- 底部按钮 -->
@@ -69,6 +89,7 @@
 
 <script setup>
 import { createEssay } from "~/api/manager.js";
+import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
   layout: "admin",
@@ -76,17 +97,25 @@ definePageMeta({
 
 const uploadImgRef = ref(null);
 
-const classifyList = ref([]);
+const adminStore = useMyAdminStore();
+await adminStore.updateAll();
+
+const labelList = ref([]);
+const kindList = ref([]);
+labelList.value = adminStore.getLabelList();
+kindList.value = adminStore.getKindList();
 
 const form = reactive({
-  name: "",
-  kind: "",
+  name: "新文章",
+  kindID: null,
+  labelIds: [],
   introduction: "",
   content: "",
-  router: "",
-  imgUrl: "",
+  imgUrl: "7.png",
+  ifTop: false,
+  ifRecommend: false,
+  keywords: [],
 });
-
 const drawerVisiableRef = ref(false);
 const handelCreate = () => {
   createEssay(form);

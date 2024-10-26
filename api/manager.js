@@ -19,7 +19,7 @@ export function createClassify(form) {
 
 // essay
 export function createEssay(form) {
-  return clientApi.post("/manager/addEssay", form);
+  return clientApi.post("/manager/createEssay", form);
 }
 
 export function updateEssayMsg(form) {

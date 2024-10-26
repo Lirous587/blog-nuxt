@@ -4,8 +4,8 @@ export const disposeMdAnchor = (md, router) => {
   let anchors = Array.from(hList).filter((anchor) => !!anchor.innerText.trim());
 
   if (!anchors.length) {
-    titles = [];
-    return;
+    anchors = [];
+    return { anchors };
   }
 
   const hLevel = Array.from(
