@@ -16,6 +16,7 @@
       <div ref="bottomRef"></div>
       <div
         v-if="anchorVisiable"
+        @click.stop="() => {}"
         class="fixed flex flex-col top-[70px] right-5 z-20 px-2 py-1 rounded-md bg-white shadow-xl"
       >
         <a
