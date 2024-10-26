@@ -125,6 +125,7 @@ const toTop = () => {
 };
 
 const scrollHandler = () => {
+  console.log("?");
   if (mainBox.scrollTop > 100) {
     toIconRef.value.classList.remove("reverse");
     direction.value = "top";
@@ -133,16 +134,21 @@ const scrollHandler = () => {
     direction.value = "bottom";
   }
 };
+const throttledScroll = ref(null);
 
 onMounted(() => {
+  throttledScroll.value = throttle(scrollHandler, 300);
   const { anchors } = disposeMdAnchor(previewRef, router);
   anchorList.value = anchors;
   hList.value = previewRef.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
-  mainBox.addEventListener("scroll", throttle(scrollHandler, 300));
+  mainBox.addEventListener("scroll", throttledScroll.value);
   scrollHandler();
+  if (route.hash.split("#")[1] < hList.value.length) {
+    hList.value[route.hash.split("#")[1]].firstChild.click();
+  }
 });
 onUnmounted(() => {
-  mainBox.removeEventListener("scroll", scrollHandler);
+  mainBox.removeEventListener("scroll", throttledScroll.value);
 });
 </script>
 
