@@ -3,7 +3,7 @@
     v-model="drawerVisiableRef"
     title="添加文章"
     append-to-body
-    size="45%"
+    size="50%"
   >
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">

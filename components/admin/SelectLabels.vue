@@ -5,7 +5,6 @@
       :key="item.id"
       :label="item.name"
       :value="item.id"
-      border
     />
   </el-checkbox-group>
 </template>
