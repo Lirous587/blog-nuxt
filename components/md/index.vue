@@ -1,5 +1,5 @@
 <template>
-  <div class="relative" @click="anchorVisiable = false">
+  <div class="relative">
     <v-md-editor
       style="scroll-behavior: smooth"
       ref="previewRef"
@@ -17,7 +17,7 @@
       <div
         v-if="anchorVisiable"
         @click.stop="() => {}"
-        class="fixed flex flex-col top-[70px] right-5 z-20 px-2 py-1 rounded-md bg-white shadow-xl"
+        class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
         <a
           v-for="(item, index) in anchorList"
@@ -126,7 +126,6 @@ const toTop = () => {
 };
 
 const scrollHandler = () => {
-  console.log("?");
   if (mainBox.scrollTop > 100) {
     toIconRef.value.classList.remove("reverse");
     direction.value = "top";
@@ -147,6 +146,10 @@ onMounted(() => {
   if (route.hash.split("#")[1] < hList.value.length) {
     hList.value[route.hash.split("#")[1]].firstChild.click();
   }
+
+  document.body.addEventListener("click", () => {
+    anchorVisiable.value = false;
+  });
 });
 onUnmounted(() => {
   mainBox.removeEventListener("scroll", throttledScroll.value);
@@ -176,5 +179,22 @@ onUnmounted(() => {
 }
 .reverse {
   @apply rotate-180;
+}
+
+.anchors::-webkit-scrollbar {
+  width: 3px;
+  height: 1px;
+}
+
+.anchors::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgb(128, 128, 185);
+}
+
+.anchors::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
 }
 </style>

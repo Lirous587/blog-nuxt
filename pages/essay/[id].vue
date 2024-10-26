@@ -41,12 +41,14 @@
       <Md v-model:content="data.content"></Md>
 
       <el-collapse
+        class="px-3"
         :accordion="true"
         v-if="
           Array.isArray(data.nearEssayList) && data.nearEssayList.length > 0
         "
+        v-model="activeNames"
       >
-        <el-collapse-item title="同时期文章">
+        <el-collapse-item name="1" title="近期同分类文章">
           <UserEssayList :list="data.nearEssayList"></UserEssayList>
         </el-collapse-item>
       </el-collapse>
@@ -63,6 +65,8 @@ const id = route.params.id;
 const data = ref({});
 
 const loading = ref(false);
+
+const activeNames = ref(["1"]);
 
 getEssay(id)
   .then((res) => {
