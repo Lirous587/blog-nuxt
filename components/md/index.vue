@@ -6,7 +6,7 @@
       :include-level="[1, 2, 3, 4, 5, 6]"
       v-model="content"
       :height="ifEdit ? props.height : ''"
-      right-toolbar="ifEdit ?  '| toc | tip| todo-list | sync-scroll | preview | fullscreen'"
+      right-toolbar="ifEdit ?  '| toc | tip | todo-list | sync-scroll | preview | fullscreen'"
       :disabled-menus="[]"
       :mode="ifEdit ? 'editable' : 'preview'"
       class="font-mono"
@@ -85,7 +85,6 @@ const props = defineProps({
 
 const content = defineModel("content", {
   type: String,
-  required: true,
 });
 
 const ifEdit = computed(() => {
@@ -137,22 +136,26 @@ const scrollHandler = () => {
 const throttledScroll = ref(null);
 
 onMounted(() => {
-  throttledScroll.value = throttle(scrollHandler, 300);
-  const { anchors } = disposeMdAnchor(previewRef, router);
-  anchorList.value = anchors;
-  hList.value = previewRef.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
-  mainBox.addEventListener("scroll", throttledScroll.value);
-  scrollHandler();
-  if (route.hash.split("#")[1] < hList.value.length) {
-    hList.value[route.hash.split("#")[1]].firstChild.click();
-  }
+  if (!ifEdit.value) {
+    throttledScroll.value = throttle(scrollHandler, 50);
+    const { anchors } = disposeMdAnchor(previewRef, router);
+    anchorList.value = anchors;
+    hList.value = previewRef.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
+    mainBox.addEventListener("scroll", throttledScroll.value);
+    scrollHandler();
+    if (route.hash.split("#")[1] < hList.value.length) {
+      hList.value[route.hash.split("#")[1]].firstChild.click();
+    }
 
-  document.body.addEventListener("click", () => {
-    anchorVisiable.value = false;
-  });
+    document.body.addEventListener("click", () => {
+      anchorVisiable.value = false;
+    });
+  }
 });
 onUnmounted(() => {
-  mainBox.removeEventListener("scroll", throttledScroll.value);
+  if (!ifEdit.value) {
+    mainBox.removeEventListener("scroll", throttledScroll.value);
+  }
 });
 </script>
 

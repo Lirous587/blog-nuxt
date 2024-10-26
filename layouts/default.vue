@@ -14,7 +14,7 @@
 
     <el-container>
       <el-main id="mainBox">
-        <div class="md:ml-10 lg:ml-15 xl:ml-20 md:w-[85%] lg:w-[80%] xl:w-[75%]">
+        <div class="md:ml-10 lg:ml-15 xl:ml-20 md:w-[85%] lg:w-[80%]">
           <slot />
           <RecordBottom></RecordBottom>
         </div>

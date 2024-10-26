@@ -41,6 +41,10 @@ export default defineNuxtConfig({
       }),
     ],
   },
+  routeRules: {
+    // 管理仪表板仅在客户端渲染
+    "/admin/**": { ssr: false },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

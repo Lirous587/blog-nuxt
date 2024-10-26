@@ -16,6 +16,7 @@
     "@popperjs/core": "^2.11.8",
     "babel-plugin-prismjs": "^2.1.0",
     "dayjs": "^1.11.13",
+    "echarts": "^5.5.1",
     "element-plus": "^2.8.5",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.4",

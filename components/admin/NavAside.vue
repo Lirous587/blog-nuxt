@@ -1,55 +1,33 @@
 <template>
-  <div class="nav-aside" :style="{ width: $store.state.adminAsideWidth }">
-    <div class="nav-aside-head" style="height: 80px">
-      <el-icon
-        style="height: 100%"
-        class="flex items-center text-blue-300 ml-3 hover:cursor-pointer"
-        @click="$store.commit('handleAdminAsideWidth')"
-      >
-        <Fold v-if="$store.state.adminAsideWidth === '250px'" />
-        <Expand v-else />
+  <el-menu default-active="1" class="el-menu-vertical-demo">
+    <el-menu-item index="1">
+      <el-icon>
+        <Menu />
       </el-icon>
-      <div
-        v-show="$store.state.adminAsideWidth === '250px'"
-        style="height: 100%"
-        class="flex items-center text-purple-200"
-      >
-        后台管理系统
-      </div>
-    </div>
-    <div>
-      <div
-        v-for="(item, index) in menu"
-        :key="index"
-        class="nav-aside-item"
-        style="height: 40px"
-        @click="switchTool(item)"
-        :class="{ active: item.route === activeToolRoute }"
-      >
-        <el-icon
-          style="height: 100%"
-          class="flex justify-center items-center"
-          text
-        >
-          <component :is="item.icon" />
-        </el-icon>
-        <span
-          v-show="$store.state.adminAsideWidth === '250px'"
-          style="height: 100%"
-          class="flex justify-center items-center"
-        >
-          {{ item.name }}
-        </span>
-      </div>
-    </div>
-  </div>
+      <template #title>
+        <NuxtLink to="/admin">
+          <span> 数据展示</span>
+        </NuxtLink>
+      </template>
+    </el-menu-item>
+
+    <el-sub-menu index="2">
+      <template #title>
+        <el-icon><location /></el-icon>
+        <span>文章操作</span>
+      </template>
+      <NuxtLink to="/admin/createEssay">
+        <el-menu-item index="1-1"> 创建文章 </el-menu-item>
+      </NuxtLink>
+
+      <el-menu-item index="1-2">
+        <!-- <NuxtLink to="/admin/managerEssay"> 管理文章 </NuxtLink> -->
+      </el-menu-item>
+    </el-sub-menu>
+  </el-menu>
 </template>
 
 <script setup>
-import { config } from "/config.js";
-import { useRouter, useRoute } from "vue-router";
-import { ref, watch } from "vue";
-
 const route = useRoute();
 const router = useRouter();
 
