@@ -2,12 +2,12 @@
   <div class="flex items-center" style="width: 100%">
     <div style="width: 10%" class="flex justify-center items-center">
       <el-icon size="24px">
-        <component :is="modelValue"></component>
+        <component :is="iconModel"></component>
       </el-icon>
     </div>
     <div style="width: 90%">
       <el-select
-        :modelValue="modelValue"
+        :modelValue="iconModel"
         class="ml-2"
         filterable
         placeholder="请选择图标"
@@ -32,8 +32,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-
 const IconList = ref({});
 const icons = computed(() => Object.keys(IconList.value));
 
@@ -44,13 +42,12 @@ const loadIcons = async () => {
 
 loadIcons();
 
-defineProps({
-  modelValue: String,
+const iconModel = defineModel("icon", {
+  type: String,
+  required: true,
 });
 
-const emit = defineEmits(["update:modelValue"]);
-
 const hanlerChange = (icon) => {
-  emit("update:modelValue", icon);
+  iconModel.value = icon;
 };
 </script>
