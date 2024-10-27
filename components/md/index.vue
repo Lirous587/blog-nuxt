@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { uploadImg } from "~/api/manager";
+import { uploadImg } from "~/api/admin";
 
 const props = defineProps({
   height: {

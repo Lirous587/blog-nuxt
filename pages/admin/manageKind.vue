@@ -1,43 +1,81 @@
 <template>
-  <el-table :data="list" border v-loading="tableLoading">
-    <el-table-column label="id" prop="id" width="100"></el-table-column>
-    <el-table-column label="标签名" prop="name" width="100"></el-table-column>
-    <el-table-column label="图标" prop="icon" width="100"></el-table-column>
-  </el-table>
+  <el-card>
+    <template #header>
+      <el-button type="primary" @click="drawerVisiableRef = true"
+        >添加分类</el-button
+      >
+    </template>
+    <el-table :data="list" border v-loading="tableLoading">
+      <el-table-column label="id" prop="id"></el-table-column>
+      <el-table-column
+        label="标签名"
+        prop="name"
+        align="center"
+      ></el-table-column>
+      <el-table-column label="图标" prop="icon" width="180" align="center">
+        <template #default="scope">
+          <ChooseIcon v-model:icon="scope.row.icon"></ChooseIcon>
+        </template>
+      </el-table-column>
+      <el-table-column label="文章数" prop="essayCount" align="center" />
+      <el-table-column label="操作" prop="icon" align="center" min-width="200">
+        <template #default="scope">
+          <el-button
+            type="warning"
+            :loading="scope.row.loading"
+            @click="handelEdit(scope.row)"
+            >修改</el-button
+          >
 
-  <el-drawer v-model="drawerVisiableRef" title="添加文章" size="50%">
+          <el-popconfirm
+            title="确定删除该分类?"
+            confirm-button-text="确定"
+            confirm-button-type="danger"
+            cancel-button-text="取消"
+            cancel-button-type="primary"
+            icon-color="rgb(245,108,108)"
+            @confirm="handelDelete(scope.row)"
+          >
+            <template #reference>
+              <el-button type="danger">删除</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-card>
+
+  <el-drawer
+    title="添加分类"
+    direction="rtl"
+    v-model="drawerVisiableRef"
+    size="50%"
+    append-to-body
+  >
     <el-form :model="form" label-width="80px" :inline="false">
-      <el-form-item label="文章名">
-        <el-input v-model="form.name" placeholder="文章名" />
+      <el-form-item label="分类名称">
+        <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
       </el-form-item>
-
       <el-form-item label="图标">
-        <ChooseIcon></ChooseIcon>
+        <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
       </el-form-item>
-
       <el-form-item>
         <el-button
           type="primary"
           size="large"
-          style="width: 100%"
-          @click="handelUpdate"
-          class="mt-5"
+          @click="handelCreate"
+          class="mt-5 w-full"
           :loading="loading"
         >
-          提交</el-button
+          添加</el-button
         >
       </el-form-item>
     </el-form>
   </el-drawer>
-
-  <div class="bottom-3 fixed z-20">
-    <el-button type="primary" size="large" @click="updatePreHandel" class="ml-3"
-      >修改文章</el-button
-    >
-  </div>
 </template>
 
 <script setup>
+import { createKind, deleteKind, updateKind } from "~/api/admin";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -45,19 +83,67 @@ definePageMeta({
   middleware: "admin",
 });
 
-const loading = ref(false);
-const tableLoading = ref(false);
-const uploadImgRef = ref(null);
-
 const form = reactive({
-  id: 0,
   name: "",
-  icon: "",
+  icon: "House",
 });
 
 const adminStore = useMyAdminStore();
 
-const list = adminStore.getKindList();
-
 const drawerVisiableRef = ref(false);
+
+const tableLoading = ref(false);
+const loading = ref(false);
+
+const list = ref([]);
+
+const getKindList = () => {
+  list.value = adminStore.getKindList().map((o) => {
+    return {
+      ...o,
+      loading: false,
+    };
+  });
+};
+getKindList();
+
+const handelCreate = () => {
+  loading.value = true;
+  tableLoading.value = true;
+  createKind(form)
+    .then(async () => {
+      toast("创建成功");
+      drawerVisiableRef.value = false;
+      await adminStore.updateAll();
+      getKindList();
+      tableLoading.value = false;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const handelEdit = (row) => {
+  row.loading = true;
+  updateKind(row)
+    .then(() => {
+      toast("修改成功");
+    })
+    .finally(() => {
+      row.loading = false;
+    });
+};
+
+const handelDelete = (row) => {
+  tableLoading.value = true;
+  deleteKind(row.id)
+    .then(async () => {
+      toast("删除成功");
+      await adminStore.updateAll();
+      getKindList();
+    })
+    .finally(() => {
+      tableLoading.value = false;
+    });
+};
 </script>

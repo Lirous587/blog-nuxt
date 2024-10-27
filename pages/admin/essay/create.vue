@@ -61,9 +61,8 @@
         <el-button
           type="primary"
           size="large"
-          style="width: 100%"
           @click="handelCreate"
-          class="mt-5"
+          class="mt-5 w-full"
           :loading="loading"
         >
           添加</el-button
@@ -89,7 +88,7 @@
 </template>
 
 <script setup>
-import { createEssay } from "~/api/manager.js";
+import { createEssay } from "~/api/admin.js";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -122,8 +121,13 @@ const drawerVisiableRef = ref(false);
 const handelCreate = () => {
   loading.value = true;
   uploadImgRef.value.submitUpload();
-  createEssay(form).finally(() => {
-    loading.value = false;
-  });
+  createEssay(form)
+    .then(() => {
+      toast("添加成功");
+      adminStore.updateAll();
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 </script>

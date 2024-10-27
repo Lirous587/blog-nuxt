@@ -9,12 +9,12 @@
         <el-input
           placeholder="输入文章名称或关键词"
           v-model="searchForm.keyword"
-          @keydown.enter="searchEssayHandel"
+          @keydown.enter="handelSearchEssay"
           :autofocus="true"
           size="large"
         >
           <template #suffix>
-            <el-button type="primary" @click="searchEssayHandel">
+            <el-button type="primary" @click="handelSearchEssay">
               <el-icon size="18" class="mr-2">
                 <Search />
               </el-icon>
@@ -72,7 +72,7 @@
               cancel-button-text="取消"
               cancel-button-type="primary"
               icon-color="rgb(245,108,108)"
-              @confirm="deleteEssayHandel(scope.row)"
+              @confirm="handelDeleteEssay(scope.row)"
             >
               <template #reference>
                 <el-button link type="primary" size="small">删除文章</el-button>
@@ -141,9 +141,8 @@
         <el-button
           type="primary"
           size="large"
-          style="width: 100%"
           @click="handelUpdate"
-          class="mt-5"
+          class="mt-5 w-full"
           :loading="loading"
         >
           修改</el-button
@@ -174,7 +173,7 @@
 <script setup>
 import { getEssay } from "~/api/essay";
 import { searchEssay } from "~/api/keyword";
-import { deleteEssay, updateEssay } from "~/api/manager.js";
+import { deleteEssay, updateEssay } from "~/api/admin.js";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -212,7 +211,7 @@ const searchForm = reactive({
   ifAdd: false,
 });
 
-const searchEssayHandel = async () => {
+const handelSearchEssay = async () => {
   tableLoading.value = true;
   await searchEssay(searchForm).then((res) => {
     essayList.value = res.data;
@@ -272,18 +271,23 @@ const handelUpdate = () => {
       toast("更新成功");
       form.oldKindID = form.kindID;
       form.oldLabelIds = form.labelIds;
+      adminStore.updateAll();
     })
     .finally(() => {
       loading.value = false;
     });
 };
 
-const deleteEssayHandel = (row) => {
-  deleteEssay(row.id).then(async () => {
-    toast("删除成功");
-    setTimeout(() => {
-      searchEssayHandel();
-    }, 500);
-  });
+const handelDeleteEssay = (row) => {
+  tableLoading.value = true;
+  deleteEssay(row.id)
+    .then(() => {
+      toast("删除成功");
+      handelSearchEssay();
+      adminStore.updateAll();
+    })
+    .finally(() => {
+      tableLoading.value = false;
+    });
 };
 </script>

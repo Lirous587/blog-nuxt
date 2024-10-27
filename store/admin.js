@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getIndexPanel } from "~/api/manager";
+import { getIndexPanel } from "~/api/admin";
 import { getIndexInfo } from "~/api/user";
 
 export const useMyAdminStore = defineStore("myAdminStore", () => {
@@ -13,6 +13,7 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
   };
 
   const updateAll = async () => {
+    ifInit.value = false;
     const getPanel = new Promise((resolve, reject) => {
       getIndexPanel()
         .then((res) => {
