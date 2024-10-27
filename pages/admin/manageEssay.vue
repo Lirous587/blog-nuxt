@@ -13,7 +13,7 @@
           :autofocus="true"
         ></el-input>
       </template>
-      <el-table :data="essayList" border stripe>
+      <el-table :data="essayList" v-loading="tableLoading" border stripe>
         <el-table-column
           label="id"
           prop="id"
@@ -49,19 +49,26 @@
             >
               选择文章
             </el-button>
-            <el-button link type="primary" size="small">删除文章</el-button>
+            <el-popconfirm
+              title="确定删除该文章?"
+              confirm-button-text="确定"
+              confirm-button-type="danger"
+              cancel-button-text="取消"
+              cancel-button-type="primary"
+              icon-color="rgb(245,108,108)"
+              @confirm="deleteEssayHandel(scope.row)"
+            >
+              <template #reference>
+                <el-button link type="primary" size="small">删除文章</el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
     </el-card>
   </el-dialog>
 
-  <el-drawer
-    v-model="drawerVisiableRef"
-    title="添加文章"
-    append-to-body
-    size="50%"
-  >
+  <el-drawer v-model="drawerVisiableRef" title="添加文章" size="50%">
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
         <AdminSelectKind
@@ -157,7 +164,7 @@
 <script setup>
 import { getEssay } from "~/api/essay";
 import { searchEssay } from "~/api/keyword";
-import { updateEssay } from "~/api/manager.js";
+import { deleteEssay, updateEssay } from "~/api/manager.js";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -165,6 +172,7 @@ definePageMeta({
 });
 
 const loading = ref(false);
+const tableLoading = ref(false);
 const uploadImgRef = ref(null);
 
 const form = reactive({
@@ -186,7 +194,6 @@ const dialogVisible = ref(false);
 const drawerVisiableRef = ref(false);
 
 // 查询文章
-const keyword = ref("");
 const essayList = ref([]);
 
 const searchForm = reactive({
@@ -195,8 +202,10 @@ const searchForm = reactive({
 });
 
 const searchEssayHandel = async () => {
+  tableLoading.value = true;
   await searchEssay(searchForm).then((res) => {
     essayList.value = res.data;
+    tableLoading.value = false;
   });
 };
 
@@ -208,19 +217,6 @@ const kindList = ref([]);
 labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
 
-const handelUpdate = () => {
-  loading.value = true;
-  uploadImgRef.value.submitUpload();
-  updateEssay(form)
-    .then(() => {
-      form.oldKindID = form.kindID;
-      form.oldLabelIds = form.labelIds;
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
-
 const chooseEssayHandel = (row) => {
   loading.value = true;
   for (const key in form) {
@@ -228,7 +224,6 @@ const chooseEssayHandel = (row) => {
       form[key] = row[key];
     }
   }
-  console.log(form);
   getEssay(row.id)
     .then((res) => {
       const data = res.data;
@@ -247,5 +242,28 @@ const chooseEssayHandel = (row) => {
       loading.value = false;
       dialogVisible.value = false;
     });
+};
+
+const handelUpdate = () => {
+  loading.value = true;
+  uploadImgRef.value.submitUpload();
+  updateEssay(form)
+    .then(() => {
+      toast("更新成功");
+      form.oldKindID = form.kindID;
+      form.oldLabelIds = form.labelIds;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const deleteEssayHandel = (row) => {
+  deleteEssay(row.id).then(async () => {
+    toast("删除成功");
+    setTimeout(() => {
+      searchEssayHandel();
+    }, 500);
+  });
 };
 </script>

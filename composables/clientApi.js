@@ -31,13 +31,14 @@ const apiCore = async (url, opt) => {
     onResponseError({ request, response, options }) {
       // Handle the response errors
       if (response._data.msg === "需要登录") {
+        toast("需要登录", "warning");
         nuxtApp.runWithContext(() => {
           navigateTo("/login");
         });
       }
 
       if (import.meta.client) {
-        ElMessage.error(response?._data.msg || "未知错误");
+        toast(response?._data.msg || "未知错误", "error");
       }
     },
     ...opt,

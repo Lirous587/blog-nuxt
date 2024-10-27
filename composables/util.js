@@ -5,6 +5,7 @@ export function toast(message, type = "success") {
     message: message,
     type: type,
     duration: 1500,
+    zIndex: 3000,
   });
 }
 
