@@ -123,7 +123,7 @@
           class="mt-5"
           :loading="loading"
         >
-          添加</el-button
+          修改</el-button
         >
       </el-form-item>
     </el-form>
@@ -211,9 +211,14 @@ kindList.value = adminStore.getKindList();
 const handelUpdate = () => {
   loading.value = true;
   uploadImgRef.value.submitUpload();
-  updateEssay(form).finally(() => {
-    loading.value = false;
-  });
+  updateEssay(form)
+    .then(() => {
+      form.oldKindID = form.kindID;
+      form.oldLabelIds = form.labelIds;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 
 const chooseEssayHandel = (row) => {
@@ -223,6 +228,7 @@ const chooseEssayHandel = (row) => {
       form[key] = row[key];
     }
   }
+  console.log(form);
   getEssay(row.id)
     .then((res) => {
       const data = res.data;
@@ -232,8 +238,10 @@ const chooseEssayHandel = (row) => {
         }
       }
       form.oldKindID = form.kindID;
-      form.labelIds = data.labelList.map((o) => o.id);
-      form.oldLabelIds = form.labelIds;
+      if (Array.isArray(data.labelList)) {
+        form.labelIds = data.labelList.map((o) => o.id);
+        form.oldLabelIds = form.labelIds;
+      }
     })
     .finally(() => {
       loading.value = false;
