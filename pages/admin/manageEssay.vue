@@ -13,7 +13,13 @@
           :autofocus="true"
         ></el-input>
       </template>
-      <el-table :data="essayList" v-loading="tableLoading" border stripe>
+      <el-table
+        :data="essayList"
+        v-loading="tableLoading"
+        border
+        stripe
+        size="large"
+      >
         <el-table-column
           label="id"
           prop="id"
@@ -151,11 +157,7 @@
   </el-card>
 
   <div class="bottom-3 fixed z-20">
-    <el-button
-      type="primary"
-      size="large"
-      @click="drawerVisiableRef = true"
-      class="ml-3"
+    <el-button type="primary" size="large" @click="updatePreHandel" class="ml-3"
       >修改文章</el-button
     >
   </div>
@@ -217,7 +219,10 @@ const kindList = ref([]);
 labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
 
+const hasChooseEssay = ref(false);
+
 const chooseEssayHandel = (row) => {
+  hasChooseEssay.value = true;
   loading.value = true;
   for (const key in form) {
     if (row[key]) {
@@ -242,6 +247,14 @@ const chooseEssayHandel = (row) => {
       loading.value = false;
       dialogVisible.value = false;
     });
+};
+
+const updatePreHandel = () => {
+  if (!hasChooseEssay.value) {
+    return toast("请先选择文章", "warning");
+  }
+
+  drawerVisiableRef.value = true;
 };
 
 const handelUpdate = () => {
