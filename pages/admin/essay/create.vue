@@ -94,14 +94,13 @@ import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
   layout: "admin",
+  middleware: "admin",
 });
 
 const loading = ref(false);
 const uploadImgRef = ref(null);
 
 const adminStore = useMyAdminStore();
-
-await adminStore.updateAll();
 
 const labelList = ref([]);
 const kindList = ref([]);

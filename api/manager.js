@@ -3,7 +3,10 @@ export function login(form) {
   return clientApi.post("/manager/login", form);
 }
 
-// essay
+export function getIndexPanel() {
+  return clientApi.get("/manager/panel");
+}
+
 export function createEssay(form) {
   return clientApi.post("/manager/createEssay", form);
 }

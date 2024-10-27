@@ -31,11 +31,11 @@
         <el-icon><Notebook /></el-icon>
         <span>文章操作</span>
       </template>
-      <NuxtLink to="/admin/createEssay">
-        <el-menu-item index="/admin/createEssay"> 创建文章 </el-menu-item>
+      <NuxtLink to="/admin/essay/create">
+        <el-menu-item index="/admin/essay/create"> 创建文章 </el-menu-item>
       </NuxtLink>
-      <NuxtLink to="/admin/manageEssay">
-        <el-menu-item index="/admin/manageEssay"> 管理文章 </el-menu-item>
+      <NuxtLink to="/admin/essay/manage">
+        <el-menu-item index="/admin/essay/manage"> 管理文章 </el-menu-item>
       </NuxtLink>
     </el-sub-menu>
 

@@ -68,11 +68,12 @@ import {
 } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
 
-import { getIndexPanel } from "~/api/panel.js";
 import { useResizeObserver } from "@vueuse/core";
+import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
   layout: "admin",
+  middleware: "admin",
 });
 
 // 注册需要的组件
@@ -120,19 +121,19 @@ const keywordRank = reactive({
 });
 const currentTag = ref("year");
 
-const getData = async () => {
-  await getIndexPanel().then((res) => {
-    const data = res.data;
-    let ipSet = data.ipSet;
-    let rankList = data.rankList;
+const adminStore = useMyAdminStore();
 
-    visitedCount.value[0].count = ipSet.year;
-    visitedCount.value[1].count = ipSet.month;
-    visitedCount.value[2].count = ipSet.week;
-    for (const time in rankList) {
-      keywordRank[time] = rankList[time];
-    }
-  });
+const getData = () => {
+  const data = adminStore.getPanelData();
+  let ipSet = data.ipSet;
+  let rankList = data.rankList;
+
+  visitedCount.value[0].count = ipSet.year;
+  visitedCount.value[1].count = ipSet.month;
+  visitedCount.value[2].count = ipSet.week;
+  for (const time in rankList) {
+    keywordRank[time] = rankList[time];
+  }
 };
 
 const handerlChoose = (tag) => {
@@ -190,8 +191,8 @@ onBeforeMount(() => {
   }
 });
 
-onMounted(async () => {
-  await getData();
+onMounted(() => {
+  getData();
   let chartDom = document.getElementById("chart");
   if (chartDom) {
     myChart = echarts.init(chartDom);

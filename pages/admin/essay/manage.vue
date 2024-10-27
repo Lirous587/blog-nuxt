@@ -11,7 +11,17 @@
           v-model="searchForm.keyword"
           @keydown.enter="searchEssayHandel"
           :autofocus="true"
-        ></el-input>
+          size="large"
+        >
+          <template #suffix>
+            <el-button type="primary" @click="searchEssayHandel">
+              <el-icon size="18" class="mr-2">
+                <Search />
+              </el-icon>
+              搜索文章
+            </el-button>
+          </template>
+        </el-input>
       </template>
       <el-table
         :data="essayList"
@@ -74,7 +84,7 @@
     </el-card>
   </el-dialog>
 
-  <el-drawer v-model="drawerVisiableRef" title="添加文章" size="50%">
+  <el-drawer v-model="drawerVisiableRef" title="修改文章" size="50%">
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
         <AdminSelectKind
@@ -144,14 +154,12 @@
 
   <el-card>
     <template #header>
-      <el-icon
-        size="24"
-        color="rgb(77,216,126)"
-        class="hover:cursor-pointer"
-        @click="dialogVisible = true"
-      >
-        <Search />
-      </el-icon>
+      <el-button type="success" @click="dialogVisible = true">
+        <el-icon size="18" class="mr-2">
+          <Search />
+        </el-icon>
+        搜索文章
+      </el-button>
     </template>
     <Md v-model:content="form.content" height="630px" mode="edit"></Md>
   </el-card>
@@ -171,6 +179,7 @@ import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
   layout: "admin",
+  middleware: "admin",
 });
 
 const loading = ref(false);
@@ -211,9 +220,7 @@ const searchEssayHandel = async () => {
   });
 };
 
-// 抽屉数据
 const adminStore = useMyAdminStore();
-await adminStore.updateAll();
 const labelList = ref([]);
 const kindList = ref([]);
 labelList.value = adminStore.getLabelList();

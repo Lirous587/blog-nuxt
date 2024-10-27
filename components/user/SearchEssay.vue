@@ -30,7 +30,7 @@ watch(
 );
 
 const search = () => {
-  navigateTo(`/search-data?keyword=${keyword.value}`);
+  navigateTo(`/search?keyword=${keyword.value}`);
 };
 </script>
 
