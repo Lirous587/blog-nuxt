@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { searchData } from "~/api/keyword";
+import { searchEssay } from "~/api/keyword";
 
 definePageMeta({
   middleware: "search-data",
@@ -18,12 +18,12 @@ const form = reactive({
   ifAdd: true,
 });
 
-const searchEssay = async () => {
+const searchEssayHandel = async () => {
   if (!form.keyword) return;
 
   loading.value = true;
 
-  await searchData(form)
+  await searchEssay(form)
     .then((res) => {
       result.value = res.data || [];
     })
@@ -36,7 +36,7 @@ watch(
   () => route.query.keyword,
   async (keyword) => {
     form.keyword = keyword;
-    searchEssay();
+    searchEssayHandel();
   },
   { immediate: true }
 );

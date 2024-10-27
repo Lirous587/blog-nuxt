@@ -64,6 +64,7 @@
           style="width: 100%"
           @click="handelCreate"
           class="mt-5"
+          :loading="loading"
         >
           添加</el-button
         >
@@ -72,11 +73,11 @@
   </el-drawer>
 
   <div class="mx-3 my-3">
-    <Md v-model:content="form.content" mode="edit"></Md>
+    <Md v-model:content="form.content" height="720px" mode="edit"></Md>
   </div>
 
   <!-- 底部按钮 -->
-  <div class="bottom-3 fixed" style="z-index: 999">
+  <div class="bottom-3 fixed z-10">
     <el-button
       type="primary"
       size="large"
@@ -95,9 +96,11 @@ definePageMeta({
   layout: "admin",
 });
 
+const loading = ref(false);
 const uploadImgRef = ref(null);
 
 const adminStore = useMyAdminStore();
+
 await adminStore.updateAll();
 
 const labelList = ref([]);
@@ -106,19 +109,22 @@ labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
 
 const form = reactive({
-  name: "新文章",
+  name: "",
   kindID: null,
   labelIds: [],
   introduction: "",
   content: "",
-  imgUrl: "7.png",
+  imgUrl: "",
   ifTop: false,
   ifRecommend: false,
   keywords: [],
 });
 const drawerVisiableRef = ref(false);
 const handelCreate = () => {
+  loading.value = true;
   uploadImgRef.value.submitUpload();
-  // createEssay(form);
+  createEssay(form).finally(() => {
+    loading.value = false;
+  });
 };
 </script>

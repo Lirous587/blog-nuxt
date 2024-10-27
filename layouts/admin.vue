@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="250px">
+    <el-aside width="auto">
       <AdminNavAside></AdminNavAside>
     </el-aside>
     <el-container>

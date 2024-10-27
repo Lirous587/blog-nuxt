@@ -80,7 +80,7 @@
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
-        <UserSearchData></UserSearchData>
+        <UserSearchEssay></UserSearchEssay>
       </div>
       <div
         class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center bg-red-100 rounded-full"

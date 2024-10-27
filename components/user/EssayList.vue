@@ -8,7 +8,7 @@
     <div class="flex items-center">
       <NuxtLink
         :to="'/essay/' + item.id"
-        class="flex items-center justify-center w-[128px] h-[72px] md:w-[160px] md:h-[70px] lg:w-[208px] lg:h-[117px] bg-cyan-100"
+        class="flex items-center justify-center w-[128px] h-[72px] lg:w-[192px] lg:h-[84px] bg-cyan-100"
       >
         <el-image
           :src="imgUrlPre + '/' + item.imgUrl"
@@ -35,7 +35,7 @@
 
         <div class="flex flex-wrap items-center">
           <span class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3">
-            <el-tag type="primary">
+            <el-tag type="primary" class="mr-2 mb-1">
               <NuxtLink :to="'/kind/' + item.kindID + '/1'">
                 <div class="flex items-center text-xs">
                   <el-icon><Menu /></el-icon>
@@ -45,7 +45,11 @@
                 </div>
               </NuxtLink>
             </el-tag>
-            <el-tag type="info" class="mx-1" v-for="label in item.labelList">
+            <el-tag
+              type="info"
+              class="mr-2 mb-1"
+              v-for="label in item.labelList"
+            >
               <NuxtLink
                 class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
                 :to="'/label/' + label.id + '/1'"

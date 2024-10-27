@@ -1,3 +1,3 @@
-export function searchData(form) {
+export function searchEssay(form) {
   return clientApi.post("/keyword/search", form);
 }

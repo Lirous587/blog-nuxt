@@ -3,27 +3,13 @@ export function login(form) {
   return clientApi.post("/manager/login", form);
 }
 
-// kind
-export function updateKind(form) {
-  return clientApi.put("/manager/updateKind", form);
-}
-
-// classify
-export function updateClassify(form) {
-  return clientApi.put("/manager/updateClassify", form);
-}
-
-export function createClassify(form) {
-  return clientApi.post("/manager/addClassify", form);
-}
-
 // essay
 export function createEssay(form) {
   return clientApi.post("/manager/createEssay", form);
 }
 
-export function updateEssayMsg(form) {
-  return clientApi.put("/manager/updateEssayMsg", form);
+export function updateEssay(form) {
+  return clientApi.put("/manager/updateEssay", form);
 }
 
 export function deleteEssay(id) {

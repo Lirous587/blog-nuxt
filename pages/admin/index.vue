@@ -56,8 +56,6 @@
       </el-card>
     </div>
   </div>
-
-  <!-- <div class="background" :style="{ left: $store.state.adminAsideWidth }"></div> -->
 </template>
 
 <script setup>
