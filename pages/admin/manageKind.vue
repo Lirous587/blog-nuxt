@@ -2,7 +2,7 @@
   <el-card>
     <template #header>
       <el-button type="primary" @click="drawerVisiableRef = true"
-        >添加分类</el-button
+        >添加</el-button
       >
     </template>
     <el-table :data="list" border v-loading="tableLoading">
@@ -10,8 +10,13 @@
       <el-table-column
         label="标签名"
         prop="name"
+        min-width="120"
         align="center"
-      ></el-table-column>
+      >
+        <template #default="scope">
+          <el-input v-model="scope.row.name"></el-input>
+        </template>
+      </el-table-column>
       <el-table-column label="图标" prop="icon" width="180" align="center">
         <template #default="scope">
           <ChooseIcon v-model:icon="scope.row.icon"></ChooseIcon>
@@ -46,14 +51,14 @@
   </el-card>
 
   <el-drawer
-    title="添加分类"
+    title="添加"
     direction="rtl"
     v-model="drawerVisiableRef"
     size="50%"
     append-to-body
   >
     <el-form :model="form" label-width="80px" :inline="false">
-      <el-form-item label="分类名称">
+      <el-form-item label="分类名">
         <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="图标">
@@ -98,12 +103,15 @@ const loading = ref(false);
 const list = ref([]);
 
 const getKindList = () => {
-  list.value = adminStore.getKindList().map((o) => {
-    return {
-      ...o,
-      loading: false,
-    };
-  });
+  const kindList = adminStore.getKindList();
+  if (Array.isArray(kindList)) {
+    list.value = kindList.map((o) => {
+      return {
+        ...o,
+        loading: false,
+      };
+    });
+  }
 };
 getKindList();
 

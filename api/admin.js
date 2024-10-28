@@ -49,3 +49,15 @@ export function updateKind(form) {
 export function deleteKind(id) {
   return clientApi.delete(`/admin/deleteKind?id=${id}`);
 }
+
+export function createLabel(form) {
+  return clientApi.post(`/admin/createLabel`, form);
+}
+
+export function updateLabel(form) {
+  return clientApi.put(`/admin/updateLabel`, form);
+}
+
+export function deleteLabel(id) {
+  return clientApi.delete(`/admin/deleteLabel?id=${id}`);
+}

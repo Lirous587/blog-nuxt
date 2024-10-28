@@ -1,39 +1,63 @@
 <template>
-  <el-table :data="list" border v-loading="tableLoading">
-    <el-table-column label="id" prop="id" width="100"></el-table-column>
-    <el-table-column label="标签名" prop="name" width="100"></el-table-column>
-    <el-table-column label="图标" prop="icon" width="100"></el-table-column>
-  </el-table>
+  <el-card>
+    <template #header>
+      <el-form :model="form" label-width="80px" :inline="false">
+        <el-form-item label="标签名">
+          <el-input
+            placeholder="请输入标签名称"
+            size="large"
+            v-model="form.name"
+          >
+            <template #suffix>
+              <el-button
+                type="primary"
+                @click="handelCreate"
+                :loading="loading"
+              >
+                添加</el-button
+              >
+            </template>
+          </el-input>
+        </el-form-item>
+      </el-form>
+    </template>
+    <el-table :data="list" border v-loading="tableLoading">
+      <el-table-column label="id" prop="id"></el-table-column>
+      <el-table-column label="标签名" prop="name" align="center">
+        <template #default="scope">
+          <el-input v-model="scope.row.name"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" prop="icon" align="center" min-width="200">
+        <template #default="scope">
+          <el-button
+            type="warning"
+            :loading="scope.row.loading"
+            @click="handelEdit(scope.row)"
+            >修改</el-button
+          >
 
-  <el-drawer v-model="drawerVisiableRef" title="添加文章" size="50%">
-    <el-form :model="form" label-width="80px" :inline="false">
-      <el-form-item label="文章名">
-        <el-input v-model="form.name" placeholder="文章名" />
-      </el-form-item>
-
-      <el-form-item>
-        <el-button
-          type="primary"
-          size="large"
-          style="width: 100%"
-          @click="handelUpdate"
-          class="mt-5"
-          :loading="loading"
-        >
-          提交</el-button
-        >
-      </el-form-item>
-    </el-form>
-  </el-drawer>
-
-  <div class="bottom-3 fixed z-20">
-    <el-button type="primary" size="large" @click="updatePreHandel" class="ml-3"
-      >修改文章</el-button
-    >
-  </div>
+          <el-popconfirm
+            title="确定删除该标签?"
+            confirm-button-text="确定"
+            confirm-button-type="danger"
+            cancel-button-text="取消"
+            cancel-button-type="primary"
+            icon-color="rgb(245,108,108)"
+            @confirm="handelDelete(scope.row)"
+          >
+            <template #reference>
+              <el-button type="danger">删除</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-card>
 </template>
 
 <script setup>
+import { createLabel, deleteLabel, updateLabel } from "~/api/admin";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -41,18 +65,63 @@ definePageMeta({
   middleware: "admin",
 });
 
-const loading = ref(false);
-const tableLoading = ref(false);
-
 const form = reactive({
-  id: 0,
   name: "",
-  icon: "",
+  icon: "House",
 });
 
 const adminStore = useMyAdminStore();
 
-const list = adminStore.getLabelList();
+const tableLoading = ref(false);
+const loading = ref(false);
 
-const drawerVisiableRef = ref(false);
+const list = ref([]);
+
+const getLabelList = () => {
+  const labelList = adminStore.getLabelList();
+  if (Array.isArray(labelList)) {
+    list.value = labelList;
+  }
+};
+
+getLabelList();
+
+const handelCreate = () => {
+  loading.value = true;
+  tableLoading.value = true;
+  createLabel(form)
+    .then(async () => {
+      toast("创建成功");
+      await adminStore.updateAll();
+      getLabelList();
+      tableLoading.value = false;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const handelEdit = (row) => {
+  row.loading = true;
+  updateLabel(row)
+    .then(() => {
+      toast("修改成功");
+    })
+    .finally(() => {
+      row.loading = false;
+    });
+};
+
+const handelDelete = (row) => {
+  tableLoading.value = true;
+  deleteLabel(row.id)
+    .then(async () => {
+      toast("删除成功");
+      await adminStore.updateAll();
+      getLabelList();
+    })
+    .finally(() => {
+      tableLoading.value = false;
+    });
+};
 </script>
