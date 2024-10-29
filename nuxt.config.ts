@@ -8,6 +8,12 @@ export default defineNuxtConfig({
   app: {
     // layoutTransition: { name: "layout", mode: "out-in" },
   },
+  devServer: {
+    // https: {
+    //   key: "./ssl/server.key",
+    //   cert: "./ssl/server.crt",
+    // },
+  },
   runtimeConfig: {
     // Keys within public are also exposed client-side
     public: {

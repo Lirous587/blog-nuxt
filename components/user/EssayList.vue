@@ -24,7 +24,7 @@
           <el-image
             :src="imgUrlPre + '/' + item.imgUrl"
             fit="cover"
-            loading="lazy"
+            lazy
             class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100"
           >
           </el-image>

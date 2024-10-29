@@ -16,6 +16,7 @@
               <el-image
                 :src="imgUrlPre + '/' + item.imgUrl"
                 fit="cover"
+                lazy
                 class="w-[80px] h-[45px] rounded-lg flex-shrink-0"
               ></el-image>
               <div class="ml-5 text-sm text-pink-400 truncate">
