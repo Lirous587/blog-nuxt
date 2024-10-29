@@ -104,7 +104,7 @@ async function handleUploadImage(event, insertImage, files) {
       };
     });
   } catch (error) {
-    ElMessage.error("上传失败");
+    toast("上传失败", "error");
   }
 }
 

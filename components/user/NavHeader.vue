@@ -14,7 +14,7 @@
           v-model="mobileMenuVisiable"
           :open-delay="250"
           title="文章导航"
-          :size="320"
+          size="70%"
           direction="ltr"
           append-to-body
           @close="iconRef.close()"
@@ -23,7 +23,7 @@
         </el-drawer>
       </div>
       <NuxtLink to="/" class="nav hidden md:block">
-        <div class="text-lg color-text flex-shrink-0">罹景的博客</div>
+        <div class="text-lg color-text flex-shrink-0">Lirous的日记本</div>
       </NuxtLink>
       <NuxtLink to="/" class="nav hidden md:block">
         <div class="flex items-center">

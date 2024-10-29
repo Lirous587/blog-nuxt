@@ -68,15 +68,12 @@ const loading = ref(false);
 
 const activeNames = ref(["1"]);
 
-getEssay(id)
+await getEssay(id)
   .then((res) => {
     data.value = res.data;
+    loading.value = true;
   })
   .catch((err) => {
-    ElMessage.error("文章不存在");
     if (err.code === 1005) navigateTo("/");
-  })
-  .finally(() => {
-    loading.value = true;
   });
 </script>

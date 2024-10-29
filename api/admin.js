@@ -29,7 +29,7 @@ export function uploadImg(file) {
         },
       })
       .then((res) => {
-        ElMessage.success("上传成功");
+        toast("上传成功");
         resolve(res);
       })
       .catch((err) => {

@@ -8,9 +8,3 @@
     </el-container>
   </el-container>
 </template>
-
-<style scoped>
-.nav-main {
-  transition: all 0.5s linear;
-}
-</style>

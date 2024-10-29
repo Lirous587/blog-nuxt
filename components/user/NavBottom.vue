@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute w-full bottom-0 h-[45px] z-10 flex items-center justify-around md:hidden"
+    class="fixed w-full bottom-0 h-[45px] z-10 flex items-center justify-around md:hidden"
   >
     <NuxtLink to="/">
       <div class="flex items-center">
@@ -30,8 +30,6 @@
     </NuxtLink>
   </div>
 </template>
-
-<script lang="ts" setup></script>
 
 <style scoped>
 .iconfont {

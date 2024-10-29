@@ -2,7 +2,7 @@
   <div v-if="loading" class="flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
     <UserAuthorCard
       class="bg-gradient-to-br from-green-200 to-blue-100"
-      :authorData
+      :authorData="authorData"
     ></UserAuthorCard>
 
     <UserIndexRecommendEssay

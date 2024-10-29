@@ -2,8 +2,8 @@ import { ElNotification } from "element-plus";
 
 export function toast(message, type = "success") {
   ElNotification({
-    message: message,
-    type: type,
+    message,
+    type,
     duration: 1500,
     zIndex: 3000,
   });

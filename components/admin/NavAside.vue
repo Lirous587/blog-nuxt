@@ -16,20 +16,24 @@
     /></el-icon>
   </div>
 
-  <el-menu :collapse="isCollapse" :default-active="defaultActive">
-    <el-menu-item index="/admin">
-      <el-icon><PieChart /></el-icon>
-      <template #title>
-        <NuxtLink to="/admin">
-          <span> 数据展示</span>
-        </NuxtLink>
-      </template>
-    </el-menu-item>
+  <el-menu
+    :collapse="isCollapse"
+    :default-active="defaultActive"
+    :unique-opened="true"
+  >
+    <NuxtLink to="/admin">
+      <el-menu-item index="/admin">
+        <el-icon><PieChart /></el-icon>
+        <template #title>
+          <span>数据展示</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
 
     <el-sub-menu index="2">
       <template #title>
         <el-icon><Notebook /></el-icon>
-        <span>文章操作</span>
+        <span>文章</span>
       </template>
       <NuxtLink to="/admin/essay/create">
         <el-menu-item index="/admin/essay/create"> 创建文章 </el-menu-item>
@@ -52,6 +56,36 @@
         <el-menu-item index="/admin/manageLabel"> 管理标签 </el-menu-item>
       </NuxtLink>
     </el-sub-menu>
+
+    <!-- 心语 -->
+    <NuxtLink to="/admin/">
+      <el-menu-item index="/admin/heartWord">
+        <template #title>
+          <el-icon><IceTea /></el-icon>
+          <span>心语</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
+    <!-- 友链 -->
+    <NuxtLink to="/admin">
+      <el-menu-item index="/admin/friendLink">
+        <el-icon><ToiletPaper /></el-icon>
+        <template #title>
+          <span>友链</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
+    <!-- 知识库 -->
+    <NuxtLink to="/admin">
+      <el-menu-item index="/admin/knowledge">
+        <el-icon><Collection /></el-icon>
+        <template #title>
+          <span>知识库</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
   </el-menu>
 </template>
 

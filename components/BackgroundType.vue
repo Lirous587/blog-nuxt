@@ -30,7 +30,7 @@
 <script setup>
 import { ref } from "vue";
 
-const imgUrlArr = ref(["http://127.0.0.1:8080/api/img/6.png"]);
+const imgUrlArr = ref(["http://liuzihao.online:8080/api/img/6.png"]);
 
 const imgUrl = ref(
   imgUrlArr.value[Math.floor(Math.random() * imgUrlArr.value.length)]
