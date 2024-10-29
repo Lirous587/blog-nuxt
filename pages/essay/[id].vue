@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5" v-if="loading">
+  <div class="mt-5" v-if="!loading">
     <div class="ml-5 mr-5">
       <div class="flex justify-between items-center">
         <TypeWriter
@@ -64,14 +64,24 @@ const id = route.params.id;
 
 const data = ref({});
 
-const loading = ref(false);
-
 const activeNames = ref(["1"]);
+
+const nuxtApp = useNuxtApp();
+
+// 是否首次加载
+const loading = ref(true);
+
+nuxtApp.hook("page:start", () => {
+  loading.value = true;
+});
+
+nuxtApp.hook("page:finish", () => {
+  loading.value = false;
+});
 
 await getEssay(id)
   .then((res) => {
     data.value = res.data;
-    loading.value = true;
   })
   .catch((err) => {
     if (err.code === 1005) navigateTo("/");

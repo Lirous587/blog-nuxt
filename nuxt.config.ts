@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     //   cert: "./ssl/server.crt",
     // },
   },
+
   spaLoadingTemplate: "./spa-loading-template.html",
   runtimeConfig: {
     // Keys within public are also exposed client-side

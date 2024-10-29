@@ -139,6 +139,10 @@ const toTop = () => {
   }
 };
 
+mainBox.scrollTo({
+  top: 0,
+});
+
 const scrollHandler = () => {
   if (mainBox.scrollTop > 100) {
     toIconRef.value.classList.remove("reverse");

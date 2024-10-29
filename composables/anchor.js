@@ -7,6 +7,7 @@ export const disposeMdAnchor = (md, router) => {
     anchors = [];
     return { anchors };
   }
+  const mainBox = document.getElementById("mainBox");
 
   const hLevel = Array.from(
     new Set(anchors.map((anchor) => anchor.tagName))
@@ -38,7 +39,11 @@ export const disposeMdAnchor = (md, router) => {
       const targetElement = document.getElementById(anchorValue);
 
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
+        const YPositon = targetElement.offsetTop || 0;
+        mainBox.scrollTo({
+          top: YPositon,
+          behavior: "smooth",
+        });
       }
 
       router.push(`#${anchorValue}`);
