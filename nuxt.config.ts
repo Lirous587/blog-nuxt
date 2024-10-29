@@ -6,14 +6,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   app: {
-    // layoutTransition: { name: "layout", mode: "out-in" },
+    pageTransition: { name: "page", mode: "out-in" },
   },
   devServer: {
+    // port: 80,
     // https: {
     //   key: "./ssl/server.key",
     //   cert: "./ssl/server.crt",
     // },
   },
+  spaLoadingTemplate: "./spa-loading-template.html",
   runtimeConfig: {
     // Keys within public are also exposed client-side
     public: {

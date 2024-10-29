@@ -1,9 +1,11 @@
 <template>
-  <UserEssayList :list="essayList"></UserEssayList>
-  <Paging
-    :total-page="totalPage"
-    :preHref="'/kind' + '/' + queryForm.kindID"
-  ></Paging>
+  <div>
+    <UserEssayList :list="essayList"></UserEssayList>
+    <Paging
+      :total-page="totalPage"
+      :preHref="'/kind' + '/' + queryForm.kindID"
+    ></Paging>
+  </div>
 </template>
 
 <script setup>

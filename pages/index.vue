@@ -1,6 +1,8 @@
 <template>
-  <UserEssayList :list="essayList"></UserEssayList>
-  <Paging :total-page="totalPage"></Paging>
+  <div>
+    <UserEssayList :list="essayList"></UserEssayList>
+    <Paging :total-page="totalPage"></Paging>
+  </div>
 </template>
 
 <script setup>

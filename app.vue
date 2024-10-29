@@ -1,5 +1,7 @@
 <template>
+  <FullLoading v-if="isFullLoading" />
   <NuxtLayout>
+    <NuxtLoadingIndicator :height="2" color="#409eff" />
     <NuxtPage />
   </NuxtLayout>
 </template>
@@ -7,18 +9,44 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk ? `${titleChunk} - 网站名称` : "网站名称";
+    return titleChunk
+      ? `${titleChunk} - Liros的日记本 | 全栈开发`
+      : "Liros的日记本 | 全栈开发";
   },
+});
+const nuxtApp = useNuxtApp();
+
+// 是否首次加载
+const isFullLoading = ref(true);
+
+nuxtApp.hook("page:start", () => {
+  isFullLoading.value = true;
+});
+
+nuxtApp.hook("page:finish", () => {
+  isFullLoading.value = false;
 });
 </script>
 
 <style>
-/* .layout-enter-active,
-.layout-leave-active {
-  transition: all 0.4s;
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.6s ease-out;
 }
-.layout-enter-from,
-.layout-leave-to {
-  filter: grayscale(1);
-} */
+
+.page-leave-to {
+  transform: translateX(-100%);
+  transition-delay: 200ms;
+}
+.page-enter-from {
+  transform: translateX(100%);
+}
+
+.page-enter-to {
+  transform: translateX(0);
+}
+
+.page-leave-from {
+  transform: translateX(0);
+}
 </style>

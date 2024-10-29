@@ -13,7 +13,7 @@
     </el-aside>
 
     <el-container>
-      <el-main id="mainBox">
+      <el-main id="mainBox" class="overflow-x-hidden">
         <div class="md:ml-10 lg:ml-15 xl:ml-20 md:w-[85%] lg:w-[80%]">
           <slot />
           <RecordBottom></RecordBottom>
