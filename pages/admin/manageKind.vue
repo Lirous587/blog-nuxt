@@ -91,6 +91,7 @@ definePageMeta({
 const form = reactive({
   name: "",
   icon: "House",
+  
 });
 
 const adminStore = useMyAdminStore();

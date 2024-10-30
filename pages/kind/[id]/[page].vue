@@ -38,7 +38,6 @@ const kindList = indexStore.getKindList();
 const nowKind = reactive({
   name: "",
   introduction: "",
-  imgUrl: "",
 });
 
 const data = kindList.filter((k) => {
@@ -51,15 +50,13 @@ for (const key in nowKind) {
   }
 }
 
-console.log(nowKind);
-
 const config = useRuntimeConfig();
 useSeoMeta({
   title: nowKind.name,
   ogTitle: nowKind.name,
   description: nowKind.introduction,
   ogDescription: nowKind.introduction,
-  ogImage: config.public.imgBase + "/" + nowKind.imgUrl,
-  twitterCard: config.public.imgBase + "/" + nowKind.imgUrl,
+  ogImage: config.public.imgBase + "/" + "1.png",
+  twitterCard: config.public.imgBase + "/" + "1.png",
 });
 </script>
