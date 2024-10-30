@@ -10,11 +10,14 @@
 
 <script setup>
 import { getEssayList } from "~/api/essay";
+import { useMyIndexStore } from "~/store";
 
 definePageMeta({
-  middleware: "page-validation",
+  middleware: ["index-data", "page-validation"],
 });
+
 const route = useRoute();
+
 const queryForm = reactive({
   kindID: route.params.id,
   page: route.params.page || 1,
@@ -23,9 +26,6 @@ const queryForm = reactive({
 
 const essayList = ref([]);
 const totalPage = ref(1);
-const seoData = reactive({
-  kindName: "",
-});
 
 await getEssayList(queryForm).then((res) => {
   const data = res.data;
@@ -33,13 +33,33 @@ await getEssayList(queryForm).then((res) => {
   totalPage.value = data.totalPage;
 });
 
+const indexStore = useMyIndexStore();
+const kindList = indexStore.getKindList();
+const nowKind = reactive({
+  name: "",
+  introduction: "",
+  imgUrl: "",
+});
+
+const data = kindList.filter((k) => {
+  return k.id == route.params.id;
+})[0];
+
+for (const key in nowKind) {
+  if (data[key]) {
+    nowKind[key] = data[key];
+  }
+}
+
+console.log(nowKind);
+
 const config = useRuntimeConfig();
 useSeoMeta({
-  title: seoData.kindName + "分类系列",
-  ogTitle: seoData.kindName + "分类系列",
-  // description: data.value.introduction,
-  // ogDescription: data.value.introduction,
-  //   ogImage: config.public.imgBase + "/" + data.value.imgUrl,
-  //   twitterCard: config.public.imgBase + "/" + data.value.imgUrl,
+  title: nowKind.name,
+  ogTitle: nowKind.name,
+  description: nowKind.introduction,
+  ogDescription: nowKind.introduction,
+  ogImage: config.public.imgBase + "/" + nowKind.imgUrl,
+  twitterCard: config.public.imgBase + "/" + nowKind.imgUrl,
 });
 </script>

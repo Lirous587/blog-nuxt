@@ -24,23 +24,21 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
   const initData = async () => {
     ifInit.value = false;
-    const getKindListAndLabelList = async () => {
-      await getIndexInfo().then((res) => {
-        const data = res.data;
-        recommentEssayList.value = data.essayList;
-        labelList.value = data.labelList;
-        kindList.value = data.kindList;
 
-        statisticsData.label.count = labelList.value.length;
-        statisticsData.kind.count = kindList.value.length;
-        statisticsData.essay.count = kindList.value.reduce(
-          (accumulator, kind) => accumulator + kind.essayCount,
-          0
-        );
-      });
-    };
+    await getIndexInfo().then((res) => {
+      const data = res.data;
+      recommentEssayList.value = data.essayList;
+      labelList.value = data.labelList;
+      kindList.value = data.kindList;
 
-    await getKindListAndLabelList();
+      statisticsData.label.count = labelList.value.length;
+      statisticsData.kind.count = kindList.value.length;
+      statisticsData.essay.count = kindList.value.reduce(
+        (accumulator, kind) => accumulator + kind.essayCount,
+        0
+      );
+    });
+
     ifInit.value = true;
   };
 

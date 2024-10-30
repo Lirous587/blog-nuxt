@@ -6,7 +6,7 @@
 import { searchEssay } from "~/api/keyword";
 
 definePageMeta({
-  middleware: "search",
+  middleware: ["search", "index-data"],
 });
 
 const route = useRoute();

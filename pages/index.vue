@@ -9,7 +9,7 @@
 import { getEssayList } from "~/api/essay";
 
 definePageMeta({
-  middleware: "user",
+  middleware: "index-data",
 });
 
 const route = useRoute();
