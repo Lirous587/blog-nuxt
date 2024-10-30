@@ -25,11 +25,11 @@ export const disposeMdAnchor = (md, router) => {
 
     const aEl = document.createElement("a");
 
-    const originalContent = el.innerHTML;
+    const hContent = el.innerHTML;
 
     el.innerHTML = "";
 
-    aEl.innerHTML = originalContent;
+    aEl.innerHTML = hContent;
 
     aEl.setAttribute("href", `#${anchorValue}`);
 
@@ -48,8 +48,38 @@ export const disposeMdAnchor = (md, router) => {
 
       router.push(`#${anchorValue}`);
     };
+
     el.appendChild(aEl);
   });
+
+  mainBox.addEventListener(
+    "scroll",
+    debounce(() => {
+      const mainTop = mainBox.scrollTop;
+      let distanceList = Array.from(
+        {
+          length: anchors.length,
+        },
+        () => {
+          return {
+            elIndex: 0,
+            distance: 0,
+          };
+        }
+      );
+      hList.forEach((el, index) => {
+        distanceList[index].elIndex = index;
+        distanceList[index].distance = Math.abs(mainTop - el.offsetTop);
+      });
+      // 正确的排序逻辑
+      distanceList.sort((a, b) => a.distance - b.distance);
+      // 获取距离最近的元素
+      const closestElement = distanceList[0];
+
+      const anchorValue = anchors[closestElement.elIndex].id;
+      router.push(`#${anchorValue}`);
+    }, 200)
+  );
 
   return {
     anchors,

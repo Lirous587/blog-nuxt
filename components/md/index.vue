@@ -83,6 +83,7 @@ const ifEdit = computed(() => {
 
 const previewRef = ref(null);
 
+// 上传图片
 async function handleUploadImage(event, insertImage, files) {
   try {
     // 获取上传的图片文件
@@ -133,15 +134,12 @@ const toTop = () => {
       behavior: "smooth",
     });
   } else {
-    bottomRef.value.scrollIntoView({
+    mainBox.scrollTo({
+      top: bottomRef.value.offsetTop,
       behavior: "smooth",
     });
   }
 };
-
-mainBox.scrollTo({
-  top: 0,
-});
 
 const scrollHandler = () => {
   if (mainBox.scrollTop > 100) {
@@ -152,16 +150,21 @@ const scrollHandler = () => {
     direction.value = "bottom";
   }
 };
+
 const throttledScroll = ref(null);
 
 onMounted(() => {
   if (!ifEdit.value) {
     throttledScroll.value = throttle(scrollHandler, 50);
+    scrollHandler();
     const { anchors } = disposeMdAnchor(previewRef, router);
     anchorList.value = anchors;
     hList.value = previewRef.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
     mainBox.addEventListener("scroll", throttledScroll.value);
-    scrollHandler();
+    mainBox.scrollTo({
+      top: 0,
+    });
+
     if (route.hash.split("#")[1] < hList.value.length) {
       hList.value[route.hash.split("#")[1]].firstChild.click();
     }
