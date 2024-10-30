@@ -9,7 +9,7 @@
       <h2 class="text-2xl text-green-500">Lirous</h2>
       <div class="flex items-center justify-around gap-5">
         <div
-          v-for="item in authorData"
+          v-for="item in data"
           class="flex flex-col items-center text-lg text-blue-400"
         >
           <h2>{{ item.name }}</h2>
@@ -30,7 +30,7 @@
 
 <script setup>
 const props = defineProps({
-  authorData: {
+  data: {
     type: Object,
     default: {
       essayCount: 0,

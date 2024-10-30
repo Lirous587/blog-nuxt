@@ -31,16 +31,16 @@
           <span class="color-text">首页</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/heart-word" class="nav hidden md:block">
+      <NuxtLink to="/heartWord" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a6;</span>
           <span class="color-text">心语</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/friend-link" class="nav hidden md:block">
+      <NuxtLink to="/friendLink" class="nav hidden md:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a5;</span>
-          <span class="color-text">友情链接</span>
+          <span class="color-text">友链</span>
         </div>
       </NuxtLink>
       <!-- about -->

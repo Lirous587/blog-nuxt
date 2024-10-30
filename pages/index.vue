@@ -8,6 +8,10 @@
 <script setup>
 import { getEssayList } from "~/api/essay";
 
+definePageMeta({
+  middleware: "user",
+});
+
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,

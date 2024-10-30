@@ -65,10 +65,8 @@ import { getEssay } from "~/api/essay";
 
 const route = useRoute();
 const id = route.params.id;
-
-const data = ref({});
-
 const activeNames = ref(["1"]);
+const data = ref({});
 
 const nuxtApp = useNuxtApp();
 
@@ -90,4 +88,14 @@ await getEssay(id)
   .catch((err) => {
     if (err.code === 1005) navigateTo("/");
   });
+
+const config = useRuntimeConfig();
+useSeoMeta({
+  title: data.value.name,
+  ogTitle: data.value.name,
+  description: data.value.introduction,
+  ogDescription: data.value.introduction,
+  ogImage: config.public.imgBase + "/" + data.value.imgUrl,
+  twitterCard: config.public.imgBase + "/" + data.value.imgUrl,
+});
 </script>

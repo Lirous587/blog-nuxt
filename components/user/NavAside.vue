@@ -1,10 +1,9 @@
 <template>
-  <div v-if="loading" class="flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
-    <UserAuthorCard
+  <div class="flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
+    <UserStatisticsCard
       class="bg-gradient-to-br from-green-200 to-blue-100"
-      :authorData="authorData"
-    ></UserAuthorCard>
-
+      :data="statisticsData"
+    ></UserStatisticsCard>
     <UserIndexRecommendEssay
       class="bg-gradient-to-br from-pink-50 to-green-50"
       :list="recommentEssayList"
@@ -21,45 +20,13 @@
 </template>
 
 <script setup>
-import { getIndexInfo } from "~/api/user";
-const labelList = ref([]);
-const kindList = ref([]);
-const loading = ref(false);
-const recommentEssayList = ref([]);
+import { useMyIndexStore } from "~/store";
 
-const authorData = reactive({
-  essay: {
-    name: "文章",
-    count: 0,
-  },
-  label: {
-    name: "标签",
-    count: 0,
-  },
-  kind: {
-    name: "分类",
-    count: 0,
-  },
-});
-
-const getIndexData = async () => {
-  getIndexInfo().then((res) => {
-    const data = res.data;
-    recommentEssayList.value = data.essayList;
-    labelList.value = data.labelList;
-    kindList.value = data.kindList;
-
-    authorData.label.count = labelList.value.length;
-    authorData.kind.count = kindList.value.length;
-    authorData.essay.count = kindList.value.reduce(
-      (accumulator, kind) => accumulator + kind.essayCount,
-      0
-    );
-    loading.value = true;
-  });
-};
-
-await getIndexData();
+const indexStore = useMyIndexStore();
+const labelList = indexStore.getLabelList();
+const kindList = indexStore.getKindList();
+const recommentEssayList = indexStore.getRecommentEssayList();
+const statisticsData = indexStore.getStatisticsData();
 </script>
 
 <style scoped>

@@ -156,8 +156,8 @@ let debounceScroll = () => {};
 function bodyClickHandel() {
   anchorVisiable.value = false;
 }
-
 const data = ref({});
+
 onMounted(() => {
   if (!ifEdit.value) {
     scrollHandler();
