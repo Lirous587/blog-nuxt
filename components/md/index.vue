@@ -21,7 +21,7 @@
         class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
         <a
-          v-for="(item, index) in anchorList"
+          v-for="(item, index) in anchors"
           :href="'#' + item.id"
           :key="index"
           @click.stop="handleAnchorClick($event, index)"
@@ -111,7 +111,7 @@ async function handleUploadImage(event, insertImage, files) {
 
 const route = useRoute();
 const router = useRouter();
-const anchorList = ref([]);
+const anchors = ref([]);
 const hList = ref([]);
 const anchorVisiable = ref(false);
 
@@ -151,33 +151,34 @@ const scrollHandler = () => {
   }
 };
 
-const throttledScroll = ref(null);
+const throttledScroll = throttle(scrollHandler, 50);
+let debounceScroll = () => {};
+function bodyClickHandel() {
+  anchorVisiable.value = false;
+}
 
+const data = ref({});
 onMounted(() => {
   if (!ifEdit.value) {
-    throttledScroll.value = throttle(scrollHandler, 50);
     scrollHandler();
-    const { anchors } = disposeMdAnchor(previewRef, router);
-    anchorList.value = anchors;
-    hList.value = previewRef.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
-    mainBox.addEventListener("scroll", throttledScroll.value);
-    mainBox.scrollTo({
-      top: 0,
-    });
+    data.value = disposeMdAnchor(previewRef, router);
 
-    if (route.hash.split("#")[1] < hList.value.length) {
-      hList.value[route.hash.split("#")[1]].firstChild.click();
-    }
+    anchors.value = data.value.anchors;
+    hList.value = data.value.hList;
+    debounceScroll = data.value.debounceScroll;
 
-    document.body.addEventListener("click", () => {
-      anchorVisiable.value = false;
-    });
+    mainBox.addEventListener("scroll", throttledScroll);
+    mainBox.addEventListener("scroll", debounceScroll);
+
+    document.body.addEventListener("click", bodyClickHandel);
   }
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   if (!ifEdit.value) {
-    mainBox.removeEventListener("scroll", throttledScroll.value);
+    mainBox.removeEventListener("scroll", throttledScroll);
+    mainBox.removeEventListener("scroll", debounceScroll);
+    document.body.removeEventListener("click", bodyClickHandel);
   }
 });
 </script>

@@ -52,36 +52,37 @@ export const disposeMdAnchor = (md, router) => {
     el.appendChild(aEl);
   });
 
-  mainBox.addEventListener(
-    "scroll",
-    debounce(() => {
-      const mainTop = mainBox.scrollTop;
-      let distanceList = Array.from(
-        {
-          length: anchors.length,
-        },
-        () => {
-          return {
-            elIndex: 0,
-            distance: 0,
-          };
-        }
-      );
-      hList.forEach((el, index) => {
-        distanceList[index].elIndex = index;
-        distanceList[index].distance = Math.abs(mainTop - el.offsetTop);
-      });
-      // 正确的排序逻辑
-      distanceList.sort((a, b) => a.distance - b.distance);
-      // 获取距离最近的元素
-      const closestElement = distanceList[0];
+  const scrollHandel = () => {
+    const mainTop = mainBox.scrollTop;
+    let distanceList = Array.from(
+      {
+        length: anchors.length,
+      },
+      () => {
+        return {
+          elIndex: 0,
+          distance: 0,
+        };
+      }
+    );
+    hList.forEach((el, index) => {
+      distanceList[index].elIndex = index;
+      distanceList[index].distance = Math.abs(mainTop - el.offsetTop);
+    });
+    // 正确的排序逻辑
+    distanceList.sort((a, b) => a.distance - b.distance);
+    // 获取距离最近的元素
+    const closestElement = distanceList[0];
 
-      const anchorValue = anchors[closestElement.elIndex].id;
-      router.push(`#${anchorValue}`);
-    }, 200)
-  );
+    const anchorValue = anchors[closestElement.elIndex].id;
+    router.push(`#${anchorValue}`);
+  };
+
+  const debounceScroll = debounce(scrollHandel, 100);
 
   return {
     anchors,
+    hList,
+    debounceScroll,
   };
 };

@@ -39,7 +39,9 @@
       </div>
 
       <ClientOnly>
-        <Md v-model:content="data.content"></Md>
+        <div>
+          <Md v-model:content="data.content"></Md>
+        </div>
 
         <el-collapse
           class="px-3"
