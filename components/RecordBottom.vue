@@ -1,7 +1,7 @@
 <template>
   <el-footer class="register">
     <a class="text-xs" target="_blank" href="https://github.com/Lijingwoquan"
-      >© 2024 罹景偓佺的博客 By 罹景.本站博客未经授权禁止转载.
+      >© 2024 Lirous的日记本 By Lirous.本站博客未经授权禁止转载.
     </a>
     <a
       class="text-xs"

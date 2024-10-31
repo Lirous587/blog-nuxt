@@ -1,15 +1,5 @@
 <template>
-  <div v-if="!Array.isArray(list) || (Array.isArray(list) && !list.length)">
-    <el-card class="mt-5">
-      <div class="flex items-center justify-around text-red-500">
-        该筛选条件下未查找到文章哦
-        <NuxtLink to="/">
-          <el-button type="primary">回到首页</el-button>
-        </NuxtLink>
-      </div>
-    </el-card>
-  </div>
-  <div v-else>
+  <div>
     <el-card
       v-for="item in list"
       :key="item.id"
@@ -24,8 +14,8 @@
           <el-image
             :src="imgUrlPre + '/' + item.imgUrl"
             fit="cover"
-            lazy
             class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100"
+            lazy
           >
           </el-image>
         </NuxtLink>

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 top-[60px] h-[calc(100vh-60px)] z-[-1]">
+  <div ref="contaninerRef" class="relative w-full h-[100vh]">
     <el-image :src="imgUrl" fit="cover" class="w-full h-full" @load="imgLoad" />
     <div
       class="absolute inset-0 top-[50%] translate-y-[-50%] flex flex-col justify-center items-center"
@@ -13,7 +13,7 @@
 
       <div class="flex justify-center items-center">
         <div
-          v-for="(word, index) in '罹景不想coding'"
+          v-for="(word, index) in 'Lirous不想coding'"
           class="relative inline-flex text-3xl mx-2 text-white float-action"
           :style="{ animationDelay: `${index * -0.5}s` }"
         >
@@ -24,12 +24,16 @@
         </div>
       </div>
     </div>
+    <div
+      class="absolute flex cursor-pointer h-[30px] bottom-[60px] items-center justify-center left-[50%] translate-x-[-50%] text-gray-300"
+      @click="scrollToMain"
+    >
+      <el-icon size="24"><ArrowDownBold /></el-icon>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-
 const imgUrlArr = ref(["http://liuzihao.online:8080/api/img/6.png"]);
 
 const imgUrl = ref(
@@ -39,6 +43,16 @@ const imgUrl = ref(
 const loading = ref(false);
 const imgLoad = () => {
   loading.value = true;
+};
+
+const contaninerRef = ref(null);
+
+const scrollToMain = () => {
+  const height = window.innerHeight;
+  window.scroll({
+    top: height,
+    behavior: "smooth",
+  });
 };
 </script>
 

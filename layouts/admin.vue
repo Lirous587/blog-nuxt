@@ -1,10 +1,10 @@
 <template>
-  <el-container>
-    <el-aside width="auto">
+  <div>
+    <aside width="auto">
       <AdminNavAside></AdminNavAside>
-    </el-aside>
-    <el-container>
-      <el-main><slot /> </el-main>
-    </el-container>
-  </el-container>
+    </aside>
+    <div>
+      <main><slot /></main>
+    </div>
+  </div>
 </template>

@@ -10,7 +10,7 @@
 useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk
-      ? `${titleChunk} - Liros的日记本 | 全栈开发`
+      ? `${titleChunk} | Liros的日记本 | 全栈开发`
       : "Liros的日记本 | 全栈开发";
   },
 });
@@ -35,18 +35,22 @@ nuxtApp.hook("page:finish", () => {
 }
 
 .page-leave-to {
-  transform: translateX(-100%);
+  transform: opcacity(0);
+  filter: blur(10px);
   transition-delay: 200ms;
 }
 .page-enter-from {
-  transform: translateX(100%);
+  transform: opcacity(0);
+  filter: blur(10px);
 }
 
 .page-enter-to {
-  transform: translateX(0);
+  transform: opcacity(1);
+  filter: blur(0);
 }
 
 .page-leave-from {
-  transform: translateX(0);
+  transform: opcacity(1);
+  filter: blur(0);
 }
 </style>

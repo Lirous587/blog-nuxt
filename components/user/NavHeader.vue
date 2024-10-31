@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10"
-  >
+  <div class="headerContainer">
     <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
-      <div class="md:hidden flex items-center">
+      <div class="lg:hidden flex items-center">
         <HamburgerIcon
           color="red"
           :size="20"
@@ -22,22 +20,22 @@
           <UserNavAside></UserNavAside>
         </el-drawer>
       </div>
-      <NuxtLink to="/" class="nav hidden md:block">
+      <NuxtLink to="/" class="nav hidden lg:block">
         <div class="text-lg color-text flex-shrink-0">Lirous的日记本</div>
       </NuxtLink>
-      <NuxtLink to="/" class="nav hidden md:block">
+      <NuxtLink to="/" class="nav">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a7;</span>
           <span class="color-text">首页</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/heartWord" class="nav hidden md:block">
+      <NuxtLink to="/heartWord" class="nav hidden lg:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a6;</span>
           <span class="color-text">心语</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/friendLink" class="nav hidden md:block">
+      <NuxtLink to="/friendLink" class="nav hidden lg:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a5;</span>
           <span class="color-text">友链</span>
@@ -47,7 +45,7 @@
       <el-dropdown class="nav border-none">
         <div
           to="/about"
-          class="whitespace-nowrap outline-transparent hidden md:block"
+          class="whitespace-nowrap outline-transparent hidden lg:block"
         >
           <span class="iconfont">&#xe8a4;</span>
           <span class="color-text">关于</span>
@@ -60,7 +58,7 @@
             <el-dropdown-item>
               <NuxtLink
                 target="_blank"
-                to="https://github.com/Lijingwoquan"
+                to="https://github.com/Lirous587"
                 class="flex items-center"
               >
                 <el-icon color="red" size="16"><Star /></el-icon>
@@ -108,11 +106,39 @@ const route = useRoute();
 watch(route, () => {
   mobileMenuVisiable.value = false;
 });
+
+const top = ref("0");
+
+let lastTop = 0;
+let nowTop = 0;
+
+const scroll = (event) => {
+  nowTop = event.target.scrollingElement.scrollTop;
+  if (nowTop > lastTop) {
+    top.value = "-60px";
+  } else {
+    top.value = "0px";
+  }
+  lastTop = nowTop;
+};
+const throttleScroll = throttle(scroll);
+
+onMounted(() => {
+  document.addEventListener("scroll", throttleScroll);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener("scroll", throttleScroll);
+});
 </script>
 
 <style scoped>
 * {
   font-family: "myFont";
+}
+
+.headerContainer {
+  @apply bg-white backdrop-blur-sm bg-opacity-90 fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10 transition-all duration-500 ease-linear;
+  transform: translateY(v-bind(top));
 }
 
 .color-text {

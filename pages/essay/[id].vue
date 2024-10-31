@@ -63,6 +63,10 @@
 <script setup>
 import { getEssay } from "~/api/essay";
 
+definePageMeta({
+  middleware: ["index-data"],
+});
+
 const route = useRoute();
 const id = route.params.id;
 const activeNames = ref(["1"]);
