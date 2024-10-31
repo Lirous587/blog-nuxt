@@ -20,37 +20,33 @@
         @click.stop="() => {}"
         class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
-        <a
+        <li
           v-for="(item, index) in anchors"
           :href="'#' + item.id"
           :key="index"
           @click.stop="handleAnchorClick($event, index)"
           class="anchor"
-          :class="route.hash == '#' + item.id ? 'active' : ''"
+          :class="nowHash == item.id ? 'active' : ''"
           :style="{ paddingLeft: (item.indent + 1) * 15 + 'px' }"
         >
           {{ item.title }}
-        </a>
+        </li>
       </div>
+    </div>
 
-      <div class="fixed flex flex-col bottom-[70px] right-10 z-30 gap-y-2">
-        <div
-          @click.stop="anchorVisiable = !anchorVisiable"
-          class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
-        >
-          <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
-        </div>
-        <div
-          @click="toTop"
-          class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
-        >
-          <div
-            ref="toIconRef"
-            class="transition-all duration-300 flex items-center justify-center"
-          >
-            <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
-          </div>
-        </div>
+    <div class="fixed flex flex-col bottom-[70px] right-10 z-30 gap-y-2">
+      <div
+        @click.stop="anchorVisiable = !anchorVisiable"
+        class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+      >
+        <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
+      </div>
+      <div
+        @click="toTop"
+        class="hover:cursor-pointer rounded-full transition-all duration-200 bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+        :class="!ifTop ? 'rotate-180' : ''"
+      >
+        <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
       </div>
     </div>
   </div>
@@ -109,76 +105,63 @@ async function handleUploadImage(event, insertImage, files) {
   }
 }
 
-const route = useRoute();
 const router = useRouter();
 const anchors = ref([]);
 const hList = ref([]);
-const anchorVisiable = ref(false);
-
+const anchorVisiable = ref(true);
+const nowHash = ref("");
 const handleAnchorClick = (e, index) => {
   e.preventDefault();
   hList.value[index].firstChild.click();
 };
 
-const mainBox = document.getElementById("mainBox");
-
 const bottomRef = ref(null);
-const toIconRef = ref(null);
-
-const direction = ref("top");
 
 const toTop = () => {
-  if (direction.value == "top") {
-    mainBox.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  } else {
-    mainBox.scrollTo({
-      top: bottomRef.value.offsetTop,
-      behavior: "smooth",
-    });
-  }
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: "smooth",
+  });
 };
 
-const scrollHandler = () => {
-  if (mainBox.scrollTop > 100) {
-    toIconRef.value.classList.remove("reverse");
-    direction.value = "top";
-  } else {
-    toIconRef.value.classList.add("reverse");
-    direction.value = "bottom";
-  }
-};
-
-const throttledScroll = throttle(scrollHandler, 50);
-let debounceScroll = () => {};
+const direction = ref(false);
+const ifTop = computed(() => {
+  return direction.value == "top" ? true : false;
+});
 function bodyClickHandel() {
   anchorVisiable.value = false;
 }
-const data = ref({});
+
+function scrollHandel() {
+  if (window.scrollY >= window.innerHeight) {
+    direction.value = "top";
+  } else {
+    direction.value = "bottom";
+  }
+}
+
+const throttleScrollHandel = throttle(scrollHandel, 50);
+let data = {};
 
 onMounted(() => {
   if (!ifEdit.value) {
-    scrollHandler();
-    data.value = disposeMdAnchor(previewRef, router);
+    data = disposeMdAnchor(previewRef, router);
+    anchors.value = data.anchors;
+    hList.value = data.hList;
 
-    anchors.value = data.value.anchors;
-    hList.value = data.value.hList;
-    debounceScroll = data.value.debounceScroll;
-
-    mainBox.addEventListener("scroll", throttledScroll);
-    mainBox.addEventListener("scroll", debounceScroll);
+    watch(data.nowHash, (val) => {
+      nowHash.value = val;
+    });
 
     document.body.addEventListener("click", bodyClickHandel);
+    window.addEventListener("scroll", throttleScrollHandel);
   }
 });
 
 onBeforeUnmount(() => {
   if (!ifEdit.value) {
-    mainBox.removeEventListener("scroll", throttledScroll);
-    mainBox.removeEventListener("scroll", debounceScroll);
     document.body.removeEventListener("click", bodyClickHandel);
+    window.removeEventListener("scroll", throttleScrollHandel);
   }
 });
 </script>
@@ -203,9 +186,6 @@ onBeforeUnmount(() => {
 .active::before {
   content: "";
   @apply absolute left-0 h-[1.5em] w-[2px] bg-blue-400;
-}
-.reverse {
-  @apply rotate-180;
 }
 
 .anchors::-webkit-scrollbar {

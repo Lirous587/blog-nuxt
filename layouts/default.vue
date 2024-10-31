@@ -10,7 +10,7 @@
       <UserNavAside class="mr-5"></UserNavAside>
     </aside>
 
-    <main id="mainBox" class="flex-1">
+    <main class="flex-1 overflow-auto" id="mainBox">
       <div class="md:ml-5 lg:ml-10 xl:ml-15 md:w-[90%] lg:w-[85%] xl:w-[80%]">
         <slot />
         <RecordBottom></RecordBottom>

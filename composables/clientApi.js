@@ -24,8 +24,8 @@ const apiCore = async (url, opt) => {
     onResponse({ request, response, options }) {
       // Process the response data
       if (response.status >= 200 && response.status <= 300) {
-        console.log("客户端请求");
-        console.log(response._data);
+        // console.log("客户端请求");
+        // console.log(response._data);
       }
     },
     onResponseError({ request, response, options }) {

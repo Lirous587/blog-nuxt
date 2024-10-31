@@ -56,6 +56,11 @@ export default defineNuxtConfig({
     // 管理仪表板仅在客户端渲染
     "/admin/**": { ssr: false },
   },
+  router: {
+    options: {
+      scrollBehaviorType: "smooth",
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
