@@ -9,7 +9,7 @@
         <NuxtLink
           :key="item.id"
           :to="'/kind/' + item.id + '/1'"
-          class="flex items-center justify-between"
+          class="flex items-center justify-between transition-transform hover:animate-pulse"
         >
           <div class="flex items-center gap-2 ml-2 flex-shrink-0">
             <el-icon>

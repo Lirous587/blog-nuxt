@@ -9,7 +9,7 @@
         v-for="item in list"
         :key="item.id"
         :to="'/label/' + item.id + '/1'"
-        class="py-2 px-2 rounded-lg text-white"
+        class="py-2 px-2 rounded-lg text-white transition-transform duration-300 hover:scale-110 hover:text-blue-200"
         :style="{ backgroundColor: item.color }"
       >
         {{ item.name }}

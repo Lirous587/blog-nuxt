@@ -6,15 +6,16 @@
       v-show="loading"
     >
       <TypeWriter
-        class="p-3 rounded-xl text-3xl text-white text-opacity-60 bg-black bg-opacity-40 mb-5"
-        firstWord="春花秋月何时了"
-        lastWord="往事知多少"
+        class="p-3 rounded-xl text-xl text-white text-opacity-60 bg-black bg-opacity-40 mb-5"
+        :sentenceList="sentenceList"
+        :addSpeed="150"
+        :deleteSpeed="70"
       />
 
       <div class="flex justify-center items-center">
         <div
           v-for="(word, index) in 'Lirous不想coding'"
-          class="relative inline-flex text-3xl mx-2 text-white float-action"
+          class="relative inline-flex text-xl mx-2 text-white float-action"
           :style="{ animationDelay: `${index * -0.5}s` }"
         >
           {{ word }}
@@ -44,6 +45,12 @@ const loading = ref(false);
 const imgLoad = () => {
   loading.value = true;
 };
+
+const sentenceList = ref([
+  "醉后不知天在水，满船清梦压星河",
+  "古今多少事，都付笑谈中",
+  "人生自古谁无死，留取丹心照汗青",
+]);
 
 const contaninerRef = ref(null);
 

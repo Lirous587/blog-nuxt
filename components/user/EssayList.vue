@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card
-      v-for="item in list"
+      v-for="(item, index) in list"
       :key="item.id"
       shadow="always"
       class="!rounded-xl mx-10 my-8 hover:!shadow-lg bg-gradient-to-br from-pink-50 to-green-100"
@@ -9,23 +9,24 @@
       <div class="flex flex-col justify-center lg:flex-row lg:items-center">
         <NuxtLink
           :to="'/essay/' + item.id"
-          class="flex justify-center order-1 my-2 lg:mr-4 lg:w-[160px] lg:h-[90px] xl:w-[240px] xl:h-[135px]"
+          class="flex justify-center order-0 mx-3 lg:order-2 my-2 lg:w-[192px] lg:h-[108px] xl:w-[288px] xl:h-[172px]"
         >
           <el-image
             :src="imgUrlPre + '/' + item.imgUrl"
             fit="cover"
-            class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100"
+            class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100 transition-transform duration-300 ease-in-out hover:scale-110"
             lazy
           >
           </el-image>
         </NuxtLink>
 
         <div
-          class="flex flex-col lg:order-2 justify-around flex-1 gap-y-1 flex-wrap"
+          class="flex flex-col mx-3 order-1 justify-around flex-1 gap-y-1 flex-wrap"
+          :class="index % 2 === 0 ? 'order-3' : 'order-1'"
         >
           <NuxtLink :to="'/essay/' + item.id">
             <span
-              class="text-lg hover:text-blue-500 transition-all duration-200 line-clamp-1"
+              class="text-lg line-clamp-1 transition-transform duration-300 hover:scale-105 hover:text-blue-500 hover:underline"
             >
               {{ item.name }}
             </span>
@@ -61,36 +62,19 @@
               </el-tag>
             </span>
           </div>
+
           <small class="hidden justify-between text-xs text-gray-400 lg:flex">
             <div class="flex items-center gap-x-1">
-              <span
-                class="inline-block w-2 ml-1 h-2 rounded-full border border-gray-400"
-              ></span>
+              <el-icon><Calendar /></el-icon>
               <span class="line-clamp-1">
                 {{ formateDate(item.createdTime) }}
               </span>
-            </div>
-            <div class="flex items-center gap-x-1">
+              <span class="mx-1">|</span>
               <el-icon size="14"><View /></el-icon>
               {{ item.visitedTimes }}
             </div>
           </small>
         </div>
-
-        <small class="flex justify-between text-xs text-gray-400 lg:hidden">
-          <div class="flex items-center gap-x-1">
-            <span
-              class="inline-block w-2 ml-1 h-2 rounded-full border border-gray-400"
-            ></span>
-            <span class="line-clamp-1">
-              {{ formateDate(item.createdTime) }}
-            </span>
-          </div>
-          <div class="flex items-center gap-x-1">
-            <el-icon size="14"><View /></el-icon>
-            {{ item.visitedTimes }}
-          </div>
-        </small>
       </div>
     </el-card>
   </div>

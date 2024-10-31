@@ -51,9 +51,43 @@
           "
           v-model="activeNames"
         >
-          <el-collapse-item name="1" title="近期同分类文章">
-            <UserEssayList :list="data.nearEssayList"></UserEssayList>
-          </el-collapse-item>
+          <el-card>
+            <template #header>
+              <div class="relative leading-[1em]">
+                <span
+                  class="h-[1em] w-[5px] absolute left-0 top-0 bg-blue-400"
+                ></span>
+                <span class="ml-4 font-serif font-bold">相关文章</span>
+              </div>
+            </template>
+
+            <div>
+              <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <el-card
+                  v-for="item in data.nearEssayList"
+                  :key="item.id"
+                  class="relative"
+                >
+                  <NuxtLink :to="'/essay/' + item.id">
+                    <el-image
+                      :src="imgBase + '/' + item.imgUrl"
+                      lazy
+                      fit="cover"
+                    ></el-image>
+                    <div
+                      class="absolute bottom-0 w-full h-[1.5em] right-0 bg-gray-600 bg-opacity-50 text-white p-2"
+                    >
+                      <span
+                        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 line-clamp-1 text-xs"
+                      >
+                        {{ item.name }}</span
+                      >
+                    </div>
+                  </NuxtLink>
+                </el-card>
+              </div>
+            </div>
+          </el-card>
         </el-collapse>
       </ClientOnly>
     </div>
@@ -94,12 +128,13 @@ await getEssay(id)
   });
 
 const config = useRuntimeConfig();
+const imgBase = config.public.imgBase;
 useSeoMeta({
   title: data.value.name,
   ogTitle: data.value.name,
   description: data.value.introduction,
   ogDescription: data.value.introduction,
-  ogImage: config.public.imgBase + "/" + data.value.imgUrl,
-  twitterCard: config.public.imgBase + "/" + data.value.imgUrl,
+  ogImage: imgBase + "/" + data.value.imgUrl,
+  twitterCard: imgBase + "/" + data.value.imgUrl,
 });
 </script>

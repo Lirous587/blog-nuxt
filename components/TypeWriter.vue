@@ -9,17 +9,17 @@
 
 <script setup>
 const props = defineProps({
-  firstWord: {
-    type: String,
+  sentenceList: {
+    type: Array,
     required: true,
   },
-  lastWord: {
-    type: String,
-    required: true,
-  },
-  typingSpeed: {
+  addSpeed: {
     type: Number,
     default: 200,
+  },
+  deleteSpeed: {
+    type: Number,
+    default: 100,
   },
   pauseBetweenWords: {
     type: Number,
@@ -29,15 +29,15 @@ const props = defineProps({
 
 const displayedText = ref("");
 const isTyping = ref(true);
-const currentWordIndex = ref(0);
+const sentenceIndex = ref(0);
 
-const words = [props.firstWord, props.lastWord];
-
-const currentWord = computed(() => words[currentWordIndex.value]);
+const nowSentence = computed(() => {
+  return props.sentenceList[sentenceIndex.value];
+});
 
 const typeWord = () => {
-  if (displayedText.value.length < currentWord.value.length) {
-    displayedText.value += currentWord.value[displayedText.value.length];
+  if (displayedText.value.length < nowSentence.value.length) {
+    displayedText.value += nowSentence.value[displayedText.value.length];
   } else {
     isTyping.value = false;
   }
@@ -48,31 +48,33 @@ const deleteWord = () => {
     displayedText.value = displayedText.value.slice(0, -1);
   } else {
     isTyping.value = true;
-    currentWordIndex.value = (currentWordIndex.value + 1) % words.length;
+    sentenceIndex.value = (sentenceIndex.value + 1) % props.sentenceList.length;
   }
 };
 
 let timer;
 
+const updateTyping = () => {
+  clearTimeout(timer);
+  if (isTyping.value) {
+    if (displayedText.value.length === nowSentence.value.length) {
+      timer = setTimeout(() => {
+        isTyping.value = false;
+      }, props.pauseBetweenWords);
+    } else {
+      timer = setTimeout(typeWord, props.addSpeed);
+    }
+  } else {
+    timer = setTimeout(deleteWord, props.deleteSpeed);
+  }
+};
+
 onMounted(() => {
-  watch(
-    [isTyping, displayedText],
-    () => {
-      clearTimeout(timer);
-      if (isTyping.value) {
-        if (displayedText.value.length === currentWord.value.length) {
-          timer = setTimeout(() => {
-            isTyping.value = false;
-          }, props.pauseBetweenWords);
-        } else {
-          timer = setTimeout(typeWord, props.typingSpeed);
-        }
-      } else {
-        timer = setTimeout(deleteWord, props.typingSpeed);
-      }
-    },
-    { immediate: true }
-  );
+  watch([isTyping, displayedText], updateTyping, { immediate: true });
+});
+
+onUnmounted(() => {
+  clearTimeout(timer);
 });
 </script>
 

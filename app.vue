@@ -1,5 +1,9 @@
 <template>
-  <FullLoading v-if="isFullLoading" />
+  <FullLoading
+    v-if="isFullLoading || !isAnimationComplete"
+    v-model:ifLoad="isFullLoading"
+  />
+
   <NuxtLayout>
     <NuxtLoadingIndicator :height="2" color="#409eff" />
     <NuxtPage />
@@ -19,12 +23,18 @@ const nuxtApp = useNuxtApp();
 // 是否首次加载
 const isFullLoading = ref(true);
 
+const isAnimationComplete = ref(false);
+
 nuxtApp.hook("page:start", () => {
   isFullLoading.value = true;
+  isAnimationComplete.value = false;
 });
 
 nuxtApp.hook("page:finish", () => {
   isFullLoading.value = false;
+  setTimeout(() => {
+    isAnimationComplete.value = true;
+  }, 500);
 });
 </script>
 

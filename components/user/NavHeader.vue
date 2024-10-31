@@ -107,21 +107,21 @@ watch(route, () => {
   mobileMenuVisiable.value = false;
 });
 
-const top = ref("0");
+const translateY = ref("0");
 
 let lastTop = 0;
 let nowTop = 0;
 
 const scroll = (event) => {
   nowTop = event.target.scrollingElement.scrollTop;
-  if (nowTop > lastTop) {
-    top.value = "-60px";
+  if (nowTop > lastTop && nowTop > 60) {
+    translateY.value = "-60px";
   } else {
-    top.value = "0px";
+    translateY.value = "0px";
   }
   lastTop = nowTop;
 };
-const throttleScroll = throttle(scroll);
+const throttleScroll = throttle(scroll, 50);
 
 onMounted(() => {
   document.addEventListener("scroll", throttleScroll);
@@ -138,7 +138,7 @@ onBeforeUnmount(() => {
 
 .headerContainer {
   @apply bg-white backdrop-blur-sm bg-opacity-90 fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10 transition-all duration-500 ease-linear;
-  transform: translateY(v-bind(top));
+  transform: translateY(v-bind(translateY));
 }
 
 .color-text {
