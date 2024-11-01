@@ -13,7 +13,7 @@
           <el-avatar
             class="float-left"
             size=""
-            src="http://liuzihao.online:8080/api/img/2.png"
+            :src="imgPre + '/' + item.imgUrl"
           ></el-avatar>
           <div class="float-right relative flex items-center">
             <span
@@ -34,6 +34,9 @@ import { getHeartWordsList } from "~/api/heartWords";
 definePageMeta({
   middleware: ["index-data", "page-validation"],
 });
+const config = useRuntimeConfig();
+
+const imgPre = config.public.imgBase;
 
 const route = useRoute();
 

@@ -9,7 +9,7 @@
       </div>
     </NuxtLink>
 
-    <NuxtLink to="/heartWord">
+    <NuxtLink to="/heartWords/1">
       <div class="flex items-center">
         <span class="iconfont">&#xe8a6;</span>
         <span class="color-text">心语</span>

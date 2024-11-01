@@ -29,7 +29,7 @@
           <span class="color-text">首页</span>
         </div>
       </NuxtLink>
-      <NuxtLink to="/heartWord" class="nav hidden lg:block">
+      <NuxtLink to="/heartWords/1" class="nav hidden lg:block">
         <div class="flex items-center">
           <span class="iconfont">&#xe8a6;</span>
           <span class="color-text">心语</span>

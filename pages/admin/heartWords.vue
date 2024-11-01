@@ -2,9 +2,7 @@
   <div>
     <el-card>
       <template #header>
-        <el-button type="primary" @click="drawerVisiableRef = true"
-          >添加</el-button
-        >
+        <el-button type="primary" @click="handelCreatePre">添加</el-button>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
@@ -19,7 +17,7 @@
               placeholder="请输入心语内容"
               v-model="scope.row.content"
               type="textarea"
-              :rows="2"
+              :rows="3"
             >
             </el-input>
           </template>
@@ -29,10 +27,17 @@
             <el-input
               size="large"
               placeholder="请输入心语出处"
-              v-model="scope.row.author"
+              v-model="scope.row.source"
             ></el-input>
           </template>
         </el-table-column>
+
+        <el-table-column label="心语图片" align="center" min-width="250">
+          <template #default="scope">
+            <el-avatar :src="imgPre + '/' + scope.row.imgUrl"></el-avatar>
+          </template>
+        </el-table-column>
+
         <el-table-column label="是否打印" align="center" min-width="250">
           <template #default="scope">
             <el-switch v-model="scope.row.ifCouldType" size="large" />
@@ -43,7 +48,7 @@
             <el-button
               type="warning"
               :loading="scope.row.loading"
-              @click="handelUpdate(scope.row)"
+              @click="handelUpdatePre(scope.row)"
               >修改</el-button
             >
 
@@ -76,11 +81,12 @@
     </el-card>
 
     <el-drawer
-      title="添加标签"
+      :title="ifCreate ? '添加标签' : '修改标签'"
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
       append-to-body
+      :destroy-on-close="true"
     >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="心语内容">
@@ -94,7 +100,7 @@
         <el-form-item label="心语出处">
           <el-input
             placeholder="请输入标签介绍"
-            v-model="form.author"
+            v-model="form.source"
             type="textarea"
             :rows="3"
           >
@@ -106,13 +112,18 @@
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
         </el-form-item>
-
+        <el-form-item label="图片">
+          <AdminUploadImg
+            v-model:imgUrl="form.imgUrl"
+            ref="uploadImgRef"
+          ></AdminUploadImg>
+        </el-form-item>
         <el-form-item>
           <el-button
             type="primary"
             size="large"
             class="mt-5 w-full"
-            @click="handelCreate"
+            @click="drawerAction"
             :loading="loading"
           >
             添加</el-button
@@ -131,18 +142,31 @@ import {
   updateHeartWords,
 } from "~/api/heartWords";
 
-const pageSise = ref(10);
+const config = useRuntimeConfig();
+
+const imgPre = config.public.imgBase;
 
 definePageMeta({
   layout: "admin",
 });
 
-const form = reactive({
+const oldForm = reactive({
+  id: 1,
   content: "",
-  author: "",
+  source: "",
+  imgUrl: "",
   ifCouldType: false,
 });
 
+const form = reactive({
+  id: 1,
+  content: "",
+  source: "",
+  imgUrl: "",
+  ifCouldType: false,
+});
+
+const uploadImgRef = ref(null);
 const currentPage = ref(1);
 
 const queryParams = reactive({
@@ -151,6 +175,7 @@ const queryParams = reactive({
 });
 
 const drawerVisiableRef = ref(false);
+const ifCreate = ref(true);
 
 const tableLoading = ref(false);
 const loading = ref(false);
@@ -163,7 +188,7 @@ const getList = async () => {
     .then((res) => {
       const data = res.data;
       currentPage.value = data.totalPage;
-      list.value = data.heartWordsList.map((item) => {
+      list.value = data.list.map((item) => {
         return {
           ...item,
           loading: false,
@@ -174,8 +199,24 @@ const getList = async () => {
       tableLoading.value = false;
     });
 };
+await getList();
 
-getList();
+const drawerAction = async () => {
+  await uploadImgRef.value.submitUpload();
+  ifCreate.value ? handelCreate() : handelUpdate();
+};
+
+const cleanForm = () => {
+  for (const key in oldForm) {
+    form[key] = oldForm[key];
+  }
+};
+
+const handelCreatePre = () => {
+  cleanForm();
+  drawerVisiableRef.value = true;
+  ifCreate.value = true;
+};
 
 const handelCreate = () => {
   loading.value = true;
@@ -188,17 +229,27 @@ const handelCreate = () => {
     })
     .finally(() => {
       loading.value = false;
+      drawerVisiableRef.value = false;
     });
 };
 
-const handelUpdate = (row) => {
-  row.loading = true;
-  updateHeartWords(row)
-    .then(() => {
+const handelUpdatePre = (row) => {
+  cleanForm();
+  for (const key in form) {
+    form[key] = row[key];
+  }
+  drawerVisiableRef.value = true;
+  ifCreate.value = false;
+};
+
+const handelUpdate = () => {
+  updateHeartWords(form)
+    .then(async () => {
       toast("修改成功");
+      await getList();
     })
     .finally(() => {
-      row.loading = false;
+      drawerVisiableRef.value = false;
     });
 };
 
