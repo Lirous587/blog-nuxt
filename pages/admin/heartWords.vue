@@ -7,57 +7,48 @@
         >
       </template>
       <el-table :data="list" border v-loading="tableLoading">
-        <el-table-column label="id" prop="id"></el-table-column>
         <el-table-column
-          label="标签名"
-          prop="name"
-          min-width="120"
+          label="id"
+          prop="id"
+          width="120"
           align="center"
-        >
-          <template #default="scope">
-            <el-input v-model="scope.row.name"></el-input>
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          label="标签介绍"
-          prop="name"
-          min-width="150"
-          align="center"
-        >
+        ></el-table-column>
+        <el-table-column label="心语内容" align="center" min-width="250">
           <template #default="scope">
             <el-input
-              placeholder="请输入标签介绍"
-              v-model="scope.row.introduction"
+              placeholder="请输入心语内容"
+              v-model="scope.row.content"
               type="textarea"
               :rows="2"
             >
             </el-input>
           </template>
         </el-table-column>
-
-        <el-table-column label="图标" prop="icon" width="180" align="center">
+        <el-table-column label="心语出处" align="center" min-width="250">
           <template #default="scope">
-            <ChooseIcon v-model:icon="scope.row.icon"></ChooseIcon>
+            <el-input
+              size="large"
+              placeholder="请输入心语出处"
+              v-model="scope.row.author"
+            ></el-input>
           </template>
         </el-table-column>
-        <el-table-column label="文章数" prop="essayCount" align="center" />
-        <el-table-column
-          label="操作"
-          prop="icon"
-          align="center"
-          min-width="200"
-        >
+        <el-table-column label="是否打印" align="center" min-width="250">
+          <template #default="scope">
+            <el-switch v-model="scope.row.ifCouldType" size="large" />
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
             <el-button
               type="warning"
               :loading="scope.row.loading"
-              @click="handelEdit(scope.row)"
+              @click="handelUpdate(scope.row)"
               >修改</el-button
             >
 
             <el-popconfirm
-              title="确定删除该分类?"
+              title="确定删除该心语?"
               confirm-button-text="确定"
               confirm-button-type="danger"
               cancel-button-text="取消"
@@ -72,37 +63,56 @@
           </template>
         </el-table-column>
       </el-table>
+      <template #footer>
+        <div class="mt-5 flex justify-center">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :page-count="currentPage"
+            @change="changePage"
+          />
+        </div>
+      </template>
     </el-card>
 
     <el-drawer
-      title="添加"
+      title="添加标签"
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
       append-to-body
     >
       <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="分类名">
-          <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
+        <el-form-item label="心语内容">
+          <el-input
+            placeholder="请输入标签名称"
+            size="large"
+            v-model="form.content"
+          >
+          </el-input>
         </el-form-item>
-        <el-form-item label="分类介绍">
+        <el-form-item label="心语出处">
           <el-input
             placeholder="请输入标签介绍"
-            v-model="form.introduction"
+            v-model="form.author"
             type="textarea"
             :rows="3"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="图标">
-          <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
+        <el-form-item label="是否打印">
+          <el-radio-group v-model="form.ifCouldType">
+            <el-radio :value="true" size="large">是</el-radio>
+            <el-radio :value="false" size="large">否</el-radio>
+          </el-radio-group>
         </el-form-item>
+
         <el-form-item>
           <el-button
             type="primary"
             size="large"
-            @click="handelCreate"
             class="mt-5 w-full"
+            @click="handelCreate"
             :loading="loading"
           >
             添加</el-button
@@ -114,21 +124,31 @@
 </template>
 
 <script setup>
-import { createKind, deleteKind, updateKind } from "~/api/admin";
-import { useMyAdminStore } from "~/store/admin";
+import {
+  createHeartWords,
+  deleteHeartWords,
+  getHeartWordsList,
+  updateHeartWords,
+} from "~/api/heartWords";
+
+const pageSise = ref(10);
 
 definePageMeta({
   layout: "admin",
-  middleware: "admin",
 });
 
 const form = reactive({
-  name: "",
-  icon: "House",
-  introduction: "",
+  content: "",
+  author: "",
+  ifCouldType: false,
 });
 
-const adminStore = useMyAdminStore();
+const currentPage = ref(1);
+
+const queryParams = reactive({
+  page: 1,
+  pageSize: 10,
+});
 
 const drawerVisiableRef = ref(false);
 
@@ -137,28 +157,33 @@ const loading = ref(false);
 
 const list = ref([]);
 
-const getKindList = () => {
-  const kindList = adminStore.getKindList();
-  if (Array.isArray(kindList)) {
-    list.value = kindList.map((o) => {
-      return {
-        ...o,
-        loading: false,
-      };
+const getList = async () => {
+  tableLoading.value = true;
+  await getHeartWordsList(queryParams)
+    .then((res) => {
+      const data = res.data;
+      currentPage.value = data.totalPage;
+      list.value = data.heartWordsList.map((item) => {
+        return {
+          ...item,
+          loading: false,
+        };
+      });
+    })
+    .finally(() => {
+      tableLoading.value = false;
     });
-  }
 };
-getKindList();
+
+getList();
 
 const handelCreate = () => {
   loading.value = true;
   tableLoading.value = true;
-  createKind(form)
+  createHeartWords(form)
     .then(async () => {
       toast("创建成功");
-      drawerVisiableRef.value = false;
-      await adminStore.updateAll();
-      getKindList();
+      await getList();
       tableLoading.value = false;
     })
     .finally(() => {
@@ -166,9 +191,9 @@ const handelCreate = () => {
     });
 };
 
-const handelEdit = (row) => {
+const handelUpdate = (row) => {
   row.loading = true;
-  updateKind(row)
+  updateHeartWords(row)
     .then(() => {
       toast("修改成功");
     })
@@ -179,14 +204,18 @@ const handelEdit = (row) => {
 
 const handelDelete = (row) => {
   tableLoading.value = true;
-  deleteKind(row.id)
+  deleteHeartWords(row.id)
     .then(async () => {
       toast("删除成功");
-      await adminStore.updateAll();
-      getKindList();
+      await getList();
     })
     .finally(() => {
       tableLoading.value = false;
     });
+};
+
+const changePage = async (row) => {
+  queryParams.page = row;
+  await getList();
 };
 </script>

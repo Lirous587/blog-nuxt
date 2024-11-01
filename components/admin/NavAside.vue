@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-start my-2 ml-4 items-center">
+  <!-- <div class="flex justify-start my-2 ml-4 items-center">
     <el-icon
       v-if="isCollapse"
       size="30"
@@ -14,8 +14,7 @@
       color="rgb(75,217,127)"
       ><Fold
     /></el-icon>
-  </div>
-
+  </div> -->
   <el-menu
     :collapse="isCollapse"
     :default-active="defaultActive"
@@ -49,17 +48,17 @@
         <span>分类标签</span>
       </template>
 
-      <NuxtLink to="/admin/manageKind">
-        <el-menu-item index="/admin/manageKind"> 管理分类 </el-menu-item>
+      <NuxtLink to="/admin/kind">
+        <el-menu-item index="/admin/kind"> 管理分类 </el-menu-item>
       </NuxtLink>
-      <NuxtLink to="/admin/manageLabel">
-        <el-menu-item index="/admin/manageLabel"> 管理标签 </el-menu-item>
+      <NuxtLink to="/admin/label">
+        <el-menu-item index="/admin/label"> 管理标签 </el-menu-item>
       </NuxtLink>
     </el-sub-menu>
 
     <!-- 心语 -->
-    <NuxtLink to="/admin/">
-      <el-menu-item index="/admin/heartWord">
+    <NuxtLink to="/admin/heartWords">
+      <el-menu-item index="/admin/heartWords">
         <template #title>
           <el-icon><IceTea /></el-icon>
           <span>心语</span>
@@ -68,7 +67,7 @@
     </NuxtLink>
 
     <!-- 友链 -->
-    <NuxtLink to="/admin">
+    <NuxtLink to="/admin/">
       <el-menu-item index="/admin/friendLink">
         <el-icon><ToiletPaper /></el-icon>
         <template #title>

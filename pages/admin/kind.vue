@@ -8,17 +8,13 @@
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column label="id" prop="id"></el-table-column>
-        <el-table-column label="标签名" prop="name" align="center">
+        <el-table-column label="标签名" min-width="120" align="center">
           <template #default="scope">
-            <el-input v-model="scope.row.name"></el-input>
+            <el-input size="large" v-model="scope.row.name"></el-input>
           </template>
         </el-table-column>
-        <el-table-column
-          label="标签介绍"
-          prop="name"
-          min-width="150"
-          align="center"
-        >
+
+        <el-table-column label="标签介绍" min-width="150" align="center">
           <template #default="scope">
             <el-input
               placeholder="请输入标签介绍"
@@ -30,6 +26,12 @@
           </template>
         </el-table-column>
 
+        <el-table-column label="图标" width="180" align="center">
+          <template #default="scope">
+            <ChooseIcon v-model:icon="scope.row.icon"></ChooseIcon>
+          </template>
+        </el-table-column>
+        <el-table-column label="文章数" prop="essayCount" align="center" />
         <el-table-column
           label="操作"
           prop="icon"
@@ -45,7 +47,7 @@
             >
 
             <el-popconfirm
-              title="确定删除该标签?"
+              title="确定删除该分类?"
               confirm-button-text="确定"
               confirm-button-type="danger"
               cancel-button-text="取消"
@@ -63,22 +65,17 @@
     </el-card>
 
     <el-drawer
-      title="添加标签"
+      title="添加"
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
       append-to-body
     >
       <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="标签名">
-          <el-input
-            placeholder="请输入标签名称"
-            size="large"
-            v-model="form.name"
-          >
-          </el-input>
+        <el-form-item label="分类名">
+          <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="标签介绍">
+        <el-form-item label="分类介绍">
           <el-input
             placeholder="请输入标签介绍"
             v-model="form.introduction"
@@ -87,12 +84,15 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item label="图标">
+          <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
+        </el-form-item>
         <el-form-item>
           <el-button
             type="primary"
             size="large"
-            class="mt-5 w-full"
             @click="handelCreate"
+            class="mt-5 w-full"
             :loading="loading"
           >
             添加</el-button
@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import { createLabel, deleteLabel, updateLabel } from "~/api/admin";
+import { createKind, deleteKind, updateKind } from "~/api/kind";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
@@ -127,23 +127,28 @@ const loading = ref(false);
 
 const list = ref([]);
 
-const getLabelList = () => {
-  const labelList = adminStore.getLabelList();
-  if (Array.isArray(labelList)) {
-    list.value = labelList;
+const getKindList = () => {
+  const kindList = adminStore.getKindList();
+  if (Array.isArray(kindList)) {
+    list.value = kindList.map((o) => {
+      return {
+        ...o,
+        loading: false,
+      };
+    });
   }
 };
-
-getLabelList();
+getKindList();
 
 const handelCreate = () => {
   loading.value = true;
   tableLoading.value = true;
-  createLabel(form)
+  createKind(form)
     .then(async () => {
       toast("创建成功");
+      drawerVisiableRef.value = false;
       await adminStore.updateAll();
-      getLabelList();
+      getKindList();
       tableLoading.value = false;
     })
     .finally(() => {
@@ -153,7 +158,7 @@ const handelCreate = () => {
 
 const handelEdit = (row) => {
   row.loading = true;
-  updateLabel(row)
+  updateKind(row)
     .then(() => {
       toast("修改成功");
     })
@@ -164,11 +169,11 @@ const handelEdit = (row) => {
 
 const handelDelete = (row) => {
   tableLoading.value = true;
-  deleteLabel(row.id)
+  deleteKind(row.id)
     .then(async () => {
       toast("删除成功");
       await adminStore.updateAll();
-      getLabelList();
+      getKindList();
     })
     .finally(() => {
       tableLoading.value = false;
