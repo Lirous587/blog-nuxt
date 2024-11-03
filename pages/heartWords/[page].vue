@@ -32,7 +32,7 @@
 import { getHeartWordsList } from "~/api/heartWords";
 
 definePageMeta({
-  middleware: ["page-validation"],
+  middleware: ["page-validation", "index-data"],
 });
 const config = useRuntimeConfig();
 

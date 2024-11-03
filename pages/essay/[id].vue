@@ -12,7 +12,7 @@
 
           <div class="flex items-center gap-x-1 text-gray-500">
             <el-icon size="14"><View /></el-icon>
-            {{ data.visitedTimes }}
+            {{ data.visitedTimes + 1 }}
           </div>
         </div>
 

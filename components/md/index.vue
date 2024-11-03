@@ -149,10 +149,12 @@ onMounted(() => {
     data = disposeMdAnchor(previewRef, router);
     anchors.value = data.anchors;
     hList.value = data.hList;
-    handleAnchorClick(
-      { preventDefault: () => {} },
-      data.anchors.findIndex((item) => item.id == route.hash.slice(1))
+
+    const index = data.anchors.findIndex(
+      (item) => item.id == route.hash.slice(1)
     );
+
+    handleAnchorClick({ preventDefault: () => {} }, index > 0 ? index : 0);
 
     document.body.addEventListener("click", bodyClickHandel);
     window.addEventListener("scroll", throttleScrollHandel);

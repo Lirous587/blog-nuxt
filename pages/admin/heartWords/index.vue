@@ -85,7 +85,6 @@
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
-      append-to-body
       :destroy-on-close="true"
     >
       <el-form :model="form" label-width="80px" :inline="false">
@@ -199,6 +198,7 @@ const getList = async () => {
       tableLoading.value = false;
     });
 };
+
 await getList();
 
 const drawerAction = async () => {

@@ -1,10 +1,13 @@
 <template>
-  <div>
+  <div v-for="(item, index) in list" :key="item.id">
     <el-card
-      v-for="(item, index) in list"
-      :key="item.id"
       shadow="always"
-      class="!rounded-xl mx-10 my-8 hover:!shadow-lg bg-gradient-to-br from-pink-50 to-green-100"
+      class="!rounded-xl mx-10 my-8 hover:!shadow-lg"
+      :class="
+        index % 2 === 0
+          ? ['bg-gradient-to-br', 'from-pink-50', ' to-green-100']
+          : ['bg-gradient-to-tl', 'from-pink-50', ' to-green-100']
+      "
     >
       <div class="flex flex-col justify-center lg:flex-row lg:items-center">
         <NuxtLink

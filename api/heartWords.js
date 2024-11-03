@@ -1,6 +1,6 @@
 export function getHeartWordsList(query) {
   let q = queryToUrl(query);
-  return api.get(`/base/heart_word_list${q}`);
+  return api.get(`/base/heartWords_list${q}`);
 }
 
 export function createHeartWords(form) {

@@ -1,0 +1,127 @@
+<template>
+  <div class="flex flex-col items-center w-full ml-2 mt-3" v-loading="loading">
+    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
+      <div
+        v-for="item in list"
+        :key="item.id"
+        class="relative h-[180px] w-full shadow-lg border border-gray-200 rounded-lg"
+      >
+        <el-image
+          :src="imgPre + item.imgUrl"
+          class="h-full w-full p-2 rounded-lg"
+          lazy
+          fit="cover"
+        >
+        </el-image>
+        <div
+          class="absolute bottom-0 p-1 translate-y-[-1/2] shadow-sm w-full bg-white"
+        >
+          <div
+            class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
+            size="small"
+          >
+            <span class="ml-2"> {{ item.imgUrl }}</span>
+          </div>
+          <div class="flex justify-evenly">
+            <!-- 重新上传图片? -->
+            <el-button size="small" text type="primary" @click=""
+              >重命名</el-button
+            >
+            <!-- <el-checkbox
+              v-if="SelectOne"
+              v-model="checked"
+              :label="label"
+              :value="value"
+            ></el-checkbox> -->
+
+            <el-popconfirm
+              title="确定删除图片?"
+              confirm-button-text="确定"
+              cancel-button-text="取消"
+              confirm-button-type="danger"
+              cancel-button-type="primary"
+              @confirm="handelDelete(item.id)"
+            >
+              <template #reference>
+                <el-button size="small" text type="primary">删除</el-button>
+              </template>
+            </el-popconfirm>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-5 flex justify-center">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :page-count="currentPage"
+        @change="changePage"
+      />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { deleteGallery, getGalleryList } from "~/api/gallery";
+
+const imgPre = useRuntimeConfig().public.imgBase + "/";
+
+const props = defineProps({
+  kindID: {
+    type: Number,
+    required: true,
+  },
+  SelectOne: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const list = ref([]);
+const currentPage = ref(1);
+const loading = ref(false);
+const queryParams = reactive({
+  kindID: props.kindID,
+  page: 1,
+  pageSize: 12,
+});
+
+const getList = async () => {
+  list.value = [];
+  loading.value = true;
+  await getGalleryList(queryParams)
+    .then((res) => {
+      const data = res.data;
+      list.value = data.list;
+      currentPage.value = data.totalPage;
+    })
+    .finally(() => {
+      setTimeout(() => {
+        loading.value = false;
+      }, 200);
+    });
+};
+
+const handelDelete = async (id) => {
+  await deleteGallery(id);
+  await getList();
+};
+
+const changePage = async (page) => {
+  queryParams.page = page;
+  await getList();
+};
+
+await getList();
+
+watch(
+  () => props.kindID,
+  async (newVal) => {
+    queryParams.kindID = newVal;
+    await getList();
+  }
+);
+</script>
+
+<style></style>
