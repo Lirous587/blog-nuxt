@@ -26,7 +26,7 @@
           :key="index"
           @click.stop="handleAnchorClick($event, index)"
           class="anchor"
-          :class="nowHash == item.id ? 'active' : ''"
+          :class="route.hash.slice(1) == item.id ? 'active' : ''"
           :style="{ paddingLeft: (item.indent + 1) * 15 + 'px' }"
         >
           {{ item.title }}
@@ -106,6 +106,7 @@ async function handleUploadImage(event, insertImage, files) {
 }
 
 const router = useRouter();
+const route = useRoute();
 const anchors = ref([]);
 const hList = ref([]);
 const anchorVisiable = ref(true);
@@ -148,10 +149,10 @@ onMounted(() => {
     data = disposeMdAnchor(previewRef, router);
     anchors.value = data.anchors;
     hList.value = data.hList;
-
-    watch(data.nowHash, (val) => {
-      nowHash.value = val;
-    });
+    handleAnchorClick(
+      { preventDefault: () => {} },
+      data.anchors.findIndex((item) => item.id == route.hash.slice(1))
+    );
 
     document.body.addEventListener("click", bodyClickHandel);
     window.addEventListener("scroll", throttleScrollHandel);

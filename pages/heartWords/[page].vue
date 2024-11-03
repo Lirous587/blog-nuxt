@@ -24,7 +24,7 @@
         </template>
       </el-card>
     </div>
-    <Paging :total-page="totalPage" preHref="/heartWords"></Paging>
+    <Paging :totalPage="totalPage" preHref="/heartWords"></Paging>
   </div>
 </template>
 
@@ -32,7 +32,7 @@
 import { getHeartWordsList } from "~/api/heartWords";
 
 definePageMeta({
-  middleware: ["index-data", "page-validation"],
+  middleware: ["page-validation"],
 });
 const config = useRuntimeConfig();
 
@@ -48,14 +48,11 @@ const queryForm = reactive({
 const list = ref([]);
 const totalPage = ref(1);
 
-const getList = async () => {
-  getHeartWordsList(queryForm).then((res) => {
-    const data = res.data;
-    list.value = data.list;
-    totalPage.value = data.totalPage;
-  });
-};
-await getList();
+await getHeartWordsList(queryForm).then((res) => {
+  const data = res.data;
+  list.value = data.list;
+  totalPage.value = data.totalPage;
+});
 </script>
 
 <style scoped>

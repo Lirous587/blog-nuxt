@@ -1,11 +1,14 @@
 <template>
   <el-card shadow="always" class="!rounded-xl hover:!shadow-xl">
     <div class="flex flex-col items-center justify-around gap-y-3">
-      <el-avatar
-        src="/avator.jpg"
-        :size="80"
-        class="cursor-pointer hover:animate-pulse hover:scale-110 transition-transform duration-300 ease-in-out"
-      ></el-avatar>
+      <NuxtLink target="_blank" to="https://github.com/Lirous587">
+        <el-avatar
+          src="/avator.jpg"
+          :size="80"
+          class="cursor-pointer hover:animate-pulse hover:scale-110 transition-transform duration-300 ease-in-out"
+        ></el-avatar>
+      </NuxtLink>
+
       <h2 class="text-2xl text-green-500">Lirous</h2>
       <div class="flex items-center justify-around gap-5">
         <div

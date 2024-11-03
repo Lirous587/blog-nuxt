@@ -85,6 +85,16 @@
         </template>
       </el-menu-item>
     </NuxtLink>
+
+    <!-- 图库 -->
+    <NuxtLink to="/admin/gallery">
+      <el-menu-item index="/admin/gallery">
+        <el-icon><DocumentCopy /></el-icon>
+        <template #title>
+          <span>图库</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
   </el-menu>
 </template>
 

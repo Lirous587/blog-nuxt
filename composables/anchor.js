@@ -3,8 +3,6 @@ export const disposeMdAnchor = (md, router) => {
 
   let anchors = Array.from(hList).filter((anchor) => !!anchor.innerText.trim());
 
-  const nowHash = ref("");
-
   if (!anchors.length) {
     anchors = [];
     return { anchors };
@@ -43,46 +41,8 @@ export const disposeMdAnchor = (md, router) => {
     el.appendChild(aEl);
   });
 
-  const scrollHandel = () => {
-    let distanceList = Array.from(
-      {
-        length: anchors.length,
-      },
-      () => {
-        return {
-          elIndex: 0,
-          distance: 0,
-        };
-      }
-    );
-
-    hList.forEach((el, index) => {
-      const rect = el.getBoundingClientRect();
-      const distance = Math.abs(rect.top);
-      distanceList[index].elIndex = index;
-      distanceList[index].distance = distance;
-    });
-
-    // 正确的排序逻辑
-    distanceList.sort((a, b) => a.distance - b.distance);
-
-    // 获取距离最近的元素
-    const closestElement = distanceList[0];
-
-    nowHash.value = anchors[closestElement.elIndex].id;
-    history.replaceState(null, "", `#${nowHash.value}`);
-  };
-
-  const throttleScroll = throttle(scrollHandel);
-  window.addEventListener("scroll", throttleScroll);
-
-  onBeforeUnmount(() => {
-    window.removeEventListener("scroll", throttleScroll);
-  });
-
   return {
     anchors,
     hList,
-    nowHash,
   };
 };

@@ -4,11 +4,11 @@
       <div class="ml-5 mr-5">
         <div class="flex justify-between items-center">
           <TypeWriter
-            class="text-lg font-bold"
-            :first-word="data.name"
-            :last-word="formateDate(data.createdTime)"
-            :typingSpeed="100"
-          ></TypeWriter>
+            class="p-3 rounded-xl text-xl text-opacity-60 mb-5"
+            :sentenceList="sentenceList"
+            :addSpeed="150"
+            :deleteSpeed="50"
+          />
 
           <div class="flex items-center gap-x-1 text-gray-500">
             <el-icon size="14"><View /></el-icon>
@@ -42,54 +42,44 @@
         <div>
           <Md v-model:content="data.content"></Md>
         </div>
-
-        <el-collapse
-          class="px-3"
-          :accordion="true"
-          v-if="
-            Array.isArray(data.nearEssayList) && data.nearEssayList.length > 0
-          "
-          v-model="activeNames"
-        >
-          <el-card>
-            <template #header>
-              <div class="relative leading-[1em]">
-                <span
-                  class="h-[1em] w-[5px] absolute left-0 top-0 bg-blue-400"
-                ></span>
-                <span class="ml-4 font-serif font-bold">相关文章</span>
-              </div>
-            </template>
-
-            <div>
-              <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                <el-card
-                  v-for="item in data.nearEssayList"
-                  :key="item.id"
-                  class="relative"
-                >
-                  <NuxtLink :to="'/essay/' + item.id">
-                    <el-image
-                      :src="imgBase + '/' + item.imgUrl"
-                      lazy
-                      fit="cover"
-                    ></el-image>
-                    <div
-                      class="absolute bottom-0 w-full h-[1.5em] right-0 bg-gray-600 bg-opacity-50 text-white p-2"
-                    >
-                      <span
-                        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 line-clamp-1 text-xs"
-                      >
-                        {{ item.name }}</span
-                      >
-                    </div>
-                  </NuxtLink>
-                </el-card>
-              </div>
-            </div>
-          </el-card>
-        </el-collapse>
       </ClientOnly>
+
+      <el-card>
+        <template #header>
+          <div class="relative leading-[1em]">
+            <span
+              class="h-[1em] w-[5px] absolute left-0 top-0 bg-blue-400"
+            ></span>
+            <span class="ml-4 font-serif font-bold">相关文章</span>
+          </div>
+        </template>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <el-card
+            v-for="item in data.nearEssayList"
+            :key="item.id"
+            class="relative"
+          >
+            <NuxtLink :to="'/essay/' + item.id">
+              <el-image
+                :src="imgBase + '/' + item.imgUrl"
+                lazy
+                fit="cover"
+                class="w-full h-[72px] lg:h-[90px] xl:h-[108px]"
+              ></el-image>
+              <div
+                class="absolute bottom-0 w-full h-[1.5em] right-0 bg-gray-600 bg-opacity-50 text-white p-2"
+              >
+                <span
+                  class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 line-clamp-1 text-xs"
+                >
+                  {{ item.name }}</span
+                >
+              </div>
+            </NuxtLink>
+          </el-card>
+        </div>
+      </el-card>
     </div>
   </div>
 </template>
@@ -101,6 +91,7 @@ definePageMeta({
   middleware: ["index-data"],
 });
 
+const sentenceList = ref([]);
 const route = useRoute();
 const id = route.params.id;
 const activeNames = ref(["1"]);
@@ -122,6 +113,7 @@ nuxtApp.hook("page:finish", () => {
 await getEssay(id)
   .then((res) => {
     data.value = res.data;
+    sentenceList.value = [data.value.name, formateDate(data.value.createdTime)];
   })
   .catch((err) => {
     if (err.code === 1005) navigateTo("/");
