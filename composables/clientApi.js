@@ -8,6 +8,7 @@ const apiCore = async (url, opt) => {
 
   return await $fetch(requestUrl, {
     method: opt.method || "get",
+    retry: false,
     onRequest({ options }) {
       let token = getToken();
       if (token) {

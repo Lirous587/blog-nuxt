@@ -1,6 +1,11 @@
 <template>
-  <div class="flex flex-col items-center w-full ml-2 mt-3" v-loading="loading">
-    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6">
+  <div
+    class="flex flex-col items-center w-full ml-2 mt-3 h-[540px]"
+    v-loading="loading"
+  >
+    <div
+      class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+    >
       <div
         v-for="item in list"
         :key="item.id"
@@ -23,16 +28,12 @@
             <span class="ml-2"> {{ item.imgUrl }}</span>
           </div>
           <div class="flex justify-evenly">
-            <!-- 重新上传图片? -->
-            <el-button size="small" text type="primary" @click=""
-              >重命名</el-button
-            >
-            <!-- <el-checkbox
+            <el-checkbox
               v-if="SelectOne"
               v-model="checked"
               :label="label"
               :value="value"
-            ></el-checkbox> -->
+            ></el-checkbox>
 
             <el-popconfirm
               title="确定删除图片?"
@@ -61,7 +62,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import { deleteGallery, getGalleryList } from "~/api/gallery";
 
@@ -87,10 +87,10 @@ const queryParams = reactive({
   pageSize: 12,
 });
 
-const getList = async () => {
+const getList = () => {
   list.value = [];
   loading.value = true;
-  await getGalleryList(queryParams)
+  getGalleryList(queryParams)
     .then((res) => {
       const data = res.data;
       list.value = data.list;
@@ -105,23 +105,26 @@ const getList = async () => {
 
 const handelDelete = async (id) => {
   await deleteGallery(id);
-  await getList();
+  getList();
 };
 
 const changePage = async (page) => {
   queryParams.page = page;
-  await getList();
+  getList();
 };
 
-await getList();
+getList();
 
 watch(
   () => props.kindID,
-  async (newVal) => {
+  (newVal) => {
     queryParams.kindID = newVal;
-    await getList();
+    getList();
   }
 );
+defineExpose({
+  getList,
+});
 </script>
 
 <style></style>
