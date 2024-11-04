@@ -35,9 +35,7 @@ definePageMeta({
   middleware: ["page-validation", "index-data"],
 });
 const config = useRuntimeConfig();
-
 const imgPre = config.public.imgBase;
-
 const route = useRoute();
 
 const queryForm = reactive({

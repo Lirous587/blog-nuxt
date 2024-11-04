@@ -1,13 +1,10 @@
 <template>
-  <div
-    class="flex flex-col items-center w-full ml-2 mt-3 h-[540px]"
-    v-loading="loading"
-  >
+  <div class="flex flex-col items-center w-full ml-2 mt-3" v-loading="loading">
     <div
       class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
     >
       <div
-        v-for="item in list"
+        v-for="(item, index) in list"
         :key="item.id"
         class="relative h-[180px] w-full shadow-lg border border-gray-200 rounded-lg"
       >
@@ -29,10 +26,11 @@
           </div>
           <div class="flex justify-evenly">
             <el-checkbox
-              v-if="SelectOne"
-              v-model="checked"
-              :label="label"
-              :value="value"
+              v-if="ifSelect"
+              v-model="item.checked"
+              :value="item.imgUrl"
+              size="small"
+              @change="handelSelectOne(index)"
             ></el-checkbox>
 
             <el-popconfirm
@@ -61,6 +59,12 @@
       />
     </div>
   </div>
+
+  <div class="absolute right-10 bottom-10" v-if="ifSelect">
+    <el-button type="primary" @click="handelChooseImg" class="float-right"
+      >选择图片</el-button
+    >
+  </div>
 </template>
 <script setup>
 import { deleteGallery, getGalleryList } from "~/api/gallery";
@@ -72,11 +76,9 @@ const props = defineProps({
     type: Number,
     required: true,
   },
-  SelectOne: {
-    type: Boolean,
-    default: false,
-  },
 });
+
+const ifSelect = inject("select");
 
 const list = ref([]);
 const currentPage = ref(1);
@@ -93,7 +95,10 @@ const getList = () => {
   getGalleryList(queryParams)
     .then((res) => {
       const data = res.data;
-      list.value = data.list;
+      list.value = data.list.map((o) => ({
+        ...o,
+        checked: false,
+      }));
       currentPage.value = data.totalPage;
     })
     .finally(() => {
@@ -102,6 +107,8 @@ const getList = () => {
       }, 200);
     });
 };
+
+getList();
 
 const handelDelete = async (id) => {
   await deleteGallery(id);
@@ -113,7 +120,21 @@ const changePage = async (page) => {
   getList();
 };
 
-getList();
+const checkedItem = ref(null);
+const handelSelectOne = (index) => {
+  list.value.forEach((item, i) => {
+    if (i !== index) {
+      item.checked = false;
+    }
+  });
+  checkedItem.value = list.value[index];
+};
+
+const emits = defineEmits(["selectImg"]);
+
+const handelChooseImg = () => {
+  emits("selectImg", checkedItem.value);
+};
 
 watch(
   () => props.kindID,
@@ -122,6 +143,7 @@ watch(
     getList();
   }
 );
+
 defineExpose({
   getList,
 });

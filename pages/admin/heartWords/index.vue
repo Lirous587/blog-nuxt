@@ -112,10 +112,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="图片">
-          <AdminUploadImg
-            v-model:imgUrl="form.imgUrl"
-            ref="uploadImgRef"
-          ></AdminUploadImg>
+          <ImgPreview
+            @click="dialogVisiable = true"
+            :imgUrl="form.imgUrl"
+          ></ImgPreview>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -130,6 +130,15 @@
         </el-form-item>
       </el-form>
     </el-drawer>
+
+    <el-dialog
+      title="选择图片"
+      width="80%"
+      align-center
+      v-model="dialogVisiable"
+    >
+      <Gallery @select-img="handelSelectImg"></Gallery>
+    </el-dialog>
   </div>
 </template>
 
@@ -141,13 +150,16 @@ import {
   updateHeartWords,
 } from "~/api/heartWords";
 
-const config = useRuntimeConfig();
-
-const imgPre = config.public.imgBase;
-
 definePageMeta({
   layout: "admin",
 });
+
+const config = useRuntimeConfig();
+const imgPre = config.public.imgBase;
+
+provide("select", true);
+
+const dialogVisiable = ref(false);
 
 const oldForm = reactive({
   id: 1,
@@ -165,7 +177,6 @@ const form = reactive({
   ifCouldType: false,
 });
 
-const uploadImgRef = ref(null);
 const currentPage = ref(1);
 
 const queryParams = reactive({
@@ -202,7 +213,6 @@ const getList = async () => {
 await getList();
 
 const drawerAction = async () => {
-  await uploadImgRef.value.submitUpload();
   ifCreate.value ? handelCreate() : handelUpdate();
 };
 
@@ -268,5 +278,12 @@ const handelDelete = (row) => {
 const changePage = async (row) => {
   queryParams.page = row;
   await getList();
+};
+
+const handelSelectImg = (img) => {
+  console.log(img);
+  // form.imgUrl = img;
+  // console.log(form);
+  // dialogVisiable.value = false;
 };
 </script>
