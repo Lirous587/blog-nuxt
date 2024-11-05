@@ -34,7 +34,7 @@
 
         <el-table-column label="心语图片" align="center" min-width="250">
           <template #default="scope">
-            <el-avatar :src="imgPre + '/' + scope.row.imgUrl"></el-avatar>
+            <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
           </template>
         </el-table-column>
 
@@ -113,8 +113,8 @@
         </el-form-item>
         <el-form-item label="图片">
           <ImgPreview
-            @click="dialogVisiable = true"
-            :imgUrl="form.imgUrl"
+            @click="dialogVisible = true"
+            :imgUrl="form.img?.url"
           ></ImgPreview>
         </el-form-item>
         <el-form-item>
@@ -135,7 +135,7 @@
       title="选择图片"
       width="80%"
       align-center
-      v-model="dialogVisiable"
+      v-model="dialogVisible"
     >
       <Gallery @select-img="handelSelectImg"></Gallery>
     </el-dialog>
@@ -155,17 +155,20 @@ definePageMeta({
 });
 
 const config = useRuntimeConfig();
-const imgPre = config.public.imgBase;
+const imgPre = config.public.imgBase + "/";
 
 provide("select", true);
 
-const dialogVisiable = ref(false);
+const dialogVisible = ref(false);
 
 const oldForm = reactive({
   id: 1,
   content: "",
   source: "",
-  imgUrl: "",
+  img: {
+    url: "",
+    id: 0,
+  },
   ifCouldType: false,
 });
 
@@ -173,7 +176,10 @@ const form = reactive({
   id: 1,
   content: "",
   source: "",
-  imgUrl: "",
+  img: {
+    url: "",
+    id: 0,
+  },
   ifCouldType: false,
 });
 
@@ -281,9 +287,7 @@ const changePage = async (row) => {
 };
 
 const handelSelectImg = (img) => {
-  console.log(img);
-  // form.imgUrl = img;
-  // console.log(form);
-  // dialogVisiable.value = false;
+  form.img = img;
+  dialogVisible.value = false;
 };
 </script>

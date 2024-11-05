@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog v-model="dialogVisible" title="Tips" width="80%">
+    <el-dialog v-model="dialogVisibleSearch" title="Tips" width="80%">
       <template #header>
         <h4 class="font-bold">查询文章</h4>
       </template>
@@ -116,10 +116,10 @@
         </el-form-item>
 
         <el-form-item label="文章图片">
-          <AdminUploadImg
-            v-model:imgUrl="form.imgUrl"
-            ref="uploadImgRef"
-          ></AdminUploadImg>
+          <ImgPreview
+            @click="dialogVisibleImg = true"
+            :imgUrl="form.img?.url"
+          ></ImgPreview>
         </el-form-item>
 
         <el-form-item label="关键词">
@@ -156,7 +156,7 @@
 
     <el-card>
       <template #header>
-        <el-button type="success" @click="dialogVisible = true">
+        <el-button type="success" @click="dialogVisibleSearch = true">
           <el-icon size="18" class="mr-2">
             <Search />
           </el-icon>
@@ -175,6 +175,15 @@
         >修改文章</el-button
       >
     </div>
+
+    <el-dialog
+      title="选择图片"
+      width="80%"
+      align-center
+      v-model="dialogVisibleImg"
+    >
+      <Gallery @select-img="handelSelectImg"></Gallery>
+    </el-dialog>
   </div>
 </template>
 
@@ -189,9 +198,7 @@ definePageMeta({
   middleware: "admin",
 });
 
-const loading = ref(false);
-const tableLoading = ref(false);
-const uploadImgRef = ref(null);
+provide("select", true);
 
 const form = reactive({
   id: 0,
@@ -202,13 +209,20 @@ const form = reactive({
   labelIds: [],
   introduction: "",
   content: "",
-  imgUrl: "",
+  img: {
+    url: "",
+    id: "",
+  },
   ifTop: false,
   ifRecommend: false,
   keywords: [],
 });
 
-const dialogVisible = ref(false);
+const loading = ref(false);
+const tableLoading = ref(false);
+
+const dialogVisibleSearch = ref(false);
+const dialogVisibleImg = ref(false);
 const drawerVisiableRef = ref(false);
 
 // 查询文章
@@ -259,7 +273,7 @@ const chooseEssayHandel = (row) => {
     })
     .finally(() => {
       loading.value = false;
-      dialogVisible.value = false;
+      dialogVisibleSearch.value = false;
     });
 };
 
@@ -273,7 +287,6 @@ const updatePreHandel = () => {
 
 const handelUpdate = () => {
   loading.value = true;
-  uploadImgRef.value.submitUpload();
   updateEssay(form)
     .then(() => {
       toast("更新成功");
@@ -297,5 +310,10 @@ const handelDeleteEssay = (row) => {
     .finally(() => {
       tableLoading.value = false;
     });
+};
+
+const handelSelectImg = (img) => {
+  form.img = img;
+  dialogVisibleImg.value = false;
 };
 </script>

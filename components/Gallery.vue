@@ -48,7 +48,7 @@
         <el-form-item>
           <UploadImg
             ref="uploadRef"
-            v-model:imgUrl="galleryForm.imgUrl"
+            v-model:imgUrl="galleryForm.url"
           ></UploadImg>
         </el-form-item>
         <el-form-item>
@@ -81,7 +81,7 @@ const kindForm = reactive({
 
 const galleryForm = reactive({
   kindID: kindID.value,
-  imgUrl: "",
+  url: "",
 });
 
 const drawerVisible = ref(false);
@@ -107,6 +107,7 @@ const handelCreateKind = () => {
 };
 
 const handelUploadPre = () => {
+  galleryForm.url = "";
   drawerData.title = "上传图片";
   drawerData.type = "img";
   drawerVisible.value = true;
@@ -123,7 +124,11 @@ const handelUpload = () => {
 };
 
 const handelSelectImg = (img) => {
-  emits("selectImg", img);
+  const retImg = {
+    url: img.url,
+    id: img.id,
+  };
+  emits("selectImg", retImg);
 };
 
 const emits = defineEmits(["selectImg"]);

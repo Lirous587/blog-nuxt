@@ -15,7 +15,7 @@
           class="flex justify-center order-0 mx-3 lg:order-2 my-2 lg:w-[192px] lg:h-[108px] xl:w-[288px] xl:h-[172px]"
         >
           <el-image
-            :src="imgUrlPre + '/' + item.imgUrl"
+            :src="imgPre + item.img.url"
             fit="cover"
             class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100 transition-transform duration-300 ease-in-out hover:scale-110"
             lazy
@@ -83,7 +83,7 @@
   </div>
 </template>
 <script setup>
-const imgUrlPre = useRuntimeConfig().public.imgBase;
+const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const props = defineProps({
   list: {

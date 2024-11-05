@@ -15,8 +15,8 @@
     class="overflow-hidden"
   >
     <el-image
-      v-if="preview_url.length > 0 || img"
-      :src="preview_url ? preview_url : imgPre + '/' + img"
+      v-if="preview_url.length > 0 || imgUrl"
+      :src="preview_url ? preview_url : imgPre + imgUrl"
       lazy
       loading="lazy"
     ></el-image>
@@ -29,9 +29,10 @@
 <script setup>
 const config = useRuntimeConfig();
 const apiBase = config.public.apiBase;
-const imgPre = config.public.imgBase;
+const imgPre = config.public.imgBase + "/";
 const upload = ref(null);
-const img = defineModel("imgUrl", {
+
+const imgUrl = defineModel("imgUrl", {
   type: String,
   require: true,
 });
@@ -48,7 +49,7 @@ const preview_url = ref("");
 
 const handelChange = (uploadFile, uploadFiles) => {
   const sanitizedFileName = uploadFile.name.replace(/\s+/g, "_");
-  img.value = sanitizedFileName;
+  imgUrl.value = sanitizedFileName;
   preview_url.value = uploadFile.url;
 };
 

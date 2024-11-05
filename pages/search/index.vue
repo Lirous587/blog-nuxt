@@ -1,5 +1,7 @@
 <template>
-  <UserEssayList :list="result"></UserEssayList>
+  <div>
+    <UserEssayList :list="result"></UserEssayList>
+  </div>
 </template>
 
 <script setup>

@@ -34,10 +34,10 @@
         </el-form-item>
 
         <el-form-item label="文章图片">
-          <AdminUploadImg
-            v-model:imgUrl="form.imgUrl"
-            ref="uploadImgRef"
-          ></AdminUploadImg>
+          <ImgPreview
+            @click="dialogVisible = true"
+            :imgUrl="form.img?.url"
+          ></ImgPreview>
         </el-form-item>
 
         <el-form-item label="关键词">
@@ -86,6 +86,15 @@
         >添加文章</el-button
       >
     </div>
+
+    <el-dialog
+      title="选择图片"
+      width="80%"
+      align-center
+      v-model="dialogVisible"
+    >
+      <Gallery @select-img="handelSelectImg"></Gallery>
+    </el-dialog>
   </div>
 </template>
 
@@ -98,8 +107,9 @@ definePageMeta({
   middleware: "admin",
 });
 
+provide("select", true);
+
 const loading = ref(false);
-const uploadImgRef = ref(null);
 
 const adminStore = useMyAdminStore();
 
@@ -114,15 +124,20 @@ const form = reactive({
   labelIds: [],
   introduction: "",
   content: "",
-  imgUrl: "",
   ifTop: false,
   ifRecommend: false,
   keywords: [],
+  img: {
+    url: "",
+    id: "",
+  },
 });
+
 const drawerVisiableRef = ref(false);
+const dialogVisible = ref(false);
+
 const handelCreate = () => {
   loading.value = true;
-  uploadImgRef.value.submitUpload();
   createEssay(form)
     .then(() => {
       toast("添加成功");
@@ -131,5 +146,10 @@ const handelCreate = () => {
     .finally(() => {
       loading.value = false;
     });
+};
+
+const handelSelectImg = (img) => {
+  form.img = img;
+  dialogVisible.value = false;
 };
 </script>

@@ -46,13 +46,14 @@ for (const key in nowLabel) {
   }
 }
 
-const config = useRuntimeConfig();
+const imgPre = useRuntimeConfig().public.imgBase + "/";
+
 useSeoMeta({
   title: nowLabel.name,
   ogTitle: nowLabel.name,
   description: nowLabel.introduction,
   ogDescription: nowLabel.introduction,
-  ogImage: config.public.imgBase + "/" + "1.png",
-  twitterCard: config.public.imgBase + "/" + "1.png",
+  ogImage: imgPre + "1.png",
+  twitterCard: imgPre + "1.png",
 });
 </script>

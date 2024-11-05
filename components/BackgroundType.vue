@@ -35,7 +35,8 @@
 </template>
 
 <script setup>
-const imgUrlArr = ref(["http://liuzihao.online:8080/api/img/6.png"]);
+const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgUrlArr = ref([`${imgPre}2.png`]);
 
 const imgUrl = ref(
   imgUrlArr.value[Math.floor(Math.random() * imgUrlArr.value.length)]

@@ -62,7 +62,7 @@
           >
             <NuxtLink :to="'/essay/' + item.id">
               <el-image
-                :src="imgBase + '/' + item.imgUrl"
+                :src="imgPre + item.imgUrl"
                 lazy
                 fit="cover"
                 class="w-full h-[72px] lg:h-[90px] xl:h-[108px]"
@@ -120,13 +120,13 @@ await getEssay(id)
   });
 
 const config = useRuntimeConfig();
-const imgBase = config.public.imgBase;
+const imgPre = config.public.imgBase + "/";
 useSeoMeta({
   title: data.value.name,
   ogTitle: data.value.name,
   description: data.value.introduction,
   ogDescription: data.value.introduction,
-  ogImage: imgBase + "/" + data.value.imgUrl,
-  twitterCard: imgBase + "/" + data.value.imgUrl,
+  ogImage: imgPre + data.value.imgUrl,
+  twitterCard: imgPre + data.value.imgUrl,
 });
 </script>

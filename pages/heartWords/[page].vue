@@ -13,7 +13,7 @@
           <el-avatar
             class="float-left"
             size=""
-            :src="imgPre + '/' + item.imgUrl"
+            :src="imgPre + item.imgUrl"
           ></el-avatar>
           <div class="float-right relative flex items-center">
             <span
@@ -35,7 +35,7 @@ definePageMeta({
   middleware: ["page-validation", "index-data"],
 });
 const config = useRuntimeConfig();
-const imgPre = config.public.imgBase;
+const imgPre = config.public.imgBase + "/";
 const route = useRoute();
 
 const queryForm = reactive({

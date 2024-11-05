@@ -9,7 +9,7 @@
         class="relative h-[180px] w-full shadow-lg border border-gray-200 rounded-lg"
       >
         <el-image
-          :src="imgPre + item.imgUrl"
+          :src="imgPre + item.url"
           class="h-full w-full p-2 rounded-lg"
           lazy
           fit="cover"
@@ -22,13 +22,13 @@
             class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
             size="small"
           >
-            <span class="ml-2"> {{ item.imgUrl }}</span>
+            <span class="ml-2"> {{ item.url }}</span>
           </div>
           <div class="flex justify-evenly">
             <el-checkbox
               v-if="ifSelect"
               v-model="item.checked"
-              :value="item.imgUrl"
+              :value="item.url"
               size="small"
               @change="handelSelectOne(index)"
             ></el-checkbox>

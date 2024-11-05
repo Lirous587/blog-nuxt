@@ -14,7 +14,7 @@
           <div class="flex flex-col w-full">
             <div class="flex items-center w-full">
               <el-image
-                :src="imgUrlPre + '/' + item.imgUrl"
+                :src="imgPre + item.img.url"
                 fit="cover"
                 lazy
                 class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-const imgUrlPre = useRuntimeConfig().public.imgBase;
+const imgPre = useRuntimeConfig().public.imgBase + "/";
 // const imgUrlArr = ref(["https://liuzihao.online:8080/api/img/6.png"]);
 const props = defineProps({
   list: {

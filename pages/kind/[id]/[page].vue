@@ -50,13 +50,14 @@ for (const key in nowKind) {
   }
 }
 
-const config = useRuntimeConfig();
+const imgPre = useRuntimeConfig().public.imgBase + "/";
+
 useSeoMeta({
   title: nowKind.name,
   ogTitle: nowKind.name,
   description: nowKind.introduction,
   ogDescription: nowKind.introduction,
-  ogImage: config.public.imgBase + "/" + "1.png",
-  twitterCard: config.public.imgBase + "/" + "1.png",
+  ogImage: imgPre + "1.png",
+  twitterCard: imgPre + "1.png",
 });
 </script>
