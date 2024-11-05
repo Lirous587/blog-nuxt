@@ -113,7 +113,7 @@
         </el-form-item>
         <el-form-item label="图片">
           <ImgPreview
-            @click="dialogVisible = true"
+            @click="handelSelectImgPre"
             :imgUrl="form.img?.url"
           ></ImgPreview>
         </el-form-item>
@@ -137,7 +137,7 @@
       align-center
       v-model="dialogVisible"
     >
-      <Gallery @select-img="handelSelectImg"></Gallery>
+      <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
     </el-dialog>
   </div>
 </template>
@@ -284,6 +284,13 @@ const handelDelete = (row) => {
 const changePage = async (row) => {
   queryParams.page = row;
   await getList();
+};
+
+const oID = ref(0);
+
+const handelSelectImgPre = () => {
+  dialogVisible.value = true;
+  oID.value = form.img.id;
 };
 
 const handelSelectImg = (img) => {

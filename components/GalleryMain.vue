@@ -76,6 +76,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  oID: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const ifSelect = inject("select");
@@ -95,10 +99,12 @@ const getList = () => {
   getGalleryList(queryParams)
     .then((res) => {
       const data = res.data;
-      list.value = data.list.map((o) => ({
-        ...o,
-        checked: false,
-      }));
+      list.value = data.list.map((o) => {
+        if (o.id === props.oID) {
+          return { ...o, checked: true };
+        }
+        return { ...o, checked: false };
+      });
       currentPage.value = data.totalPage;
     })
     .finally(() => {

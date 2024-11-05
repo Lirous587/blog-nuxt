@@ -117,7 +117,7 @@
 
         <el-form-item label="文章图片">
           <ImgPreview
-            @click="dialogVisibleImg = true"
+            @click="handelSelectImgPre"
             :imgUrl="form.img?.url"
           ></ImgPreview>
         </el-form-item>
@@ -182,7 +182,7 @@
       align-center
       v-model="dialogVisibleImg"
     >
-      <Gallery @select-img="handelSelectImg"></Gallery>
+      <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
     </el-dialog>
   </div>
 </template>
@@ -310,6 +310,13 @@ const handelDeleteEssay = (row) => {
     .finally(() => {
       tableLoading.value = false;
     });
+};
+
+const oID = ref(0);
+
+const handelSelectImgPre = () => {
+  dialogVisibleImg.value = true;
+  oID.value = form.img.id;
 };
 
 const handelSelectImg = (img) => {

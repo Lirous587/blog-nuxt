@@ -17,6 +17,7 @@
           @select-img="handelSelectImg"
           ref="mainRef"
           :kindID="kindID"
+          :oID="props.oID"
         ></GalleryMain>
       </div>
     </el-container>
@@ -68,6 +69,13 @@ import { createGalleryKind } from "~/api/galleryKind";
 const asideRef = ref(null);
 const mainRef = ref(null);
 const uploadRef = ref(null);
+
+const props = defineProps({
+  oID: {
+    type: Number,
+    default: 0,
+  },
+});
 
 const kindID = ref(1);
 

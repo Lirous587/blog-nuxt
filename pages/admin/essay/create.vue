@@ -35,7 +35,7 @@
 
         <el-form-item label="文章图片">
           <ImgPreview
-            @click="dialogVisible = true"
+            @click="dialogVisiable = true"
             :imgUrl="form.img?.url"
           ></ImgPreview>
         </el-form-item>
@@ -91,7 +91,7 @@
       title="选择图片"
       width="80%"
       align-center
-      v-model="dialogVisible"
+      v-model="dialogVisiable"
     >
       <Gallery @select-img="handelSelectImg"></Gallery>
     </el-dialog>
@@ -134,7 +134,7 @@ const form = reactive({
 });
 
 const drawerVisiableRef = ref(false);
-const dialogVisible = ref(false);
+const dialogVisiable = ref(false);
 
 const handelCreate = () => {
   loading.value = true;
@@ -150,6 +150,6 @@ const handelCreate = () => {
 
 const handelSelectImg = (img) => {
   form.img = img;
-  dialogVisible.value = false;
+  dialogVisiable.value = false;
 };
 </script>
