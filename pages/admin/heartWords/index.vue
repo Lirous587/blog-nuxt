@@ -11,25 +11,19 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="心语内容" align="center" min-width="250">
-          <template #default="scope">
-            <el-input
-              placeholder="请输入心语内容"
-              v-model="scope.row.content"
-              type="textarea"
-              :rows="3"
-            >
-            </el-input>
-          </template>
+        <el-table-column
+          label="心语内容"
+          prop="content"
+          align="center"
+          min-width="250"
+        >
         </el-table-column>
-        <el-table-column label="心语出处" align="center" min-width="250">
-          <template #default="scope">
-            <el-input
-              size="large"
-              placeholder="请输入心语出处"
-              v-model="scope.row.source"
-            ></el-input>
-          </template>
+        <el-table-column
+          label="心语出处"
+          prop="source"
+          align="center"
+          min-width="250"
+        >
         </el-table-column>
 
         <el-table-column label="心语图片" align="center" min-width="250">
@@ -40,7 +34,7 @@
 
         <el-table-column label="是否打印" align="center" min-width="250">
           <template #default="scope">
-            <el-switch v-model="scope.row.ifCouldType" size="large" />
+            <el-switch disabled v-model="scope.row.ifCouldType" size="large" />
           </template>
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
@@ -88,7 +82,7 @@
       :destroy-on-close="true"
     >
       <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="心语内容">
+        <el-form-item label="心语内容" prop="content">
           <el-input
             placeholder="请输入心语内容"
             size="large"
@@ -265,7 +259,10 @@ const handelUpdate = () => {
   updateHeartWords(form)
     .then(async () => {
       toast("修改成功");
-      list.value.find((item) => item.id === form.id).img.url = form.img.url;
+      let item = list.value.find((item) => item.id === form.id);
+      for (const key in item) {
+        item[key] = form[key];
+      }
     })
     .finally(() => {
       drawerVisiableRef.value = false;

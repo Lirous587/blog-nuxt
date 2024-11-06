@@ -10,13 +10,14 @@
       <UserNavAside class="mr-5"></UserNavAside>
     </aside>
 
-    <main class="flex-1 overflow-auto" id="mainBox">
-      <div class="mx-auto w-full lg:ml-10 xl:ml-15 lg:w-[75%]">
+    <main class="flex-1 overflow-auto">
+      <div class="mx-auto lg:ml-10 xl:ml-15 lg:w-[75%]">
         <slot />
         <RecordBottom></RecordBottom>
       </div>
     </main>
   </div>
+
   <UserNavBottom></UserNavBottom>
 
   <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">

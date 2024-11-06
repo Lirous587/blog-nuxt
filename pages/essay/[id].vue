@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div
+      class="fixed z-50 top-0 left-0 h-[5px] bg-pink-300 rounded-md progress"
+    ></div>
     <div class="mt-5" v-if="!loading">
       <div class="ml-5 mr-5">
         <div class="flex justify-between items-center">
@@ -93,7 +96,6 @@ definePageMeta({
 const sentenceList = ref([]);
 const route = useRoute();
 const id = route.params.id;
-const activeNames = ref(["1"]);
 const data = ref({});
 
 const nuxtApp = useNuxtApp();
@@ -129,3 +131,19 @@ useSeoMeta({
   twitterCard: imgPre + data.value.imgUrl,
 });
 </script>
+
+<style scoped>
+@keyframes grow-progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100vw;
+  }
+}
+
+.progress {
+  animation: grow-progress 3s linear;
+  animation-timeline: scroll(root);
+}
+</style>
