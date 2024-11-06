@@ -67,9 +67,9 @@ const form = reactive({
 const defaultActive = ref("");
 const drawerVisiable = ref(false);
 
-const getList = () => {
+const getList = async () => {
   loading.value = true;
-  getGalleryKindList()
+  await getGalleryKindList()
     .then((res) => {
       const data = res.data;
       list.value = data.list;
@@ -79,7 +79,6 @@ const getList = () => {
       loading.value = false;
     });
 };
-getList();
 
 const emits = defineEmits(["changeKind"]);
 
@@ -110,5 +109,9 @@ const handelUPdate = () => {
 
 defineExpose({
   getList,
+});
+
+onMounted(async () => {
+  await getList();
 });
 </script>

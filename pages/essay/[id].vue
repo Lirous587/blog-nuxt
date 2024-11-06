@@ -62,10 +62,9 @@
           >
             <NuxtLink :to="'/essay/' + item.id">
               <el-image
-                :src="imgPre + item.imgUrl"
-                lazy
+                :src="imgPre + item.img.url"
                 fit="cover"
-                class="w-full h-[72px] lg:h-[90px] xl:h-[108px]"
+                class="w-full h-[135px]"
               ></el-image>
               <div
                 class="absolute bottom-0 w-full h-[1.5em] right-0 bg-gray-600 bg-opacity-50 text-white p-2"

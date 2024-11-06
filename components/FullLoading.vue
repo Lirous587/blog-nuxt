@@ -9,11 +9,11 @@
     </div>
 
     <div
-      class="fixed h-screen left-0 w-[50vw] z-[99] overflow-hidden bg-gray-600 dark:bg-slate-900 transition-transform duration-500 ease-in-out"
+      class="fixed h-screen left-0 w-[60vw] z-[99] overflow-hidden bg-gray-600 dark:bg-slate-900 transition-transform duration-500 ease-in-out"
       :class="!ifLoad ? '-translate-x-full' : ''"
     ></div>
     <div
-      class="fixed h-screen right-0 w-[50vw] z-[99] overflow-hidden bg-gray-600 dark:bg-slate-900 transition-transform duration-500 ease-in-out"
+      class="fixed h-screen right-0 w-[60vw] z-[99] overflow-hidden bg-gray-600 dark:bg-slate-900 transition-transform duration-500 ease-in-out"
       :class="!ifLoad ? 'translate-x-full' : ''"
     ></div>
   </div>

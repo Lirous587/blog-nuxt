@@ -13,7 +13,7 @@
           <el-avatar
             class="float-left"
             size=""
-            :src="imgPre + item.imgUrl"
+            :src="imgPre + item.img.url"
           ></el-avatar>
           <div class="float-right relative flex items-center">
             <span

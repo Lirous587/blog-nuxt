@@ -81,7 +81,7 @@
     </el-card>
 
     <el-drawer
-      :title="ifCreate ? '添加标签' : '修改标签'"
+      :title="ifCreate ? '添加心语' : '修改心语'"
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
@@ -90,7 +90,7 @@
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="心语内容">
           <el-input
-            placeholder="请输入标签名称"
+            placeholder="请输入心语内容"
             size="large"
             v-model="form.content"
           >
@@ -98,7 +98,7 @@
         </el-form-item>
         <el-form-item label="心语出处">
           <el-input
-            placeholder="请输入标签介绍"
+            placeholder="请输入心语出处"
             v-model="form.source"
             type="textarea"
             :rows="3"
@@ -125,8 +125,8 @@
             @click="drawerAction"
             :loading="loading"
           >
-            添加</el-button
-          >
+            {{ ifCreate ? "添加心语" : "修改心语" }}
+          </el-button>
         </el-form-item>
       </el-form>
     </el-drawer>
@@ -254,6 +254,9 @@ const handelUpdatePre = (row) => {
   for (const key in form) {
     form[key] = row[key];
   }
+
+  oID.value = form.img.id;
+
   drawerVisiableRef.value = true;
   ifCreate.value = false;
 };
@@ -262,7 +265,7 @@ const handelUpdate = () => {
   updateHeartWords(form)
     .then(async () => {
       toast("修改成功");
-      await getList();
+      list.value.find((item) => item.id === form.id).img.url = form.img.url;
     })
     .finally(() => {
       drawerVisiableRef.value = false;
@@ -290,7 +293,6 @@ const oID = ref(0);
 
 const handelSelectImgPre = () => {
   dialogVisible.value = true;
-  oID.value = form.img.id;
 };
 
 const handelSelectImg = (img) => {

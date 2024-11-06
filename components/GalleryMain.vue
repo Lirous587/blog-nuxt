@@ -93,10 +93,10 @@ const queryParams = reactive({
   pageSize: 12,
 });
 
-const getList = () => {
+const getList = async () => {
   list.value = [];
   loading.value = true;
-  getGalleryList(queryParams)
+  await getGalleryList(queryParams)
     .then((res) => {
       const data = res.data;
       list.value = data.list.map((o) => {
@@ -113,8 +113,6 @@ const getList = () => {
       }, 200);
     });
 };
-
-getList();
 
 const handelDelete = async (id) => {
   await deleteGallery(id);
@@ -149,6 +147,10 @@ watch(
     getList();
   }
 );
+
+onMounted(async () => {
+  await getList();
+});
 
 defineExpose({
   getList,

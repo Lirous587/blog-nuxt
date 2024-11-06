@@ -1,6 +1,6 @@
 <template>
   <el-footer class="register">
-    <a class="text-xs" target="_blank" href="https://github.com/Lijingwoquan"
+    <a class="text-xs" target="_blank" href="https://github.com/Lirous587"
       >© 2024 Lirous的日记本 By Lirous.本站博客未经授权禁止转载.
     </a>
     <a

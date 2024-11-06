@@ -15,7 +15,7 @@
       <div class="flex justify-center items-center">
         <div
           v-for="(word, index) in 'Lirous不想coding'"
-          class="relative inline-flex text-xl mx-2 text-white float-action"
+          class="relative inline-flex text-xl mx-2 float-action text-white"
           :style="{ animationDelay: `${index * -0.5}s` }"
         >
           {{ word }}
@@ -35,11 +35,24 @@
 </template>
 
 <script setup>
+import { useMyIndexStore } from "~/store";
+
 const imgPre = useRuntimeConfig().public.imgBase + "/";
-const imgUrlArr = ref([`${imgPre}2.png`]);
+
+const indexStore = useMyIndexStore();
+
+const backgoundData = indexStore.getHeartWordsList().map((item) => {
+  return {
+    img: imgPre + item.img.url,
+    sentence: item.content,
+  };
+});
+
+const imgList = ref([]);
+imgList.value = backgoundData.map((item) => item.img);
 
 const imgUrl = ref(
-  imgUrlArr.value[Math.floor(Math.random() * imgUrlArr.value.length)]
+  imgList.value[Math.floor(Math.random() * imgList.value.length)]
 );
 
 const loading = ref(false);
@@ -47,11 +60,9 @@ const imgLoad = () => {
   loading.value = true;
 };
 
-const sentenceList = ref([
-  "醉后不知天在水，满船清梦压星河",
-  "古今多少事，都付笑谈中",
-  "人生自古谁无死，留取丹心照汗青",
-]);
+const sentenceList = ref([]);
+
+sentenceList.value = shuffleArray(backgoundData.map((item) => item.sentence));
 
 const contaninerRef = ref(null);
 

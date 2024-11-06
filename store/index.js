@@ -6,6 +6,7 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   const labelList = ref([]);
   const kindList = ref([]);
   const recommentEssayList = ref([]);
+  const heartWordsList = ref([]);
 
   const statisticsData = reactive({
     essay: {
@@ -30,6 +31,7 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
       recommentEssayList.value = data.essayList;
       labelList.value = data.labelList;
       kindList.value = data.kindList;
+      heartWordsList.value = data.heartWordsList;
 
       statisticsData.label.count = labelList.value.length;
       statisticsData.kind.count = kindList.value.length;
@@ -57,6 +59,11 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   const getRecommentEssayList = () => {
     return recommentEssayList.value;
   };
+
+  const getHeartWordsList = () => {
+    return heartWordsList.value;
+  };
+
   const getStatisticsData = () => {
     return statisticsData;
   };
@@ -66,12 +73,14 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     labelList,
     kindList,
     recommentEssayList,
+    heartWordsList,
     statisticsData,
     initData,
     getInitStatus,
     getLabelList,
     getKindList,
     getRecommentEssayList,
+    getHeartWordsList,
     getStatisticsData,
   };
 });

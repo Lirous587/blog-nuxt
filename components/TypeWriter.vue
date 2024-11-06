@@ -1,6 +1,8 @@
 <template>
   <div class="flex items-center px-2 cursor-pointer h-[2em] min-h-[2em]">
-    <span class="text-[1em] leading-[2em]">{{ displayedText }}</span>
+    <div class="text-[1em] leading-[2em] text-nowrap overflow-hidden">
+      {{ displayedText }}
+    </div>
     <span
       class="h-[1em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"
     ></span>
