@@ -39,6 +39,10 @@ nuxtApp.hook("page:finish", () => {
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.6s ease-out;

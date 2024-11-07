@@ -14,23 +14,20 @@
     />
 
     <div v-if="!ifEdit">
-      <div ref="bottomRef"></div>
       <div
         v-if="anchorVisiable"
         @click.stop="() => {}"
         class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
-        <li
+        <a
           v-for="(item, index) in anchors"
-          :href="'#' + item.id"
           :key="index"
-          @click.stop="handleAnchorClick($event, index)"
           class="anchor"
-          :class="route.hash.slice(1) == item.id ? 'active' : ''"
           :style="{ paddingLeft: (item.indent + 1) * 15 + 'px' }"
+          :href="'#' + item.id"
         >
           {{ item.title }}
-        </li>
+        </a>
       </div>
     </div>
 
@@ -53,7 +50,7 @@
 </template>
 
 <script setup>
-import { uploadImg } from "~/api/admin";
+import { handleUploadImage, disposeMdAnchor } from "./md";
 
 const props = defineProps({
   height: {
@@ -79,69 +76,15 @@ const ifEdit = computed(() => {
 
 const previewRef = ref(null);
 
-// 上传图片
-async function handleUploadImage(event, insertImage, files) {
-  try {
-    // 获取上传的图片文件
-    const file = files[0]; // 假设只上传了一张图片
-    // 创建一个 FormData 对象，并将图片文件添加到其中
-    const formData = new FormData();
-    formData.append("img", file);
-
-    await uploadImg(formData);
-
-    const apiBase = useRuntimeConfig().public.apiBase;
-
-    previewRef.value.insert(function (selected) {
-      const placeholder = `![Description](${apiBase}/img/${file.name})`;
-      const content = selected || placeholder;
-      return {
-        text: `${placeholder}`,
-        selected: content,
-      };
-    });
-  } catch (error) {
-    toast("上传失败", "error");
-  }
-}
-
 const router = useRouter();
-const route = useRoute();
 const anchors = ref([]);
 const hList = ref([]);
 const anchorVisiable = ref(true);
-const nowHash = ref("");
-const handleAnchorClick = (e, index) => {
-  e.preventDefault();
-  hList.value[index].firstChild.click();
-};
 
-const bottomRef = ref(null);
-
-const toTop = () => {
-  window.scrollTo({
-    top: window.innerHeight,
-    behavior: "smooth",
-  });
-};
-
-const direction = ref(false);
-const ifTop = computed(() => {
-  return direction.value == "top" ? true : false;
-});
 function bodyClickHandel() {
   anchorVisiable.value = false;
 }
 
-function scrollHandel() {
-  if (window.scrollY >= window.innerHeight) {
-    direction.value = "top";
-  } else {
-    direction.value = "bottom";
-  }
-}
-
-const throttleScrollHandel = throttle(scrollHandel, 50);
 let data = {};
 
 onMounted(() => {
@@ -150,21 +93,13 @@ onMounted(() => {
     anchors.value = data.anchors;
     hList.value = data.hList;
 
-    const index = data.anchors.findIndex(
-      (item) => item.id == route.hash.slice(1)
-    );
-
-    handleAnchorClick({ preventDefault: () => {} }, index > 0 ? index : 0);
-
     document.body.addEventListener("click", bodyClickHandel);
-    window.addEventListener("scroll", throttleScrollHandel);
   }
 });
 
 onBeforeUnmount(() => {
   if (!ifEdit.value) {
     document.body.removeEventListener("click", bodyClickHandel);
-    window.removeEventListener("scroll", throttleScrollHandel);
   }
 });
 </script>
