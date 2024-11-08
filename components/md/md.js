@@ -26,7 +26,7 @@ export async function handleUploadImage(event, insertImage, files) {
   }
 }
 
-export const disposeMdAnchor = (md, router) => {
+export const disposeMdAnchor = (md) => {
   const hList = md.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
 
   let anchors = Array.from(hList).filter((anchor) => !!anchor.innerText.trim());
@@ -46,6 +46,8 @@ export const disposeMdAnchor = (md, router) => {
     indent: hLevel.indexOf(el.tagName),
   }));
 
+  let sList = [];
+
   hList.forEach((el, index) => {
     const anchorValue = anchors[index].id;
     el.id = anchorValue;
@@ -60,10 +62,47 @@ export const disposeMdAnchor = (md, router) => {
 
     aEl.setAttribute("href", `#${anchorValue}`);
 
+    sList.push(`--t${index}`);
     el.appendChild(aEl);
   });
 
+  document.body.style.timelineScope = sList.join(",");
+
+  const mdBody = md.value.$el.querySelector(".vuepress-markdown-body");
+  const elements = Array.from(mdBody.childNodes);
+  const fragment = document.createDocumentFragment();
+  let currentDiv = null;
+  let index = 0;
+
+  elements.forEach((el) => {
+    if (el.nodeType === Node.ELEMENT_NODE && el.tagName.startsWith("H")) {
+      // 如果遇到新的 h 标签，创建新的 div 并追加到 fragment
+      if (currentDiv) {
+        fragment.appendChild(currentDiv);
+      }
+      currentDiv = document.createElement("div");
+      currentDiv.style.setProperty("--s", `--t${index}`);
+      currentDiv.style.setProperty("view-timeline-name", "var(--s)");
+      currentDiv.style.setProperty("view-timeline-inset", "50% 50%");
+      currentDiv.appendChild(el);
+      index++;
+    } else if (currentDiv) {
+      // 将其他元素添加到当前的 div 中
+      currentDiv.appendChild(el);
+    }
+  });
+
+  // 追加最后一个 div
+  if (currentDiv) {
+    fragment.appendChild(currentDiv);
+  }
+
+  // 清空原始内容并追加新的内容
+  mdBody.innerHTML = "";
+  mdBody.appendChild(fragment);
+
   return {
+    sList,
     anchors,
   };
 };

@@ -1,7 +1,6 @@
 <template>
-  <div class="relative">
+  <div>
     <v-md-editor
-      style="scroll-behavior: smooth"
       ref="previewRef"
       :include-level="[1, 2, 3, 4, 5, 6]"
       v-model="content"
@@ -16,6 +15,7 @@
     <div v-if="!ifEdit">
       <div
         v-if="anchorVisiable"
+        ref="asideAnchorRef"
         @click.stop="() => {}"
         class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
@@ -23,7 +23,10 @@
           v-for="(item, index) in anchors"
           :key="index"
           class="anchor"
-          :style="{ paddingLeft: (item.indent + 1) * 15 + 'px' }"
+          :style="{
+            paddingLeft: (item.indent + 1) * 15 + 'px',
+            '--s': `--t${index}`,
+          }"
           :href="'#' + item.id"
         >
           {{ item.title }}
@@ -39,9 +42,7 @@
         <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
       </div>
       <div
-        @click="toTop"
         class="hover:cursor-pointer rounded-full transition-all duration-200 bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
-        :class="!ifTop ? 'rotate-180' : ''"
       >
         <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
       </div>
@@ -51,6 +52,7 @@
 
 <script setup>
 import { handleUploadImage, disposeMdAnchor } from "./md";
+const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const props = defineProps({
   height: {
@@ -76,7 +78,7 @@ const ifEdit = computed(() => {
 
 const previewRef = ref(null);
 
-const router = useRouter();
+const asideAnchorRef = ref(null);
 const anchors = ref([]);
 const hList = ref([]);
 const anchorVisiable = ref(true);
@@ -87,9 +89,9 @@ function bodyClickHandel() {
 
 let data = {};
 
-onMounted(() => {
+onMounted(async () => {
   if (!ifEdit.value) {
-    data = disposeMdAnchor(previewRef, router);
+    data = disposeMdAnchor(previewRef);
     anchors.value = data.anchors;
     hList.value = data.hList;
 
@@ -104,24 +106,37 @@ onBeforeUnmount(() => {
 });
 </script>
 
+
 <style scoped>
+:deep(.v-md-editor__preview-wrapper),
+:deep(.scrollbar),
+:deep(.scrollbar__wrap),
+:deep(.v-md-editor__editor-wrapper),
+:deep(.v-md-editor__main) {
+  overflow: visible;
+}
+
 :deep(.vuepress-markdown-body) {
   @apply font-mono;
 }
+
+@keyframes active {
+  0%,
+  100% {
+    background-color: red;
+  }
+}
+
 .anchor {
   @apply relative leading-[1.5em] h-[1.5em] my-1 hover:cursor-pointer;
+  animation: active;
+  animation-timeline: var(--s);
 }
+
 .anchor:hover {
   @apply bg-blue-100;
 }
 .anchor:hover::before {
-  content: "";
-  @apply absolute left-0 h-[1.5em] w-[2px] bg-blue-400;
-}
-.active {
-  @apply bg-blue-100;
-}
-.active::before {
   content: "";
   @apply absolute left-0 h-[1.5em] w-[2px] bg-blue-400;
 }

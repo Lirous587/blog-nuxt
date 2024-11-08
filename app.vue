@@ -39,7 +39,8 @@ nuxtApp.hook("page:finish", () => {
 </script>
 
 <style>
-html {
+html,
+body {
   scroll-behavior: smooth;
 }
 
