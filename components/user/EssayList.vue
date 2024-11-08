@@ -2,12 +2,7 @@
   <div v-for="(item, index) in list" :key="item.id">
     <el-card
       shadow="always"
-      class="!rounded-xl mx-10 my-8 hover:!shadow-lg"
-      :class="
-        index % 2 === 0
-          ? ['bg-gradient-to-br', 'from-pink-50', ' to-green-100']
-          : ['bg-gradient-to-tl', 'from-pink-50', ' to-green-100']
-      "
+      class="!rounded-xl mx-10 my-8 hover:!shadow-lg bg-gradient-to-br from-pink-50 to-green-100 dark:from-gray-700 dark:to-gray-700"
     >
       <div class="flex flex-col justify-center lg:flex-row lg:items-center">
         <NuxtLink
@@ -17,7 +12,7 @@
           <el-image
             :src="imgPre + item.img.url"
             fit="cover"
-            class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100 transition-transform duration-300 ease-in-out hover:scale-110"
+            class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100 dark:bg-black transition-transform duration-300 ease-in-out hover:scale-110"
             lazy
           >
           </el-image>
@@ -27,9 +22,12 @@
           class="flex flex-col mx-3 order-1 justify-around flex-1 gap-y-1 flex-wrap"
           :class="index % 2 === 0 ? 'order-3' : 'order-1'"
         >
-          <NuxtLink :to="'/essay/' + item.id">
+          <NuxtLink
+            :to="'/essay/' + item.id"
+            class="text-black dark:text-white"
+          >
             <span
-              class="text-lg line-clamp-1 transition-transform duration-300 hover:scale-105 hover:text-blue-500 hover:underline"
+              class="text-lg line-clamp-1 transition-transform duration-300 hover:scale-105 hover:text-blue-500 dark:hover:text-blue-950 hover:underline"
             >
               {{ item.name }}
             </span>

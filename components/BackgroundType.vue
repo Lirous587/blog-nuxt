@@ -1,6 +1,17 @@
 <template>
   <div ref="contaninerRef" class="relative w-full h-[100vh]">
-    <el-image :src="imgUrl" fit="cover" class="w-full h-full" @load="imgLoad" />
+    <div class="relative w-full h-full">
+      <el-image
+        :src="imgUrl"
+        fit="cover"
+        class="w-full h-full"
+        @load="imgLoad"
+      />
+
+      <div
+        class="absolute inset-0 bg-black bg-opacity-50 pointer-events-none hidden dark:block"
+      ></div>
+    </div>
     <div
       class="absolute inset-0 top-[50%] translate-y-[-50%] flex flex-col justify-center items-center"
       v-show="loading"

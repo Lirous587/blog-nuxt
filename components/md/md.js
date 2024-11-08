@@ -66,9 +66,22 @@ export const disposeMdAnchor = (md) => {
     el.appendChild(aEl);
   });
 
+  const currentHash = window.location.hash.slice(1);
+
+  console.log(currentHash);
+
   document.body.style.timelineScope = sList.join(",");
 
+  addDivOuter(md);
+
+  return {
+    anchors,
+  };
+};
+
+const addDivOuter = (md) => {
   const mdBody = md.value.$el.querySelector(".vuepress-markdown-body");
+  // 拿到全部的子元素
   const elements = Array.from(mdBody.childNodes);
   const fragment = document.createDocumentFragment();
   let currentDiv = null;
@@ -83,7 +96,7 @@ export const disposeMdAnchor = (md) => {
       currentDiv = document.createElement("div");
       currentDiv.style.setProperty("--s", `--t${index}`);
       currentDiv.style.setProperty("view-timeline-name", "var(--s)");
-      currentDiv.style.setProperty("view-timeline-inset", "50% 50%");
+      currentDiv.style.setProperty("view-timeline-inset", "0.1% 99.9%");
       currentDiv.appendChild(el);
       index++;
     } else if (currentDiv) {
@@ -100,9 +113,4 @@ export const disposeMdAnchor = (md) => {
   // 清空原始内容并追加新的内容
   mdBody.innerHTML = "";
   mdBody.appendChild(fragment);
-
-  return {
-    sList,
-    anchors,
-  };
 };

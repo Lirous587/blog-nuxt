@@ -54,20 +54,23 @@
           </el-icon>
         </div>
         <template #dropdown>
-          <el-dropdown-menu>
+          <el-dropdown-menu class="dark:!bg-black">
             <el-dropdown-item>
               <NuxtLink
                 target="_blank"
                 to="https://github.com/Lirous587"
-                class="flex items-center"
+                class="flex items-center dark:text-white"
               >
-                <el-icon color="red" size="16"><Star /></el-icon>
+                <el-icon size="16"><Star /></el-icon>
                 关于作者
               </NuxtLink>
             </el-dropdown-item>
             <el-dropdown-item>
-              <NuxtLink to="/knowledge" class="flex items-center">
-                <el-icon color="red"><Collection /></el-icon>
+              <NuxtLink
+                to="/knowledge"
+                class="flex items-center dark:text-white"
+              >
+                <el-icon><Collection /></el-icon>
                 知识库
               </NuxtLink>
             </el-dropdown-item>
@@ -81,14 +84,15 @@
         <UserSearchEssay></UserSearchEssay>
       </div>
       <div
-        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center bg-red-100 rounded-full"
+        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-white rounded-full"
+        @click="changeMode"
       >
-        <el-icon>
-          <Moon></Moon>
+        <el-icon v-if="nowMode === 'dark'">
+          <Moon />
         </el-icon>
-      </div>
-      <div>
-        <el-button type="primary" round class="px-3">登录</el-button>
+        <el-icon v-else>
+          <Sunny />
+        </el-icon>
       </div>
     </div>
   </div>
@@ -123,7 +127,14 @@ const scroll = (event) => {
 };
 const throttleScroll = throttle(scroll, 50);
 
+const nowMode = ref("light");
+const changeMode = () => {
+  nowMode.value === "light" ? darkMode() : lightMode();
+  nowMode.value = nowMode.value === "light" ? "dark" : "light";
+};
+
 onMounted(() => {
+  initMode();
   document.addEventListener("scroll", throttleScroll);
 });
 onBeforeUnmount(() => {
@@ -137,7 +148,7 @@ onBeforeUnmount(() => {
 }
 
 .headerContainer {
-  @apply bg-white backdrop-blur-sm bg-opacity-90 fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10 transition-all duration-500 ease-linear;
+  @apply bg-white dark:bg-black backdrop-blur-sm bg-opacity-90 fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10 transition-all duration-500 ease-linear;
   transform: translateY(v-bind(translateY));
 }
 

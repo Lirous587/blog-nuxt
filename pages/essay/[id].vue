@@ -47,7 +47,7 @@
         </div>
       </ClientOnly>
 
-      <el-card>
+      <el-card class="dark:!bg-black">
         <template #header>
           <div class="relative leading-[1em]">
             <span
@@ -61,7 +61,7 @@
           <el-card
             v-for="item in data.nearEssayList"
             :key="item.id"
-            class="relative"
+            class="relative dark:!bg-black"
           >
             <NuxtLink :to="'/essay/' + item.id">
               <el-image

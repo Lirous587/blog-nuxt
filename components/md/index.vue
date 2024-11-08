@@ -17,7 +17,7 @@
         v-if="anchorVisiable"
         ref="asideAnchorRef"
         @click.stop="() => {}"
-        class="fixed flex flex-col top-[80px] right-5 z-20 pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
+        class="fixed flex flex-col top-[80px] right-5 z-20 pl-[3px] pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
       >
         <a
           v-for="(item, index) in anchors"
@@ -37,12 +37,12 @@
     <div class="fixed flex flex-col bottom-[70px] right-10 z-30 gap-y-2">
       <div
         @click.stop="anchorVisiable = !anchorVisiable"
-        class="hover:cursor-pointer rounded-full bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+        class="hover:cursor-pointer rounded-full bg-white dark:bg-black shadow-xl w-[40px] h-[40px] flex items-center justify-center"
       >
         <el-icon size="26" color="rgb(119, 122, 175)"><Memo /></el-icon>
       </div>
       <div
-        class="hover:cursor-pointer rounded-full transition-all duration-200 bg-white shadow-xl w-[40px] h-[40px] flex items-center justify-center"
+        class="hover:cursor-pointer rounded-full transition-all duration-200 bg-white dark:bg-black shadow-xl w-[40px] h-[40px] flex items-center justify-center"
       >
         <el-icon size="26" color="rgb(119, 122, 175)"><Top /></el-icon>
       </div>
@@ -52,7 +52,6 @@
 
 <script setup>
 import { handleUploadImage, disposeMdAnchor } from "./md";
-const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const props = defineProps({
   height: {
@@ -106,7 +105,6 @@ onBeforeUnmount(() => {
 });
 </script>
 
-
 <style scoped>
 :deep(.v-md-editor__preview-wrapper),
 :deep(.scrollbar),
@@ -117,30 +115,25 @@ onBeforeUnmount(() => {
 }
 
 :deep(.vuepress-markdown-body) {
-  @apply font-mono;
+  @apply font-mono dark:!bg-gray-800 dark:text-white;
 }
 
 @keyframes active {
   0%,
   100% {
-    background-color: red;
+    @apply bg-pink-400 border-l-8 border-blue-800 ring-[2px] ring-pink-400;
   }
 }
 
 .anchor {
-  @apply relative leading-[1.5em] h-[1.5em] my-1 hover:cursor-pointer;
+  @apply relative leading-[1.5em] h-[1.5em] my-1 hover:cursor-pointer transition-all duration-300;
   animation: active;
   animation-timeline: var(--s);
 }
 
-.anchor:hover {
-  @apply bg-blue-100;
+.anchors {
+  @apply font-mono dark:!bg-gray-800 dark:text-neutral-50;
 }
-.anchor:hover::before {
-  content: "";
-  @apply absolute left-0 h-[1.5em] w-[2px] bg-blue-400;
-}
-
 .anchors::-webkit-scrollbar {
   width: 3px;
   height: 1px;
