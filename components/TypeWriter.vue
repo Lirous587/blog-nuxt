@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center px-2 cursor-pointer h-[2em] min-h-[2em]">
-    <div class="text-[1em] leading-[2em] text-nowrap overflow-hidden">
+  <div class="flex items-center px-2 cursor-pointer">
+    <div class="text-[1em] leading-[2em]">
       {{ displayedText }}
+      <span
+        class="h-[1.2em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"
+      ></span>
     </div>
-    <span
-      class="h-[1em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"
-    ></span>
   </div>
 </template>
 

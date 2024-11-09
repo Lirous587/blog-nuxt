@@ -106,13 +106,12 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-:deep(.v-md-editor__preview-wrapper),
+/* :deep(.v-md-editor__preview-wrapper),
 :deep(.scrollbar),
 :deep(.scrollbar__wrap),
-:deep(.v-md-editor__editor-wrapper),
-:deep(.v-md-editor__main) {
+:deep(.v-md-editor__editor-wrapper) {
   overflow: visible;
-}
+} */
 
 :deep(.vuepress-markdown-body) {
   @apply font-mono dark:!bg-gray-800 dark:text-white;
