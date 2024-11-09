@@ -47,7 +47,7 @@
         </div>
       </ClientOnly>
 
-      <el-card class="dark:!bg-black">
+      <el-card class="dark:!bg-black mt-5">
         <template #header>
           <div class="relative leading-[1em]">
             <span
@@ -145,5 +145,8 @@ useSeoMeta({
 .progress {
   animation: grow-progress 3s linear;
   animation-timeline: scroll(root);
+}
+:deep(.el-card) {
+  --el-card-border-color: rgb(77, 63, 63);
 }
 </style>

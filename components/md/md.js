@@ -68,7 +68,7 @@ export const disposeMdAnchor = (md) => {
 
   const currentHash = window.location.hash.slice(1);
 
-  console.log(currentHash);
+  currentHash ? hList[currentHash].firstChild.click() : "";
 
   document.body.style.timelineScope = sList.join(",");
 

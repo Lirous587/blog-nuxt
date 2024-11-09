@@ -134,7 +134,7 @@ const changeMode = () => {
 };
 
 onMounted(() => {
-  initMode();
+  nowMode.value = initMode();
   document.addEventListener("scroll", throttleScroll);
 });
 onBeforeUnmount(() => {

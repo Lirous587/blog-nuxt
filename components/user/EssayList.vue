@@ -95,4 +95,7 @@ const props = defineProps({
 * {
   font-family: "myFont";
 }
+:deep(.el-card) {
+  border: none;
+}
 </style>

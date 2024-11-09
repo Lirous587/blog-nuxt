@@ -5,8 +5,10 @@ export const initMode = () => {
       window.matchMedia("(prefers-color-scheme: dark)").matches)
   ) {
     darkMode();
+    return "dark";
   } else {
     lightMode();
+    return "light";
   }
 };
 

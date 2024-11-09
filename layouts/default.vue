@@ -3,7 +3,7 @@
 
   <BackgroundType> </BackgroundType>
 
-  <div class="pt-5 bg-white dark:bg-black flex">
+  <div class="pt-5 transition-all duration-300 bg-white dark:bg-black flex">
     <aside
       class="hidden mt-5 ml-5 flex-col lg:ml-20 xl:ml-40 w-[240px] lg:flex lg:w-[300px] xl:w-[350px]"
     >
