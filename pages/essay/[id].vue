@@ -4,10 +4,10 @@
       class="fixed z-50 top-0 left-0 h-[5px] bg-pink-300 rounded-md progress"
     ></div>
     <div class="mt-5" v-if="!loading">
-      <div class="ml-5 mr-5">
-        <div class="flex justify-between items-center">
+      <div class="mx-5 mb-5">
+        <div class="flex justify-between items-center mb-2">
           <TypeWriter
-            class="p-3 rounded-xl text-xl text-opacity-60 mb-5"
+            class="rounded-xl text-opacity-60 dark:text-gray-500"
             :sentenceList="sentenceList"
             :addSpeed="150"
             :deleteSpeed="50"
@@ -147,6 +147,6 @@ useSeoMeta({
   animation-timeline: scroll(root);
 }
 :deep(.el-card) {
-  --el-card-border-color: rgb(77, 63, 63);
+  @apply border-none;
 }
 </style>

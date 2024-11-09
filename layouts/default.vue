@@ -4,9 +4,7 @@
   <BackgroundType> </BackgroundType>
 
   <div class="pt-5 transition-all duration-300 bg-white dark:bg-black flex">
-    <aside
-      class="hidden mt-5 ml-5 flex-col lg:ml-20 xl:ml-40 w-[240px] lg:flex lg:w-[300px] xl:w-[350px]"
-    >
+    <aside class="sticky-aside">
       <UserNavAside class="mr-5"></UserNavAside>
     </aside>
 
@@ -24,3 +22,12 @@
     <Wave />
   </div>
 </template>
+
+<style scoped>
+.sticky-aside {
+  @apply sticky top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden mt-5 ml-5 flex-col lg:ml-20 xl:ml-40 w-[240px] lg:flex lg:w-[300px] xl:w-[350px];
+}
+.sticky-aside::-webkit-scrollbar {
+  display: none;
+}
+</style>

@@ -17,7 +17,7 @@
         v-if="anchorVisiable"
         ref="asideAnchorRef"
         @click.stop="() => {}"
-        class="fixed flex flex-col top-[80px] right-5 z-20 pl-[3px] pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll anchors"
+        class="anchors"
       >
         <a
           v-for="(item, index) in anchors"
@@ -25,9 +25,9 @@
           class="anchor"
           :style="{
             paddingLeft: (item.indent + 1) * 15 + 'px',
-            '--s': `--t${index}`,
           }"
           :href="'#' + item.id"
+          :class="item.active ? 'active' : ''"
         >
           {{ item.title }}
         </a>
@@ -91,7 +91,7 @@ let data = {};
 onMounted(async () => {
   if (!ifEdit.value) {
     data = disposeMdAnchor(previewRef);
-    anchors.value = data.anchors;
+    anchors.value = data.anchors.value;
     hList.value = data.hList;
 
     document.body.addEventListener("click", bodyClickHandel);
@@ -106,33 +106,26 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* :deep(.v-md-editor__preview-wrapper),
-:deep(.scrollbar),
-:deep(.scrollbar__wrap),
-:deep(.v-md-editor__editor-wrapper) {
-  overflow: visible;
-} */
-
 :deep(.vuepress-markdown-body) {
   @apply font-mono dark:!bg-gray-800 dark:text-white;
 }
 
-@keyframes active {
-  0%,
-  100% {
-    @apply bg-pink-400 border-l-8 border-blue-800 ring-[2px] ring-pink-400;
-  }
+.active {
+  @apply relative bg-pink-400 transition-all duration-200;
+}
+
+.active::before {
+  @apply absolute content-[''] block inset-0 w-[5px] h-full bg-blue-800;
 }
 
 .anchor {
-  @apply relative leading-[1.5em] h-[1.5em] my-1 hover:cursor-pointer transition-all duration-300;
-  animation: active;
-  animation-timeline: var(--s);
+  @apply relative leading-[1.5em] h-[1.5em] my-1 hover:cursor-pointer;
 }
 
 .anchors {
-  @apply font-mono dark:!bg-gray-800 dark:text-neutral-50;
+  @apply fixed flex flex-col top-[80px] right-5 z-20 pl-[3px] pr-3 py-1 rounded-md bg-white shadow-xl max-h-[70vh] overflow-y-scroll font-mono dark:!bg-gray-900 dark:text-neutral-50;
 }
+
 .anchors::-webkit-scrollbar {
   width: 3px;
   height: 1px;

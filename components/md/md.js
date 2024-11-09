@@ -29,28 +29,49 @@ export async function handleUploadImage(event, insertImage, files) {
 export const disposeMdAnchor = (md) => {
   const hList = md.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
 
-  let anchors = Array.from(hList).filter((anchor) => !!anchor.innerText.trim());
+  const anchors = ref(
+    Array.from(hList).filter((anchor) => !!anchor.innerText.trim())
+  );
 
-  if (!anchors.length) {
-    anchors = [];
+  if (!anchors.value.length) {
+    anchors.value = [];
     return { anchors };
   }
 
   const hLevel = Array.from(
-    new Set(anchors.map((anchor) => anchor.tagName))
+    new Set(anchors.value.map((anchor) => anchor.tagName))
   ).sort();
 
-  anchors = anchors.map((el, index) => ({
+  anchors.value = anchors.value.map((el, index) => ({
     id: `${index}`,
     title: el.innerText,
     indent: hLevel.indexOf(el.tagName),
+    active: false,
   }));
 
-  let sList = [];
+  const myObserver = new IntersectionObserver(
+    (entries) => {
+      console.log(entries);
+      entries.forEach((entry) => {
+        const { id } = entry.target;
+        if (entry.isIntersecting) {
+          anchors.value.forEach((anchor) => {
+            anchor.active = false;
+          });
+          anchors.value[id].active = true;
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -99% 0px",
+    }
+  );
 
   hList.forEach((el, index) => {
-    const anchorValue = anchors[index].id;
+    const anchorValue = anchors.value[index].id;
     el.id = anchorValue;
+
+    myObserver.observe(el);
 
     const aEl = document.createElement("a");
 
@@ -62,7 +83,6 @@ export const disposeMdAnchor = (md) => {
 
     aEl.setAttribute("href", `#${anchorValue}`);
 
-    sList.push(`--t${index}`);
     el.appendChild(aEl);
   });
 
@@ -70,15 +90,12 @@ export const disposeMdAnchor = (md) => {
 
   currentHash ? hList[currentHash].firstChild.click() : "";
 
-  document.body.style.timelineScope = sList.join(",");
-
-  addDivOuter(md);
-
   return {
     anchors,
   };
 };
 
+// 暂留代码
 const addDivOuter = (md) => {
   const mdBody = md.value.$el.querySelector(".vuepress-markdown-body");
   // 拿到全部的子元素
@@ -94,9 +111,6 @@ const addDivOuter = (md) => {
         fragment.appendChild(currentDiv);
       }
       currentDiv = document.createElement("div");
-      currentDiv.style.setProperty("--s", `--t${index}`);
-      currentDiv.style.setProperty("view-timeline-name", "var(--s)");
-      currentDiv.style.setProperty("view-timeline-inset", "0.1% 99.9%");
       currentDiv.appendChild(el);
       index++;
     } else if (currentDiv) {
