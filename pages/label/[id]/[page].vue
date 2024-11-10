@@ -14,6 +14,7 @@ import { useMyIndexStore } from "~/store";
 
 definePageMeta({
   middleware: ["page-validation", "index-data"],
+  scrollToTop: true,
 });
 const route = useRoute();
 const queryForm = reactive({

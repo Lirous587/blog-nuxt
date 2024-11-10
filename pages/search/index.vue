@@ -9,6 +9,7 @@ import { searchEssay } from "~/api/keyword";
 
 definePageMeta({
   middleware: ["search", "index-data"],
+  scrollToTop: true,
 });
 
 const route = useRoute();

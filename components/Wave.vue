@@ -9,7 +9,7 @@
       style="background-image: url(/wave2.png)"
     ></div>
     <div
-      class="absolute inset-0 h-[60px] bg-black bg-opacity-50 hidden dark:block"
+      class="absolute inset-0 h-[60px] bg-black bg-opacity-70 hidden dark:block"
     ></div>
   </div>
 </template>

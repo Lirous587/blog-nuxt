@@ -122,7 +122,9 @@
       :chat-func="() => scrollToChatArea()"
     ></FixedTool>
 
-    <div id="chatArea" class="opacity-0">这里是未来的聊天区</div>
+    <div id="chatArea" class="dark:bg-black dark:text-neutral-300">
+      这里是未来的聊天区
+    </div>
 
     <UserNavBottom></UserNavBottom>
 
@@ -140,6 +142,7 @@ import { getEssay } from "~/api/essay";
 definePageMeta({
   middleware: ["index-data"],
   layout: "",
+  scrollToTop: true,
 });
 
 const mdRef = ref(null);

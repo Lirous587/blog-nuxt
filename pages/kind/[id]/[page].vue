@@ -14,6 +14,7 @@ import { useMyIndexStore } from "~/store";
 
 definePageMeta({
   middleware: ["index-data", "page-validation"],
+  scrollToTop: true,
 });
 
 const route = useRoute();

@@ -33,6 +33,7 @@ import { getHeartWordsList } from "~/api/heartWords";
 
 definePageMeta({
   middleware: ["page-validation", "index-data"],
+  scrollToTop: true,
 });
 const config = useRuntimeConfig();
 const imgPre = config.public.imgBase + "/";
