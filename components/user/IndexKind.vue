@@ -9,7 +9,7 @@
         <NuxtLink
           :key="item.id"
           :to="'/kind/' + item.id + '/1'"
-          class="relative flex flex-col items-center rounded-md py-4 border transition-transform animate-pulse"
+          class="relative flex flex-col items-center rounded-md py-4 border dark:border-gray-500 transition-transform animate-pulse"
           :style="{ animationDelay: `${index * 0.6}s` }"
         >
           <el-icon>
@@ -19,7 +19,7 @@
             {{ item.name }}
           </span>
           <span
-            class="absolute top-0 right-0 translate-x-[-100%] text-sm text-neutral-200"
+            class="absolute top-0 right-0 translate-x-[-100%] text-sm text-gray-700 dark:text-neutral-200"
           >
             {{ item.essayCount }}
           </span>

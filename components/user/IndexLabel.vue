@@ -9,14 +9,14 @@
         v-for="(item, index) in list"
         :key="item.id"
         :to="'/label/' + item.id + '/1'"
-        class="relative py-2 px-3 rounded-lg border border-blue-500 animate-pulse text-slate-600 dark:text-neutral-200 transition-transform duration-300 hover:scale-110"
+        class="relative py-2 px-3 rounded-lg border border-blue-500 dark:border-pink-400 animate-pulse text-slate-600 dark:text-neutral-200 transition-transform duration-300 hover:scale-110"
         :style="{
           animationDelay: `${index * 0.2}s`,
         }"
       >
         {{ item.name }}
         <span
-          class="absolute top-0 right-0 translate-x-[-50%] text-xs text-neutral-200"
+          class="absolute top-0 right-0 translate-x-[-50%] text-xs text-gray-700 dark:text-neutral-200"
         >
           {{ item.essayCount }}
         </span>

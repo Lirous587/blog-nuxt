@@ -55,6 +55,8 @@ nuxtApp.hook("page:finish", () => {
   @apply bg-gray-400 dark:bg-gray-600 border-[2px] border-solid border-transparent bg-clip-content rounded-md;
 }
 
+
+
 html,
 body {
   scroll-behavior: smooth;

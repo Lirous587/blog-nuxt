@@ -22,15 +22,15 @@
 const list = ref([
   {
     title: "友链",
-    url: "/friend",
+    url: "/friendLink",
   },
   {
     title: "心语",
-    url: "/heartWord",
+    url: "/heartWords/1",
   },
   {
     title: "我的",
-    url: "/konwledge",
+    url: "/me",
   },
 ]);
 </script>

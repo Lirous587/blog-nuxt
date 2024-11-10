@@ -76,12 +76,12 @@
       </el-menu-item>
     </NuxtLink>
 
-    <!-- 知识库 -->
+    <!-- 我的 -->
     <NuxtLink to="/admin">
-      <el-menu-item index="/admin/knowledge">
+      <el-menu-item index="/admin/me">
         <el-icon><Collection /></el-icon>
         <template #title>
-          <span>知识库</span>
+          <span>我的</span>
         </template>
       </el-menu-item>
     </NuxtLink>

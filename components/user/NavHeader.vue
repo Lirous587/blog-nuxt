@@ -1,6 +1,9 @@
 <template>
-  <div class="headerContainer">
-    <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
+  <div
+    class="headerContainer fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black backdrop-blur-sm bg-opacity-90 z-10 transition-all duration-500 ease-linear;"
+  >
+    <div class="pl-5 flex items-center gap-x-4">
+      <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
       <!-- 移动端抽屉 -->
       <div class="lg:hidden flex items-center">
         <HamburgerIcon
@@ -23,12 +26,14 @@
           <UserNavAside></UserNavAside>
         </el-drawer>
       </div>
+      <NuxtLink to="/" class="nav lg:hidden"> 首页 </NuxtLink>
+    </div>
 
-      <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
+    <div class="mx-auto items-center gap-x-8 hidden lg:flex">
       <NuxtLink to="/" class="nav"> 首页 </NuxtLink>
-      <NuxtLink to="/heartWords/1" class="nav hidden lg:block"> 心语 </NuxtLink>
-      <NuxtLink to="/friendLink" class="nav hidden lg:block"> 友链 </NuxtLink>
-      <NuxtLink to="/knowledge" class="nav hidden lg:block"> 我的 </NuxtLink>
+      <NuxtLink to="/heartWords/1" class="nav"> 心语 </NuxtLink>
+      <NuxtLink to="/friendLink" class="nav"> 友链 </NuxtLink>
+      <NuxtLink to="/me" class="nav"> 我的 </NuxtLink>
     </div>
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
@@ -101,10 +106,8 @@ onBeforeUnmount(() => {
 }
 
 .headerContainer {
-  @apply bg-white dark:bg-black backdrop-blur-sm bg-opacity-90 fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full z-10 transition-all duration-500 ease-linear;
   transform: translateY(v-bind(translateY));
 }
-
 .nav {
   @apply duration-300 relative cursor-pointer text-lg  whitespace-nowrap  hover:scale-125 text-gray-900 dark:text-neutral-400;
 }

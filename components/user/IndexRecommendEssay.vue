@@ -4,14 +4,14 @@
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">推荐文章</span>
     </div>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-y-2">
       <div v-for="item in list">
         <NuxtLink
           :key="item.id"
           :to="'/essay/' + item.id"
           class="flex items-center justify-between"
         >
-          <div class="flex flex-col w-full">
+          <div class="flex flex-col">
             <div class="flex items-center w-full">
               <el-image
                 :src="imgPre + item.img.url"
@@ -24,12 +24,12 @@
                 {{ item.name }}
               </div>
             </div>
-            <small class="text-xs my-1 text-gray-300">
+            <small class="text-xs my-1 text-gray-300 dark:text-gray-600">
               {{ formateDate(item.createdTime) }}
             </small>
           </div>
         </NuxtLink>
-        <div class="h-[1px] bg-pink-100 border-dotted"></div>
+        <div class="h-[1px] bg-pink-100 dark:bg-gray-600 border-dotted"></div>
       </div>
     </div>
   </el-card>
@@ -45,3 +45,12 @@ const props = defineProps({
   },
 });
 </script>
+
+<!-- <style scoped>
+:deep(.el-card) {
+  @apply dark:border-gray-600;
+}
+:deep(.el-card__footer) {
+  @apply dark:border-t-gray-600;
+}
+</style> -->

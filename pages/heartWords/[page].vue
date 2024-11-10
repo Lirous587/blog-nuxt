@@ -4,7 +4,11 @@
       <el-card
         shadow="always"
         class="!rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
-        :class="index % 2 == 0 ? '!bg-pink-50' : '!bg-green-50'"
+        :class="
+          index % 2 == 0
+            ? '!bg-pink-50 dark:!bg-black'
+            : '!bg-green-50 dark:!bg-black'
+        "
       >
         <div class="color-text-radial">
           {{ item.content }}
@@ -81,5 +85,12 @@ await getHeartWordsList(queryForm).then((res) => {
   );
   color: transparent;
   background-clip: text;
+}
+
+:deep(.el-card) {
+  @apply dark:border-gray-600;
+}
+:deep(.el-card__footer) {
+  @apply dark:border-t-gray-600;
 }
 </style>
