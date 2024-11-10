@@ -1,12 +1,12 @@
 <template>
-  <TopLoading></TopLoading>
-  <UserNavHeader> </UserNavHeader>
+  <div>
+    <TopLoading></TopLoading>
+    <UserNavHeader> </UserNavHeader>
 
-  <BackgroundType> </BackgroundType>
+    <BackgroundType> </BackgroundType>
 
-  <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
-    <main class="flex-1 mx-3 lg:ml-20">
-      <div>
+    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
+      <main class="flex-1 mx-3 lg:ml-20" @click="mobileAnchorShow = false">
         <div class="mt-5" v-if="!loading">
           <div class="mx-5 mb-5">
             <div class="flex justify-between items-center mb-2">
@@ -92,54 +92,45 @@
             </div>
           </el-card>
         </div>
-      </div>
-      <RecordBottom></RecordBottom>
-    </main>
 
-    <aside class="sticky-aside">
-      <div
-        v-if="mdRef"
-        class="anchor-outer flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-md mb-4 dark:text-white pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
-      >
-        <div class="h-[1em] leading-[1em] font-bold relative pl-1 mb-2">
-          文章目录
-          <div
-            class="absolute flex flex-col top-0 h-[1em] justify-around translate-x-[-120%]"
-          >
-            <span
-              class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
-            >
-            </span>
-            <span
-              class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
-            >
-            </span>
-            <span
-              class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
-            >
-            </span>
-          </div>
+        <div class="fixed top-[60px] right-0 lg:hidden" v-if="mdRef">
+          <EssayAnchor
+            :anchors="mdRef.anchors"
+            :class="mobileAnchorShow ? 'block' : 'hidden'"
+          ></EssayAnchor>
         </div>
-        <a
-          v-for="(item, index) in mdRef.anchors"
-          :key="index"
-          class="anchor"
-          :class="item.active ? 'active' : ''"
-          :href="'#' + item.id"
-        >
-          {{ item.title }}
-        </a>
-      </div>
+      </main>
 
-      <UserNavAside
-        :showList="['recommentEssay', 'label', 'kind']"
-      ></UserNavAside>
-    </aside>
-  </div>
+      <aside class="sticky-aside">
+        <div v-if="mdRef">
+          <EssayAnchor :anchors="mdRef.anchors"></EssayAnchor>
+        </div>
 
-  <UserNavBottom></UserNavBottom>
-  <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
-    <Wave />
+        <UserNavAside
+          :showList="['recommentEssay', 'label', 'kind']"
+        ></UserNavAside>
+      </aside>
+    </div>
+
+    <FixedTool
+      :tool-list="['top', 'chat', 'menu']"
+      :menu-func="
+        () => {
+          mobileAnchorShow = !mobileAnchorShow;
+        }
+      "
+      :chat-func="() => scrollToChatArea()"
+    ></FixedTool>
+
+    <div id="chatArea" class="opacity-0">这里是未来的聊天区</div>
+
+    <UserNavBottom></UserNavBottom>
+
+    <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
+      <Wave />
+    </div>
+
+    <RecordBottom></RecordBottom>
   </div>
 </template>
 
@@ -152,6 +143,8 @@ definePageMeta({
 });
 
 const mdRef = ref(null);
+
+const mobileAnchorShow = ref(false);
 
 const sentenceList = ref([]);
 const route = useRoute();
@@ -190,6 +183,15 @@ useSeoMeta({
   ogImage: imgPre + data.value.imgUrl,
   twitterCard: imgPre + data.value.imgUrl,
 });
+
+const scrollToChatArea = () => {
+  const chatArea = document.getElementById("chatArea");
+  console.log(chatArea.offsetTop);
+  window.scrollTo({
+    top: chatArea.offsetTop,
+    behavior: "smooth",
+  });
+};
 </script>
 
 <style scoped>
@@ -201,20 +203,5 @@ useSeoMeta({
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;
-}
-
-.anchor {
-  @apply relative hover:cursor-pointer transition-all duration-300 blur-[1px] text-lg font-mono;
-}
-
-.anchor:hover {
-  @apply text-pink-300 scale-110;
-}
-
-.active {
-  @apply text-yellow-300 blur-0 scale-110;
-}
-.anchor-outer:hover a {
-  @apply blur-0;
 }
 </style>

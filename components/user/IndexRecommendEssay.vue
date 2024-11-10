@@ -16,7 +16,6 @@
               <el-image
                 :src="imgPre + item.img.url"
                 fit="cover"
-                lazy
                 class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
               ></el-image>
               <div

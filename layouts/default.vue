@@ -17,6 +17,8 @@
     <Wave />
   </div>
 
+  <FixedTool></FixedTool>
+
   <RecordBottom></RecordBottom>
 </template>
 
