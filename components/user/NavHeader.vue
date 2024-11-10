@@ -16,6 +16,9 @@
           direction="ltr"
           append-to-body
           @close="iconRef.close()"
+          class="dark:bg-black"
+          :show-close="false"
+          :modal="true"
         >
           <UserNavAside></UserNavAside>
         </el-drawer>
@@ -127,14 +130,14 @@ const scroll = (event) => {
 };
 const throttleScroll = throttle(scroll, 50);
 
-const nowMode = ref("light");
+const nowMode = ref("dark");
 const changeMode = () => {
   nowMode.value === "light" ? darkMode() : lightMode();
   nowMode.value = nowMode.value === "light" ? "dark" : "light";
 };
 
 onMounted(() => {
-  nowMode.value = initMode();
+  nowMode.value = initMode() ? initMode() : "dark";
   document.addEventListener("scroll", throttleScroll);
 });
 onBeforeUnmount(() => {

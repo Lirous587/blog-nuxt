@@ -1,14 +1,10 @@
 export const initMode = () => {
-  if (
-    localStorage.theme === "dark" ||
-    (!("theme" in localStorage) &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    darkMode();
-    return "dark";
-  } else {
+  if (localStorage.theme === "light") {
     lightMode();
     return "light";
+  } else {
+    darkMode();
+    return "dark";
   }
 };
 

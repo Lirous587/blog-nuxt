@@ -1,33 +1,29 @@
 <template>
-  <div v-for="(item, index) in list" :key="item.id">
-    <el-card
-      shadow="always"
-      class="!rounded-xl mx-10 my-8 hover:!shadow-lg bg-gradient-to-br from-pink-50 to-green-100 dark:from-gray-700 dark:to-gray-700"
-    >
-      <div class="flex flex-col justify-center lg:flex-row lg:items-center">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+    <div v-for="item in list" :key="item.id">
+      <div
+        class="border hover:!border-yellow-200 rounded-md overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg dark:bg-black dark:border-gray-800"
+      >
         <NuxtLink
           :to="'/essay/' + item.id"
-          class="flex justify-center order-0 mx-3 lg:order-2 my-2 lg:w-[192px] lg:h-[108px] xl:w-[288px] xl:h-[172px]"
+          class="flex justify-center w-full h-[180px]"
         >
           <el-image
             :src="imgPre + item.img.url"
             fit="cover"
-            class="w-full h-[180px] lg:h-auto rounded-lg shadow-lg p-2 bg-cyan-100 dark:bg-black transition-transform duration-300 ease-in-out hover:scale-110"
+            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-black transition-transform duration-300 ease-in-out hover:animate-pulse"
             lazy
           >
           </el-image>
         </NuxtLink>
 
-        <div
-          class="flex flex-col mx-3 order-1 justify-around flex-1 gap-y-1 flex-wrap"
-          :class="index % 2 === 0 ? 'order-3' : 'order-1'"
-        >
+        <div class="flex flex-col mx-3 gap-y-1 flex-wrap py-2">
           <NuxtLink
             :to="'/essay/' + item.id"
             class="text-black dark:text-white"
           >
             <span
-              class="text-lg line-clamp-1 transition-transform duration-300 hover:scale-105 hover:text-blue-500 dark:hover:text-blue-950 hover:underline"
+              class="text-lg text-ellipsis transition-transform duration-300 hover:scale-105 hover:text-blue-500 dark:hover:text-blue-950 hover:underline"
             >
               {{ item.name }}
             </span>
@@ -64,7 +60,7 @@
             </span>
           </div>
 
-          <small class="hidden justify-between text-xs text-gray-400 lg:flex">
+          <small class="justify-between text-xs text-gray-400 flex">
             <div class="flex items-center gap-x-1">
               <el-icon><Calendar /></el-icon>
               <span class="line-clamp-1">
@@ -77,7 +73,7 @@
           </small>
         </div>
       </div>
-    </el-card>
+    </div>
   </div>
 </template>
 <script setup>

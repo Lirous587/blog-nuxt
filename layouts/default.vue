@@ -3,21 +3,17 @@
 
   <BackgroundType> </BackgroundType>
 
-  <div class="pt-5 transition-all duration-300 bg-white dark:bg-black flex">
-    <aside class="sticky-aside">
-      <UserNavAside class="mr-5"></UserNavAside>
-    </aside>
-
-    <main class="flex-1">
-      <div class="mx-auto lg:ml-10 xl:ml-15 lg:w-[75%]">
-        <slot />
-        <RecordBottom></RecordBottom>
-      </div>
+  <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
+    <main class="flex-1 mx-3 lg:ml-20">
+      <slot />
+      <RecordBottom></RecordBottom>
     </main>
+    <aside class="sticky-aside">
+      <UserNavAside></UserNavAside>
+    </aside>
   </div>
 
   <UserNavBottom></UserNavBottom>
-
   <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
     <Wave />
   </div>
@@ -25,7 +21,7 @@
 
 <style scoped>
 .sticky-aside {
-  @apply sticky top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden mt-5 ml-5 flex-col lg:ml-20 xl:ml-40 w-[240px] lg:flex lg:w-[300px] xl:w-[350px];
+  @apply sticky overscroll-y-contain top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden ml-5 flex-col lg:mr-20 lg:flex lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;

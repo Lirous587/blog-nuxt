@@ -111,11 +111,11 @@ onBeforeUnmount(() => {
 }
 
 .active {
-  @apply relative bg-pink-400 transition-all duration-200;
+  @apply relative bg-blue-200;
 }
 
 .active::before {
-  @apply absolute content-[''] block inset-0 w-[5px] h-full bg-blue-800;
+  @apply absolute content-[''] block inset-0 w-[5px] h-full bg-gray-800;
 }
 
 .anchor {

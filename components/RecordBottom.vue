@@ -14,7 +14,7 @@
 
 <style scoped>
 .register {
-  @apply flex flex-col justify-center items-center my-5;
+  @apply flex flex-col justify-center items-center my-5 dark:text-white;
   font-family: "myFont";
 }
 </style>
