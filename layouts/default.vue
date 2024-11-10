@@ -6,7 +6,6 @@
   <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
     <main class="flex-1 mx-3 lg:ml-20">
       <slot />
-      <RecordBottom></RecordBottom>
     </main>
     <aside class="sticky-aside">
       <UserNavAside></UserNavAside>
@@ -17,6 +16,8 @@
   <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
     <Wave />
   </div>
+
+  <RecordBottom></RecordBottom>
 </template>
 
 <style scoped>

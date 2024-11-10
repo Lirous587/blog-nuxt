@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col gap-y-4">
     <UserEssayList :list="essayList"></UserEssayList>
     <Paging :total-page="totalPage"></Paging>
   </div>
@@ -15,7 +15,7 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
-  pageSize: 5,
+  pageSize: 10,
 });
 
 const essayList = ref([]);

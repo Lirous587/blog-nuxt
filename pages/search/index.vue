@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-col gap-y-4">
     <UserEssayList :list="result"></UserEssayList>
   </div>
 </template>
