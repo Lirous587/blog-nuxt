@@ -1,9 +1,10 @@
 <template>
   <div class="headerContainer">
     <div class="pl-5 flex items-center gap-x-8 sm:flex-shrink-0">
+      <!-- 移动端抽屉 -->
       <div class="lg:hidden flex items-center">
         <HamburgerIcon
-          color="red"
+          color="gray"
           :size="20"
           @update:model-value="selectOpen"
           ref="iconRef"
@@ -12,82 +13,31 @@
           v-model="mobileMenuVisiable"
           :open-delay="250"
           title="文章导航"
-          size="70%"
+          size="280px"
           direction="ltr"
           append-to-body
           @close="iconRef.close()"
           class="dark:bg-black"
           :show-close="false"
-          :modal="true"
         >
           <UserNavAside></UserNavAside>
         </el-drawer>
       </div>
-      <NuxtLink to="/" class="nav hidden lg:block">
-        <div class="text-lg color-text flex-shrink-0">Lirous的日记本</div>
-      </NuxtLink>
-      <NuxtLink to="/" class="nav">
-        <div class="flex items-center">
-          <span class="iconfont">&#xe8a7;</span>
-          <span class="color-text">首页</span>
-        </div>
-      </NuxtLink>
-      <NuxtLink to="/heartWords/1" class="nav hidden lg:block">
-        <div class="flex items-center">
-          <span class="iconfont">&#xe8a6;</span>
-          <span class="color-text">心语</span>
-        </div>
-      </NuxtLink>
-      <NuxtLink to="/friendLink" class="nav hidden lg:block">
-        <div class="flex items-center">
-          <span class="iconfont">&#xe8a5;</span>
-          <span class="color-text">友链</span>
-        </div>
-      </NuxtLink>
-      <!-- about -->
-      <el-dropdown class="nav border-none">
-        <div
-          to="/about"
-          class="whitespace-nowrap outline-transparent hidden lg:block"
-        >
-          <span class="iconfont">&#xe8a4;</span>
-          <span class="color-text">关于</span>
-          <el-icon>
-            <arrow-down />
-          </el-icon>
-        </div>
-        <template #dropdown>
-          <el-dropdown-menu class="dark:!bg-black">
-            <el-dropdown-item>
-              <NuxtLink
-                target="_blank"
-                to="https://github.com/Lirous587"
-                class="flex items-center dark:text-white"
-              >
-                <el-icon size="16"><Star /></el-icon>
-                关于作者
-              </NuxtLink>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <NuxtLink
-                to="/knowledge"
-                class="flex items-center dark:text-white"
-              >
-                <el-icon><Collection /></el-icon>
-                知识库
-              </NuxtLink>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+
+      <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
+      <NuxtLink to="/" class="nav"> 首页 </NuxtLink>
+      <NuxtLink to="/heartWords/1" class="nav hidden lg:block"> 心语 </NuxtLink>
+      <NuxtLink to="/friendLink" class="nav hidden lg:block"> 友链 </NuxtLink>
+      <NuxtLink to="/knowledge" class="nav hidden lg:block"> 我的 </NuxtLink>
     </div>
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
         <UserSearchEssay></UserSearchEssay>
       </div>
+      <!-- 设置mode -->
       <div
-        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-white rounded-full"
+        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
         @click="changeMode"
       >
         <el-icon v-if="nowMode === 'dark'">
@@ -155,28 +105,8 @@ onBeforeUnmount(() => {
   transform: translateY(v-bind(translateY));
 }
 
-.color-text {
-  @apply cursor-pointer text-lg whitespace-nowrap;
-  text-align: center;
-  background: linear-gradient(
-    to right,
-    rgb(67, 102, 218),
-    rgb(91, 112, 208),
-    rgb(255, 153, 0)
-  );
-  color: transparent;
-  background-clip: text;
-}
-
-.iconfont {
-  font-family: "iconfont";
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 .nav {
-  @apply duration-300 relative  hover:scale-125;
+  @apply duration-300 relative cursor-pointer text-lg  whitespace-nowrap  hover:scale-125 text-gray-900 dark:text-neutral-400;
 }
 .nav::after {
   content: "";

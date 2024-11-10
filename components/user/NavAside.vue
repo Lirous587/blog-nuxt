@@ -10,16 +10,23 @@
       class="bg-gradient-to-br from-pink-50 to-green-50 dark:from-pink-950 dark:to-green-950"
       :list="recommentEssayList"
     ></UserIndexRecommendEssay>
-    <UserIndexLabel
-      v-if="showList.includes('label')"
-      class="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-950"
-      :list="labelList"
-    ></UserIndexLabel>
+    <UserGuideHelp
+      v-if="showList.includes('friendAndMe')"
+      class="lg:hidden bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-slate-800 dark:to-blue-950"
+    >
+    </UserGuideHelp>
+
     <UserIndexKind
       v-if="showList.includes('kind')"
       class="bg-gradient-to-br from-cyan-100 to-green-50 dark:from-cyan-950 dark:to-green-950"
       :list="kindList"
     ></UserIndexKind>
+
+    <UserIndexLabel
+      v-if="showList.includes('label')"
+      class="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-950"
+      :list="labelList"
+    ></UserIndexLabel>
   </div>
 </template>
 
@@ -35,7 +42,7 @@ const statisticsData = indexStore.getStatisticsData();
 const props = defineProps({
   showList: {
     type: Array,
-    default: ["statistics", "recommentEssay", "label", "kind"],
+    default: ["statistics", "recommentEssay", "friendAndMe", "label", "kind"],
   },
 });
 </script>

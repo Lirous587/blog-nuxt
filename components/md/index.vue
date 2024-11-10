@@ -61,6 +61,6 @@ defineExpose({
 
 <style scoped>
 :deep(.vuepress-markdown-body) {
-  @apply font-mono dark:!bg-gray-800 dark:text-white;
+  @apply font-mono dark:!bg-gray-800 dark:text-neutral-300;
 }
 </style>

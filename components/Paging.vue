@@ -1,26 +1,31 @@
 <template>
   <div class="flex justify-center" v-if="pageConfim()">
+    <!-- last -->
     <NuxtLink
       :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
-      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
+      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
     >
       <el-icon><ArrowLeft /></el-icon>
     </NuxtLink>
+
+    <!-- middle -->
     <NuxtLink
       v-for="(item, index) in list"
       :to="preHref + '/' + item.page"
       :key="index"
       class="bg-neutral-200 hover:text-blue-300 hover:shadow-md h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white transition-all duration-200 shadow-sm"
       :class="{
-        '!bg-sky-400': item.page == currentPage,
+        'bg-sky-400 dark:bg-pink-600': item.page == currentPage,
         'pointer-events-none': item.page == currentPage,
       }"
     >
       {{ item.value }}
     </NuxtLink>
+
+    <!-- next -->
     <NuxtLink
       :to="preHref + '/' + Math.min(totalPage, currentPage + Number(1))"
-      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white hover:text-blue-300 transition-all duration-200"
+      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
     >
       <el-icon><ArrowRight /></el-icon>
     </NuxtLink>

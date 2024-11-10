@@ -10,7 +10,6 @@ import { getEssayList } from "~/api/essay";
 
 definePageMeta({
   middleware: "index-data",
-  scrollToTop: true,
 });
 
 const route = useRoute();

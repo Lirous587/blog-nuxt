@@ -20,7 +20,7 @@
         <div class="flex flex-col mx-3 gap-y-1 flex-wrap py-2">
           <NuxtLink
             :to="'/essay/' + item.id"
-            class="text-black dark:text-white"
+            class="text-black dark:text-neutral-300"
           >
             <span
               class="text-lg text-ellipsis transition-transform duration-300 hover:scale-105 hover:text-blue-500 dark:hover:text-blue-950 hover:underline"
@@ -35,7 +35,7 @@
 
           <div class="flex flex-wrap items-center">
             <span class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3">
-              <el-tag type="primary" class="mr-2 mb-1">
+              <el-tag type="primary" class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700">
                 <NuxtLink :to="'/kind/' + item.kindID + '/1'">
                   <div class="flex items-center text-xs">
                     <el-icon><Menu /></el-icon>
@@ -47,7 +47,7 @@
               </el-tag>
               <el-tag
                 type="info"
-                class="mr-2 mb-1"
+                class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
                 v-for="label in item.labelList"
               >
                 <NuxtLink

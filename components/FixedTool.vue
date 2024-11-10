@@ -6,7 +6,14 @@
       v-if="toolList.includes('top')"
       @click="scrollToTop"
     >
-      <el-icon size="24" color="white"><Top /></el-icon>
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path
+          fill="white"
+          d="M12 2l-6 6h4v12h4V8h4z"
+          stroke="white"
+          stroke-width="2"
+        />
+      </svg>
     </div>
 
     <!-- menu -->
@@ -55,6 +62,6 @@ const scrollToTop = () => {
 
 <style scoped>
 .tool-container {
-  @apply bg-blue-500 rounded-lg w-[30px] h-[30px] lg:w-[35px] lg:h-[35px] flex items-center justify-center hover:cursor-pointer;
+  @apply bg-blue-500 dark:bg-gray-500 rounded-lg w-[32px] h-[32px] flex items-center justify-center hover:cursor-pointer;
 }
 </style>

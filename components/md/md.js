@@ -87,7 +87,7 @@ export const disposeMdAnchor = (md) => {
 
   const currentHash = window.location.hash.slice(1);
 
-  currentHash ? hList[currentHash].firstChild.click() : "";
+  currentHash ? hList[currentHash].firstChild.click() : window.scrollTo(0, 0);
 
   return {
     anchors,

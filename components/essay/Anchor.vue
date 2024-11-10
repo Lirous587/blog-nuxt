@@ -1,22 +1,24 @@
 <template>
   <div
-    class="anchor-outer flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-md mb-4 dark:text-white pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
+    class="anchor-outer flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-md mb-4 dark:text-neutral-300 pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
   >
-    <div class="h-[1em] leading-[1em] font-bold relative pl-1 mb-2">
+    <div
+      class="h-[1em] leading-[1em] font-bold relative pl-1 mb-2 pointer-events-none"
+    >
       文章目录
       <div
         class="absolute flex flex-col top-0 h-[1em] justify-around translate-x-[-120%]"
       >
         <span
-          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
+          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-300"
         >
         </span>
         <span
-          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
+          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-300"
         >
         </span>
         <span
-          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-100"
+          class="w-[1em] h-[calc(1em/6)] rounded-md content-[''] bg-black dark:bg-neutral-300"
         >
         </span>
       </div>

@@ -203,7 +203,6 @@ provide("select", true);
 const form = reactive({
   id: 0,
   name: "",
-  oldKindID: 0,
   kindID: null,
   oldLabelIds: [],
   labelIds: [],
@@ -265,7 +264,6 @@ const chooseEssayHandel = (row) => {
           form[key] = data[key];
         }
       }
-      form.oldKindID = form.kindID;
       if (Array.isArray(data.labelList)) {
         form.labelIds = data.labelList.map((o) => o.id);
         form.oldLabelIds = form.labelIds;
@@ -290,7 +288,6 @@ const handelUpdate = () => {
   updateEssay(form)
     .then(() => {
       toast("更新成功");
-      form.oldKindID = form.kindID;
       form.oldLabelIds = form.labelIds;
       adminStore.updateAll();
     })

@@ -27,7 +27,11 @@
               {{ data.introduction }}
             </div>
             <div class="flex mt-2 flex-wrap items-center ml-2">
-              <el-tag type="primary" size="small">
+              <el-tag
+                type="primary"
+                size="small"
+                class="dark:!bg-black dark:text-gray-500 dark:border-gray-700"
+              >
                 <NuxtLink :to="'/kind/' + data.kindID + '/1'">
                   {{ data.kindName }}
                 </NuxtLink>
@@ -35,7 +39,7 @@
               <el-tag
                 type="info"
                 size="small"
-                class="mx-1"
+                class="mx-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
                 v-for="label in data.labelList"
               >
                 <NuxtLink :to="'/label/' + label.id + '/1'">
@@ -125,8 +129,6 @@
     <div id="chatArea" class="dark:bg-black dark:text-neutral-300">
       这里是未来的聊天区
     </div>
-
-    <UserNavBottom></UserNavBottom>
 
     <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
       <Wave />

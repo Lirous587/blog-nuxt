@@ -4,24 +4,25 @@
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">分类专栏</span>
     </div>
-    <div class="flex flex-col gap-2">
-      <div v-for="item in list">
+    <div class="grid grid-cols-2 gap-3">
+      <div v-for="(item, index) in list">
         <NuxtLink
           :key="item.id"
           :to="'/kind/' + item.id + '/1'"
-          class="flex items-center justify-between transition-transform hover:animate-pulse"
+          class="relative flex flex-col items-center rounded-md py-4 border transition-transform animate-pulse"
+          :style="{ animationDelay: `${index * 0.6}s` }"
         >
-          <div class="flex items-center gap-2 ml-2 flex-shrink-0">
-            <el-icon>
-              <component class="text-pink-500" :is="item.icon"></component>
-            </el-icon>
-            <span class="text-green-500">
-              {{ item.name }}
-            </span>
-          </div>
-          <div class="mr-3 flex-shrink-0 text-red-500">
-            {{ item.essayCount }}篇
-          </div>
+          <el-icon>
+            <component class="text-pink-500" :is="item.icon"></component>
+          </el-icon>
+          <span class="text-green-500">
+            {{ item.name }}
+          </span>
+          <span
+            class="absolute top-0 right-0 translate-x-[-100%] text-sm text-neutral-200"
+          >
+            {{ item.essayCount }}
+          </span>
         </NuxtLink>
       </div>
     </div>
