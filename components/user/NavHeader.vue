@@ -57,6 +57,8 @@
 </template>
 
 <script setup>
+import { useMyThemeStore } from "~/store/theme";
+
 const mobileMenuVisiable = ref(false);
 const iconRef = ref(null);
 
@@ -83,16 +85,19 @@ const scroll = (event) => {
   }
   lastTop = nowTop;
 };
+
 const throttleScroll = throttle(scroll, 50);
 
-const nowMode = ref("dark");
+const themeStore = useMyThemeStore();
+const nowMode = ref(themeStore.theme);
+
 const changeMode = () => {
-  nowMode.value === "light" ? darkMode() : lightMode();
+  nowMode.value === "light" ? themeStore.darkMode() : themeStore.lightMode();
   nowMode.value = nowMode.value === "light" ? "dark" : "light";
 };
 
 onMounted(() => {
-  nowMode.value = initMode() ? initMode() : "dark";
+  themeStore.initMode();
   document.addEventListener("scroll", throttleScroll);
 });
 onBeforeUnmount(() => {

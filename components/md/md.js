@@ -26,38 +26,27 @@ export async function handleUploadImage(event, insertImage, files) {
   }
 }
 
-export const disposeMdAnchor = (md) => {
-  const hList = md.value.$el.querySelectorAll("h1,h2,h3,h4,h5,h6");
+export const disposeMdAnchor = (anchorIdList) => {
+  const hList = anchorIdList.map((id) => document.getElementById(id));
 
   const anchors = ref(
-    Array.from(hList).filter((anchor) => !!anchor.innerText.trim())
+    Array.from(hList).map((el, index) => ({
+      id: anchorIdList[index],
+      title: el.innerText,
+      active: false,
+    }))
   );
-
-  if (!anchors.value.length) {
-    anchors.value = [];
-    return { anchors };
-  }
-
-  const hLevel = Array.from(
-    new Set(anchors.value.map((anchor) => anchor.tagName))
-  ).sort();
-
-  anchors.value = anchors.value.map((el, index) => ({
-    id: `${index}`,
-    title: el.innerText,
-    indent: hLevel.indexOf(el.tagName),
-    active: false,
-  }));
 
   const myObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         const { id } = entry.target;
+        console.log(entry.target);
         if (entry.isIntersecting) {
           anchors.value.forEach((anchor) => {
             anchor.active = false;
           });
-          anchors.value[id].active = true;
+          anchors.value.find((item) => item.id === id).active = true;
         }
       });
     },
@@ -67,27 +56,13 @@ export const disposeMdAnchor = (md) => {
   );
 
   hList.forEach((el, index) => {
-    const anchorValue = anchors.value[index].id;
-    el.id = anchorValue;
-
+    el.id = anchorIdList[index];
     myObserver.observe(el);
-
-    const aEl = document.createElement("a");
-
-    const hContent = el.innerHTML;
-
-    el.innerHTML = "";
-
-    aEl.innerHTML = hContent;
-
-    aEl.setAttribute("href", `#${anchorValue}`);
-
-    el.appendChild(aEl);
   });
 
-  const currentHash = window.location.hash.slice(1);
+  // const currentHash = window.location.hash.slice(1);
 
-  currentHash ? hList[currentHash].firstChild.click() : window.scrollTo(0, 0);
+  // currentHash ? hList[currentHash].firstChild.click() : window.scrollTo(0, 0);
 
   return {
     anchors,

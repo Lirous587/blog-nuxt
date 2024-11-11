@@ -10,13 +10,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@kangc/v-md-editor": "next",
     "@pinia/nuxt": "^0.5.5",
     "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
     "babel-plugin-prismjs": "^2.1.0",
     "dayjs": "^1.11.13",
     "echarts": "^5.5.1",
     "element-plus": "^2.8.5",
+    "md-editor-v3": "^4.21.3",
     "pinia": "^2.2.4",
     "prismjs": "^1.29.0"
   },

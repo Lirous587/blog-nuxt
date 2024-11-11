@@ -1,21 +1,44 @@
 <template>
-  <div>
+  <!-- <div>
     <v-md-editor
-      ref="previewRef"
-      :include-level="[1, 2, 3, 4, 5, 6]"
-      v-model="content"
       :height="ifEdit ? props.height : ''"
       right-toolbar="ifEdit ?  '| toc | tip | todo-list | sync-scroll | preview | fullscreen'"
       :disabled-menus="[]"
-      :mode="ifEdit ? 'editable' : 'preview'"
       @upload-image="handleUploadImage"
       class="font-mono"
+    />
+  </div> -->
+  <div>
+    <!-- <MdEditor
+      editorId="editorId-edit"
+      :theme="themeStore.theme"
+      codeTheme="atom"
+      v-model="content"
+      previewTheme="smart-blue"
+      v-if="ifEdit"
+      ref="mdEditorRef"
+    ></MdEditor> -->
+    <MdPreview
+      editorId="editorId-preview"
+      :theme="themeStore.theme"
+      :codeTheme="themeStore.theme"
+      v-model="content"
+      previewTheme="smart-blue"
+      :mdHeadingId="mdHeadingId"
     />
   </div>
 </template>
 
 <script setup>
 import { handleUploadImage, disposeMdAnchor } from "./md";
+import { MdEditor } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
+import { MdPreview, MdCatalog } from "md-editor-v3";
+// preview.css相比style.css少了编辑器那部分样式
+import "md-editor-v3/lib/preview.css";
+import { useMyThemeStore } from "~/store/theme";
+
+const mdEditorRef = ref(null);
 
 const props = defineProps({
   height: {
@@ -39,16 +62,24 @@ const ifEdit = computed(() => {
   return props.mode == "edit" ? true : false;
 });
 
-const previewRef = ref(null);
+const themeStore = useMyThemeStore();
+
+const anchorIdList = ref([]);
+
+const mdHeadingId = (text, _level, index) => {
+  const anchorId = `${text}-${index}`;
+  anchorIdList.value.push(anchorId);
+  return anchorId;
+};
 
 let anchors = ref([]);
 const hList = ref([]);
 
 let data = {};
 
-onMounted(async () => {
+onMounted(() => {
   if (!ifEdit.value) {
-    data = disposeMdAnchor(previewRef);
+    data = disposeMdAnchor(anchorIdList.value);
     anchors.value = data.anchors.value;
     hList.value = data.hList;
   }
@@ -58,9 +89,3 @@ defineExpose({
   anchors,
 });
 </script>
-
-<style scoped>
-:deep(.vuepress-markdown-body) {
-  @apply font-mono dark:!bg-gray-800 dark:text-neutral-300;
-}
-</style>
