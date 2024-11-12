@@ -6,7 +6,10 @@
     <BackgroundType> </BackgroundType>
 
     <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
-      <main class="flex-1 mx-3 lg:ml-20" @click="mobileAnchorShow = false">
+      <main
+        class="flex-1 mx-3 lg:ml-20 overflow-scroll"
+        @click="mobileAnchorShow = false"
+      >
         <div class="mt-5" v-if="!loading">
           <div class="mx-5 mb-5">
             <div class="flex justify-between items-center mb-2">
@@ -49,12 +52,8 @@
             </div>
           </div>
 
-          <ClientOnly>
-            <div>
-              <Md ref="mdRef" v-model:content="data.content"></Md>
-            </div>
-          </ClientOnly>
-
+          <MdPreview ref="mdRef" :content="data.content"></MdPreview>
+          
           <el-card
             class="dark:!bg-black mt-5"
             v-if="

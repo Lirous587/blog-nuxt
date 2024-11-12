@@ -45,7 +45,7 @@
         class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
         @click="changeMode"
       >
-        <el-icon v-if="nowMode === 'dark'">
+        <el-icon v-if="themeStore.theme === 'dark'">
           <Moon />
         </el-icon>
         <el-icon v-else>
@@ -89,11 +89,10 @@ const scroll = (event) => {
 const throttleScroll = throttle(scroll, 50);
 
 const themeStore = useMyThemeStore();
-const nowMode = ref(themeStore.theme);
 
 const changeMode = () => {
-  nowMode.value === "light" ? themeStore.darkMode() : themeStore.lightMode();
-  nowMode.value = nowMode.value === "light" ? "dark" : "light";
+  console.log(themeStore.theme);
+  themeStore.theme === "light" ? themeStore.darkMode() : themeStore.lightMode();
 };
 
 onMounted(() => {
