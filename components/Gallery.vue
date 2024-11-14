@@ -27,6 +27,7 @@
     direction="rtl"
     show-close
     v-model="drawerVisible"
+    class="dark:bg-black"
     destroy-on-close
   >
     <div v-if="drawerData.type === 'kind'">

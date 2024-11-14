@@ -1,20 +1,4 @@
 <template>
-  <!-- <div class="flex justify-start my-2 ml-4 items-center">
-    <el-icon
-      v-if="isCollapse"
-      size="30"
-      @click="isCollapse = false"
-      color="rgb(75,217,127)"
-      ><Expand
-    /></el-icon>
-    <el-icon
-      v-if="!isCollapse"
-      size="30"
-      @click="isCollapse = true"
-      color="rgb(75,217,127)"
-      ><Fold
-    /></el-icon>
-  </div> -->
   <el-menu
     :collapse="isCollapse"
     :default-active="defaultActive"

@@ -80,7 +80,8 @@
       v-model="drawerVisiableRef"
       size="50%"
       :destroy-on-close="true"
-    >
+      class="dark:bg-black"
+      >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="心语内容" prop="content">
           <el-input

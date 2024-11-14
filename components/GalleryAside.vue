@@ -37,6 +37,7 @@
     direction="rtl"
     show-close
     v-model="drawerVisiable"
+    class="dark:bg-black"
   >
     <el-form :model="form" label-width="80px">
       <el-form-item label="分类名称">

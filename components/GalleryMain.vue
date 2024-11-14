@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center w-full ml-2 mt-3" v-loading="loading">
+  <div class="flex flex-col items-center w-full ml-2 mt-3" >
     <div
       class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
     >
@@ -16,7 +16,7 @@
         >
         </el-image>
         <div
-          class="absolute bottom-0 p-1 translate-y-[-1/2] shadow-sm w-full bg-white"
+          class="absolute bottom-0 p-1 translate-y-[-1/2] shadow-sm w-full bg-white dark:bg-gray-800"
         >
           <div
             class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"

@@ -69,7 +69,7 @@
       direction="rtl"
       v-model="drawerVisiableRef"
       size="50%"
-      append-to-body
+      class="dark:bg-black"
     >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="分类名">

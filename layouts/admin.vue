@@ -24,19 +24,22 @@
 :deep(.el-card__header),
 :deep(.el-card__body),
 :deep(.el-card),
-:deep(.el-table__cell) {
-  @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-200;
+:deep(.el-table__cell),
+:deep(.el-table__empty-block),
+:deep(.el-dialog) {
+  @apply bg-white dark:!bg-black dark:!border-gray-700 dark:!text-neutral-200;
 }
 :deep(.el-card__body) {
   padding: 0 !important;
 }
 
-:deep(.el-input__wrapper) {
-  @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
-  box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
-}
+:deep(.el-input__wrapper),
 :deep(.el-textarea__inner) {
   @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
-  box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 2px 1px rgba(108, 113, 113, 0.5);
+}
+:deep(.el-select__wrapper) {
+  @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
 }
 </style>

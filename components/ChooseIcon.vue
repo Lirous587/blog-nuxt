@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center" style="width: 100%">
-    <div style="width: 10%" class="flex justify-center items-center">
+    <div class="flex justify-center items-center">
       <el-icon size="24px">
         <component :is="iconModel"></component>
       </el-icon>
@@ -18,6 +18,7 @@
           :key="item"
           :label="item"
           :value="item"
+          class="dark:bg-black"
         >
           <div class="flex items-center justify-between">
             <el-icon :size="16">

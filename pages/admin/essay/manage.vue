@@ -87,7 +87,12 @@
       </el-card>
     </el-dialog>
 
-    <el-drawer v-model="drawerVisiableRef" title="修改文章" size="50%">
+    <el-drawer
+      v-model="drawerVisiableRef"
+      title="修改文章"
+      size="50%"
+      class="dark:bg-black"
+    >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="分类">
           <AdminSelectKind
