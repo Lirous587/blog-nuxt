@@ -1,18 +1,20 @@
 <template>
-  <el-container class="transition-all duration-300 bg-white dark:bg-black">
-    <el-aside width="200px">
+  <div
+    class="transition-all duration-300 bg-white dark:bg-black flex h-[100vh]"
+  >
+    <aside class="w-[200px]">
       <AdminNavAside></AdminNavAside>
-    </el-aside>
-    <el-container>
-      <el-header>
+    </aside>
+
+    <main
+      class="flex-1 ml-10 !py-0 transition-all duration-300 bg-white dark:bg-black"
+    >
+      <header class="h-[30px] my-2">
         <AdminNavHeader> </AdminNavHeader>
-      </el-header>
-      <el-main
-        class="h-[100vh] transition-all duration-300 bg-white dark:bg-black"
-        ><slot
-      /></el-main>
-    </el-container>
-  </el-container>
+      </header>
+      <slot />
+    </main>
+  </div>
 </template>
 
 <style scoped>

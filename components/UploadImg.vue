@@ -66,5 +66,6 @@ defineExpose({
 <style scoped>
 :deep(.el-upload--picture-card) {
   --el-upload-picture-card-size: 250px;
+  @apply dark:bg-black;
 }
 </style>

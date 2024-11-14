@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center w-full ml-2 mt-3" >
+  <div class="flex flex-col items-center w-full ml-2 mt-3">
     <div
       class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
     >
@@ -156,5 +156,3 @@ defineExpose({
   getList,
 });
 </script>
-
-<style></style>
