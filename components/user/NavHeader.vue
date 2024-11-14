@@ -1,6 +1,6 @@
 <template>
   <div
-    class="headerContainer fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black backdrop-blur-sm bg-opacity-90 z-10 transition-all duration-500 ease-linear;"
+    class="headerContainer fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-neutral-50 dark:bg-black backdrop-blur-sm bg-opacity-90 z-10 transition-all duration-500 ease-linear;"
   >
     <div class="pl-5 flex items-center gap-x-4">
       <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
@@ -15,7 +15,7 @@
         <el-drawer
           v-model="mobileMenuVisiable"
           :open-delay="250"
-          title="文章导航"
+          title="相关导航"
           size="280px"
           direction="ltr"
           append-to-body
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
   transform: translateY(v-bind(translateY));
 }
 .nav {
-  @apply duration-300 relative cursor-pointer text-lg  whitespace-nowrap  hover:scale-125 text-gray-900 dark:text-neutral-400;
+  @apply duration-300 relative cursor-pointer text-lg  whitespace-nowrap  hover:scale-125 text-pink-600 dark:text-neutral-400;
 }
 .nav::after {
   content: "";

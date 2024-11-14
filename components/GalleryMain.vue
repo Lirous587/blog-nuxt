@@ -6,7 +6,7 @@
       <div
         v-for="(item, index) in list"
         :key="item.id"
-        class="relative h-[180px] w-full shadow-lg border border-gray-200 rounded-lg"
+        class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
       >
         <el-image
           :src="imgPre + item.url"

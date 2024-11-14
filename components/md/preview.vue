@@ -4,9 +4,11 @@
       v-model="content"
       editorId="editorId-preview"
       :mdHeadingId="mdHeadingId"
-      :theme="themeStore.theme"
+      :theme="theme"
       previewTheme="smart-blue"
+      codeTheme="atom"
       @onHtmlChanged="onHtmlChanged"
+      autoFoldThreshold="99"
     />
   </div>
 </template>
@@ -69,11 +71,13 @@ const observerHList = () => {
   });
 };
 
-
 const onHtmlChanged = async () => {
   await nextTick();
   observerHList();
 };
+
+
+const theme = computed(() => themeStore.theme);
 
 onMounted(() => {
   mdInit();

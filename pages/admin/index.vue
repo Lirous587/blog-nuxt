@@ -1,60 +1,50 @@
 <template>
-  <div class="flex flex-col justify-center items-center px-15">
-    <div class="flex" style="width: 100%">
-      <el-card shadow="never" style="width: 100%">
-        <template #header>
-          <div class="flex justify-between">
-            <span class="text-sm">关键字排行</span>
-            <div>
-              <el-check-tag
-                v-for="(item, index) in options"
-                :key="index"
-                :checked="currentTag == item.value"
-                @click="handerlChoose(item.value)"
-                type="primary"
-                style="margin-right: 8px"
-              >
-                {{ item.text }}
-              </el-check-tag>
-            </div>
-          </div>
-        </template>
-
-        <div
-          ref="el"
-          id="chart"
-          style="height: 300px; width: 100%"
-          class=""
-        ></div>
-      </el-card>
-    </div>
-
-    <div class="flex mt-10" style="width: 100%">
-      <el-card shadow="never" style="width: 100%; height: 350px">
-        <template #header>
-          <div class="flex justify-between items-center">
-            <span class="text-sm">用户访问量</span>
-            <el-tag type="danger" effect="plain"> 用户访问量 </el-tag>
-          </div>
-        </template>
-        <el-row :gutter="20">
-          <el-col :span="8" v-for="(item, index) in visitedCount" :key="index">
-            <el-card
-              shadow="never"
-              class="border-0 bg-light-400 flex justify-center items-center"
+  <div>
+    <el-card shadow="always" style="width: 100%">
+      <template #header>
+        <div class="flex justify-between">
+          <span class="text-sm">关键字排行</span>
+          <div>
+            <el-check-tag
+              v-for="(item, index) in options"
+              :key="index"
+              :checked="currentTag == item.value"
+              @click="handerlChoose(item.value)"
+              type="primary"
+              style="margin-right: 8px"
             >
-              <div
-                class="flex flex-col justify-center items-center"
-                style="height: 200px"
-              >
-                <span class="text-xl mb-2">{{ item.count }}</span>
-                <span class="text-sm text-gray-500">{{ item.period }}</span>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </el-card>
-    </div>
+              {{ item.text }}
+            </el-check-tag>
+          </div>
+        </div>
+      </template>
+
+      <div ref="el" id="chart" class="h-[300px]"></div>
+    </el-card>
+
+    <el-card shadow="always" class="mt-10">
+      <template #header>
+        <div class="flex justify-between items-center">
+          <span class="text-sm">用户访问量</span>
+          <el-tag type="danger" effect="plain"> 用户访问量 </el-tag>
+        </div>
+      </template>
+
+      <div class="grid grid-cols-3 gap-4 h-[200px]">
+        <div
+          v-for="(item, index) in visitedCount"
+          class="flex flex-col items-center justify-center"
+          :key="index"
+        >
+          <span class="text-xl mb-2 text-gray-500 dark:text-neutral-200">{{
+            item.count
+          }}</span>
+          <span class="text-sm text-gray-500 dark:text-neutral-200">{{
+            item.period
+          }}</span>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -203,24 +193,3 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-:deep(.el-card__body) {
-  height: 100%;
-}
-
-.background {
-  @apply fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    to right top,
-    rgba(97, 65, 104, 0.069),
-    rgba(114, 92, 40, 0.081),
-    rgba(23, 58, 185, 0.098)
-  );
-  transition: all 0.5s ease;
-}
-</style>

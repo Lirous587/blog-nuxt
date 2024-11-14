@@ -53,7 +53,7 @@
           </div>
 
           <MdPreview ref="mdRef" :content="data.content"></MdPreview>
-          
+
           <el-card
             class="dark:!bg-black mt-5"
             v-if="

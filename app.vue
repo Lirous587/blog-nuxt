@@ -39,15 +39,8 @@ nuxtApp.hook("page:finish", () => {
 </script>
 
 <style>
-/* 设置滚动条的宽度和高度 */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-/* 设置滚动条轨道的样式 */
-::-webkit-scrollbar-track {
-  @apply bg-white dark:bg-black;
+  width: 10px;
 }
 
 /* 设置滚动条滑块的样式 */
@@ -55,11 +48,10 @@ nuxtApp.hook("page:finish", () => {
   @apply bg-gray-400 dark:bg-gray-600 border-[2px] border-solid border-transparent bg-clip-content rounded-md;
 }
 
-
-
 html,
 body {
   scroll-behavior: smooth;
+  width: 100% !important;
 }
 
 .page-enter-active,

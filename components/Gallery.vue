@@ -141,9 +141,3 @@ const handelSelectImg = (img) => {
 
 const emits = defineEmits(["selectImg"]);
 </script>
-
-<style scoped>
-:deep(.el-card__body) {
-  padding: 0 !important;
-}
-</style>

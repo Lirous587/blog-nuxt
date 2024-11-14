@@ -163,7 +163,7 @@
           搜索文章
         </el-button>
       </template>
-      <Md v-model:content="form.content" height="630px" mode="edit"></Md>
+      <MdEdit v-model:content="form.content"></MdEdit>
     </el-card>
 
     <div class="bottom-3 fixed z-20">

@@ -73,7 +73,7 @@
     </el-drawer>
 
     <div class="mx-3 my-3">
-      <Md v-model:content="form.content" height="720px" mode="edit"></Md>
+      <MdEdit v-model:content="form.content"></MdEdit>
     </div>
 
     <!-- 底部按钮 -->
