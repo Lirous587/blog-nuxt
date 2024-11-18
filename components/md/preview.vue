@@ -8,7 +8,7 @@
       previewTheme="smart-blue"
       codeTheme="atom"
       @onHtmlChanged="onHtmlChanged"
-      autoFoldThreshold="99"
+      :autoFoldThreshold="99"
     />
   </div>
 </template>

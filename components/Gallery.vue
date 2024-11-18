@@ -125,7 +125,6 @@ const handelUploadPre = () => {
 const handelUpload = () => {
   uploadRef.value.submitUpload();
   galleryForm.kindID = kindID.value;
-  console.log(galleryForm);
   createGallery(galleryForm).then(() => {
     mainRef.value.getList();
   });

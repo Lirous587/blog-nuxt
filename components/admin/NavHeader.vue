@@ -21,7 +21,6 @@ import { useMyThemeStore } from "~/store/theme";
 const themeStore = useMyThemeStore();
 
 const changeMode = () => {
-  console.log(themeStore.theme);
   themeStore.theme === "light" ? themeStore.darkMode() : themeStore.lightMode();
 };
 

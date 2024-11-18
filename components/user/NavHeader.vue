@@ -91,7 +91,6 @@ const throttleScroll = throttle(scroll, 50);
 const themeStore = useMyThemeStore();
 
 const changeMode = () => {
-  console.log(themeStore.theme);
   themeStore.theme === "light" ? themeStore.darkMode() : themeStore.lightMode();
 };
 

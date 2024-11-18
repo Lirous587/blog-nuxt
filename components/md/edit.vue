@@ -1,13 +1,29 @@
 <template>
   <div>
+    <el-button type="primary" class="m-1" @click="chooseGallery">
+      选择图片
+    </el-button>
+
+    <el-dialog
+      title="选择图片"
+      width="80%"
+      align-center
+      v-model="dialogVisiable"
+    >
+      <Gallery @select-img="handelSelectImg"></Gallery>
+    </el-dialog>
+
     <MdEditor
       v-model="content"
       editorId="editorId-edit"
       previewTheme="smart-blue"
       :showToolbarName="true"
-      @onUploadImg="onUploadImg"
       :theme="themeStore.theme"
-    ></MdEditor>
+      :toolbarsExclude="toolbarsExclude"
+      noUploadImg
+      ref="editorRef"
+    >
+    </MdEditor>
   </div>
 </template>
 
@@ -16,6 +32,8 @@ import { MdEditor } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import { uploadImg } from "~/api/admin";
 import { useMyThemeStore } from "~/store/theme";
+
+const toolbarsExclude = ["save", "preview", "htmlPreview", "github"];
 
 const props = defineProps({
   height: {
@@ -30,30 +48,27 @@ const content = defineModel("content", {
   required: true,
 });
 
+const editorRef = ref(null);
+
 const themeStore = useMyThemeStore();
+
+const dialogVisiable = ref(false);
+const chooseGallery = () => {
+  dialogVisiable.value = true;
+};
 
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 
-const onUploadImg = async (files, callback) => {
-  const processedFiles = files.map((file) => {
-    // 创建一个新的文件名，移除空格和 -
-    const newFileName = file.name.replace(/[\s-]/g, "");
-    // 创建一个新的 File 对象，使用新的文件名
-    return new File([file], newFileName, { type: file.type });
+const handelSelectImg = (img) => {
+  const imgUrl = imgPre + img.url;
+  editorRef.value?.insert(() => {
+    return {
+      targetValue: `\n![](${imgUrl})\n`,
+      select: false,
+      deviationStart: 0,
+      deviationEnd: 0,
+    };
   });
-
-  const res = await Promise.all(
-    processedFiles.map((file) => {
-      return new Promise((rev, rej) => {
-        const form = new FormData();
-        form.append("img", file);
-        uploadImg(form)
-          .then((res) => rev(res))
-          .catch((error) => rej(error));
-      });
-    })
-  );
-
-  callback(res.map((item) => imgPre + item.data));
+  dialogVisiable.value = false;
 };
 </script>

@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     pageTransition: { name: "page", mode: "out-in" },
+    cdnURL: "https://cdn.jsdelivr.net/npm/",
   },
   devServer: {
     // port: 80,
@@ -32,26 +33,6 @@ export default defineNuxtConfig({
     "~/assets/fonts/font.css",
     "~/assets/icon/icon.css",
   ],
-  vite: {
-    plugins: [
-      prismjs({
-        languages: [
-          "go",
-          "css",
-          "bash",
-          "shell",
-          "sql",
-          "dockerfile",
-          "docker",
-          "git",
-          "json",
-          "typescript",
-          "javascript",
-          "html",
-        ],
-      }),
-    ],
-  },
   routeRules: {
     // 管理仪表板仅在客户端渲染
     "/admin/**": { ssr: false },

@@ -190,7 +190,6 @@ useSeoMeta({
 
 const scrollToChatArea = () => {
   const chatArea = document.getElementById("chatArea");
-  console.log(chatArea.offsetTop);
   window.scrollTo({
     top: chatArea.offsetTop,
     behavior: "smooth",

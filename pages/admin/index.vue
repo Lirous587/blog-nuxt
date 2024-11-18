@@ -19,7 +19,8 @@
         </div>
       </template>
 
-      <div ref="el" id="chart" class="h-[300px]"></div>
+      <!-- 表格 -->
+      <div class="h-[300px]"></div>
     </el-card>
 
     <el-card shadow="always" class="mt-10">
@@ -49,31 +50,12 @@
 </template>
 
 <script setup>
-import * as echarts from "echarts/core";
-import { BarChart } from "echarts/charts";
-import {
-  TooltipComponent,
-  GridComponent,
-  LegendComponent,
-} from "echarts/components";
-import { CanvasRenderer } from "echarts/renderers";
-
-import { useResizeObserver } from "@vueuse/core";
 import { useMyAdminStore } from "~/store/admin";
 
 definePageMeta({
   layout: "admin",
   middleware: "admin",
 });
-
-// 注册需要的组件
-echarts.use([
-  BarChart,
-  TooltipComponent,
-  GridComponent,
-  LegendComponent,
-  CanvasRenderer,
-]);
 
 const options = [
   {
@@ -131,10 +113,6 @@ const handerlChoose = (tag) => {
   changeTimeTag(tag);
 };
 
-let myChart = null;
-
-const el = ref(null);
-
 function changeTimeTag(tag) {
   const tagData = keywordRank[tag];
   const xList = tagData.x;
@@ -170,26 +148,9 @@ function changeTimeTag(tag) {
       },
     ],
   };
-  myChart.showLoading();
-  myChart.setOption(option);
-  myChart.hideLoading();
 }
-
-onBeforeMount(() => {
-  if (myChart) {
-    echarts.dispose(myChart);
-  }
-});
 
 onMounted(() => {
   getData();
-  let chartDom = document.getElementById("chart");
-  if (chartDom) {
-    myChart = echarts.init(chartDom);
-    handerlChoose("year");
-  }
-  useResizeObserver(el, (entries) => {
-    myChart.resize();
-  });
 });
 </script>

@@ -168,7 +168,7 @@
           搜索文章
         </el-button>
       </template>
-      <MdEdit v-model:content="form.content"></MdEdit>
+      <LazyMdEdit v-model:content="form.content"></LazyMdEdit>
     </el-card>
 
     <div class="bottom-3 fixed z-20">
