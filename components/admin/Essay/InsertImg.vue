@@ -10,7 +10,7 @@
   </el-dialog>
 
   <div>
-    <el-button type="primary" @click="chooseGallery"> 选择图片 </el-button>
+    <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>
   </div>
 </template>
 

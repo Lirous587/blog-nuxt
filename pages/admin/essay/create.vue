@@ -11,11 +11,12 @@
           ></AdminEssayInsertImg>
         </div>
       </template>
-      <MdEdit v-model:content="form.content"></MdEdit>
+      <MdEdit ref="mdEditRef" v-model:content="form.content"></MdEdit>
     </el-card>
     <AdminEssayDrawer
       v-model:drawerVisiable="drawerVisiable"
       v-model:form="form"
+      title="添加文章"
     ></AdminEssayDrawer>
   </div>
 </template>
@@ -45,7 +46,17 @@ const form = reactive({
 
 const drawerVisiable = ref(false);
 
+const mdEditRef = ref(null);
+
 const chooseGalleyHandel = (imgUrl) => {
-  form.content += `\n![图片信息](${imgUrl})\n`;
+  const insertValue = `\n![图片信息](${imgUrl})\n`;
+  mdEditRef.value.editorRef.insert(() => {
+    return {
+      targetValue: insertValue,
+      select: false,
+      deviationStart: 0,
+      deviationEnd: 0,
+    };
+  });
 };
 </script>

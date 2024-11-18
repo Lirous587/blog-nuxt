@@ -7,6 +7,7 @@
     :theme="themeStore.theme"
     :toolbarsExclude="toolbarsExclude"
     noUploadImg
+    ref="editorRef"
   >
   </MdEditor>
 </template>
@@ -31,5 +32,11 @@ const content = defineModel("content", {
   required: true,
 });
 
+const editorRef = ref(null);
+
 const themeStore = useMyThemeStore();
+
+defineExpose({
+  editorRef,
+});
 </script>

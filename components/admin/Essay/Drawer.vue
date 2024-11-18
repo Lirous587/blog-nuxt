@@ -1,7 +1,7 @@
 <template>
   <el-drawer
     v-model="drawerVisiable"
-    title="添加文章"
+    title="title"
     size="50%"
     class="dark:bg-black"
   >
@@ -33,10 +33,7 @@
       </el-form-item>
 
       <el-form-item label="文章图片">
-        <ImgPreview
-          @click="dialogVisiable = true"
-          :imgUrl="form.img?.url"
-        ></ImgPreview>
+        <ImgPreview @click="chooseImg" :imgUrl="form.img?.url"></ImgPreview>
       </el-form-item>
 
       <el-form-item label="关键词">
@@ -61,24 +58,28 @@
         <el-button
           type="primary"
           size="large"
-          @click="handelCreate"
+          @click="handelOprate"
           class="mt-5 w-full"
           :loading="loading"
         >
-          添加</el-button
+          提交</el-button
         >
       </el-form-item>
     </el-form>
   </el-drawer>
 
   <el-dialog title="选择图片" width="80%" align-center v-model="dialogVisiable">
-    <Gallery @select-img="handelSelectImg"></Gallery>
+    <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
   </el-dialog>
 </template>
 
 <script setup>
-import { createEssay } from "~/api/essay";
+import { createEssay, updateEssay } from "~/api/essay";
 import { useMyAdminStore } from "~/store/admin";
+
+const props = defineProps({
+  title: "添加文章",
+});
 
 const drawerVisiable = defineModel("drawerVisiable", {
   required: true,
@@ -101,6 +102,14 @@ const kindList = ref([]);
 labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
 
+const handelOprate = () => {
+  if (form.id) {
+    handelUpdate();
+  } else {
+    handelCreate();
+  }
+};
+
 const handelCreate = () => {
   loading.value = true;
   createEssay(form.value)
@@ -114,8 +123,32 @@ const handelCreate = () => {
     });
 };
 
+const handelUpdate = () => {
+  loading.value = true;
+  updateEssay(form)
+    .then(() => {
+      toast("更新成功");
+      form.oldLabelIds = form.labelIds;
+      adminStore.updateAll();
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const oID = ref(0);
+
+const handelSelectImgPre = () => {
+  dialogVisiable.value = true;
+  oID.value = form.value.img.id;
+};
+
 const handelSelectImg = (img) => {
   form.value.img = img;
   dialogVisiable.value = false;
+};
+
+const chooseImg = () => {
+  handelSelectImgPre();
 };
 </script>
