@@ -2,9 +2,7 @@
   <div>
     <el-card>
       <template #header>
-        <el-button type="primary" @click="drawerVisiableRef = true"
-          >添加</el-button
-        >
+        <el-button type="primary" @click="drawerRef.open()">添加</el-button>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
@@ -57,10 +55,10 @@
       </el-table>
     </el-card>
 
-    <el-drawer
+    <MyDrawer
+      ref="drawerRef"
       title="添加标签"
       direction="rtl"
-      v-model="drawerVisiableRef"
       size="50%"
       class="dark:bg-black"
     >
@@ -94,7 +92,7 @@
           >
         </el-form-item>
       </el-form>
-    </el-drawer>
+    </MyDrawer>
   </div>
 </template>
 
@@ -114,7 +112,7 @@ const form = reactive({
 
 const adminStore = useMyAdminStore();
 
-const drawerVisiableRef = ref(false);
+const drawerRef = ref(null);
 
 const tableLoading = ref(false);
 const loading = ref(false);

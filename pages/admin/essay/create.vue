@@ -3,7 +3,7 @@
     <el-card>
       <template #header>
         <div class="flex gap-x-2">
-          <el-button type="primary" @click="drawerVisiable = true" class="ml-3"
+          <el-button type="primary" @click="drawerRef.open()" class="ml-3"
             >添加文章</el-button
           >
           <AdminEssayInsertImg
@@ -14,9 +14,10 @@
       <MdEdit ref="mdEditRef" v-model:content="form.content"></MdEdit>
     </el-card>
     <AdminEssayDrawer
-      v-model:drawerVisiable="drawerVisiable"
       v-model:form="form"
       title="添加文章"
+      ref="drawerRef"
+      opration="create"
     ></AdminEssayDrawer>
   </div>
 </template>
@@ -44,7 +45,7 @@ const form = reactive({
   },
 });
 
-const drawerVisiable = ref(false);
+const drawerRef = ref(null);
 
 const mdEditRef = ref(null);
 

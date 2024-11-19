@@ -12,19 +12,17 @@
           @update:model-value="selectOpen"
           ref="iconRef"
         ></HamburgerIcon>
-        <el-drawer
-          v-model="mobileMenuVisiable"
-          :open-delay="250"
+        <MyDrawer
           title="相关导航"
-          size="280px"
           direction="ltr"
-          append-to-body
-          @close="iconRef.close()"
+          size="280px"
           class="dark:bg-black"
-          :show-close="false"
+          :open-delay="250"
+          ref="drawerRef"
+          @close="iconRef.close()"
         >
           <UserNavAside></UserNavAside>
-        </el-drawer>
+        </MyDrawer>
       </div>
       <NuxtLink to="/" class="nav lg:hidden"> 首页 </NuxtLink>
     </div>
@@ -59,16 +57,16 @@
 <script setup>
 import { useMyThemeStore } from "~/store/theme";
 
-const mobileMenuVisiable = ref(false);
+const drawerRef = ref(null);
 const iconRef = ref(null);
 
 const selectOpen = (status) => {
-  mobileMenuVisiable.value = status;
+  drawerRef.value.open();
 };
 
 const route = useRoute();
 watch(route, () => {
-  mobileMenuVisiable.value = false;
+  drawerRef.value.close();
 });
 
 const translateY = ref("0");

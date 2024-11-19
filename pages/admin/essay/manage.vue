@@ -89,9 +89,10 @@
     </el-dialog>
 
     <AdminEssayDrawer
-      v-model:drawerVisiable="drawerVisiable"
       v-model:form="form"
       title="修改文章"
+      ref="drawerRef"
+      opration="update"
     ></AdminEssayDrawer>
 
     <el-card>
@@ -149,7 +150,7 @@ const loading = ref(false);
 const tableLoading = ref(false);
 
 const dialogVisibleSearch = ref(false);
-const drawerVisiable = ref(false);
+const drawerRef = ref(null);
 
 const essayList = ref([]);
 
@@ -199,7 +200,7 @@ const updatePreHandel = () => {
   if (!hasChooseEssay.value) {
     return toast("请先选择文章", "warning");
   }
-  drawerVisiable.value = true;
+  drawerRef.value.open();
 };
 
 const handelDeleteEssay = (row) => {

@@ -32,11 +32,12 @@
       </el-menu-item>
     </el-menu>
   </div>
-  <el-drawer
+
+  <MyDrawer
     title="修改分类名称"
     direction="rtl"
     show-close
-    v-model="drawerVisiable"
+    ref="drawerRef"
     class="dark:bg-black"
   >
     <el-form :model="form" label-width="80px">
@@ -47,7 +48,7 @@
         <el-button type="primary" @click="handelUPdate">修改</el-button>
       </el-form-item>
     </el-form>
-  </el-drawer>
+  </MyDrawer>
 </template>
 
 <script setup>
@@ -66,8 +67,7 @@ const form = reactive({
 });
 
 const defaultActive = ref("");
-const drawerVisiable = ref(false);
-
+const drawerRef = ref(null);
 const getList = async () => {
   loading.value = true;
   await getGalleryKindList()
@@ -98,7 +98,7 @@ const handelDelete = (id) => {
 const handelUpdatePre = (item) => {
   form.id = item.id;
   form.name = item.name;
-  drawerVisiable.value = true;
+  drawerRef.value.open();
 };
 
 const handelUPdate = () => {

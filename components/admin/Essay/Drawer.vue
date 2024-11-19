@@ -1,10 +1,5 @@
 <template>
-  <el-drawer
-    v-model="drawerVisiable"
-    title="title"
-    size="50%"
-    class="dark:bg-black"
-  >
+  <MyDrawer ref="drawerRef" :title="title" size="50%" class="dark:bg-black">
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
         <AdminSelectKind
@@ -66,11 +61,11 @@
         >
       </el-form-item>
     </el-form>
-  </el-drawer>
-
-  <el-dialog title="选择图片" width="80%" align-center v-model="dialogVisiable">
+  </MyDrawer>
+  <el-dialog> </el-dialog>
+  <MyDialog title="选择图片" width="80%" ref="dialogRef">
     <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
-  </el-dialog>
+  </MyDialog>
 </template>
 
 <script setup>
@@ -78,12 +73,14 @@ import { createEssay, updateEssay } from "~/api/essay";
 import { useMyAdminStore } from "~/store/admin";
 
 const props = defineProps({
-  title: "添加文章",
+  opration: {
+    type: String,
+    required: true,
+  },
 });
 
-const drawerVisiable = defineModel("drawerVisiable", {
-  required: true,
-  type: Boolean,
+const title = computed(() => {
+  return props.opration === "create" ? "添加文章" : "修改文章";
 });
 
 const form = defineModel("form", {
@@ -94,7 +91,8 @@ const form = defineModel("form", {
 const loading = ref(false);
 const adminStore = useMyAdminStore();
 
-const dialogVisiable = ref(false);
+const drawerRef = ref(null);
+const dialogRef = ref(null);
 
 const labelList = ref([]);
 const kindList = ref([]);
@@ -103,7 +101,7 @@ labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
 
 const handelOprate = () => {
-  if (form.id) {
+  if (props.opration === "update") {
     handelUpdate();
   } else {
     handelCreate();
@@ -119,13 +117,13 @@ const handelCreate = () => {
     })
     .finally(() => {
       loading.value = false;
-      drawerVisiable.value = false;
+      drawerRef.value.open();
     });
 };
 
 const handelUpdate = () => {
   loading.value = true;
-  updateEssay(form)
+  updateEssay(form.value)
     .then(() => {
       toast("更新成功");
       form.oldLabelIds = form.labelIds;
@@ -139,16 +137,28 @@ const handelUpdate = () => {
 const oID = ref(0);
 
 const handelSelectImgPre = () => {
-  dialogVisiable.value = true;
+  dialogRef.value.open();
   oID.value = form.value.img.id;
 };
 
 const handelSelectImg = (img) => {
   form.value.img = img;
-  dialogVisiable.value = false;
+  dialogRef.value.close();
 };
 
 const chooseImg = () => {
   handelSelectImgPre();
 };
+
+const open = () => {
+  drawerRef.value.open();
+};
+const close = () => {
+  drawerRef.value.close();
+};
+
+defineExpose({
+  open,
+  close,
+});
 </script>

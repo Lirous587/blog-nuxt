@@ -38,10 +38,8 @@
 :deep(.el-input__wrapper),
 :deep(.el-textarea__inner) {
   @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
-  box-shadow: 0 0 2px 1px rgba(108, 113, 113, 0.5);
 }
 :deep(.el-select__wrapper) {
   @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
-  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
 }
 </style>

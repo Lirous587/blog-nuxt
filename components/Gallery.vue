@@ -22,45 +22,46 @@
       </div>
     </el-container>
   </el-card>
-  <el-drawer
+  <MyDrawer
     :title="drawerData.title"
     direction="rtl"
-    show-close
-    v-model="drawerVisible"
+    ref="drawerRef"
     class="dark:bg-black"
     destroy-on-close
   >
-    <div v-if="drawerData.type === 'kind'">
-      <el-form :model="kindForm" label-width="80px">
-        <el-form-item label="分类名称">
-          <el-input
-            placeholder="请输入分类名称"
-            v-model="kindForm.name"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handelCreateKind">
-            创建分类
-          </el-button>
-        </el-form-item>
-      </el-form>
+    <div>
+      <div v-if="drawerData.type === 'kind'">
+        <el-form :model="kindForm" label-width="80px">
+          <el-form-item label="分类名称">
+            <el-input
+              placeholder="请输入分类名称"
+              v-model="kindForm.name"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handelCreateKind">
+              创建分类
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div v-else>
+        <el-form :model="galleryForm">
+          <el-form-item>
+            <UploadImg
+              ref="uploadRef"
+              v-model:imgUrl="galleryForm.url"
+            ></UploadImg>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="mt-3" type="primary" @click="handelUpload">
+              上传图片
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
-    <div v-else>
-      <el-form :model="galleryForm">
-        <el-form-item>
-          <UploadImg
-            ref="uploadRef"
-            v-model:imgUrl="galleryForm.url"
-          ></UploadImg>
-        </el-form-item>
-        <el-form-item>
-          <el-button class="mt-3" type="primary" @click="handelUpload">
-            上传图片
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </el-drawer>
+  </MyDrawer>
 </template>
 
 <script setup>
@@ -93,7 +94,7 @@ const galleryForm = reactive({
   url: "",
 });
 
-const drawerVisible = ref(false);
+const drawerRef = ref(null);
 
 const drawerData = reactive({
   title: "",
@@ -103,7 +104,7 @@ const drawerData = reactive({
 const handelCreateKindPre = () => {
   drawerData.title = "创建分类";
   drawerData.type = "kind";
-  drawerVisible.value = true;
+  drawerRef.value.open();
 };
 
 const handelCreateKind = () => {
@@ -111,7 +112,7 @@ const handelCreateKind = () => {
   createGalleryKind(kindForm).then(() => {
     asideRef.value.getList();
     toast("创建成功");
-    drawerVisible.value = false;
+    drawerRef.value.close();
   });
 };
 
@@ -119,7 +120,7 @@ const handelUploadPre = () => {
   galleryForm.url = "";
   drawerData.title = "上传图片";
   drawerData.type = "img";
-  drawerVisible.value = true;
+  drawerRef.value.open();
 };
 
 const handelUpload = () => {
@@ -128,7 +129,7 @@ const handelUpload = () => {
   createGallery(galleryForm).then(() => {
     mainRef.value.getList();
   });
-  drawerVisible.value = false;
+  drawerRef.value.close();
 };
 
 const handelSelectImg = (img) => {

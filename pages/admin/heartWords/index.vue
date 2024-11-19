@@ -74,14 +74,14 @@
       </template>
     </el-card>
 
-    <el-drawer
+    <MyDrawer
       :title="ifCreate ? '添加心语' : '修改心语'"
       direction="rtl"
-      v-model="drawerVisiableRef"
+      ref="drawerRef"
       size="50%"
       :destroy-on-close="true"
       class="dark:bg-black"
-      >
+    >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="心语内容" prop="content">
           <el-input
@@ -124,7 +124,7 @@
           </el-button>
         </el-form-item>
       </el-form>
-    </el-drawer>
+    </MyDrawer>
 
     <el-dialog
       title="选择图片"
@@ -185,7 +185,7 @@ const queryParams = reactive({
   pageSize: 10,
 });
 
-const drawerVisiableRef = ref(false);
+const drawerRef = ref(null);
 const ifCreate = ref(true);
 
 const tableLoading = ref(false);
@@ -225,7 +225,7 @@ const cleanForm = () => {
 
 const handelCreatePre = () => {
   cleanForm();
-  drawerVisiableRef.value = true;
+  drawerRef.value.open();
   ifCreate.value = true;
 };
 
@@ -240,7 +240,7 @@ const handelCreate = () => {
     })
     .finally(() => {
       loading.value = false;
-      drawerVisiableRef.value = false;
+      drawerRef.value.close();
     });
 };
 
@@ -252,7 +252,8 @@ const handelUpdatePre = (row) => {
 
   oID.value = form.img.id;
 
-  drawerVisiableRef.value = true;
+  drawerRef.value.open();
+
   ifCreate.value = false;
 };
 
@@ -266,7 +267,7 @@ const handelUpdate = () => {
       }
     })
     .finally(() => {
-      drawerVisiableRef.value = false;
+      drawerRef.value.close();
     });
 };
 
