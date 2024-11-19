@@ -62,7 +62,6 @@
       </el-form-item>
     </el-form>
   </MyDrawer>
-  <el-dialog> </el-dialog>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
     <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
   </MyDialog>

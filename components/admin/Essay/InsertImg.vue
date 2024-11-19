@@ -1,23 +1,15 @@
 <template>
-  <!-- 选择图片 -->
-  <el-dialog
-    title="选择图片"
-    width="80%"
-    align-center
-    v-model="dialogVisiableForGallery"
-  >
+  <MyDialog title="选择图片" width="80%" ref="dialogRef">
     <Gallery @select-img="handelSelectImg"></Gallery>
-  </el-dialog>
+  </MyDialog>
 
-  <div>
-    <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>
-  </div>
+  <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>
 </template>
 
 <script setup>
-const dialogVisiableForGallery = ref(false);
+const dialogRef = ref(null);
 const chooseGallery = () => {
-  dialogVisiableForGallery.value = true;
+  dialogRef.value.open();
 };
 
 const imgPre = useRuntimeConfig().public.imgBase + "/";
@@ -26,7 +18,7 @@ const emits = defineEmits(["chooseGalley", "chooseEssay"]);
 
 const handelSelectImg = (img) => {
   const imgUrl = imgPre + img.url;
-  dialogVisiableForGallery.value = false;
+  dialogRef.value.close();
   emits("chooseGalley", imgUrl);
 };
 </script>

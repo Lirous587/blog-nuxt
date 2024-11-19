@@ -108,7 +108,7 @@
         </el-form-item>
         <el-form-item label="图片">
           <ImgPreview
-            @click="handelSelectImgPre"
+            @click="dialogRef.open()"
             :imgUrl="form.img?.url"
           ></ImgPreview>
         </el-form-item>
@@ -126,14 +126,9 @@
       </el-form>
     </MyDrawer>
 
-    <el-dialog
-      title="选择图片"
-      width="80%"
-      align-center
-      v-model="dialogVisible"
-    >
+    <MyDialog title="选择图片" width="80%" ref="dialogRef">
       <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
-    </el-dialog>
+    </MyDialog>
   </div>
 </template>
 
@@ -154,7 +149,7 @@ const imgPre = config.public.imgBase + "/";
 
 provide("select", true);
 
-const dialogVisible = ref(false);
+const dialogRef = ref(null);
 
 const oldForm = reactive({
   id: 1,
@@ -290,12 +285,8 @@ const changePage = async (row) => {
 
 const oID = ref(0);
 
-const handelSelectImgPre = () => {
-  dialogVisible.value = true;
-};
-
 const handelSelectImg = (img) => {
   form.img = img;
-  dialogVisible.value = false;
+  dialogVisible.value.close();
 };
 </script>

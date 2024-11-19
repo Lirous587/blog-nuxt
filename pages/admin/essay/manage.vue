@@ -1,7 +1,8 @@
 <template>
   <div class="mx-3 my-3">
     <!-- 查询结果 -->
-    <el-dialog v-model="dialogVisibleSearch" title="Tips" width="80%">
+
+    <MyDialog ref="dialogRef" title="Tips" width="80%">
       <template #header>
         <h4 class="font-bold">查询文章</h4>
       </template>
@@ -86,7 +87,7 @@
           </el-table-column>
         </el-table>
       </el-card>
-    </el-dialog>
+    </MyDialog>
 
     <AdminEssayDrawer
       v-model:form="form"
@@ -98,7 +99,7 @@
     <el-card>
       <template #header>
         <div class="flex gap-x-2">
-          <el-button type="info" @click="dialogVisibleSearch = true">
+          <el-button type="info" @click="dialogRef.open()">
             <el-icon size="18" class="mr-2">
               <Search />
             </el-icon>
@@ -149,7 +150,7 @@ const form = reactive({
 const loading = ref(false);
 const tableLoading = ref(false);
 
-const dialogVisibleSearch = ref(false);
+const dialogRef = ref(null);
 const drawerRef = ref(null);
 
 const essayList = ref([]);
@@ -192,7 +193,7 @@ const chooseEssayHandel = async (row) => {
     })
     .finally(() => {
       loading.value = false;
-      dialogVisibleSearch.value = false;
+      dialogRef.value.close();
     });
 };
 
