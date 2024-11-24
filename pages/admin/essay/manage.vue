@@ -186,8 +186,8 @@ const chooseEssayHandel = async (row) => {
           form[key] = data[key];
         }
       }
-      if (Array.isArray(data.labelList)) {
-        form.labelIds = data.labelList.map((o) => o.id);
+      if (Array.isArray(data.label_list)) {
+        form.labelIds = data.label_List.map((o) => o.id);
         form.oldLabelIds = form.labelIds;
       }
     })

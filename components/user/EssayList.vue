@@ -36,11 +36,11 @@
           <div class="flex flex-wrap items-center">
             <span class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3">
               <el-tag type="primary" class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700">
-                <NuxtLink :to="'/kind/' + item.kindID + '/1'">
+                <NuxtLink :to="'/kind/' + item.kind_id + '/1'">
                   <div class="flex items-center text-xs">
                     <el-icon><Menu /></el-icon>
                     <span>
-                      {{ item.kindName }}
+                      {{ item.kind_name }}
                     </span>
                   </div>
                 </NuxtLink>
@@ -48,7 +48,7 @@
               <el-tag
                 type="info"
                 class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
-                v-for="label in item.labelList"
+                v-for="label in item.label_list"
               >
                 <NuxtLink
                   class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
@@ -64,11 +64,11 @@
             <div class="flex items-center gap-x-1">
               <el-icon><Calendar /></el-icon>
               <span class="line-clamp-1">
-                {{ formateDate(item.createdTime) }}
+                {{ formateDate(item.created_time) }}
               </span>
               <span class="mx-1">|</span>
               <el-icon size="14"><View /></el-icon>
-              {{ item.visitedTimes }}
+              {{ item.visited_times }}
             </div>
           </small>
         </div>

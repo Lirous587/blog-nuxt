@@ -19,13 +19,13 @@
                 class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
               ></el-image>
               <div
-                class="ml-5 text-sm text-pink-400 truncate transition-transform duration-300 hover:scale-110 hover:underline"
+                class="ml-5 text-sm text-pink-400 text-ellipsis transition-transform duration-300 hover:scale-110 hover:underline"
               >
                 {{ item.name }}
               </div>
             </div>
             <small class="text-xs my-1 text-gray-300 dark:text-gray-600">
-              {{ formateDate(item.createdTime) }}
+              {{ formateDate(item.created_time) }}
             </small>
           </div>
         </NuxtLink>

@@ -28,7 +28,7 @@
         </template>
       </el-card>
     </div>
-    <Paging :totalPage="totalPage" preHref="/heartWords"></Paging>
+    <Paging :totalPages="totalPages" preHref="/heartWords"></Paging>
   </div>
 </template>
 
@@ -49,12 +49,12 @@ const queryForm = reactive({
 });
 
 const list = ref([]);
-const totalPage = ref(1);
+const totalPages = ref(1);
 
 await getHeartWordsList(queryForm).then((res) => {
   const data = res.data;
   list.value = data.list;
-  totalPage.value = data.totalPage;
+  totalPages.value = data.total_pages;
 });
 </script>
 

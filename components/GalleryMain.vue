@@ -9,7 +9,7 @@
         class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
       >
         <el-image
-          :src="imgPre + item.url"
+          :src="imgPre + item.img_url"
           class="h-full w-full p-2 rounded-lg"
           lazy
           fit="cover"
@@ -88,7 +88,7 @@ const list = ref([]);
 const currentPage = ref(1);
 const loading = ref(false);
 const queryParams = reactive({
-  kindID: props.kindID,
+  kind_id: props.kindID,
   page: 1,
   pageSize: 12,
 });
@@ -105,7 +105,7 @@ const getList = async () => {
         }
         return { ...o, checked: false };
       });
-      currentPage.value = data.totalPage;
+      currentPage.value = data.totalPages;
     })
     .finally(() => {
       setTimeout(() => {
@@ -143,7 +143,7 @@ const handelChooseImg = () => {
 watch(
   () => props.kindID,
   (newVal) => {
-    queryParams.kindID = newVal;
+    queryParams.kind_id = newVal;
     getList();
   }
 );

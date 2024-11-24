@@ -133,11 +133,7 @@ const handelUpload = () => {
 };
 
 const handelSelectImg = (img) => {
-  const retImg = {
-    url: img.url,
-    id: img.id,
-  };
-  emits("selectImg", retImg);
+  emits("selectImg", img);
 };
 
 const emits = defineEmits(["selectImg"]);

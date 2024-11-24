@@ -97,8 +97,8 @@ const adminStore = useMyAdminStore();
 
 const getData = () => {
   const data = adminStore.getPanelData();
-  let ipSet = data.ipSet;
-  let rankList = data.rankList;
+  let ipSet = data.ip_set;
+  let rankList = data.rank_list;
 
   visitedCount.value[0].count = ipSet.year;
   visitedCount.value[1].count = ipSet.month;

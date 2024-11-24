@@ -28,15 +28,14 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
     await getIndexInfo().then((res) => {
       const data = res.data;
-      recommentEssayList.value = data.essayList;
-      labelList.value = data.labelList;
-      kindList.value = data.kindList;
-      heartWordsList.value = data.heartWordsList;
-
+      recommentEssayList.value = data.essay_list;
+      labelList.value = data.label_list;
+      kindList.value = data.kind_list;
+      heartWordsList.value = data.heart_words_list;
       statisticsData.label.count = labelList.value.length;
       statisticsData.kind.count = kindList.value.length;
       statisticsData.essay.count = kindList.value.reduce(
-        (accumulator, kind) => accumulator + kind.essayCount,
+        (accumulator, kind) => accumulator + kind.essay_count,
         0
       );
     });
