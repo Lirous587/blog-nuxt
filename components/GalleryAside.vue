@@ -1,36 +1,36 @@
 <template>
   <div v-loading="loading">
-    <el-menu :default-active="defaultActive" @select="handelSelect">
-      <el-menu-item v-for="item in list" :index="String(item.id)">
-        <div class="flex-1 flex items-center justify-between">
-          <div>
-            {{ item.name }}
+    <div v-for="item in list" class="text-sm">
+      <div
+        class="flex-1 flex items-center justify-between hover:cursor-pointer px-4 hover:bg-blue-100 leading-[56px]"
+        :class="activeID == item.id ? 'text-blue-400' : ''"
+        @click="handelSelect(item.id)"
+      >
+        <div>
+          {{ item.name }}
+        </div>
+        <div class="flex items-center gap-x-3">
+          <div @click.stop="() => {}">
+            <el-icon size="16" @click="handelUpdatePre(item)"><Edit /></el-icon>
           </div>
-          <div class="flex items-center">
-            <div @click.stop="() => {}">
-              <el-icon size="16" @click="handelUpdatePre(item)"
-                ><Edit
-              /></el-icon>
-            </div>
 
-            <div @click.stop="() => {}">
-              <el-popconfirm
-                title="确定删除分类?"
-                confirm-button-text="确定"
-                cancel-button-text="取消"
-                confirm-button-type="danger"
-                cancel-button-type="primary"
-                @confirm.stop="handelDelete(item.id)"
-              >
-                <template #reference>
-                  <el-icon size="16"><Close /></el-icon>
-                </template>
-              </el-popconfirm>
-            </div>
+          <div @click.stop="() => {}">
+            <el-popconfirm
+              title="确定删除分类?"
+              confirm-button-text="确定"
+              cancel-button-text="取消"
+              confirm-button-type="danger"
+              cancel-button-type="primary"
+              @confirm.stop="handelDelete(item.id)"
+            >
+              <template #reference>
+                <el-icon size="16"><Close /></el-icon>
+              </template>
+            </el-popconfirm>
           </div>
         </div>
-      </el-menu-item>
-    </el-menu>
+      </div>
+    </div>
   </div>
 
   <MyDrawer
@@ -66,7 +66,6 @@ const form = reactive({
   name: "",
 });
 
-const defaultActive = ref("");
 const drawerRef = ref(null);
 const getList = async () => {
   loading.value = true;
@@ -74,7 +73,7 @@ const getList = async () => {
     .then((res) => {
       const data = res.data;
       list.value = data.list;
-      defaultActive.value = String(list.value[0].id);
+      handelSelect(list.value[0].id);
     })
     .finally(() => {
       loading.value = false;

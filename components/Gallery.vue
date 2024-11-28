@@ -16,7 +16,7 @@
         <GalleryMain
           @select-img="handelSelectImg"
           ref="mainRef"
-          :kindID="kindID"
+          :kind_id="kind_id"
           :oID="props.oID"
         ></GalleryMain>
       </div>
@@ -50,7 +50,7 @@
           <el-form-item>
             <UploadImg
               ref="uploadRef"
-              v-model:imgUrl="galleryForm.url"
+              v-model:imgUrl="galleryForm.img_url"
             ></UploadImg>
           </el-form-item>
           <el-form-item>
@@ -79,10 +79,10 @@ const props = defineProps({
   },
 });
 
-const kindID = ref(1);
+const kind_id = ref(1);
 
 const handelChangeKind = (id) => {
-  kindID.value = id;
+  kind_id.value = id;
 };
 
 const kindForm = reactive({
@@ -90,8 +90,8 @@ const kindForm = reactive({
 });
 
 const galleryForm = reactive({
-  kindID: kindID.value,
-  url: "",
+  kind_id: kind_id.value,
+  img_url: "",
 });
 
 const drawerRef = ref(null);
@@ -117,7 +117,7 @@ const handelCreateKind = () => {
 };
 
 const handelUploadPre = () => {
-  galleryForm.url = "";
+  galleryForm.img_url = "";
   drawerData.title = "上传图片";
   drawerData.type = "img";
   drawerRef.value.open();
@@ -125,7 +125,7 @@ const handelUploadPre = () => {
 
 const handelUpload = () => {
   uploadRef.value.submitUpload();
-  galleryForm.kindID = kindID.value;
+  galleryForm.kind_id = kind_id.value;
   createGallery(galleryForm).then(() => {
     mainRef.value.getList();
   });

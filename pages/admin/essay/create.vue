@@ -32,12 +32,12 @@ provide("select", true);
 
 const form = reactive({
   name: "",
-  kindID: null,
-  labelIds: [],
+  kind_id: 0,
+  label_ids: [],
   introduction: "",
   content: "",
-  ifTop: false,
-  ifRecommend: false,
+  if_top: false,
+  if_recommend: false,
   keywords: [],
   img: {
     url: "",

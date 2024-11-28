@@ -17,7 +17,7 @@ const imgPre = useRuntimeConfig().public.imgBase + "/";
 const emits = defineEmits(["chooseGalley", "chooseEssay"]);
 
 const handelSelectImg = (img) => {
-  const imgUrl = imgPre + img.url;
+  const imgUrl = imgPre + img.img_url;
   dialogRef.value.close();
   emits("chooseGalley", imgUrl);
 };

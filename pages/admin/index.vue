@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-card shadow="always" style="width: 100%">
+  <div class="pr-5">
+    <el-card shadow="always">
       <template #header>
         <div class="flex justify-between">
           <span class="text-sm">关键字排行</span>

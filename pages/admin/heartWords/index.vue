@@ -181,7 +181,7 @@ const currentPage = ref(1);
 
 const queryParams = reactive({
   page: 1,
-  pageSize: 10,
+  page_size: 10,
 });
 
 const drawerRef = ref(null);

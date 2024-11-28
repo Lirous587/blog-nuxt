@@ -3,7 +3,7 @@
     <UserEssayList :list="essayList"></UserEssayList>
     <Paging
       :total-page="totalPages"
-      :preHref="'/kind' + '/' + queryForm.kindID"
+      :preHref="'/kind' + '/' + queryForm.kind_id"
     ></Paging>
   </div>
 </template>
@@ -20,9 +20,9 @@ definePageMeta({
 const route = useRoute();
 
 const queryForm = reactive({
-  kindID: route.params.id,
+  kind_id: route.params.id,
   page: route.params.page || 1,
-  pageSize: 10,
+  page_size: 10,
 });
 
 const essayList = ref([]);

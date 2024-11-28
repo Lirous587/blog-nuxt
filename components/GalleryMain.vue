@@ -72,7 +72,7 @@ import { deleteGallery, getGalleryList } from "~/api/gallery";
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const props = defineProps({
-  kindID: {
+  kind_id: {
     type: Number,
     required: true,
   },
@@ -88,9 +88,9 @@ const list = ref([]);
 const currentPage = ref(1);
 const loading = ref(false);
 const queryParams = reactive({
-  kind_id: props.kindID,
+  kind_id: props.kind_id,
   page: 1,
-  pageSize: 12,
+  page_size: 10,
 });
 
 const getList = async () => {
@@ -141,7 +141,7 @@ const handelChooseImg = () => {
 };
 
 watch(
-  () => props.kindID,
+  () => props.kind_id,
   (newVal) => {
     queryParams.kind_id = newVal;
     getList();

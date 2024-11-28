@@ -16,7 +16,7 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
-  pageSize: 10,
+  page_size: 10,
 });
 
 const essayList = ref([]);

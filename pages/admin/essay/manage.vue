@@ -133,17 +133,17 @@ provide("select", true);
 const form = reactive({
   id: 0,
   name: "",
-  kindID: null,
-  oldLabelIds: [],
-  labelIds: [],
+  kind_id: null,
+  old_label_ids: [],
+  label_ids: [],
   introduction: "",
   content: "",
   img: {
     url: "",
     id: "",
   },
-  ifTop: false,
-  ifRecommend: false,
+  if_top: false,
+  if_recommend: false,
   keywords: [],
 });
 
@@ -187,8 +187,8 @@ const chooseEssayHandel = async (row) => {
         }
       }
       if (Array.isArray(data.label_list)) {
-        form.labelIds = data.label_List.map((o) => o.id);
-        form.oldLabelIds = form.labelIds;
+        form.label_ids = data.label_List.map((o) => o.id);
+        form.old_label_ids = form.label_ids;
       }
     })
     .finally(() => {
