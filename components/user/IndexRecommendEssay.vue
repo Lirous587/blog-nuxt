@@ -25,7 +25,7 @@
               </div>
             </div>
             <small class="text-xs my-1 text-gray-300 dark:text-gray-600">
-              {{ formateDate(item.created_time) }}
+              {{ formateDate(item.createdTime) }}
             </small>
           </div>
         </NuxtLink>

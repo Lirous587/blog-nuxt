@@ -3,7 +3,7 @@
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
         <AdminSelectKind
-          v-model:kind_id="form.kind_id"
+          v-model:kindID="form.kindID"
           :list="kindList"
         ></AdminSelectKind>
       </el-form-item>
@@ -11,7 +11,7 @@
       <el-form-item label="标签">
         <AdminSelectLabels
           :list="labelList"
-          v-model:ids="form.label_ids"
+          v-model:ids="form.labelIds"
         ></AdminSelectLabels>
       </el-form-item>
 
@@ -36,14 +36,14 @@
       </el-form-item>
 
       <el-form-item label="是否置顶">
-        <el-radio-group v-model="form.if_top">
+        <el-radio-group v-model="form.ifTop">
           <el-radio :value="true" size="large">是</el-radio>
           <el-radio :value="false" size="large">否</el-radio>
         </el-radio-group>
       </el-form-item>
 
       <el-form-item label="是否推荐">
-        <el-radio-group v-model="form.if_recommend">
+        <el-radio-group v-model="form.ifRecommend">
           <el-radio :value="true" size="large">是</el-radio>
           <el-radio :value="false" size="large">否</el-radio>
         </el-radio-group>
@@ -125,7 +125,7 @@ const handelUpdate = () => {
   updateEssay(form.value)
     .then(() => {
       toast("更新成功");
-      form.old_label_ids = form.label_ids;
+      form.old_label_ids = form.labelIds;
       adminStore.updateAll();
     })
     .finally(() => {
@@ -141,7 +141,7 @@ const handelSelectImgPre = () => {
 };
 
 const handelSelectImg = (img) => {
-  form.value.img.url = img.img_url;
+  form.value.img.url = img.imgUrl;
   form.value.img.id = img.id;
   dialogRef.value.close();
 };

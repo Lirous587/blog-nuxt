@@ -29,7 +29,7 @@
             <ChooseIcon v-model:icon="scope.row.icon"></ChooseIcon>
           </template>
         </el-table-column>
-        <el-table-column label="文章数" prop="essay_count" align="center" />
+        <el-table-column label="文章数" prop="essayCount" align="center" />
         <el-table-column
           label="操作"
           prop="icon"

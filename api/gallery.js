@@ -1,6 +1,6 @@
 export function getGalleryList(query) {
   let q = queryToUrl(query);
-  return clientApi.get(`/admin/gallery_list${q}`);
+  return clientApi.get(`/admin/galleryList${q}`);
 }
 
 export function createGallery(form) {

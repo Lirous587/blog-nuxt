@@ -30,8 +30,8 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
       getIndexInfo()
         .then((res) => {
           const data = res.data;
-          labelList.value = data.label_list;
-          kindList.value = data.kind_list;
+          labelList.value = data.labelList;
+          kindList.value = data.kindList;
           resolve(data);
         })
         .catch((err) => {

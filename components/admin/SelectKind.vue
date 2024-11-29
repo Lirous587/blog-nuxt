@@ -17,5 +17,5 @@ const props = defineProps({
   },
 });
 
-const id = defineModel("kind_id");
+const id = defineModel("kindID");
 </script>

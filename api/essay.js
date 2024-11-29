@@ -1,10 +1,10 @@
 export const getEssay = (id) => {
-  return api.get(`/base/essay_content?id=${id}`);
+  return api.get(`/base/essayContent?id=${id}`);
 };
 
 export const getEssayList = (query) => {
   let q = queryToUrl(query);
-  return api.get(`/base/essay_list${q}`);
+  return api.get(`/base/essayList${q}`);
 };
 
 export function createEssay(form) {

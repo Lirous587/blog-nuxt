@@ -34,11 +34,7 @@
 
         <el-table-column label="是否打印" align="center" min-width="250">
           <template #default="scope">
-            <el-switch
-              disabled
-              v-model="scope.row.if_could_type"
-              size="large"
-            />
+            <el-switch disabled v-model="scope.row.ifCouldType" size="large" />
           </template>
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
@@ -105,7 +101,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="是否打印">
-          <el-radio-group v-model="form.if_could_type">
+          <el-radio-group v-model="form.ifCouldType">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
@@ -163,7 +159,7 @@ const oldForm = reactive({
     url: "",
     id: 0,
   },
-  if_could_type: false,
+  ifCouldType: false,
 });
 
 const form = reactive({
@@ -174,14 +170,14 @@ const form = reactive({
     url: "",
     id: 0,
   },
-  if_could_type: false,
+  ifCouldType: false,
 });
 
 const currentPage = ref(1);
 
 const queryParams = reactive({
   page: 1,
-  page_size: 10,
+  pageSize: 10,
 });
 
 const drawerRef = ref(null);
@@ -197,7 +193,7 @@ const getList = async () => {
   await getHeartWordsList(queryParams)
     .then((res) => {
       const data = res.data;
-      currentPage.value = data.total_pages;
+      currentPage.value = data.totalPages;
       list.value = data.list.map((item) => {
         return {
           ...item,
@@ -291,7 +287,7 @@ const oID = ref(0);
 
 const handelSelectImg = (img) => {
   form.img.id = img.id;
-  form.img.url = img.img_url;
+  form.img.url = img.imgUrl;
   dialogRef.value.close();
 };
 </script>

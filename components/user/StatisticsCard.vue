@@ -36,7 +36,7 @@ const props = defineProps({
   data: {
     type: Object,
     default: {
-      essay_count: 0,
+      essayCount: 0,
       labelCount: 0,
       kindCount: 0,
     },

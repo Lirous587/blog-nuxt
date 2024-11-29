@@ -1,5 +1,5 @@
 export function getGalleryKindList() {
-  return clientApi.get(`/admin/galleryKind_list`);
+  return clientApi.get(`/admin/galleryKindList`);
 }
 
 export function createGalleryKind(form) {

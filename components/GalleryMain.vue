@@ -9,7 +9,7 @@
         class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
       >
         <el-image
-          :src="imgPre + item.img_url"
+          :src="imgPre + item.imgUrl"
           class="h-full w-full p-2 rounded-lg"
           lazy
           fit="cover"
@@ -72,7 +72,7 @@ import { deleteGallery, getGalleryList } from "~/api/gallery";
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const props = defineProps({
-  kind_id: {
+  kindID: {
     type: Number,
     required: true,
   },
@@ -88,9 +88,9 @@ const list = ref([]);
 const currentPage = ref(1);
 const loading = ref(false);
 const queryParams = reactive({
-  kind_id: props.kind_id,
+  kindID: props.kindID,
   page: 1,
-  page_size: 10,
+  pageSize: 10,
 });
 
 const getList = async () => {
@@ -141,9 +141,9 @@ const handelChooseImg = () => {
 };
 
 watch(
-  () => props.kind_id,
+  () => props.kindID,
   (newVal) => {
-    queryParams.kind_id = newVal;
+    queryParams.kindID = newVal;
     getList();
   }
 );

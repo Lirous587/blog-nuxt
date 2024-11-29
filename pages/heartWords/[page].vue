@@ -45,7 +45,7 @@ const route = useRoute();
 
 const queryForm = reactive({
   page: route.params.page || 1,
-  page_size: 10,
+  pageSize: 10,
 });
 
 const list = ref([]);
@@ -54,7 +54,7 @@ const totalPages = ref(1);
 await getHeartWordsList(queryForm).then((res) => {
   const data = res.data;
   list.value = data.list;
-  totalPages.value = data.total_pages;
+  totalPages.value = data.totalPages;
 });
 </script>
 

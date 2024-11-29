@@ -3,7 +3,7 @@
     <UserEssayList :list="essayList"></UserEssayList>
     <Paging
       :total-page="totalPages"
-      :preHref="'/kind' + '/' + queryForm.kind_id"
+      :preHref="'/kind' + '/' + queryForm.kindID"
     ></Paging>
   </div>
 </template>
@@ -20,9 +20,9 @@ definePageMeta({
 const route = useRoute();
 
 const queryForm = reactive({
-  kind_id: route.params.id,
+  kindID: route.params.id,
   page: route.params.page || 1,
-  page_size: 10,
+  pageSize: 10,
 });
 
 const essayList = ref([]);
@@ -30,8 +30,8 @@ const totalPages = ref(1);
 
 await getEssayList(queryForm).then((res) => {
   const data = res.data;
-  essayList.value = data.essay_list;
-  totalPages.value = data.total_pages;
+  essayList.value = data.essayList;
+  totalPages.value = data.totalPages;
 });
 
 const indexStore = useMyIndexStore();

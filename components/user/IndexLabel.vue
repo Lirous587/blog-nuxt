@@ -18,7 +18,7 @@
         <span
           class="absolute top-0 right-0 translate-x-[-50%] text-xs text-gray-700 dark:text-neutral-200"
         >
-          {{ item.essay_count }}
+          {{ item.essayCount }}
         </span>
       </NuxtLink>
     </div>

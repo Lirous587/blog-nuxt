@@ -16,14 +16,14 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
-  page_size: 10,
+  pageSize: 10,
 });
 
 const essayList = ref([]);
 const totalPages = ref(1);
 await getEssayList(queryForm).then((res) => {
   const data = res.data;
-  essayList.value = data.essay_list;
-  totalPages.value = data.total_pages;
+  essayList.value = data.essayList;
+  totalPages.value = data.totalPages;
 });
 </script>

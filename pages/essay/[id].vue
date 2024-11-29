@@ -22,7 +22,7 @@
 
               <div class="flex items-center gap-x-1 text-gray-500">
                 <el-icon size="14"><View /></el-icon>
-                {{ data.visited_times + 1 }}
+                {{ data.visitedTimes + 1 }}
               </div>
             </div>
 
@@ -35,15 +35,15 @@
                 size="small"
                 class="dark:!bg-black dark:text-gray-500 dark:border-gray-700"
               >
-                <NuxtLink :to="'/kind/' + data.kind_id + '/1'">
-                  {{ data.kind_name }}
+                <NuxtLink :to="'/kind/' + data.kindID + '/1'">
+                  {{ data.kindName }}
                 </NuxtLink>
               </el-tag>
               <el-tag
                 type="info"
                 size="small"
                 class="mx-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
-                v-for="label in data.label_list"
+                v-for="label in data.labelList"
               >
                 <NuxtLink :to="'/label/' + label.id + '/1'">
                   {{ label.name }}
@@ -57,7 +57,7 @@
           <el-card
             class="dark:!bg-black mt-5"
             v-if="
-              Array.isArray(data.near_essay_list) && data.near_essay_list.length
+              Array.isArray(data.nearEssayList) && data.nearEssayList.length
             "
           >
             <template #header>
@@ -71,7 +71,7 @@
 
             <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <el-card
-                v-for="item in data.near_essay_list"
+                v-for="item in data.nearEssayList"
                 :key="item.id"
                 class="relative dark:!bg-black"
               >
@@ -171,7 +171,7 @@ nuxtApp.hook("page:finish", () => {
 await getEssay(id)
   .then((res) => {
     data.value = res.data;
-    sentenceList.value = [data.value.name, formateDate(data.value.created_time)];
+    sentenceList.value = [data.value.name, formateDate(data.value.createdTime)];
   })
   .catch((err) => {
     if (err.code === 1005) navigateTo("/");
@@ -184,8 +184,8 @@ useSeoMeta({
   ogTitle: data.value.name,
   description: data.value.introduction,
   ogDescription: data.value.introduction,
-  ogImage: imgPre + data.value.img_url,
-  twitterCard: imgPre + data.value.img_Url,
+  ogImage: imgPre + data.value.imgUrl,
+  twitterCard: imgPre + data.value.imgUrl,
 });
 
 const scrollToChatArea = () => {
