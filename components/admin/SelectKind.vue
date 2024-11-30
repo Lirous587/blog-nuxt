@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="id" placeholder="选择分类">
+  <el-select v-model="id" placeholder="选择分类" @change="handelChange">
     <el-option
       v-for="item in list"
       :key="item.id"
@@ -17,5 +17,11 @@ const props = defineProps({
   },
 });
 
-const id = defineModel("kindID");
+const id = ref(props.list[0].id);
+
+const emits = defineEmits(["update"]);
+
+const handelChange = (value) => {
+  emits("update", value);
+};
 </script>

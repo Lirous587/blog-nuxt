@@ -58,6 +58,7 @@ let timer;
 
 const updateTyping = () => {
   clearTimeout(timer);
+  console.log(displayedText.value);
   if (isTyping.value) {
     if (displayedText.value.length === nowSentence.value.length) {
       timer = setTimeout(() => {

@@ -38,7 +38,7 @@ const form = reactive({
   content: "",
   ifTop: false,
   ifRecommend: false,
-  keywords: [],
+  keywords: "",
   img: {
     url: "",
     id: "",

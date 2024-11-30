@@ -5,6 +5,7 @@
         <AdminSelectKind
           v-model:kindID="form.kindID"
           :list="kindList"
+          @update="handelKindChange"
         ></AdminSelectKind>
       </el-form-item>
 
@@ -32,7 +33,7 @@
       </el-form-item>
 
       <el-form-item label="关键词">
-        <DynamicAddTag v-model:tags="form.keywords"> </DynamicAddTag>
+        <DynamicAddTag @tagChange="handelTagChange"></DynamicAddTag>
       </el-form-item>
 
       <el-form-item label="是否置顶">
@@ -98,6 +99,14 @@ const kindList = ref([]);
 
 labelList.value = adminStore.getLabelList();
 kindList.value = adminStore.getKindList();
+
+const handelKindChange = (value) => {
+  form.value.kindID = value;
+};
+
+const handelTagChange = (tags) => {
+  form.value.keywords = tags.join(",");
+};
 
 const handelOprate = () => {
   if (props.opration === "update") {

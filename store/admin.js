@@ -1,10 +1,8 @@
 import { defineStore } from "pinia";
-import { getIndexPanel } from "~/api/admin";
 import { getIndexInfo } from "~/api/user";
 
 export const useMyAdminStore = defineStore("myAdminStore", () => {
   const ifInit = ref(false);
-  const panelData = ref("");
   const labelList = ref([]);
   const kindList = ref([]);
 
@@ -14,17 +12,6 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
 
   const updateAll = async () => {
     ifInit.value = false;
-    const getPanel = new Promise((resolve, reject) => {
-      getIndexPanel()
-        .then((res) => {
-          const data = res.data;
-          panelData.value = data;
-          resolve(data);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
 
     const getKindListAndLabelList = new Promise((resolve, reject) => {
       getIndexInfo()
@@ -39,13 +26,9 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
         });
     });
 
-    const task = [getPanel, getKindListAndLabelList];
+    const task = [getKindListAndLabelList];
     await Promise.all(task);
     ifInit.value = true;
-  };
-
-  const getPanelData = () => {
-    return panelData.value;
   };
 
   const getLabelList = () => {
@@ -58,12 +41,10 @@ export const useMyAdminStore = defineStore("myAdminStore", () => {
 
   return {
     ifInit,
-    panelData,
     labelList,
     kindList,
     getInitStatus,
     updateAll,
-    getPanelData,
     getLabelList,
     getKindList,
   };

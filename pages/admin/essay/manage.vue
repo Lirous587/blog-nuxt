@@ -27,7 +27,7 @@
           </el-input>
         </template>
         <el-table
-          :data="essayList"
+          :data="list"
           v-loading="tableLoading"
           border
           stripe
@@ -144,7 +144,7 @@ const form = reactive({
   },
   ifTop: false,
   ifRecommend: false,
-  keywords: [],
+  keywords: "",
 });
 
 const loading = ref(false);
@@ -153,7 +153,7 @@ const tableLoading = ref(false);
 const dialogRef = ref(null);
 const drawerRef = ref(null);
 
-const essayList = ref([]);
+const list = ref([]);
 
 const searchForm = reactive({
   keyword: "",
@@ -163,7 +163,7 @@ const searchForm = reactive({
 const handelSearchEssay = async () => {
   tableLoading.value = true;
   await searchEssay(searchForm).then((res) => {
-    essayList.value = res.data;
+    list.value = res.data;
     tableLoading.value = false;
   });
 };

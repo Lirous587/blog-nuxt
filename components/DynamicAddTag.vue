@@ -38,10 +38,8 @@
 </template>
 
 <script setup>
-const tags = defineModel("tags", {
-  type: Array,
-  required: true,
-});
+const tags = ref([]);
+
 const props = defineProps({
   addText: {
     type: String,
@@ -72,11 +70,16 @@ const showInput = () => {
 
 const handleInputConfirm = () => {
   let tag = inputValue.value.split(" ").join("").toLowerCase();
-  if (tag && !tags.value.includes(tag)) {
+  if (tags.value.includes(tag)) {
+    toast("非法或已有关键词", "warning");
+    return;
+  }
+  if (tag && !tag.includes(",")) {
     tags.value.push(tag);
     showEdit.value.push(false);
+    emits("tagChange", tags.value);
   } else {
-    toast("已有该keyword", "warning");
+    toast("非法关键词", "warning");
   }
   inputVisible.value = false;
   inputValue.value = "";
@@ -87,4 +90,6 @@ const handleEditConfirm = (oldTag, index) => {
   tags.value[index] = tag;
   showEdit.value[index] = false;
 };
+
+const emits = defineEmits(["tagChange"]);
 </script>

@@ -2,9 +2,7 @@ export function login(form) {
   return clientApi.post("/admin/login", form);
 }
 
-export function getIndexPanel() {
-  return clientApi.get("/admin/panel");
-}
+
 
 export function uploadImg(file) {
   const token = getToken();
