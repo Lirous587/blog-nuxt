@@ -1,7 +1,7 @@
 <template>
-  <div :key="route.fullPath">
+  <div v-loading="loadding">
     <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
-      <main class="flex-1" @click="mobileAnchorShow = false" v-if="!loading">
+      <main class="flex-1" @click="mobileAnchorShow = false">
         <div class="mt-5">
           <div class="mb-5">
             <div class="flex justify-between items-center mb-2">
@@ -136,18 +136,7 @@ const route = useRoute();
 const id = route.params.id;
 const data = ref({});
 
-// const nuxtApp = useNuxtApp();
-
-// 是否首次加载
-const loading = ref(false);
-
-// nuxtApp.hook("page:start", () => {
-//   loading.value = true;
-// });
-
-// nuxtApp.hook("page:finish", () => {
-//   loading.value = false;
-// });
+const loadding = ref(true);
 
 await getEssay(id)
   .then((res) => {
@@ -156,6 +145,9 @@ await getEssay(id)
   })
   .catch((err) => {
     if (err.code === 1005) navigateTo("/");
+  })
+  .finally(() => {
+    loadding.value = false;
   });
 
 const config = useRuntimeConfig();
@@ -176,8 +168,6 @@ const scrollToChatArea = () => {
     behavior: "smooth",
   });
 };
-
-
 </script>
 
 <style scoped>
