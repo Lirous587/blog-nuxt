@@ -26,7 +26,7 @@
       <div class="flex justify-center items-center">
         <div
           v-for="(word, index) in 'Lirous不想coding'"
-          class="relative inline-flex text-xl mx-2 float-action text-neutral-300"
+          class="relative inline-flex text-sm mx-2 float-action text-neutral-300 md:text-base lg:text-lg"
           :style="{ animationDelay: `${index * 0.3}s` }"
         >
           {{ word }}

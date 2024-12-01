@@ -21,7 +21,7 @@
           ref="drawerRef"
           @close="iconRef.close()"
         >
-          <UserNavAside></UserNavAside>
+          <UserNavAside class="overflow-hidden"></UserNavAside>
         </MyDrawer>
       </div>
       <NuxtLink to="/" class="nav lg:hidden"> 首页 </NuxtLink>
@@ -60,7 +60,7 @@ import { useMyThemeStore } from "~/store/theme";
 const drawerRef = ref(null);
 const iconRef = ref(null);
 
-const selectOpen = (status) => {
+const selectOpen = () => {
   drawerRef.value.open();
 };
 
@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
   transform: translateY(v-bind(translateY));
 }
 .nav {
-  @apply duration-300 relative cursor-pointer text-lg  whitespace-nowrap  hover:scale-125 text-pink-600 dark:text-neutral-400;
+  @apply duration-300 relative cursor-pointer  whitespace-nowrap  hover:scale-125 text-pink-600 dark:text-neutral-400 md:text-lg;
 }
 .nav::after {
   content: "";

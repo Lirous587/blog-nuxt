@@ -6,7 +6,7 @@
       >
         <NuxtLink
           :to="'/essay/' + item.id"
-          class="flex justify-center w-full h-[180px]"
+          class="flex justify-center w-full h-[180px] md:h-[250px] lg:h-[200px]"
         >
           <el-image
             :src="imgPre + item.img.url"
@@ -79,6 +79,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 

@@ -1,23 +1,9 @@
 <template>
-  <div>
-    <TopLoading></TopLoading>
-    <UserNavHeader> </UserNavHeader>
-
-    <BackgroundType> </BackgroundType>
-
+  <div :key="route.fullPath">
     <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
-      <aside class="sticky-aside lg:w-[280px]">
-        <UserNavAside
-          :showList="['recommentEssay', 'label', 'kind']"
-        ></UserNavAside>
-      </aside>
-
-      <main
-        class="flex-1 mx-3 overflow-scroll"
-        @click="mobileAnchorShow = false"
-      >
-        <div class="mt-5" v-if="!loading">
-          <div class="mx-5 mb-5">
+      <main class="flex-1" @click="mobileAnchorShow = false" v-if="!loading">
+        <div class="mt-5">
+          <div class="mb-5">
             <div class="flex justify-between items-center mb-2">
               <TypeWriter
                 class="rounded-xl text-opacity-60 dark:text-gray-500"
@@ -130,12 +116,6 @@
     <div id="chatArea" class="dark:bg-black dark:text-neutral-300">
       这里是未来的聊天区
     </div>
-
-    <div class="fixed bottom-0 left-0 right-0 h-[60px] pointer-events-none">
-      <Wave />
-    </div>
-
-    <RecordBottom></RecordBottom>
   </div>
 </template>
 
@@ -144,7 +124,6 @@ import { getEssay } from "~/api/essay";
 
 definePageMeta({
   middleware: ["index-data"],
-  layout: "",
   scrollToTop: true,
 });
 
@@ -157,18 +136,18 @@ const route = useRoute();
 const id = route.params.id;
 const data = ref({});
 
-const nuxtApp = useNuxtApp();
+// const nuxtApp = useNuxtApp();
 
 // 是否首次加载
-const loading = ref(true);
+const loading = ref(false);
 
-nuxtApp.hook("page:start", () => {
-  loading.value = true;
-});
+// nuxtApp.hook("page:start", () => {
+//   loading.value = true;
+// });
 
-nuxtApp.hook("page:finish", () => {
-  loading.value = false;
-});
+// nuxtApp.hook("page:finish", () => {
+//   loading.value = false;
+// });
 
 await getEssay(id)
   .then((res) => {
@@ -197,6 +176,8 @@ const scrollToChatArea = () => {
     behavior: "smooth",
   });
 };
+
+
 </script>
 
 <style scoped>
@@ -204,7 +185,7 @@ const scrollToChatArea = () => {
   @apply border-none;
 }
 .sticky-aside {
-  @apply sticky overscroll-y-contain top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden ml-5 flex-col lg:mx-10 lg:flex;
+  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[70px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;

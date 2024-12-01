@@ -65,7 +65,6 @@ const observerHList = () => {
     }
   );
 
-  
   hList.forEach((el, index) => {
     myObserver.observe(el);
   });
@@ -76,13 +75,12 @@ const onHtmlChanged = async () => {
   observerHList();
 };
 
-
 const theme = computed(() => themeStore.theme);
 
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   mdInit();
-})
-
+});
 
 defineExpose({
   anchors,

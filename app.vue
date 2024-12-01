@@ -51,7 +51,6 @@ nuxtApp.hook("page:finish", () => {
 html,
 body {
   scroll-behavior: smooth;
-  width: 100% !important;
 }
 
 .page-enter-active,
