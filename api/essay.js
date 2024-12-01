@@ -18,3 +18,7 @@ export function updateEssay(form) {
 export function deleteEssay(id) {
   return clientApi.delete(`/admin/essay?id=${id}`);
 }
+
+export function searchEssay(form) {
+  return clientApi.post("/base/essaySearch", form);
+}

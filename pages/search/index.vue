@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { searchEssay } from "~/api/keyword";
+import { searchEssay } from "~/api/essay";
 
 definePageMeta({
   middleware: ["search", "index-data"],

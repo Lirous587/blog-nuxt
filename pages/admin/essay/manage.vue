@@ -120,8 +120,7 @@
 
 <script setup>
 import { getEssay } from "~/api/essay";
-import { searchEssay } from "~/api/keyword";
-import { deleteEssay } from "~/api/essay";
+import { searchEssay, deleteEssay } from "~/api/essay";
 
 definePageMeta({
   layout: "admin",
@@ -134,7 +133,7 @@ const form = reactive({
   id: 0,
   name: "",
   kindID: null,
-  oldLabelds: [],
+  oldLabelIds: [],
   labelIds: [],
   introduction: "",
   content: "",
@@ -187,8 +186,8 @@ const chooseEssayHandel = async (row) => {
         }
       }
       if (Array.isArray(data.labelList)) {
-        form.labelIds = data.label_List.map((o) => o.id);
-        form.oldLabelds = form.labelIds;
+        form.labelIds = data.labelList.map((o) => o.id);
+        form.oldLabelIds = form.labelIds;
       }
     })
     .finally(() => {

@@ -15,9 +15,12 @@ const props = defineProps({
     type: Array,
     requirded: true,
   },
+  id: {
+    type: Number,
+  },
 });
 
-const id = ref(props.list[0].id);
+const id = ref(props.id | props.list[0].id);
 
 const emits = defineEmits(["update"]);
 

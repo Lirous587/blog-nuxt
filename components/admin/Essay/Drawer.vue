@@ -3,7 +3,7 @@
     <el-form :model="form" label-width="80px" :inline="false">
       <el-form-item label="分类">
         <AdminSelectKind
-          v-model:kindID="form.kindID"
+          :id="form.kindID"
           :list="kindList"
           @update="handelKindChange"
         ></AdminSelectKind>
@@ -69,6 +69,7 @@
 </template>
 
 <script setup>
+import { id } from "element-plus/es/locales.mjs";
 import { createEssay, updateEssay } from "~/api/essay";
 import { useMyAdminStore } from "~/store/admin";
 
