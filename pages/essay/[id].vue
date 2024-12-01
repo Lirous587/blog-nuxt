@@ -6,8 +6,14 @@
     <BackgroundType> </BackgroundType>
 
     <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
+      <aside class="sticky-aside lg:w-[280px]">
+        <UserNavAside
+          :showList="['recommentEssay', 'label', 'kind']"
+        ></UserNavAside>
+      </aside>
+
       <main
-        class="flex-1 mx-3 lg:ml-20 overflow-scroll"
+        class="flex-1 mx-3 overflow-scroll"
         @click="mobileAnchorShow = false"
       >
         <div class="mt-5" v-if="!loading">
@@ -108,10 +114,6 @@
         <div v-if="mdRef">
           <EssayAnchor :anchors="mdRef.anchors"></EssayAnchor>
         </div>
-
-        <UserNavAside
-          :showList="['recommentEssay', 'label', 'kind']"
-        ></UserNavAside>
       </aside>
     </div>
 
@@ -202,7 +204,7 @@ const scrollToChatArea = () => {
   @apply border-none;
 }
 .sticky-aside {
-  @apply sticky overscroll-y-contain top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden ml-5 flex-col lg:mr-20 lg:flex lg:w-[350px];
+  @apply sticky overscroll-y-contain top-[70px] max-h-[100vh] pb-[150px] overflow-y-scroll hidden ml-5 flex-col lg:mx-10 lg:flex;
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;
