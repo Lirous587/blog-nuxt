@@ -50,6 +50,9 @@ nuxtApp.hook("page:finish", () => {
 
 html,
 body {
+  width: 100vw !important;
+  padding: 0 !important;
+  margin: 0 !important;
   scroll-behavior: smooth;
 }
 

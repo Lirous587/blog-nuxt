@@ -44,9 +44,11 @@
             </div>
           </div>
 
-          <MdPreview ref="mdRef" :content="data.content"></MdPreview>
+          <div class="w-[calc(100vw-10px)] md:w-auto">
+            <MdPreview ref="mdRef" :content="data.content"></MdPreview>
+          </div>
 
-          <el-card
+          <!-- <el-card
             class="dark:!bg-black mt-5"
             v-if="
               Array.isArray(data.nearEssayList) && data.nearEssayList.length
@@ -85,16 +87,16 @@
                 </NuxtLink>
               </el-card>
             </div>
-          </el-card>
-        </div>
-
-        <div class="fixed top-[60px] right-0 lg:hidden" v-if="mdRef">
-          <EssayAnchor
-            :anchors="mdRef.anchors"
-            :class="mobileAnchorShow ? 'block' : 'hidden'"
-          ></EssayAnchor>
+          </el-card> -->
         </div>
       </main>
+
+      <div class="fixed top-[60px] right-0 lg:hidden" v-if="mdRef">
+        <EssayAnchor
+          :anchors="mdRef.anchors"
+          :class="mobileAnchorShow ? 'block' : 'hidden'"
+        ></EssayAnchor>
+      </div>
 
       <aside class="sticky-aside">
         <div v-if="mdRef">
@@ -175,7 +177,7 @@ const scrollToChatArea = () => {
   @apply border-none;
 }
 .sticky-aside {
-  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[70px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
+  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[70px] px-3 pb-[150px] hidden ml-5 flex-col md:mx-3 md:flex md:w-[240px] lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;

@@ -1,6 +1,8 @@
 <template>
   <div class="flex items-center px-2 cursor-pointer">
-    <div class="text-[0.6em] leading-[0.6em] md:text-[0.8em] md:leading-[1.6em]">
+    <div
+      class="text-[0.65em] leading-[1.1em] md:text-[0.8em] md:leading-[1.4em]"
+    >
       {{ displayedText }}
       <span
         class="h-[0.72em] lg:h-[1.2em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"

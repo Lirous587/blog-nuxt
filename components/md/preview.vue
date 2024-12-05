@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <MdPreview
-      v-model="content"
-      editorId="editorId-preview"
-      :mdHeadingId="mdHeadingId"
-      :theme="theme"
-      previewTheme="smart-blue"
-      codeTheme="atom"
-      @onHtmlChanged="onHtmlChanged"
-      :autoFoldThreshold="99"
-    />
-  </div>
+  <MdPreview
+    v-model="content"
+    editorId="editorId-preview"
+    :mdHeadingId="mdHeadingId"
+    :theme="theme"
+    previewTheme="smart-blue"
+    codeTheme="atom"
+    @onHtmlChanged="onHtmlChanged"
+    :autoFoldThreshold="99"
+  />
 </template>
 
 <script setup>

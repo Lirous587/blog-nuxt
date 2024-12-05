@@ -18,7 +18,7 @@
 
     <!-- menu -->
     <div
-      class="tool-container lg:!hidden"
+      class="tool-container md:!hidden"
       v-if="toolList.includes('menu')"
       @click.stop="props.menuFunc"
     >
