@@ -11,30 +11,30 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column
-          label="心语内容"
-          prop="content"
-          align="center"
-          min-width="250"
-        >
+        <el-table-column label="心语内容" prop="content" align="center">
         </el-table-column>
-        <el-table-column
-          label="心语出处"
-          prop="source"
-          align="center"
-          min-width="250"
-        >
+        <el-table-column label="心语出处" prop="source" align="center">
         </el-table-column>
 
-        <el-table-column label="心语图片" align="center" min-width="250">
+        <el-table-column label="心语图片" align="center">
           <template #default="scope">
             <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
           </template>
         </el-table-column>
 
-        <el-table-column label="是否打印" align="center" min-width="250">
+        <el-table-column label="是否打印" align="center">
           <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifCouldType" size="large" />
+            <el-switch disabled v-model="scope.row.ifCouldType" />
+          </template>
+        </el-table-column>
+        <el-table-column label="是否推荐" align="center">
+          <template #default="scope">
+            <el-switch disabled v-model="scope.row.ifRecommend" />
+          </template>
+        </el-table-column>
+        <el-table-column label="是否置顶" align="center">
+          <template #default="scope">
+            <el-switch disabled v-model="scope.row.ifTop" />
           </template>
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
@@ -106,6 +106,18 @@
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
         </el-form-item>
+        <el-form-item label="是否推荐">
+          <el-radio-group v-model="form.ifRecommend">
+            <el-radio :value="true" size="large">是</el-radio>
+            <el-radio :value="false" size="large">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="是否置顶">
+          <el-radio-group v-model="form.ifTop">
+            <el-radio :value="true" size="large">是</el-radio>
+            <el-radio :value="false" size="large">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="图片">
           <ImgPreview
             @click="dialogRef.open()"
@@ -160,6 +172,8 @@ const oldForm = reactive({
     id: 0,
   },
   ifCouldType: false,
+  ifRecommend: false,
+  ifTop: false,
 });
 
 const form = reactive({
@@ -171,6 +185,8 @@ const form = reactive({
     id: 0,
   },
   ifCouldType: false,
+  ifRecommend: false,
+  ifTop: false,
 });
 
 const currentPage = ref(1);

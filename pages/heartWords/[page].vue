@@ -3,22 +3,40 @@
     <div v-for="(item, index) in list" :key="item.id">
       <el-card
         shadow="always"
-        class="!rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
+        class="relative !rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
         :class="
           index % 2 == 0
             ? '!bg-pink-50 dark:!bg-black'
             : '!bg-green-50 dark:!bg-black'
         "
       >
+        <div
+          v-if="item.ifRecommend || item.ifTop"
+          class="absolute top-0 left-0 w-[35px] h-[35px] flex items-center justify-center bg-gradient-to-r dark:from-black dark:to-black shadow-sm rounded-br-full"
+          :class="
+            item.ifTop
+              ? 'from-purple-300 to-blue-400'
+              : 'from-blue-200 to-pink-200'
+          "
+        ></div>
+
+        <div
+          v-if="item.ifRecommend || item.ifTop"
+          class="absolute bottom-0 right-0 w-[35px] h-[35px] flex items-center justify-center bg-gradient-to-r dark:from-black dark:to-black shadow-sm rounded-tl-full"
+          :class="
+            item.ifTop
+              ? 'from-blue-200 to-green-300'
+              : 'from-green-300 to-yellow-200'
+          "
+        ></div>
+
         <div class="color-text-radial">
           {{ item.content }}
         </div>
         <template #footer>
-          <el-avatar
-            class="float-left"
-            size=""
-            :src="imgPre + item.img.url"
-          ></el-avatar>
+          <div class="hidden md:block float-left">
+            <el-avatar :src="imgPre + item.img.url"></el-avatar>
+          </div>
           <div class="float-right relative flex items-center">
             <span
               class="absolute w-[30px] h-[1px] -translate-y-1/2 top-1/2 left-[-33px] bg-gray-400"
@@ -28,7 +46,7 @@
         </template>
       </el-card>
     </div>
-    <Paging :totalPages="totalPages" preHref="/heartWords"></Paging>
+    <Paging :total-page="totalPages" preHref="/heartWords"></Paging>
   </div>
 </template>
 

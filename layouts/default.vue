@@ -29,7 +29,7 @@ const route = useRoute();
 
 <style scoped>
 .sticky-aside {
-  @apply flex-shrink-0 sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col md:mx-3 md:flex md:w-[280px];
+  @apply flex-shrink-0 sticky max-h-[calc(100vh-60px)] overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col md:mx-3 md:flex md:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;
