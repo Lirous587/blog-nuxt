@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
-  // devtools: { enabled: true },
+  devtools: { enabled: true },
   ssr: true,
   app: {
     pageTransition: { name: "page", mode: "out-in" },
@@ -17,10 +17,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Keys within public are also exposed client-side
     public: {
-      apiBase: "http://123.207.217.103:8080/api",
-      imgBase: "http://123.207.217.103:8080/api/img",
-      // apiBase: "http://127.0.0.1:8080/api",
-      // imgBase: "http://127.0.0.1:8080/api/img",
+      // apiBase: "http://123.207.217.103:8080/api",
+      // imgBase: "http://123.207.217.103:8080/api/img",
+      apiBase: "http://127.0.0.1:8080/api",
+      imgBase: "http://127.0.0.1:8080/api/img",
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],

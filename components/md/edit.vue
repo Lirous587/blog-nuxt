@@ -3,7 +3,7 @@
     class="!h-[700px]"
     v-model="content"
     editorId="editorId-edit"
-    previewTheme="smart-blue"
+    :previewTheme="codeTheme"
     :showToolbarName="true"
     :theme="themeStore.theme"
     :toolbarsExclude="toolbarsExclude"
@@ -25,6 +25,11 @@ const props = defineProps({
     type: String,
     required: false,
     default: "700px",
+  },
+  codeTheme: {
+    type: String,
+    required: false,
+    default: "default",
   },
 });
 

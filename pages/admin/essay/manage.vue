@@ -113,7 +113,11 @@
           ></AdminEssayInsertImg>
         </div>
       </template>
-      <MdEdit ref="mdEditRef" v-model:content="form.content"></MdEdit>
+      <MdEdit
+        ref="mdEditRef"
+        v-model:content="form.content"
+        :codeTheme="form.previewTheme"
+      ></MdEdit>
     </el-card>
   </div>
 </template>
@@ -144,6 +148,7 @@ const form = reactive({
   ifTop: false,
   ifRecommend: false,
   keywords: "",
+  previewTheme: "",
 });
 
 const loading = ref(false);

@@ -43,6 +43,7 @@ const form = reactive({
     url: "",
     id: "",
   },
+  previewTheme: "",
 });
 
 const drawerRef = ref(null);

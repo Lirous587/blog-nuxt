@@ -16,6 +16,20 @@
         ></AdminSelectLabels>
       </el-form-item>
 
+      <el-form-item label="代码主题">
+        <el-select
+          v-model="form.previewTheme"
+          placeholder="选择代码主题"
+          @change="handelPreviewThemeChange"
+        >
+          <el-option
+            v-for="item in themeOptions"
+            :label="item.name"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="文章名">
         <el-input v-model="form.name" placeholder="文章名" />
       </el-form-item>
@@ -69,7 +83,6 @@
 </template>
 
 <script setup>
-import { id } from "element-plus/es/locales.mjs";
 import { createEssay, updateEssay } from "~/api/essay";
 import { useMyAdminStore } from "~/store/admin";
 
@@ -89,6 +102,17 @@ const form = defineModel("form", {
   type: Object,
 });
 
+const themeOptions = [
+  { label: "default", value: "default" },
+  { label: "github", value: "github" },
+  { label: "vuepress", value: "vuepress" },
+  { label: "mk-cute", value: "mk-cute" },
+  { label: "smart-blue", value: "smart-blue" },
+
+  { label: "cyanosis", value: "cyanosis" },
+  { label: "arknights", value: "arknights" },
+];
+
 const loading = ref(false);
 const adminStore = useMyAdminStore();
 
@@ -103,6 +127,10 @@ kindList.value = adminStore.getKindList();
 
 const handelKindChange = (value) => {
   form.value.kindID = value;
+};
+
+const handelPreviewThemeChange = (value) => {
+  form.value.previewTheme = value;
 };
 
 const handelTagChange = (tags) => {

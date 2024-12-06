@@ -27,4 +27,6 @@ const emits = defineEmits(["update"]);
 const handelChange = (value) => {
   emits("update", value);
 };
+
+handelChange(id.value);
 </script>

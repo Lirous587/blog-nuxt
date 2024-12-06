@@ -4,11 +4,20 @@
     editorId="editorId-preview"
     :mdHeadingId="mdHeadingId"
     :theme="theme"
-    previewTheme="smart-blue"
+    previewTheme="default"
     codeTheme="atom"
     @onHtmlChanged="onHtmlChanged"
     :autoFoldThreshold="99"
   />
+  <!-- 
+   default
+github
+vuepress
+mk-cute
+smart-blue
+cyanosis
+arknights
+   -->
 </template>
 
 <script setup>
@@ -19,6 +28,13 @@ import { useMyThemeStore } from "~/store/theme";
 const content = defineModel("content", {
   type: String,
   required: true,
+});
+
+const props = defineProps({
+  previewTheme: {
+    type: String,
+    required: true,
+  },
 });
 
 const themeStore = useMyThemeStore();

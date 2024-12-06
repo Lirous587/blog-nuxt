@@ -1,7 +1,7 @@
 <template>
   <div v-loading="loadding">
     <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
-      <main class="flex-1" @click="mobileAnchorShow = false">
+      <main class="" @click="mobileAnchorShow = false">
         <div class="mt-5">
           <div class="mb-5">
             <div class="flex justify-between items-center mb-2">
@@ -44,50 +44,13 @@
             </div>
           </div>
 
-          <div class="w-[calc(100vw-10px)] md:w-auto">
-            <MdPreview ref="mdRef" :content="data.content"></MdPreview>
+          <div class="w-[calc(100vw-30px)] md:w-auto">
+            <MdPreview
+              ref="mdRef"
+              :previewTheme="data.previewTheme"
+              :content="data.content"
+            ></MdPreview>
           </div>
-
-          <!-- <el-card
-            class="dark:!bg-black mt-5"
-            v-if="
-              Array.isArray(data.nearEssayList) && data.nearEssayList.length
-            "
-          >
-            <template #header>
-              <div class="relative leading-[1em]">
-                <span
-                  class="h-[1em] w-[5px] absolute left-0 top-0 bg-blue-400"
-                ></span>
-                <span class="ml-4 font-serif font-bold">相关文章</span>
-              </div>
-            </template>
-
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              <el-card
-                v-for="item in data.nearEssayList"
-                :key="item.id"
-                class="relative dark:!bg-black"
-              >
-                <NuxtLink :to="'/essay/' + item.id">
-                  <el-image
-                    :src="imgPre + item.img.url"
-                    fit="cover"
-                    class="w-full h-[135px]"
-                  ></el-image>
-                  <div
-                    class="absolute bottom-0 w-full h-[1.5em] right-0 bg-gray-600 bg-opacity-50 text-white p-2"
-                  >
-                    <span
-                      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 line-clamp-1 text-xs"
-                    >
-                      {{ item.name }}</span
-                    >
-                  </div>
-                </NuxtLink>
-              </el-card>
-            </div>
-          </el-card> -->
         </div>
       </main>
 
@@ -177,7 +140,7 @@ const scrollToChatArea = () => {
   @apply border-none;
 }
 .sticky-aside {
-  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[70px] px-3 pb-[150px] hidden ml-5 flex-col md:mx-3 md:flex md:w-[240px] lg:w-[280px];
+  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[calc(100vh-60px)] top-[70px] right-0 px-3 pb-[150px] hidden  flex-col flex-shrink-0 md:flex lg:mx-4  md:w-[240px] lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;

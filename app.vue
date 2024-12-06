@@ -3,14 +3,14 @@
     v-if="isFullLoading || !isAnimationComplete"
     v-model:ifLoad="isFullLoading"
   />
+  <TopLoading></TopLoading>
 
   <NuxtLayout>
-    <NuxtLoadingIndicator :height="2" color="#409eff" />
     <NuxtPage />
   </NuxtLayout>
 </template>
 
-<script setup lang="ts">
+<script setup>
 useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk
@@ -48,9 +48,8 @@ nuxtApp.hook("page:finish", () => {
   @apply bg-gray-400 dark:bg-gray-600 border-[2px] border-solid border-transparent bg-clip-content rounded-md;
 }
 
-html,
 body {
-  width: 100vw !important;
+  width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
   scroll-behavior: smooth;
