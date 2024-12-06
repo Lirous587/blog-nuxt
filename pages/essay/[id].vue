@@ -8,16 +8,12 @@
           :addSpeed="150"
           :deleteSpeed="50"
         />
-
-        <div class="flex items-center gap-x-1 text-gray-500">
-          <el-icon size="14"><View /></el-icon>
-          {{ data.visitedTimes + 1 }}
-        </div>
       </div>
 
       <div class="text-sm text-gray-500 ml-2">
         {{ data.introduction }}
       </div>
+
       <div class="flex mt-2 flex-wrap items-center ml-2">
         <el-tag
           type="primary"

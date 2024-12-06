@@ -5,7 +5,7 @@
     >
       {{ displayedText }}
       <span
-        class="h-[0.72em] lg:h-[1.2em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"
+        class="h-[1em] lg:h-[1.4em] w-[1px] inline-block bg-white typewriter-cursor-animation align-middle"
       ></span>
     </div>
   </div>

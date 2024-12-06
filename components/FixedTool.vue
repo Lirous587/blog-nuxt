@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-[100px] right-[20px] flex flex-col gap-y-3">
+  <div class="fixed bottom-[100px] right-[20px] flex flex-col gap-y-3 z-50">
     <!-- top -->
     <div
       class="tool-container"

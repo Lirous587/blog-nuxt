@@ -51,11 +51,19 @@ nuxtApp.hook("page:finish", () => {
   @apply bg-neutral-100 dark:bg-gray-900;
 }
 
+body,
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
-  scroll-behavior: smooth;
+}
+
+html {
+  @apply bg-black;
 }
 
 .page-enter-active,
