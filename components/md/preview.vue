@@ -9,15 +9,6 @@
     @onHtmlChanged="onHtmlChanged"
     :autoFoldThreshold="99"
   />
-  <!-- 
-   default
-github
-vuepress
-mk-cute
-smart-blue
-cyanosis
-arknights
-   -->
 </template>
 
 <script setup>

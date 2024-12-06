@@ -4,11 +4,11 @@
 
     <BackgroundType> </BackgroundType>
 
-    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
+    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black">
       <aside class="sticky-aside">
         <UserNavAside></UserNavAside>
       </aside>
-      <main class="flex-1 mx-3">
+      <main class="mx-1 md:mx-2 lg:mx-4">
         <slot />
       </main>
     </div>
@@ -29,7 +29,7 @@ const route = useRoute();
 
 <style scoped>
 .sticky-aside {
-  @apply flex-shrink-0 sticky max-h-[calc(100vh-60px)] overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
+  @apply float-left flex-shrink-0 sticky max-h-[calc(100vh-60px)] overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;

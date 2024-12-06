@@ -40,12 +40,15 @@ nuxtApp.hook("page:finish", () => {
 
 <style>
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
-/* 设置滚动条滑块的样式 */
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 border-[2px] border-solid border-transparent bg-clip-content rounded-md;
+  @apply bg-gray-400 dark:bg-gray-700 rounded-md;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-100 dark:bg-gray-900;
 }
 
 body {
