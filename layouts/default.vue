@@ -4,11 +4,12 @@
 
     <BackgroundType> </BackgroundType>
 
-    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black">
+    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
       <aside class="sticky-aside">
         <UserNavAside></UserNavAside>
       </aside>
-      <main class="mx-1 md:mx-2 lg:mx-4">
+      <!-- 此处加一个w-0 通知子元素可以在父元素发生溢出 -->
+      <main class="w-0 flex-1 mx-1 md:mx-2 lg:mx-4">
         <slot />
       </main>
     </div>
