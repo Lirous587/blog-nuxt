@@ -24,14 +24,31 @@
           <UserNavAside class="overflow-hidden"></UserNavAside>
         </MyDrawer>
       </div>
-      <NuxtLink to="/" class="nav lg:hidden"> 首页 </NuxtLink>
+      <NuxtLink to="/" class="nav flex items-center justify-center lg:hidden">
+        <MyIconHome /> <span>首页</span>
+      </NuxtLink>
     </div>
 
     <div class="mx-auto items-center gap-x-8 hidden lg:flex">
-      <NuxtLink to="/" class="nav"> 首页 </NuxtLink>
-      <NuxtLink to="/heartWords/1" class="nav"> 心语 </NuxtLink>
-      <NuxtLink to="/friendLink" class="nav"> 友链 </NuxtLink>
-      <NuxtLink to="/me" class="nav"> 我的 </NuxtLink>
+      <NuxtLink to="/" class="nav flex items-center justify-center">
+        <MyIconHome />
+        <span>首页</span>
+      </NuxtLink>
+      <!-- 心语 -->
+      <NuxtLink to="/heartWords/1" class="nav flex items-center justify-center">
+        <MyIconHeart />
+        <span>心语</span>
+      </NuxtLink>
+      <!-- 友链 -->
+      <NuxtLink to="/friendLink" class="nav flex items-center justify-center">
+        <MyIconLink />
+        <span>友链</span>
+      </NuxtLink>
+      <!-- 我的 -->
+      <NuxtLink to="/me" class="nav flex items-center justify-center">
+        <MyIconStar />
+        <span>我的</span>
+      </NuxtLink>
     </div>
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
@@ -110,7 +127,7 @@ onBeforeUnmount(() => {
   transform: translateY(v-bind(translateY));
 }
 .nav {
-  @apply duration-300 relative cursor-pointer  whitespace-nowrap  hover:scale-125 text-pink-600 dark:text-neutral-400 md:text-lg;
+  @apply gap-x-1 duration-300 relative cursor-pointer whitespace-nowrap  hover:scale-125 text-pink-600 dark:text-neutral-400 lg:text-lg;
 }
 .nav::after {
   content: "";

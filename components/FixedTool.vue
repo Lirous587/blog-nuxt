@@ -66,7 +66,6 @@ const tollOpcity = ref("hidden opacity-0");
 
 const scroll = () => {
   const top = document.documentElement.scrollTop || document.body.scrollTop;
-  console.log(top);
   if (top > 700) {
     tollOpcity.value = "opacity-100";
   } else {
