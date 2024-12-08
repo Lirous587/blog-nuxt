@@ -1,6 +1,6 @@
 <template>
   <div
-    class="anchor-outer flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-md mb-4 dark:text-neutral-300 pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
+    class="flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-xl mb-4 dark:text-neutral-300 pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
   >
     <div
       class="h-[1em] leading-[1em] font-bold relative pl-1 mb-2 pointer-events-none"
@@ -46,7 +46,7 @@ const props = defineProps({
 
 <style scoped>
 .anchor {
-  @apply relative  hover:cursor-pointer transition-all duration-300 lg:blur-[1px] lg:text-lg font-mono pr-5;
+  @apply relative  hover:cursor-pointer transition-all duration-300  lg:text-lg font-mono pr-5;
 }
 
 .anchor:hover {

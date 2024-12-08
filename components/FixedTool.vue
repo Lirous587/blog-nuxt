@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed bottom-[100px] right-[20px] flex flex-col gap-y-3 z-50">
+  <div
+    class="fixed bottom-[20px] right-[20px] flex flex-col gap-y-3 z-50 transition-all duration-500"
+    :class="tollOpcity"
+  >
     <!-- top -->
     <div
       class="tool-container"
@@ -58,6 +61,27 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+
+const tollOpcity = ref("hidden opacity-0");
+
+const scroll = () => {
+  const top = document.documentElement.scrollTop || document.body.scrollTop;
+  console.log(top);
+  if (top > 700) {
+    tollOpcity.value = "opacity-100";
+  } else {
+    tollOpcity.value = "opacity-0";
+  }
+};
+
+const throttleScroll = throttle(scroll, 200);
+
+onMounted(() => {
+  window.addEventListener("scroll", throttleScroll);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", throttleScroll);
+});
 </script>
 
 <style scoped>

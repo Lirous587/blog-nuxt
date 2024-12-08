@@ -80,14 +80,14 @@
   @apply border-none;
 }
 .md-anchor {
-  @apply sticky overflow-y-scroll overscroll-y-contain max-h-[80vh] top-[70px] right-0 px-3 pb-[150px] hidden flex-col flex-shrink-0 md:flex lg:mx-4 md:w-[240px] lg:w-[280px];
+  @apply sticky top-[70px] right-0 mx-3 max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl  hidden md:block md:min-w-[240px] lg:min-w-[280px] lg:mx-4;
 }
 .md-anchor::-webkit-scrollbar {
   display: none;
 }
 
 .mobile-anchor {
-  @apply fixed top-[60px] right-0 max-h-[80vh] overflow-y-scroll overflow-x-hidden lg:hidden;
+  @apply fixed top-[65px] right-0  max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl lg:hidden;
 }
 
 .mobile-anchor::-webkit-scrollbar {
