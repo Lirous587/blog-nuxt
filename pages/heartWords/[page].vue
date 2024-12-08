@@ -78,7 +78,7 @@ await getHeartWordsList(queryForm).then((res) => {
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-serif;
 }
 
 .color-text {

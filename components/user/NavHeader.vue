@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-serif;
 }
 
 .headerContainer {

@@ -91,6 +91,6 @@ list.value = initList();
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-mono;
 }
 </style>

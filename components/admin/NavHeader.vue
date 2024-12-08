@@ -32,5 +32,8 @@ onMounted(() => {
 <style scoped>
 * {
   font-family: "myFont";
+  /* @apply font-sans; */
+  /* @apply font-serif; */
+  @apply font-mono;
 }
 </style>

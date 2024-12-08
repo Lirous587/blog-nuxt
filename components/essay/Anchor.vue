@@ -46,7 +46,7 @@ const props = defineProps({
 
 <style scoped>
 .anchor {
-  @apply relative  hover:cursor-pointer transition-all duration-300  lg:text-lg font-mono pr-5;
+  @apply relative font-serif hover:cursor-pointer transition-all duration-300 lg:text-lg pr-5;
 }
 
 .anchor:hover {

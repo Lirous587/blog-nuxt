@@ -49,7 +49,7 @@ const props = defineProps({
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-serif;
 }
 
 :deep(.el-card) {

@@ -71,12 +71,14 @@
           <small class="justify-between text-xs text-gray-400 flex">
             <div class="flex items-center gap-x-1">
               <el-icon><Calendar /></el-icon>
-              <span class="line-clamp-1">
+              <span class="line-clamp-1 number-font">
                 {{ formateDate(item.createdTime) }}
               </span>
               <span class="mx-1">|</span>
               <el-icon size="14"><View /></el-icon>
-              {{ item.visitedTimes }}
+              <span class="number-font">
+                {{ item.visitedTimes }}
+              </span>
             </div>
           </small>
         </div>
@@ -146,7 +148,11 @@ const props = defineProps({
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-serif;
+}
+
+.number-font {
+  @apply font-sans;
 }
 :deep(.el-card) {
   border: none;

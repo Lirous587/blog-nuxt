@@ -14,7 +14,6 @@
 
 <style scoped>
 .register {
-  @apply flex flex-col justify-center items-center py-10 bg-white dark:text-neutral-300 dark:bg-black;
-  font-family: "myFont";
+  @apply font-mono flex flex-col justify-center items-center pt-[40px] pb-[70px] bg-white dark:text-neutral-300 dark:bg-black;
 }
 </style>

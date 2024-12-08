@@ -88,7 +88,7 @@ const scrollToMain = () => {
 
 <style scoped>
 * {
-  font-family: "myFont";
+  @apply font-serif;
 }
 
 .float-action {
