@@ -82,16 +82,17 @@
       :destroy-on-close="true"
       class="dark:bg-black"
     >
-      <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="心语内容" prop="content">
+      <MyForm :model="form" label-width="80px" :inline="false">
+        <MyFormItem label="心语内容" prop="content">
           <MyInput
             placeholder="请输入心语内容"
             size="large"
             v-model="form.content"
           >
           </MyInput>
-        </el-form-item>
-        <el-form-item label="心语出处">
+        </MyFormItem>
+
+        <MyFormItem label="心语出处">
           <MyInput
             placeholder="请输入心语出处"
             v-model="form.source"
@@ -99,32 +100,32 @@
             :rows="3"
           >
           </MyInput>
-        </el-form-item>
-        <el-form-item label="是否打印">
+        </MyFormItem>
+        <MyFormItem label="是否打印">
           <el-radio-group v-model="form.ifCouldType">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否推荐">
+        </MyFormItem>
+        <MyFormItem label="是否推荐">
           <el-radio-group v-model="form.ifRecommend">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否置顶">
+        </MyFormItem>
+        <MyFormItem label="是否置顶">
           <el-radio-group v-model="form.ifTop">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </el-form-item>
-        <el-form-item label="图片">
+        </MyFormItem>
+        <MyFormItem label="图片">
           <ImgPreview
             @click="dialogRef.open()"
             :imgUrl="form.img?.url"
           ></ImgPreview>
-        </el-form-item>
-        <el-form-item>
+        </MyFormItem>
+        <MyFormItem>
           <MyButton
             type="primary"
             size="large"
@@ -134,8 +135,8 @@
           >
             {{ ifCreate ? "添加心语" : "修改心语" }}
           </MyButton>
-        </el-form-item>
-      </el-form>
+        </MyFormItem>
+      </MyForm>
     </MyDrawer>
 
     <MyDialog title="选择图片" width="80%" ref="dialogRef">

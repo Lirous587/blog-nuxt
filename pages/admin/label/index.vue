@@ -62,16 +62,16 @@
       size="50%"
       class="dark:bg-black"
     >
-      <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="标签名">
+      <MyForm :model="form" label-width="80px" :inline="false">
+        <MyFormItem label="标签名">
           <MyInput
             placeholder="请输入标签名称"
             size="large"
             v-model="form.name"
           >
           </MyInput>
-        </el-form-item>
-        <el-form-item label="标签介绍">
+        </MyFormItem>
+        <MyFormItem label="标签介绍">
           <MyInput
             placeholder="请输入标签介绍"
             v-model="form.introduction"
@@ -79,8 +79,8 @@
             :rows="3"
           >
           </MyInput>
-        </el-form-item>
-        <el-form-item>
+        </MyFormItem>
+        <MyFormItem>
           <MyButton
             type="primary"
             size="large"
@@ -90,8 +90,8 @@
           >
             添加</MyButton
           >
-        </el-form-item>
-      </el-form>
+        </MyFormItem>
+      </MyForm>
     </MyDrawer>
   </div>
 </template>

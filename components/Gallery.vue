@@ -31,34 +31,34 @@
   >
     <div>
       <div v-if="drawerData.type === 'kind'">
-        <el-form :model="kindForm" label-width="80px">
-          <el-form-item label="分类名称">
+        <MyForm :model="kindForm" label-width="80px">
+          <MyFormItem label="分类名称">
             <MyInput
               placeholder="请输入分类名称"
               v-model="kindForm.name"
             ></MyInput>
-          </el-form-item>
-          <el-form-item>
+          </MyFormItem>
+          <MyFormItem>
             <MyButton type="primary" @click="handelCreateKind">
               创建分类
             </MyButton>
-          </el-form-item>
-        </el-form>
+          </MyFormItem>
+        </MyForm>
       </div>
       <div v-else>
-        <el-form :model="galleryForm">
-          <el-form-item>
+        <MyForm :model="galleryForm">
+          <MyFormItem>
             <UploadImg
               ref="uploadRef"
               v-model:imgUrl="galleryForm.imgUrl"
             ></UploadImg>
-          </el-form-item>
-          <el-form-item>
+          </MyFormItem>
+          <MyFormItem>
             <MyButton class="mt-3" type="primary" @click="handelUpload">
               上传图片
             </MyButton>
-          </el-form-item>
-        </el-form>
+          </MyFormItem>
+        </MyForm>
       </div>
     </div>
   </MyDrawer>

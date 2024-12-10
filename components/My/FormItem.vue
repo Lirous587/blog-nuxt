@@ -1,11 +1,16 @@
 <template>
   <div>
-    <el-form-item label="分类名称">
+    <MyFormItem :label="label">
       <slot></slot>
-    </el-form-item>
+    </MyFormItem>
   </div>
 </template>
 
-<script setup></script>
-
-<style></style>
+<script setup>
+const porps = defineProps({
+  label: {
+    type: String,
+    default: "",
+  },
+});
+</script>

@@ -69,11 +69,11 @@
       size="50%"
       class="dark:bg-black"
     >
-      <el-form :model="form" label-width="80px" :inline="false">
-        <el-form-item label="分类名">
+      <MyForm :model="form" label-width="80px" :inline="false">
+        <MyFormItem label="分类名">
           <MyInput placeholder="请输入分类名称" v-model="form.name"></MyInput>
-        </el-form-item>
-        <el-form-item label="分类介绍">
+        </MyFormItem>
+        <MyFormItem label="分类介绍">
           <MyInput
             placeholder="请输入标签介绍"
             v-model="form.introduction"
@@ -81,11 +81,11 @@
             :rows="3"
           >
           </MyInput>
-        </el-form-item>
-        <el-form-item label="图标">
+        </MyFormItem>
+        <MyFormItem label="图标">
           <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
-        </el-form-item>
-        <el-form-item>
+        </MyFormItem>
+        <MyFormItem>
           <MyButton
             type="primary"
             size="large"
@@ -95,8 +95,8 @@
           >
             添加</MyButton
           >
-        </el-form-item>
-      </el-form>
+        </MyFormItem>
+      </MyForm>
     </MyDrawer>
   </div>
 </template>
