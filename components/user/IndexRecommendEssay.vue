@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
+  <MyCard shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">推荐文章</span>
@@ -32,7 +32,7 @@
         <div class="h-[1px] bg-pink-100 dark:bg-gray-600 border-dotted"></div>
       </div>
     </div>
-  </el-card>
+  </MyCard>
 </template>
 
 <script setup>
@@ -45,12 +45,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<!-- <style scoped>
-:deep(.el-card) {
-  @apply dark:border-gray-600;
-}
-:deep(.el-card__footer) {
-  @apply dark:border-t-gray-600;
-}
-</style> -->

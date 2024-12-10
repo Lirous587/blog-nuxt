@@ -7,7 +7,7 @@
         <h4 class="font-bold">查询文章</h4>
       </template>
 
-      <el-card>
+      <MyCard>
         <template #header>
           <MyInput
             placeholder="输入文章名称或关键词"
@@ -84,7 +84,7 @@
             </template>
           </el-table-column>
         </el-table>
-      </el-card>
+      </MyCard>
     </MyDialog>
 
     <AdminEssayDrawer
@@ -94,7 +94,7 @@
       opration="update"
     ></AdminEssayDrawer>
 
-    <el-card>
+    <MyCard>
       <template #header>
         <div class="flex gap-x-2">
           <MyButton type="info" @click="dialogRef.open()">
@@ -116,7 +116,7 @@
         v-model:content="form.content"
         :codeTheme="form.previewTheme"
       ></MdEdit>
-    </el-card>
+    </MyCard>
   </div>
 </template>
 

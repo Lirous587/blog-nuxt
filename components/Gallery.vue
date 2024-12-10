@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <MyCard>
     <template #header>
       <MyButton type="success" size="small" @click="handelUploadPre"
         >上传图片</MyButton
@@ -21,7 +21,7 @@
         ></GalleryMain>
       </div>
     </el-container>
-  </el-card>
+  </MyCard>
   <MyDrawer
     :title="drawerData.title"
     direction="rtl"

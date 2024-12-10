@@ -1,6 +1,6 @@
 <template>
   <div class="pr-5">
-    <el-card shadow="always">
+    <MyCard shadow="always">
       <template #header>
         <div class="flex justify-between">
           <span class="text-sm">关键字排行</span>
@@ -21,9 +21,9 @@
 
       <!-- 表格 -->
       <div class="h-[300px]"></div>
-    </el-card>
+    </MyCard>
 
-    <el-card shadow="always" class="mt-10">
+    <MyCard shadow="always" class="mt-10">
       <template #header>
         <div class="flex justify-between items-center">
           <span class="text-sm">用户访问量</span>
@@ -45,7 +45,7 @@
           }}</span>
         </div>
       </div>
-    </el-card>
+    </MyCard>
   </div>
 </template>
 

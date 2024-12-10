@@ -1,6 +1,6 @@
 <template>
   <div class="mx-3 my-3">
-    <el-card>
+    <MyCard>
       <template #header>
         <div class="flex gap-x-2">
           <MyButton type="primary" @click="drawerRef.open()" class="ml-3"
@@ -12,7 +12,7 @@
         </div>
       </template>
       <MdEdit ref="mdEditRef" v-model:content="form.content"></MdEdit>
-    </el-card>
+    </MyCard>
     <AdminEssayDrawer
       v-model:form="form"
       title="添加文章"

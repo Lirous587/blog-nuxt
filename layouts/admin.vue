@@ -1,6 +1,6 @@
 <template>
   <div
-    class="transition-all duration-300 bg-white dark:bg-black flex h-[100vh]"
+    class="transition-all duration-300 bg-white dark:bg-black min-h-[100vh] flex"
   >
     <aside class="w-[200px]">
       <AdminNavAside></AdminNavAside>
@@ -18,21 +18,11 @@
 </template>
 
 <style scoped>
-:deep(.el-header) {
-  @apply h-auto p-0;
-}
-
 :deep(.el-menu),
-:deep(.el-card__header),
-:deep(.el-card__body),
-:deep(.el-card),
 :deep(.el-table__cell),
 :deep(.el-table__empty-block),
 :deep(.el-dialog) {
   @apply bg-white dark:!bg-black dark:!border-gray-700 dark:!text-neutral-200;
-}
-:deep(.el-card__body) {
-  padding: 0 !important;
 }
 
 :deep(.el-textarea__inner) {

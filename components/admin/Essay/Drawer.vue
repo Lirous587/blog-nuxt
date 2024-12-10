@@ -46,7 +46,7 @@
         <DynamicAddTag @tagChange="handelTagChange"></DynamicAddTag>
       </MyFormItem>
 
-      <MyFormItemabel="是否置顶">
+      <MyFormItem label="是否置顶">
         <el-radio-group v-model="form.ifTop">
           <el-radio :value="true" size="large">是</el-radio>
           <el-radio :value="false" size="large">否</el-radio>

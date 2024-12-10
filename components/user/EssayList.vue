@@ -106,7 +106,4 @@ const props = defineProps({
 .number-font {
   @apply font-sans;
 }
-:deep(.el-card) {
-  border: none;
-}
 </style>

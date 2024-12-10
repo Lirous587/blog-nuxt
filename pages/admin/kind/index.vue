@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card>
+    <MyCard>
       <template #header>
         <MyButton type="primary" @click="drawerRef.open()">添加</MyButton>
       </template>
@@ -60,7 +60,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
+    </MyCard>
 
     <MyDrawer
       ref="drawerRef"

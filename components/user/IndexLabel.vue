@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
+  <MyCard shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">标签</span>
@@ -22,7 +22,7 @@
         </span>
       </NuxtLink>
     </div>
-  </el-card>
+  </MyCard>
 </template>
 
 <script setup>

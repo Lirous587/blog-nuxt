@@ -51,8 +51,4 @@ const props = defineProps({
 * {
   @apply font-serif;
 }
-
-:deep(.el-card) {
-  @apply border-none;
-}
 </style>

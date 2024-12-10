@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <el-input
-      ref="inpuRef"
-      v-model="modelValue"
-      :placeholder="placeholder"
-      @blur="blur"
-      :clearable="clearable"
-      :autofocus="autofocus"
-      :size="size"
-      :type="type"
-      :rows="rows"
-    >
-      <slot></slot>
-      <template #suffix>
-        <slot name="suffix"></slot>
-      </template>
-      <template #prefix>
-        <slot name="prefix"></slot>
-      </template>
-    </el-input>
-  </div>
+  <el-input
+    ref="inpuRef"
+    v-model="modelValue"
+    :placeholder="placeholder"
+    @blur="blur"
+    :clearable="clearable"
+    :autofocus="autofocus"
+    :size="size"
+    :type="type"
+    :rows="rows"
+  >
+    <slot></slot>
+    <template #suffix>
+      <slot name="suffix"></slot>
+    </template>
+    <template #prefix>
+      <slot name="prefix"></slot>
+    </template>
+  </el-input>
 </template>
 
 <script setup>

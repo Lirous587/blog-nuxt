@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4 mt-5 mx-5">
     <div v-for="(item, index) in list" :key="item.id">
-      <el-card
+      <MyCard
         shadow="always"
         class="relative !rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
         :class="
@@ -44,7 +44,7 @@
             <span class="color-text"> {{ item.source }}</span>
           </div>
         </template>
-      </el-card>
+      </MyCard>
     </div>
     <Paging :total-page="totalPages" preHref="/heartWords"></Paging>
   </div>
@@ -103,12 +103,5 @@ await getHeartWordsList(queryForm).then((res) => {
   );
   color: transparent;
   background-clip: text;
-}
-
-:deep(.el-card) {
-  @apply dark:border-gray-600;
-}
-:deep(.el-card__footer) {
-  @apply dark:border-t-gray-600;
 }
 </style>

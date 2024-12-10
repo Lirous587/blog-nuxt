@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card>
+    <MyCard>
       <template #header>
         <MyButton type="primary" @click="handelCreatePre">添加 </MyButton>
       </template>
@@ -72,7 +72,7 @@
           />
         </div>
       </template>
-    </el-card>
+    </MyCard>
 
     <MyDrawer
       :title="ifCreate ? '添加心语' : '修改心语'"

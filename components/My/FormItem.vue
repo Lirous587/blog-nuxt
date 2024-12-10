@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <MyFormItem :label="label">
-      <slot></slot>
-    </MyFormItem>
-  </div>
+  <el-form-item :label="label">
+    <slot></slot>
+  </el-form-item>
 </template>
 
 <script setup>
