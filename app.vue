@@ -62,10 +62,6 @@ body {
   margin: 0 !important;
 }
 
-html {
-  @apply bg-black;
-}
-
 .page-enter-active,
 .page-leave-active {
   transition: all 0.6s ease-out;

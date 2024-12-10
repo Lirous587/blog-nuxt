@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <template #header>
-        <el-button type="primary" @click="drawerRef.open()">添加</el-button>
+        <MyButton type="primary" @click="drawerRef.open()">添加 </MyButton>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
@@ -30,12 +30,12 @@
 
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
-            <el-button
+            <MyButton
               type="warning"
               :loading="scope.row.loading"
               @click="handelUpdate(scope.row)"
-              >修改</el-button
-            >
+              >修改
+            </MyButton>
 
             <el-popconfirm
               title="确定删除该标签?"
@@ -47,7 +47,7 @@
               @confirm="handelDelete(scope.row)"
             >
               <template #reference>
-                <el-button type="danger">删除</el-button>
+                <MyButton type="danger">删除</MyButton>
               </template>
             </el-popconfirm>
           </template>
@@ -81,14 +81,14 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button
+          <MyButton
             type="primary"
             size="large"
             class="mt-5 w-full"
             @click="handelCreate"
             :loading="loading"
           >
-            添加</el-button
+            添加</MyButton
           >
         </el-form-item>
       </el-form>

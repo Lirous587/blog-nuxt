@@ -17,12 +17,12 @@
             size="large"
           >
             <template #suffix>
-              <el-button type="primary" @click="handelSearchEssay">
+              <MyButton type="primary" @click="handelSearchEssay">
                 <el-icon size="18" class="mr-2">
                   <Search />
                 </el-icon>
                 搜索文章
-              </el-button>
+              </MyButton>
             </template>
           </el-input>
         </template>
@@ -59,7 +59,7 @@
             min-width="200"
           >
             <template #default="scope">
-              <el-button
+              <MyButton
                 link
                 type="primary"
                 size="small"
@@ -67,7 +67,7 @@
                 :loading="loading"
               >
                 选择文章
-              </el-button>
+              </MyButton>
               <el-popconfirm
                 title="确定删除该文章?"
                 confirm-button-text="确定"
@@ -78,9 +78,7 @@
                 @confirm="handelDeleteEssay(scope.row)"
               >
                 <template #reference>
-                  <el-button link type="primary" size="small"
-                    >删除文章</el-button
-                  >
+                  <MyButton link type="primary" size="small">删除文章</MyButton>
                 </template>
               </el-popconfirm>
             </template>
@@ -99,14 +97,14 @@
     <el-card>
       <template #header>
         <div class="flex gap-x-2">
-          <el-button type="info" @click="dialogRef.open()">
+          <MyButton type="info" @click="dialogRef.open()">
             <el-icon size="18" class="mr-2">
               <Search />
             </el-icon>
             搜索文章
-          </el-button>
-          <el-button type="primary" @click="updatePreHandel" class="ml-3"
-            >修改文章</el-button
+          </MyButton>
+          <MyButton type="primary" @click="updatePreHandel" class="ml-3"
+            >修改文章</MyButton
           >
           <AdminEssayInsertImg
             @choose-galley="chooseGalleyHandel"

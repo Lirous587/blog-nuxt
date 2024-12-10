@@ -4,10 +4,10 @@ export const useMyThemeStore = defineStore("myThemeStore", () => {
   const theme = ref("dark");
 
   const initMode = () => {
-    if (localStorage.theme === "light") {
-      lightMode();
-    } else {
+    if (localStorage.theme === "dark") {
       darkMode();
+    } else {
+      lightMode();
     }
   };
 

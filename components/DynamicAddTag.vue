@@ -31,9 +31,9 @@
       @keyup.enter="handleInputConfirm"
       @blur="handleInputConfirm"
     />
-    <el-button v-else class="button-new-tag" @click="showInput">
+    <MyButton v-else class="button-new-tag" @click="showInput">
       {{ props.addText }}
-    </el-button>
+    </MyButton>
   </div>
 </template>
 

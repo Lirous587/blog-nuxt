@@ -45,7 +45,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handelUPdate">修改</el-button>
+        <MyButton type="primary" @click="handelUPdate">修改</MyButton>
       </el-form-item>
     </el-form>
   </MyDrawer>

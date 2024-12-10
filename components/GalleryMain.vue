@@ -42,7 +42,7 @@
               @confirm="handelDelete(item.id)"
             >
               <template #reference>
-                <el-button size="small" text type="primary">删除</el-button>
+                <MyButton size="small" text type="primary">删除</MyButton>
               </template>
             </el-popconfirm>
           </div>
@@ -61,8 +61,8 @@
   </div>
 
   <div class="absolute right-10 bottom-10" v-if="ifSelect">
-    <el-button type="primary" @click="handelChooseImg" class="float-right"
-      >选择图片</el-button
+    <MyButton type="primary" @click="handelChooseImg" class="float-right"
+      >选择图片</MyButton
     >
   </div>
 </template>

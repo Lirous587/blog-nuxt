@@ -7,7 +7,7 @@
     </aside>
 
     <main
-      class="flex-1 ml-10 !py-0 transition-all duration-300 bg-white dark:bg-black"
+      class="flex-1 w-[0px] mx-5 !py-0 transition-all duration-300 bg-white dark:bg-black"
     >
       <header class="h-[30px] my-2">
         <AdminNavHeader> </AdminNavHeader>

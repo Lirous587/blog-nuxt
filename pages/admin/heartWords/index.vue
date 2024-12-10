@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <template #header>
-        <el-button type="primary" @click="handelCreatePre">添加</el-button>
+        <MyButton type="primary" @click="handelCreatePre">添加 </MyButton>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
@@ -39,12 +39,12 @@
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
-            <el-button
+            <MyButton
               type="warning"
               :loading="scope.row.loading"
               @click="handelUpdatePre(scope.row)"
-              >修改</el-button
-            >
+              >修改
+            </MyButton>
 
             <el-popconfirm
               title="确定删除该心语?"
@@ -56,7 +56,7 @@
               @confirm="handelDelete(scope.row)"
             >
               <template #reference>
-                <el-button type="danger">删除</el-button>
+                <MyButton type="danger">删除 </MyButton>
               </template>
             </el-popconfirm>
           </template>
@@ -125,7 +125,7 @@
           ></ImgPreview>
         </el-form-item>
         <el-form-item>
-          <el-button
+          <MyButton
             type="primary"
             size="large"
             class="mt-5 w-full"
@@ -133,7 +133,7 @@
             :loading="loading"
           >
             {{ ifCreate ? "添加心语" : "修改心语" }}
-          </el-button>
+          </MyButton>
         </el-form-item>
       </el-form>
     </MyDrawer>

@@ -3,8 +3,8 @@
     <el-card>
       <template #header>
         <div class="flex gap-x-2">
-          <el-button type="primary" @click="drawerRef.open()" class="ml-3"
-            >添加文章</el-button
+          <MyButton type="primary" @click="drawerRef.open()" class="ml-3"
+            >添加文章</MyButton
           >
           <AdminEssayInsertImg
             @choose-galley="chooseGalleyHandel"

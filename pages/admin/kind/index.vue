@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <template #header>
-        <el-button type="primary" @click="drawerRef.open()">添加</el-button>
+        <MyButton type="primary" @click="drawerRef.open()">添加</MyButton>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column label="id" prop="id"></el-table-column>
@@ -37,11 +37,11 @@
           min-width="200"
         >
           <template #default="scope">
-            <el-button
+            <MyButton
               type="warning"
               :loading="scope.row.loading"
               @click="handelEdit(scope.row)"
-              >修改</el-button
+              >修改</MyButton
             >
 
             <el-popconfirm
@@ -54,7 +54,7 @@
               @confirm="handelDelete(scope.row)"
             >
               <template #reference>
-                <el-button type="danger">删除</el-button>
+                <MyButton type="danger">删除</MyButton>
               </template>
             </el-popconfirm>
           </template>
@@ -86,14 +86,14 @@
           <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
         </el-form-item>
         <el-form-item>
-          <el-button
+          <MyButton
             type="primary"
             size="large"
             @click="handelCreate"
             class="mt-5 w-full"
             :loading="loading"
           >
-            添加</el-button
+            添加</MyButton
           >
         </el-form-item>
       </el-form>

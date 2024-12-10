@@ -1,11 +1,11 @@
 <template>
   <el-card>
     <template #header>
-      <el-button type="success" size="small" @click="handelUploadPre"
-        >上传图片</el-button
+      <MyButton type="success" size="small" @click="handelUploadPre"
+        >上传图片</MyButton
       >
-      <el-button type="primary" size="small" @click="handelCreateKindPre"
-        >创建分类</el-button
+      <MyButton type="primary" size="small" @click="handelCreateKindPre"
+        >创建分类</MyButton
       >
     </template>
     <el-container>
@@ -39,9 +39,9 @@
             ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="handelCreateKind">
+            <MyButton type="primary" @click="handelCreateKind">
               创建分类
-            </el-button>
+            </MyButton>
           </el-form-item>
         </el-form>
       </div>
@@ -54,9 +54,9 @@
             ></UploadImg>
           </el-form-item>
           <el-form-item>
-            <el-button class="mt-3" type="primary" @click="handelUpload">
+            <MyButton class="mt-3" type="primary" @click="handelUpload">
               上传图片
-            </el-button>
+            </MyButton>
           </el-form-item>
         </el-form>
       </div>

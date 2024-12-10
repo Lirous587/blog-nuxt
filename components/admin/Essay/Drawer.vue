@@ -65,14 +65,14 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button
+        <MyButton
           type="primary"
           size="large"
           @click="handelOprate"
           class="mt-5 w-full"
           :loading="loading"
         >
-          提交</el-button
+          提交</MyButton
         >
       </el-form-item>
     </el-form>
