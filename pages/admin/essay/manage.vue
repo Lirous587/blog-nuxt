@@ -9,7 +9,7 @@
 
       <el-card>
         <template #header>
-          <el-input
+          <MyInput
             placeholder="输入文章名称或关键词"
             v-model="searchForm.keyword"
             @keydown.enter="handelSearchEssay"
@@ -24,7 +24,7 @@
                 搜索文章
               </MyButton>
             </template>
-          </el-input>
+          </MyInput>
         </template>
         <el-table
           :data="list"

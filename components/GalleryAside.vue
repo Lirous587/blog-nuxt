@@ -42,7 +42,7 @@
   >
     <el-form :model="form" label-width="80px">
       <el-form-item label="分类名称">
-        <el-input v-model="form.name"></el-input>
+        <MyInput v-model="form.name"> </MyInput>
       </el-form-item>
       <el-form-item>
         <MyButton type="primary" @click="handelUPdate">修改</MyButton>

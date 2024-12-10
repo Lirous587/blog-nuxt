@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input
+    <MyInput
       rounded
       placeholder="搜索"
       v-model="keyword"
@@ -12,7 +12,7 @@
           <Search />
         </el-icon>
       </template>
-    </el-input>
+    </MyInput>
   </div>
 </template>
 
@@ -34,8 +34,4 @@ const search = () => {
 };
 </script>
 
-<style scoped>
-:deep(.el-input__wrapper) {
-  @apply bg-slate-50 bg-opacity-0;
-}
-</style>
+

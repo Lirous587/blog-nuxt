@@ -35,7 +35,6 @@
   padding: 0 !important;
 }
 
-:deep(.el-input__wrapper),
 :deep(.el-textarea__inner) {
   @apply bg-white dark:bg-black dark:border-gray-700 dark:text-neutral-300;
 }

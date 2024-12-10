@@ -84,21 +84,21 @@
     >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="心语内容" prop="content">
-          <el-input
+          <MyInput
             placeholder="请输入心语内容"
             size="large"
             v-model="form.content"
           >
-          </el-input>
+          </MyInput>
         </el-form-item>
         <el-form-item label="心语出处">
-          <el-input
+          <MyInput
             placeholder="请输入心语出处"
             v-model="form.source"
             type="textarea"
             :rows="3"
           >
-          </el-input>
+          </MyInput>
         </el-form-item>
         <el-form-item label="是否打印">
           <el-radio-group v-model="form.ifCouldType">

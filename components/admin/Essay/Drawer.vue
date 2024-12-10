@@ -31,15 +31,11 @@
       </el-form-item>
 
       <el-form-item label="文章名">
-        <el-input v-model="form.name" placeholder="文章名" />
+        <MyInput v-model="form.name" placeholder="文章名" />
       </el-form-item>
 
       <el-form-item label="介绍">
-        <el-input
-          v-model="form.introduction"
-          placeholder="介绍"
-          class="input"
-        />
+        <MyInput v-model="form.introduction" placeholder="介绍" class="input" />
       </el-form-item>
 
       <el-form-item label="文章图片">

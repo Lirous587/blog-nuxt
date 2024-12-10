@@ -10,27 +10,29 @@
       @close="handleClose(tag)"
       @click="handleEdit(index)"
     >
-      <el-input
+      <MyInput
         v-if="showEdit[index]"
         v-model="tags[index]"
         class="w-min-30"
         @keyup.enter="handleEditConfirm(tag, index)"
         @blur="handleEditConfirm(tag, index)"
       >
-      </el-input>
+      </MyInput>
       <span v-else>
         {{ tag }}
       </span>
     </el-tag>
 
-    <el-input
+    <MyInput
       v-if="inputVisible"
-      ref="InputRef"
+      ref="inputRef"
       v-model="inputValue"
       class="w-20"
       @keyup.enter="handleInputConfirm"
       @blur="handleInputConfirm"
-    />
+    >
+    </MyInput>
+
     <MyButton v-else class="button-new-tag" @click="showInput">
       {{ props.addText }}
     </MyButton>
@@ -49,7 +51,7 @@ const props = defineProps({
 
 const inputValue = ref("");
 const inputVisible = ref(false);
-const InputRef = ref();
+const inputRef = ref();
 const showEdit = ref(Array(tags.value.length).fill(false));
 
 const handleClose = (tag) => {
@@ -64,7 +66,7 @@ const showInput = () => {
   inputVisible.value = true;
   showEdit.value.fill(false);
   nextTick(() => {
-    InputRef.value.input.focus();
+    inputRef.value.focus();
   });
 };
 

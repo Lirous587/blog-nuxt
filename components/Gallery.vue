@@ -33,10 +33,10 @@
       <div v-if="drawerData.type === 'kind'">
         <el-form :model="kindForm" label-width="80px">
           <el-form-item label="分类名称">
-            <el-input
+            <MyInput
               placeholder="请输入分类名称"
               v-model="kindForm.name"
-            ></el-input>
+            ></MyInput>
           </el-form-item>
           <el-form-item>
             <MyButton type="primary" @click="handelCreateKind">

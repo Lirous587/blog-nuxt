@@ -1,6 +1,6 @@
 <template>
   <div
-    class="headerContainer rounded-b-sm fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black transition-all duration-500 ease-linear z-[999] bg-opacity-80 backdrop-blur-md backdrop-brightness-90 backdrop-contrast-200 backdrop-opacity-90 backdrop-saturate-100"
+    class="headerContainer rounded-b-sm fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black transition-all duration-500 ease-linear z-[100] bg-opacity-80 backdrop-blur-md backdrop-brightness-90 backdrop-contrast-200 backdrop-opacity-90 backdrop-saturate-100"
   >
     <div class="pl-5 flex items-center gap-x-4">
       <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>

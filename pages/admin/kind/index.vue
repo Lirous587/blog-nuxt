@@ -8,19 +8,19 @@
         <el-table-column label="id" prop="id"></el-table-column>
         <el-table-column label="标签名" min-width="120" align="center">
           <template #default="scope">
-            <el-input size="large" v-model="scope.row.name"></el-input>
+            <MyInput size="large" v-model="scope.row.name"></MyInput>
           </template>
         </el-table-column>
 
         <el-table-column label="标签介绍" min-width="150" align="center">
           <template #default="scope">
-            <el-input
+            <MyInput
               placeholder="请输入标签介绍"
               v-model="scope.row.introduction"
               type="textarea"
               :rows="2"
             >
-            </el-input>
+            </MyInput>
           </template>
         </el-table-column>
 
@@ -71,16 +71,16 @@
     >
       <el-form :model="form" label-width="80px" :inline="false">
         <el-form-item label="分类名">
-          <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
+          <MyInput placeholder="请输入分类名称" v-model="form.name"></MyInput>
         </el-form-item>
         <el-form-item label="分类介绍">
-          <el-input
+          <MyInput
             placeholder="请输入标签介绍"
             v-model="form.introduction"
             type="textarea"
             :rows="3"
           >
-          </el-input>
+          </MyInput>
         </el-form-item>
         <el-form-item label="图标">
           <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
