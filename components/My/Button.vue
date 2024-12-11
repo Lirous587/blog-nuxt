@@ -1,9 +1,7 @@
 <template>
-  <div class="inline-block mx-1">
-    <el-button :type="type" :size="size" :text="text">
-      <slot />
-    </el-button>
-  </div>
+  <el-button class="mx-1" :type="type" :size="size" :text="text">
+    <slot />
+  </el-button>
 </template>
 
 <script setup>
@@ -22,5 +20,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<style></style>

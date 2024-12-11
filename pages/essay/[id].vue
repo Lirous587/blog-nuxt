@@ -76,7 +76,6 @@
 </template>
 
 <style scoped>
-
 .md-anchor {
   @apply sticky top-[70px] right-0 mx-3 max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl  hidden md:block md:min-w-[240px] lg:min-w-[280px] lg:mx-4;
 }

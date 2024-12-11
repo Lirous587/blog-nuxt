@@ -6,6 +6,7 @@
       v-model="keyword"
       clearable
       @keydown.enter="search"
+      size="small"
     >
       <template #suffix>
         <el-icon class="cursor-pointer" @click="search">
@@ -33,5 +34,3 @@ const search = () => {
   navigateTo(`/search?keyword=${keyword.value}`);
 };
 </script>
-
-

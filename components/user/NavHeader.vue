@@ -69,7 +69,7 @@
       </div>
       <!-- 登录 -->
       <div>
-        <MyButton type="" @click="">登录</MyButton>
+        <MyButton type="primary" size="small" @click="gotoLogin">登录</MyButton>
       </div>
     </div>
   </div>
@@ -86,6 +86,12 @@ const selectOpen = () => {
 };
 
 const route = useRoute();
+const router = useRouter();
+
+const gotoLogin = () => {
+  router.push("/login");
+};
+
 watch(route, () => {
   drawerRef.value.close();
 });
