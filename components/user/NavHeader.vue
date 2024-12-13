@@ -1,6 +1,6 @@
 <template>
   <div
-    class="headerContainer rounded-b-sm fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black transition-all duration-500 ease-linear z-[100] bg-opacity-80 backdrop-blur-md backdrop-brightness-90 backdrop-contrast-200 backdrop-opacity-90 backdrop-saturate-100"
+    class="headerContainer rounded-b-sm fixed flex justify-between top-0 right-0 shadow-lg h-[60px] w-full bg-white dark:bg-black transition-all duration-300 z-[100] bg-opacity-70 backdrop-blur-sm"
   >
     <div class="pl-5 flex items-center gap-x-4">
       <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
@@ -47,7 +47,7 @@
       <!-- 我的 -->
       <NuxtLink to="/me" class="nav flex items-center justify-center">
         <MyIconStar />
-        <span>我的</span>
+        <span>知识库</span>
       </NuxtLink>
     </div>
 
@@ -67,7 +67,7 @@
           <Sunny />
         </el-icon>
       </div>
-      <!-- 登录 -->
+      <!-- 用户相关 -->
       <div>
         <MyButton type="primary" size="small" @click="gotoLogin">登录</MyButton>
       </div>
@@ -89,7 +89,7 @@ const route = useRoute();
 const router = useRouter();
 
 const gotoLogin = () => {
-  router.push("/login");
+  router.push("/user/auth");
 };
 
 watch(route, () => {
@@ -117,6 +117,10 @@ const themeStore = useMyThemeStore();
 
 const changeMode = () => {
   themeStore.theme === "light" ? themeStore.darkMode() : themeStore.lightMode();
+};
+
+const initUserInfo = () => {
+  useCookie();
 };
 
 onMounted(() => {

@@ -59,3 +59,19 @@ export function shuffleArray(array) {
   }
   return array;
 }
+
+export function resetForm(form) {
+  for (const key in form) {
+    if (typeof form[key] === "string") {
+      form[key] = "";
+    } else if (typeof form[key] === "number") {
+      form[key] = 0;
+    } else if (typeof form[key] === "boolean") {
+      form[key] = false;
+    } else if (Array.isArray(form[key])) {
+      form[key] = [];
+    } else if (typeof form[key] === "object" && form[key] !== null) {
+      form[key] = {};
+    }
+  }
+}

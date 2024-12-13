@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getIndexInfo } from "~/api/user";
+import { getIndexInfo } from "~/api/index";
 
 export const useMyIndexStore = defineStore("myIndexStore", () => {
   const ifInit = ref(false);

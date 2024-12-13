@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getIndexInfo } from "~/api/user";
+import { getIndexInfo } from "~/api/index";
 
 export const useMyAdminStore = defineStore("myAdminStore", () => {
   const ifInit = ref(false);

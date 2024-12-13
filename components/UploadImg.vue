@@ -37,7 +37,7 @@ const imgUrl = defineModel("imgUrl", {
   require: true,
 });
 
-const token = `Bearer ${getToken()}`;
+const token = `Bearer ${getAdminAccessToken()}`;
 
 const handleExceed = (files) => {
   upload.value.clearFiles();
