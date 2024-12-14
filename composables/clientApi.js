@@ -1,29 +1,30 @@
 // 不需要进行服务端渲染
-const apiCore = async (url, opt) => {
+const apiCore = async (url, opt, authType) => {
   const config = useRuntimeConfig();
 
   const nuxtApp = useNuxtApp();
 
-  const requestUrl = config.public.apiBase + url;
+  const baseURL = config.public.apiBase;
 
-  let adminAccessToken;
-  let adminRefreshToken;
-  // let userAccessToken;
-  // let userRefreshToken;
-  adminAccessToken = getAdminAccessToken();
-  adminRefreshToken = getAdminRefreshToken();
-  // userAccessToken = getUserAccessToken();
-  // userRefreshToken = getUserRefreshToken();
+  let accessToken, refreshToken;
+  if (authType === "admin") {
+    accessToken = getAdminAccessToken();
+    refreshToken = getAdminRefreshToken();
+  } else if (authType === "user") {
+    accessToken = getUserAccessToken();
+    refreshToken = getUserRefreshToken();
+  }
 
   const fetchWithRefreshToken = async () => {
-    await $fetch(requestUrl, {
+    await $fetch(url, {
       method: opt.method || "get",
       retry: false,
+      baseURL: baseURL,
       onRequest({ options }) {
-        if (adminAccessToken) {
+        if (accessToken) {
           options.headers = {
-            Authorization: `Bearer ${adminAccessToken}`,
-            "Refresh-Token": adminRefreshToken,
+            Authorization: `Bearer ${accessToken}`,
+            "Refresh-Token": refreshToken,
             ...options.headers,
           };
         }
@@ -32,29 +33,27 @@ const apiCore = async (url, opt) => {
       onResponse({ request, response, options }) {
         if (response.status >= 200 && response.status <= 300) {
           const newAccessToken = response._data.token;
-          setAdminAccessToken(newAccessToken);
-          adminAccessToken = newAccessToken;
+          if (authType === "admin") {
+            setAdminAccessToken(newAccessToken);
+          } else if (authType === "user") {
+            setUserAccessToken(newAccessToken);
+          }
+          accessToken = newAccessToken;
         }
       },
-      // 鉴权失败
-      onResponseError({ request, response, options }) {
-        // toast("需要登录", "warning");
-        // nuxtApp.runWithContext(() => {
-        //   navigateTo("/admin/login");
-        // });
-      },
-      ...opt,
     });
+
     return new Promise(async (resolve, reject) => {
       // 发送原请求去拿 accessToken
       // 发送原请求去拿数据
-      await $fetch(requestUrl, {
+      await $fetch(url, {
         method: opt.method || "get",
         retry: false,
+        baseURL: baseURL,
         onRequest({ options }) {
-          if (adminAccessToken) {
+          if (accessToken) {
             options.headers = {
-              Authorization: `Bearer ${adminAccessToken}`,
+              Authorization: `Bearer ${accessToken}`,
               ...options.headers,
             };
           }
@@ -66,75 +65,68 @@ const apiCore = async (url, opt) => {
           }
         },
         onResponseError({ request, response, options }) {
-          reject(response);
+          reject(response._data);
         },
         ...opt,
       });
     });
   };
 
-  return new Promise((resolve, reject) => {
-    $fetch(requestUrl, {
+  return new Promise(async (resolve, reject) => {
+    await $fetch(url, {
       method: opt.method || "get",
       retry: false,
+      baseURL: baseURL,
       onRequest({ options }) {
-        if (adminAccessToken) {
+        if (accessToken) {
           options.headers = {
-            Authorization: `Bearer ${adminAccessToken}`,
+            Authorization: `Bearer ${accessToken}`,
             ...options.headers,
           };
         }
       },
-      onResponse({ request, response, options }) {
+      async onResponse({ request, response, options }) {
         if (response.status >= 200 && response.status <= 300) {
-          // console.log("客户端请求");
-          // console.log(response._data);
           resolve(response._data);
         }
-      },
-      async onResponseError({ request, response, options }) {
-        // token 过期
-        // 携带refreshToken 发一次相同请求 获取到token
-        // 再用token发一次请求
         if (response.status === 401) {
-          if (adminRefreshToken) {
+          if (refreshToken) {
             const data = await fetchWithRefreshToken();
             resolve(data);
           } else {
             toast("需要登录", "warning");
-            // nuxtApp.runWithContext(() => {
-            //   navigateTo("/admin/login");
-            // });
-            reject(response);
+            nuxtApp.runWithContext(() => {
+              navigateTo(authType === "admin" ? "/admin/auth" : "user/auth");
+            });
+            reject(response._data);
           }
-        } else if (response._data.msg === "需要登录") {
-          toast("需要登录", "warning");
-          nuxtApp.runWithContext(() => {
-            navigateTo("/admin/login");
-          });
-          reject(response);
-        } else {
-          toast(response?._data.msg || "未知错误", "error");
-          reject(response);
         }
       },
+      onResponseError({ request, response, options }) {
+        reject(response._data);
+      },
       ...opt,
+    }).catch((err) => {
+      reject(err);
     });
   });
 };
 
-const commonApi = (method, url, options) => {
+const commonApi = (method, url, options, authType) => {
   if (import.meta.client) {
     return new Promise((resolve, reject) => {
-      apiCore(url, {
-        method,
-        ...options,
-      })
+      apiCore(
+        url,
+        {
+          method,
+          ...options,
+        },
+        authType
+      )
         .then((res) => {
           resolve(res);
         })
         .catch((err) => {
-          console.log(err);
           reject(err);
         });
     });
@@ -142,25 +134,40 @@ const commonApi = (method, url, options) => {
 };
 
 export const clientApi = {
-  get(url, options) {
-    return commonApi("GET", url, options);
+  get(url, options, authType = "admin") {
+    return commonApi("GET", url, options, authType);
   },
-  post(url, form, options = {}) {
-    return commonApi("POST", url, {
-      body: form,
-      ...options,
-    });
+  post(url, form, options = {}, authType = "admin") {
+    return commonApi(
+      "POST",
+      url,
+      {
+        body: form,
+        ...options,
+      },
+      authType
+    );
   },
-  put(url, form, options = {}) {
-    return commonApi("PUT", url, {
-      body: form,
-      ...options,
-    });
+  put(url, form, options = {}, authType = "admin") {
+    return commonApi(
+      "PUT",
+      url,
+      {
+        body: form,
+        ...options,
+      },
+      authType
+    );
   },
-  delete(url, form, options = {}) {
-    return commonApi("DELETE", url, {
-      body: form,
-      ...options,
-    });
+  delete(url, form, options = {}, authType = "admin") {
+    return commonApi(
+      "DELETE",
+      url,
+      {
+        body: form,
+        ...options,
+      },
+      authType
+    );
   },
 };

@@ -21,6 +21,14 @@ export const getAdminAccessToken = () => {
   return token;
 };
 
+export const removeAdminRefreshToken = () => {
+  useCookie(adminRefreshTokenKey).value = "";
+};
+
+export const removeAdminAccessToken = (token) => {
+  useCookie(adminAccessTokenKey).value = "";
+};
+
 export const setUserRefreshToken = (refreshToken) => {
   useCookie(userRefreshTokenKey).value = refreshToken;
 };
@@ -37,4 +45,12 @@ export const getUserRefreshToken = () => {
 export const getUserAccessToken = () => {
   const token = useCookie(userAccessTokenKey).value;
   return token;
+};
+
+export const removeUserRefreshToken = () => {
+  useCookie(userRefreshTokenKey).value = "";
+};
+
+export const removeUserAccessToken = (token) => {
+  useCookie(userAccessTokenKey).value = "";
 };

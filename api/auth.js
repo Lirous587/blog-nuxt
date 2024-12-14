@@ -2,6 +2,6 @@ export function login(form) {
   return clientApi.post("/admin/login", form);
 }
 
-export function adminAuth() {
-  // return Client.post("/admin/auth");
+export async function adminAuth() {
+  return api.get("/admin/auth");
 }

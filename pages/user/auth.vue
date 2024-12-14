@@ -168,13 +168,12 @@ const handelSignup = () => {
 const handelLogin = () => {
   login(loginForm)
     .then((res) => {
-      console.log(res);
       toast("登录成功");
-      setUserToken(res.data.token);
+      setUserAccessToken(res.data.token);
       setUserRefreshToken(res.data.refreshToken);
       router.push("/");
     })
-    .catch(() => {
+    .catch((err) => {
       toast("账号或密码错误", "error");
     });
 };
