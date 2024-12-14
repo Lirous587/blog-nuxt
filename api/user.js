@@ -11,15 +11,15 @@ export function sentSignupValidationCode(form) {
 }
 
 export function updateMsg(form) {
-  return clientApi.put("/user/updateMsg", form);
+  return clientApi.put("/user/updateMsg", form, "user");
 }
 
 export function updatePassword(form) {
-  return clientApi.put("/user/updateMsg", form);
+  return clientApi.put("/user/updatePwd", form, "user");
 }
 
-export function logout(form) {
-  return clientApi.delete("/user/updatePwd", form);
+export function logout() {
+  return clientApi.delete("/user/logout", {}, "user");
 }
 
 export function resetPassword(form) {
@@ -31,5 +31,5 @@ export function sentResetPasswordValidationCode(form) {
 }
 
 export function userAuth() {
-  return clientApi.get("/user/info", {}, "user");
+  return clientApi.get("/user/info", "user");
 }

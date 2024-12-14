@@ -101,11 +101,9 @@ const apiCore = async (url, opt, authType) => {
               })
               .catch((err) => {
                 if (authType === "admin") {
-                  removeAdminAccessToken();
-                  removeAdminRefreshToken();
+                  removeAdminAuth();
                 } else {
-                  removeUserAccessToken();
-                  removeUserRefreshToken();
+                  removeUserAuth();
                 }
                 nuxtApp.runWithContext(() => {
                   navigateTo("/");
@@ -173,7 +171,6 @@ export const clientApi = {
       url,
       {
         body: form,
-        ...options,
       },
       authType
     );
