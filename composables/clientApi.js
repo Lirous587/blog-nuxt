@@ -144,32 +144,30 @@ const commonApi = (method, url, options, authType) => {
 };
 
 export const clientApi = {
-  get(url, options, authType = "admin") {
-    return commonApi("GET", url, options, authType);
+  get(url, authType = "admin") {
+    return commonApi("GET", url, {}, authType);
   },
-  post(url, form, options = {}, authType = "admin") {
+  post(url, form, authType = "admin") {
     return commonApi(
       "POST",
       url,
       {
         body: form,
-        ...options,
       },
       authType
     );
   },
-  put(url, form, options = {}, authType = "admin") {
+  put(url, form, authType = "admin") {
     return commonApi(
       "PUT",
       url,
       {
         body: form,
-        ...options,
       },
       authType
     );
   },
-  delete(url, form, options = {}, authType = "admin") {
+  delete(url, form, authType = "admin") {
     return commonApi(
       "DELETE",
       url,
