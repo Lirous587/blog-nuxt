@@ -32,7 +32,6 @@
       @blur="handleInputConfirm"
     >
     </MyInput>
-
     <MyButton v-else class="button-new-tag" @click="showInput">
       {{ props.addText }}
     </MyButton>
