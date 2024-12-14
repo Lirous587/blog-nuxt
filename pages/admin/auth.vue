@@ -5,27 +5,27 @@
         class="w-[80vw] md:w-[420px] flex flex-col items-center justify-center overflow-hidden"
       >
         <h1 class="text-xl font-bold my-3 text-dark">登 录</h1>
-        <MyForm class="pr-5 w-full" label-width="">
-          <MyFormItem label="邮箱">
-            <MyInput v-model="loginForm.email"></MyInput>
-          </MyFormItem>
-          <MyFormItem label="密码">
-            <MyInput
+        <el-form class="pr-5 w-full" label-width="">
+          <el-form-item label="邮箱">
+            <el-input v-model="loginForm.email"></el-input>
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input
               type="password"
               show-password
               v-model="loginForm.password"
-            ></MyInput>
-          </MyFormItem>
-          <MyFormItem>
-            <MyButton
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
               class="w-[80%] mx-auto !rounded-3xl"
               size="large"
               type="success"
               @click="handelLogin"
               >登录
-            </MyButton>
-          </MyFormItem>
-        </MyForm>
+            </el-button>
+          </el-form-item>
+        </el-form>
       </div>
     </div>
   </div>

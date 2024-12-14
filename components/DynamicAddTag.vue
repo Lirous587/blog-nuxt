@@ -10,20 +10,20 @@
       @close="handleClose(tag)"
       @click="handleEdit(index)"
     >
-      <MyInput
+      <el-input
         v-if="showEdit[index]"
         v-model="tags[index]"
         class="w-min-30"
         @keyup.enter="handleEditConfirm(tag, index)"
         @blur="handleEditConfirm(tag, index)"
       >
-      </MyInput>
+      </el-input>
       <span v-else>
         {{ tag }}
       </span>
     </el-tag>
 
-    <MyInput
+    <el-input
       v-if="inputVisible"
       ref="inputRef"
       v-model="inputValue"
@@ -31,10 +31,10 @@
       @keyup.enter="handleInputConfirm"
       @blur="handleInputConfirm"
     >
-    </MyInput>
-    <MyButton v-else class="button-new-tag" @click="showInput">
+    </el-input>
+    <el-button v-else class="button-new-tag" @click="showInput">
       {{ props.addText }}
-    </MyButton>
+    </el-button>
   </div>
 </template>
 

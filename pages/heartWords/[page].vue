@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4 mt-5 mx-5">
     <div v-for="(item, index) in list" :key="item.id">
-      <MyCard
+      <el-card
         shadow="always"
         class="relative !rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
         :class="
@@ -44,7 +44,7 @@
             <span class="color-text"> {{ item.source }}</span>
           </div>
         </template>
-      </MyCard>
+      </el-card>
     </div>
     <Paging :total-page="totalPages" preHref="/heartWords"></Paging>
   </div>

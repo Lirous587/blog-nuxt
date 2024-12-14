@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyInput
+    <el-input
       rounded
       placeholder="搜索"
       v-model="keyword"
@@ -12,7 +12,7 @@
           <Search />
         </el-icon>
       </template>
-    </MyInput>
+    </el-input>
   </div>
 </template>
 

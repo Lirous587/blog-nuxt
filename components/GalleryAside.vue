@@ -40,14 +40,14 @@
     ref="drawerRef"
     class="dark:bg-black"
   >
-    <MyForm :model="form" label-width="80px">
-      <MyFormItem label="分类名称">
-        <MyInput v-model="form.name"> </MyInput>
-      </MyFormItem>
-      <MyFormItem>
-        <MyButton type="primary" @click="handelUPdate">修改</MyButton>
-      </MyFormItem>
-    </MyForm>
+    <el-form :model="form" label-width="80px">
+      <el-form-item label="分类名称">
+        <el-input v-model="form.name"> </el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handelUPdate">修改</el-button>
+      </el-form-item>
+    </el-form>
   </MyDrawer>
 </template>
 

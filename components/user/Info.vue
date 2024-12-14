@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center">
-    <MyButton v-if="!userInfo" type="primary" size="small" @click="gotoLogin"
-      >登录</MyButton
+    <el-button v-if="!userInfo" type="primary" size="small" @click="gotoLogin"
+      >登录</el-button
     >
     <div>
       <el-dropdown>
@@ -25,24 +25,24 @@
   </div>
 
   <MyDrawer title="用户信息" ref="drawerRefForUpdateInfo">
-    <MyForm>
-      <MyFormItem label="用户名">
-        <MyInput></MyInput>
-      </MyFormItem>
-      <MyFormItem label="头像">
-        <MyInput></MyInput>
-      </MyFormItem>
-    </MyForm>
+    <el-form>
+      <el-form-item label="用户名">
+        <el-input></el-input>
+      </el-form-item>
+      <el-form-item label="头像">
+        <el-input></el-input>
+      </el-form-item>
+    </el-form>
   </MyDrawer>
   <MyDrawer title="用户信息" ref="drawerRefForRetPwd">
-    <MyForm>
-      <MyFormItem label="用户名">
-        <MyInput></MyInput>
-      </MyFormItem>
-      <MyFormItem label="头像">
-        <MyInput></MyInput>
-      </MyFormItem>
-    </MyForm>
+    <el-form>
+      <el-form-item label="用户名">
+        <el-input></el-input>
+      </el-form-item>
+      <el-form-item label="头像">
+        <el-input></el-input>
+      </el-form-item>
+    </el-form>
   </MyDrawer>
 </template>
 
@@ -53,6 +53,8 @@ const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const drawerRefForUpdateInfo = ref(null);
 const drawerRefForRetPwd = ref(null);
+
+const userInfo = ref({});
 
 const updateForm = reactive({
   name: "",

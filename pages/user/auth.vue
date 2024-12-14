@@ -6,41 +6,41 @@
         <Transition name="left" mode="out-in">
           <div v-if="isLogin" class="broad">
             <h1 class="text-xl font-bold my-3 text-dark">登 录</h1>
-            <MyForm class="pr-5 w-full" label-width="">
-              <MyFormItem label="邮箱">
-                <MyInput v-model="loginForm.email"></MyInput>
-              </MyFormItem>
-              <MyFormItem label="密码">
-                <MyInput
+            <el-form class="pr-5 w-full" label-width="">
+              <el-form-item label="邮箱">
+                <el-input v-model="loginForm.email"></el-input>
+              </el-form-item>
+              <el-form-item label="密码">
+                <el-input
                   type="password"
                   show-password
                   v-model="loginForm.password"
-                ></MyInput>
-              </MyFormItem>
-              <MyFormItem>
-                <MyButton
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
                   class="w-[80%] mx-auto !rounded-3xl"
                   size="large"
                   type="success"
                   @click="handelLogin"
                   >登录
-                </MyButton>
-              </MyFormItem>
-            </MyForm>
+                </el-button>
+              </el-form-item>
+            </el-form>
           </div>
           <div v-else class="narrow">
             <h3 class="text-xl font-bold text-dark">欢迎回来！</h3>
             <small class="text-gray-400 my-5 text-dark"
               >为了和我们保持联系，请登录账户</small
             >
-            <MyButton
+            <el-button
               @click="toggleForm"
               class="w-[60%] !rounded-3xl text-dark"
               size="large"
               type="success"
             >
               前往登录
-            </MyButton>
+            </el-button>
           </div>
         </Transition>
         <Transition name="right" mode="out-in">
@@ -49,62 +49,62 @@
             <small class="text-gray-400 my-5"
               >填写您的一些信息然后加入我们</small
             >
-            <MyButton
+            <el-button
               @click="toggleForm"
               class="w-[80%] mx-auto !rounded-3xl"
               size="large"
               type="primary"
             >
               前往注册
-            </MyButton>
+            </el-button>
           </div>
           <div v-else class="broad">
             <h1 class="text-xl font-bold my-3 text-dark">注 册</h1>
-            <MyForm class="pr-5 w-full">
-              <MyFormItem label="昵称">
-                <MyInput v-model="signupForm.name"></MyInput>
-              </MyFormItem>
-              <MyFormItem label="邮箱">
-                <MyInput v-model="signupForm.email"></MyInput>
-              </MyFormItem>
-              <MyFormItem label="验证码">
-                <MyInput v-model="signupForm.validationCode">
+            <el-form class="pr-5 w-full">
+              <el-form-item label="昵称">
+                <el-input v-model="signupForm.name"></el-input>
+              </el-form-item>
+              <el-form-item label="邮箱">
+                <el-input v-model="signupForm.email"></el-input>
+              </el-form-item>
+              <el-form-item label="验证码">
+                <el-input v-model="signupForm.validationCode">
                   <template #suffix>
-                    <MyButton
+                    <el-button
                       @click="handelSentSignupValidationCode"
                       size="small"
                       type="success"
-                      >获取</MyButton
+                      >获取</el-button
                     >
                   </template>
-                </MyInput>
-              </MyFormItem>
-              <MyFormItem label="密码">
-                <MyInput
+                </el-input>
+              </el-form-item>
+              <el-form-item label="密码">
+                <el-input
                   type="password"
                   show-password
                   v-model="signupForm.password"
-                ></MyInput>
-              </MyFormItem>
-              <MyFormItem label="重复密码">
-                <MyInput
+                ></el-input>
+              </el-form-item>
+              <el-form-item label="重复密码">
+                <el-input
                   type="password"
                   show-password
                   v-model="signupForm.rePassword"
-                ></MyInput>
-              </MyFormItem>
+                ></el-input>
+              </el-form-item>
 
-              <MyFormItem>
-                <MyButton
+              <el-form-item>
+                <el-button
                   class="w-[80%] mx-auto !rounded-3xl"
                   size="large"
                   type="primary"
                   @click="handelSignup"
                 >
                   注册
-                </MyButton>
-              </MyFormItem>
-            </MyForm>
+                </el-button>
+              </el-form-item>
+            </el-form>
           </div>
         </Transition>
       </div>

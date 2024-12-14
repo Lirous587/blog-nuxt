@@ -1,26 +1,26 @@
 <template>
   <div>
-    <MyCard>
+    <el-card>
       <template #header>
-        <MyButton type="primary" @click="drawerRef.open()">添加</MyButton>
+        <el-button type="primary" @click="drawerRef.open()">添加</el-button>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column label="id" prop="id"></el-table-column>
         <el-table-column label="标签名" min-width="120" align="center">
           <template #default="scope">
-            <MyInput size="large" v-model="scope.row.name"></MyInput>
+            <el-input size="large" v-model="scope.row.name"></el-input>
           </template>
         </el-table-column>
 
         <el-table-column label="标签介绍" min-width="150" align="center">
           <template #default="scope">
-            <MyInput
+            <el-input
               placeholder="请输入标签介绍"
               v-model="scope.row.introduction"
               type="textarea"
               :rows="2"
             >
-            </MyInput>
+            </el-input>
           </template>
         </el-table-column>
 
@@ -37,11 +37,11 @@
           min-width="200"
         >
           <template #default="scope">
-            <MyButton
+            <el-button
               type="warning"
               :loading="scope.row.loading"
               @click="handelEdit(scope.row)"
-              >修改</MyButton
+              >修改</el-button
             >
 
             <el-popconfirm
@@ -54,13 +54,13 @@
               @confirm="handelDelete(scope.row)"
             >
               <template #reference>
-                <MyButton type="danger">删除</MyButton>
+                <el-button type="danger">删除</el-button>
               </template>
             </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
-    </MyCard>
+    </el-card>
 
     <MyDrawer
       ref="drawerRef"
@@ -69,34 +69,34 @@
       size="50%"
       class="dark:bg-black"
     >
-      <MyForm :model="form" label-width="80px" :inline="false">
-        <MyFormItem label="分类名">
-          <MyInput placeholder="请输入分类名称" v-model="form.name"></MyInput>
-        </MyFormItem>
-        <MyFormItem label="分类介绍">
-          <MyInput
+      <el-form :model="form" label-width="80px" :inline="false">
+        <el-form-item label="分类名">
+          <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="分类介绍">
+          <el-input
             placeholder="请输入标签介绍"
             v-model="form.introduction"
             type="textarea"
             :rows="3"
           >
-          </MyInput>
-        </MyFormItem>
-        <MyFormItem label="图标">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="图标">
           <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
-        </MyFormItem>
-        <MyFormItem>
-          <MyButton
+        </el-form-item>
+        <el-form-item>
+          <el-button
             type="primary"
             size="large"
             @click="handelCreate"
             class="mt-5 w-full"
             :loading="loading"
           >
-            添加</MyButton
+            添加</el-button
           >
-        </MyFormItem>
-      </MyForm>
+        </el-form-item>
+      </el-form>
     </MyDrawer>
   </div>
 </template>

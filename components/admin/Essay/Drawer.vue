@@ -1,22 +1,22 @@
 <template>
   <MyDrawer ref="drawerRef" :title="title" size="50%" class="dark:bg-black">
-    <MyForm :model="form" label-width="80px" :inline="false">
-      <MyFormItem label="分类">
+    <el-form :model="form" label-width="80px" :inline="false">
+      <el-form-item label="分类">
         <AdminSelectKind
           :id="form.kindID"
           :list="kindList"
           @update="handelKindChange"
         ></AdminSelectKind>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="标签">
+      <el-form-item label="标签">
         <AdminSelectLabels
           :list="labelList"
           v-model:ids="form.labelIds"
         ></AdminSelectLabels>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="代码主题">
+      <el-form-item label="代码主题">
         <el-select
           v-model="form.previewTheme"
           placeholder="选择代码主题"
@@ -28,50 +28,54 @@
             :value="item.value"
           />
         </el-select>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="文章名">
-        <MyInput v-model="form.name" placeholder="文章名" />
-      </MyFormItem>
+      <el-form-item label="文章名">
+        <el-input v-model="form.name" placeholder="文章名" />
+      </el-form-item>
 
-      <MyFormItem label="介绍">
-        <MyInput v-model="form.introduction" placeholder="介绍" class="input" />
-      </MyFormItem>
+      <el-form-item label="介绍">
+        <el-input
+          v-model="form.introduction"
+          placeholder="介绍"
+          class="input"
+        />
+      </el-form-item>
 
-      <MyFormItem label="文章图片">
+      <el-form-item label="文章图片">
         <ImgPreview @click="chooseImg" :imgUrl="form.img?.url"></ImgPreview>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="关键词">
+      <el-form-item label="关键词">
         <DynamicAddTag @tagChange="handelTagChange"></DynamicAddTag>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="是否置顶">
+      <el-form-item label="是否置顶">
         <el-radio-group v-model="form.ifTop">
           <el-radio :value="true" size="large">是</el-radio>
           <el-radio :value="false" size="large">否</el-radio>
         </el-radio-group>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem label="是否推荐">
+      <el-form-item label="是否推荐">
         <el-radio-group v-model="form.ifRecommend">
           <el-radio :value="true" size="large">是</el-radio>
           <el-radio :value="false" size="large">否</el-radio>
         </el-radio-group>
-      </MyFormItem>
+      </el-form-item>
 
-      <MyFormItem>
-        <MyButton
+      <el-form-item>
+        <el-button
           type="primary"
           size="large"
           @click="handelOprate"
           class="mt-5 w-full"
           :loading="loading"
         >
-          提交</MyButton
+          提交</el-button
         >
-      </MyFormItem>
-    </MyForm>
+      </el-form-item>
+    </el-form>
   </MyDrawer>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
     <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>

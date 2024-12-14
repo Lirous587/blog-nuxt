@@ -1,11 +1,11 @@
 <template>
-  <MyCard>
+  <el-card>
     <template #header>
-      <MyButton type="success" size="small" @click="handelUploadPre"
-        >上传图片</MyButton
+      <el-button type="success" size="small" @click="handelUploadPre"
+        >上传图片</el-button
       >
-      <MyButton type="primary" size="small" @click="handelCreateKindPre"
-        >创建分类</MyButton
+      <el-button type="primary" size="small" @click="handelCreateKindPre"
+        >创建分类</el-button
       >
     </template>
     <el-container>
@@ -21,7 +21,7 @@
         ></GalleryMain>
       </div>
     </el-container>
-  </MyCard>
+  </el-card>
   <MyDrawer
     :title="drawerData.title"
     direction="rtl"
@@ -31,34 +31,34 @@
   >
     <div>
       <div v-if="drawerData.type === 'kind'">
-        <MyForm :model="kindForm" label-width="80px">
-          <MyFormItem label="分类名称">
-            <MyInput
+        <el-form :model="kindForm" label-width="80px">
+          <el-form-item label="分类名称">
+            <el-input
               placeholder="请输入分类名称"
               v-model="kindForm.name"
-            ></MyInput>
-          </MyFormItem>
-          <MyFormItem>
-            <MyButton type="primary" @click="handelCreateKind">
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="handelCreateKind">
               创建分类
-            </MyButton>
-          </MyFormItem>
-        </MyForm>
+            </el-button>
+          </el-form-item>
+        </el-form>
       </div>
       <div v-else>
-        <MyForm :model="galleryForm">
-          <MyFormItem>
+        <el-form :model="galleryForm">
+          <el-form-item>
             <UploadImg
               ref="uploadRef"
               v-model:imgUrl="galleryForm.imgUrl"
             ></UploadImg>
-          </MyFormItem>
-          <MyFormItem>
-            <MyButton class="mt-3" type="primary" @click="handelUpload">
+          </el-form-item>
+          <el-form-item>
+            <el-button class="mt-3" type="primary" @click="handelUpload">
               上传图片
-            </MyButton>
-          </MyFormItem>
-        </MyForm>
+            </el-button>
+          </el-form-item>
+        </el-form>
       </div>
     </div>
   </MyDrawer>

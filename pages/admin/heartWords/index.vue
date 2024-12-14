@@ -1,8 +1,8 @@
 <template>
   <div>
-    <MyCard>
+    <el-card>
       <template #header>
-        <MyButton type="primary" @click="handelCreatePre">添加 </MyButton>
+        <el-button type="primary" @click="handelCreatePre">添加 </el-button>
       </template>
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
@@ -39,12 +39,12 @@
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
-            <MyButton
+            <el-button
               type="warning"
               :loading="scope.row.loading"
               @click="handelUpdatePre(scope.row)"
               >修改
-            </MyButton>
+            </el-button>
 
             <el-popconfirm
               title="确定删除该心语?"
@@ -56,7 +56,7 @@
               @confirm="handelDelete(scope.row)"
             >
               <template #reference>
-                <MyButton type="danger">删除 </MyButton>
+                <el-button type="danger">删除 </el-button>
               </template>
             </el-popconfirm>
           </template>
@@ -72,7 +72,7 @@
           />
         </div>
       </template>
-    </MyCard>
+    </el-card>
 
     <MyDrawer
       :title="ifCreate ? '添加心语' : '修改心语'"
@@ -82,51 +82,51 @@
       :destroy-on-close="true"
       class="dark:bg-black"
     >
-      <MyForm :model="form" label-width="80px" :inline="false">
-        <MyFormItem label="心语内容" prop="content">
-          <MyInput
+      <el-form :model="form" label-width="80px" :inline="false">
+        <el-form-item label="心语内容" prop="content">
+          <el-input
             placeholder="请输入心语内容"
             size="large"
             v-model="form.content"
           >
-          </MyInput>
-        </MyFormItem>
+          </el-input>
+        </el-form-item>
 
-        <MyFormItem label="心语出处">
-          <MyInput
+        <el-form-item label="心语出处">
+          <el-input
             placeholder="请输入心语出处"
             v-model="form.source"
             type="textarea"
             :rows="3"
           >
-          </MyInput>
-        </MyFormItem>
-        <MyFormItem label="是否打印">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="是否打印">
           <el-radio-group v-model="form.ifCouldType">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </MyFormItem>
-        <MyFormItem label="是否推荐">
+        </el-form-item>
+        <el-form-item label="是否推荐">
           <el-radio-group v-model="form.ifRecommend">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </MyFormItem>
-        <MyFormItem label="是否置顶">
+        </el-form-item>
+        <el-form-item label="是否置顶">
           <el-radio-group v-model="form.ifTop">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
-        </MyFormItem>
-        <MyFormItem label="图片">
+        </el-form-item>
+        <el-form-item label="图片">
           <ImgPreview
             @click="dialogRef.open()"
             :imgUrl="form.img?.url"
           ></ImgPreview>
-        </MyFormItem>
-        <MyFormItem>
-          <MyButton
+        </el-form-item>
+        <el-form-item>
+          <el-button
             type="primary"
             size="large"
             class="mt-5 w-full"
@@ -134,9 +134,9 @@
             :loading="loading"
           >
             {{ ifCreate ? "添加心语" : "修改心语" }}
-          </MyButton>
-        </MyFormItem>
-      </MyForm>
+          </el-button>
+        </el-form-item>
+      </el-form>
     </MyDrawer>
 
     <MyDialog title="选择图片" width="80%" ref="dialogRef">

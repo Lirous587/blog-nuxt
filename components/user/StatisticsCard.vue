@@ -1,5 +1,5 @@
 <template>
-  <MyCard shadow="always" class="!rounded-xl hover:!shadow-xl">
+  <el-card shadow="always" class="!rounded-xl hover:!shadow-xl">
     <div class="flex flex-col items-center justify-around gap-y-3">
       <NuxtLink target="_blank" to="https://github.com/Lirous587">
         <el-avatar
@@ -28,7 +28,7 @@
         <span class="text-cyan-50">关于作者 </span>
       </NuxtLink>
     </div>
-  </MyCard>
+  </el-card>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <MyCard shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
+  <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">推荐文章</span>
@@ -32,7 +32,7 @@
         <div class="h-[1px] bg-pink-100 dark:bg-gray-600 border-dotted"></div>
       </div>
     </div>
-  </MyCard>
+  </el-card>
 </template>
 
 <script setup>

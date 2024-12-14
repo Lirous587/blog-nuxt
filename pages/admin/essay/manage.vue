@@ -6,10 +6,9 @@
       <template #header>
         <h4 class="font-bold">查询文章</h4>
       </template>
-
-      <MyCard>
+      <el-card>
         <template #header>
-          <MyInput
+          <el-input
             placeholder="输入文章名称或关键词"
             v-model="searchForm.keyword"
             @keydown.enter="handelSearchEssay"
@@ -17,14 +16,14 @@
             size="large"
           >
             <template #suffix>
-              <MyButton type="primary" @click="handelSearchEssay">
+              <el-button type="primary" @click="handelSearchEssay">
                 <el-icon size="18" class="mr-2">
                   <Search />
                 </el-icon>
                 搜索文章
-              </MyButton>
+              </el-button>
             </template>
-          </MyInput>
+          </el-input>
         </template>
         <el-table
           :data="list"
@@ -59,7 +58,7 @@
             min-width="200"
           >
             <template #default="scope">
-              <MyButton
+              <el-button
                 link
                 type="primary"
                 size="small"
@@ -67,7 +66,7 @@
                 :loading="loading"
               >
                 选择文章
-              </MyButton>
+              </el-button>
               <el-popconfirm
                 title="确定删除该文章?"
                 confirm-button-text="确定"
@@ -78,13 +77,15 @@
                 @confirm="handelDeleteEssay(scope.row)"
               >
                 <template #reference>
-                  <MyButton link type="primary" size="small">删除文章</MyButton>
+                  <el-button link type="primary" size="small"
+                    >删除文章</el-button
+                  >
                 </template>
               </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
-      </MyCard>
+      </el-card>
     </MyDialog>
 
     <AdminEssayDrawer
@@ -94,17 +95,17 @@
       opration="update"
     ></AdminEssayDrawer>
 
-    <MyCard>
+    <el-card>
       <template #header>
         <div class="flex gap-x-2">
-          <MyButton type="info" @click="dialogRef.open()">
+          <el-button type="info" @click="dialogRef.open()">
             <el-icon size="18" class="mr-2">
               <Search />
             </el-icon>
             搜索文章
-          </MyButton>
-          <MyButton type="primary" @click="updatePreHandel" class="ml-3"
-            >修改文章</MyButton
+          </el-button>
+          <el-button type="primary" @click="updatePreHandel" class="ml-3"
+            >修改文章</el-button
           >
           <AdminEssayInsertImg
             @choose-galley="chooseGalleyHandel"
@@ -116,7 +117,7 @@
         v-model:content="form.content"
         :codeTheme="form.previewTheme"
       ></MdEdit>
-    </MyCard>
+    </el-card>
   </div>
 </template>
 

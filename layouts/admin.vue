@@ -17,12 +17,11 @@
   </div>
 </template>
 
-
 <style scoped>
 :deep(.el-menu),
 :deep(.el-table__cell),
 :deep(.el-table__empty-block),
-:deep(.el-dialog) {
+:deep(.MyDialog) {
   @apply bg-white dark:!bg-black dark:!border-gray-700 dark:!text-neutral-200;
 }
 

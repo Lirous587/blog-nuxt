@@ -3,7 +3,7 @@
     <Gallery @select-img="handelSelectImg"></Gallery>
   </MyDialog>
 
-  <MyButton type="success" @click="chooseGallery"> 选择图片 </MyButton>
+  <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>
 </template>
 
 <script setup>
