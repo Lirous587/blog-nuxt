@@ -2,8 +2,6 @@
 const apiCore = async (url, opt, authType) => {
   const config = useRuntimeConfig();
 
-  const nuxtApp = useNuxtApp();
-
   const baseURL = config.public.apiBase;
 
   let accessToken, refreshToken;
@@ -15,37 +13,37 @@ const apiCore = async (url, opt, authType) => {
     refreshToken = getUserRefreshToken();
   }
 
-  const fetchWithRefreshToken = async () => {
-    await $fetch(url, {
-      method: opt.method || "get",
-      retry: false,
-      baseURL: baseURL,
-      onRequest({ options }) {
-        if (accessToken) {
-          options.headers = {
-            Authorization: `Bearer ${accessToken}`,
-            "Refresh-Token": refreshToken,
-            ...options.headers,
-          };
-        }
-      },
-      // refreshToken鉴权生效
-      onResponse({ request, response, options }) {
-        if (response.status >= 200 && response.status <= 300) {
-          const newAccessToken = response._data.token;
+  const fetchWithRefreshToken = () => {
+    return new Promise(async (resolve, reject) => {
+      await $fetch(url, {
+        method: opt.method || "get",
+        retry: false,
+        baseURL: baseURL,
+        onRequest({ options }) {
+          if (accessToken && refreshToken) {
+            options.headers = {
+              Authorization: `Bearer ${accessToken}`,
+              "Refresh-Token": refreshToken,
+              ...options.headers,
+            };
+          }
+        },
+      })
+        .then((res) => {
+          const newAccessToken = res.token;
           if (authType === "admin") {
             setAdminAccessToken(newAccessToken);
           } else if (authType === "user") {
             setUserAccessToken(newAccessToken);
           }
           accessToken = newAccessToken;
-        }
-      },
-    });
+        })
+        .catch((err) => {
+          const errData = err?.data;
+          reject(errData || err);
+        });
 
-    return new Promise(async (resolve, reject) => {
-      // 发送原请求去拿 accessToken
-      // 发送原请求去拿数据
+      // 恢复现场
       await $fetch(url, {
         method: opt.method || "get",
         retry: false,
@@ -58,17 +56,15 @@ const apiCore = async (url, opt, authType) => {
             };
           }
         },
-        onResponse({ request, response, options }) {
-          if (response.status >= 200 && response.status <= 300) {
-            const data = response._data;
-            resolve(data);
-          }
-        },
-        onResponseError({ request, response, options }) {
-          reject(response._data);
-        },
         ...opt,
-      });
+      })
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => {
+          const errData = err?.data;
+          reject(errData || err);
+        });
     });
   };
 
@@ -85,30 +81,32 @@ const apiCore = async (url, opt, authType) => {
           };
         }
       },
-      async onResponse({ request, response, options }) {
-        if (response.status >= 200 && response.status <= 300) {
-          resolve(response._data);
-        }
-        if (response.status === 401) {
+      ...opt,
+    })
+      .then((res) => {
+        resolve(res);
+      })
+      .catch(async (err) => {
+        const errCode = err.statusCode;
+        const errData = err?.data;
+        if (errCode === 401) {
           if (refreshToken) {
-            const data = await fetchWithRefreshToken();
+            const data = fetchWithRefreshToken();
             resolve(data);
+            return;
           } else {
-            toast("需要登录", "warning");
-            nuxtApp.runWithContext(() => {
-              navigateTo(authType === "admin" ? "/admin/auth" : "user/auth");
-            });
-            reject(response._data);
+            if (authType === "admin") {
+              // removeAdminAccessToken();
+              // removeAdminRefreshToken();
+            } else {
+              // removeUserAccessToken();
+              // removeUserRefreshToken();
+            }
           }
         }
-      },
-      onResponseError({ request, response, options }) {
-        reject(response._data);
-      },
-      ...opt,
-    }).catch((err) => {
-      reject(err);
-    });
+        toast(errData || "未知错误", "error");
+        reject(errData || err);
+      });
   });
 };
 
