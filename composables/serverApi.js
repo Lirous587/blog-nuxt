@@ -2,6 +2,7 @@
 const apiCore = async (url, opt, authType) => {
   const config = useRuntimeConfig();
   const baseURL = config.public.apiBase;
+  const nuxtApp = useNuxtApp();
 
   let accessToken, refreshToken;
   if (authType === "admin") {
@@ -83,29 +84,39 @@ const apiCore = async (url, opt, authType) => {
         }
       },
       ...opt,
-    }).then(async (res) => {
+    }).then((res) => {
       if (res.status.value === "success") {
         resolve(res.data.value);
       } else {
         const err = res.error.value;
         const errCode = err.statusCode;
         const errData = err?.data;
+        const errDataString = JSON.stringify(errData);
+
         if (errCode === 401) {
-          if (refreshToken) {
-            const data = fetchWithRefreshToken();
-            resolve(data);
-            return;
-          } else {
-            if (authType === "admin") {
-              // removeAdminAccessToken();
-              // removeAdminRefreshToken();
-            } else {
-              // removeUserAccessToken();
-              // removeUserRefreshToken();
-            }
+          if (refreshToken && accessToken) {
+            fetchWithRefreshToken()
+              .then((res) => {
+                resolve(res);
+              })
+              .catch((err) => {
+                if (authType === "admin") {
+                  removeAdminAccessToken();
+                  removeAdminRefreshToken();
+                } else {
+                  removeUserAccessToken();
+                  removeUserRefreshToken();
+                }
+                nuxtApp.runWithContext(() => {
+                  navigateTo("/");
+                });
+                toast(errDataString || "未知错误", "error");
+                reject(errData || err);
+              });
           }
+          return;
         }
-        toast(errData || "未知错误", "error");
+        toast(errDataString || "未知错误", "error");
         reject(errData || err);
       }
     });

@@ -4,6 +4,8 @@ const apiCore = async (url, opt, authType) => {
 
   const baseURL = config.public.apiBase;
 
+  const nuxtApp = useNuxtApp();
+
   let accessToken, refreshToken;
   if (authType === "admin") {
     accessToken = getAdminAccessToken();
@@ -69,7 +71,7 @@ const apiCore = async (url, opt, authType) => {
   };
 
   return new Promise(async (resolve, reject) => {
-    await $fetch(url, {
+    $fetch(url, {
       method: opt.method || "get",
       retry: false,
       baseURL: baseURL,
@@ -89,22 +91,32 @@ const apiCore = async (url, opt, authType) => {
       .catch(async (err) => {
         const errCode = err.statusCode;
         const errData = err?.data;
+        const errDataString = JSON.stringify(errData);
+
         if (errCode === 401) {
-          if (refreshToken) {
-            const data = fetchWithRefreshToken();
-            resolve(data);
-            return;
-          } else {
-            if (authType === "admin") {
-              // removeAdminAccessToken();
-              // removeAdminRefreshToken();
-            } else {
-              // removeUserAccessToken();
-              // removeUserRefreshToken();
-            }
+          if (refreshToken && accessToken) {
+            fetchWithRefreshToken()
+              .then((res) => {
+                resolve(res);
+              })
+              .catch((err) => {
+                if (authType === "admin") {
+                  removeAdminAccessToken();
+                  removeAdminRefreshToken();
+                } else {
+                  removeUserAccessToken();
+                  removeUserRefreshToken();
+                }
+                nuxtApp.runWithContext(() => {
+                  navigateTo("/");
+                });
+                toast(errDataString || "未知错误", "error");
+                reject(errData || err);
+              });
           }
+          return;
         }
-        toast(errData || "未知错误", "error");
+        toast(errDataString || "未知错误", "error");
         reject(errData || err);
       });
   });

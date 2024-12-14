@@ -29,3 +29,7 @@ export function resetPassword(form) {
 export function sentResetPasswordValidationCode(form) {
   return clientApi.post("/user/sentResetPwdValidationCode", form);
 }
+
+export function userAuth() {
+  return clientApi.get("/user/info", {}, "user");
+}

@@ -70,12 +70,14 @@
       <!-- 用户相关 -->
       <div>
         <MyButton type="primary" size="small" @click="gotoLogin">登录</MyButton>
+        <span>用户信息 {{ userInfo }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { userAuth } from "~/api/user";
 import { useMyThemeStore } from "~/store/theme";
 
 const drawerRef = ref(null);
@@ -119,13 +121,25 @@ const changeMode = () => {
   themeStore.theme === "light" ? themeStore.darkMode() : themeStore.lightMode();
 };
 
-const initUserInfo = () => {
-  useCookie();
+const userInfo = ref();
+
+const initUserInfo = async () => {
+  if (!!getUserAccessToken()) {
+    await userAuth()
+      .then((res) => {
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        removeUserInfo("");
+      });
+    userInfo.value = getUserInfo();
+  }
 };
 
 onMounted(() => {
   themeStore.initMode();
   document.addEventListener("scroll", throttleScroll);
+  initUserInfo();
 });
 onBeforeUnmount(() => {
   document.removeEventListener("scroll", throttleScroll);

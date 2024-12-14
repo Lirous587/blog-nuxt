@@ -3,6 +3,8 @@ const adminRefreshTokenKey = "adminRefreshToken";
 const userAccessTokenKey = "userAccessToken";
 const userRefreshTokenKey = "userRefreshToken";
 
+const userInfoKey = "useInfo";
+
 export const setAdminRefreshToken = (refreshToken) => {
   useCookie(adminRefreshTokenKey).value = refreshToken;
 };
@@ -22,11 +24,11 @@ export const getAdminAccessToken = () => {
 };
 
 export const removeAdminRefreshToken = () => {
-  useCookie(adminRefreshTokenKey).value = "";
+  useCookie(adminRefreshTokenKey).value = null;
 };
 
-export const removeAdminAccessToken = (token) => {
-  useCookie(adminAccessTokenKey).value = "";
+export const removeAdminAccessToken = () => {
+  useCookie(adminAccessTokenKey).value = null;
 };
 
 export const setUserRefreshToken = (refreshToken) => {
@@ -48,9 +50,21 @@ export const getUserAccessToken = () => {
 };
 
 export const removeUserRefreshToken = () => {
-  useCookie(userRefreshTokenKey).value = "";
+  useCookie(userRefreshTokenKey).value = null;
 };
 
-export const removeUserAccessToken = (token) => {
-  useCookie(userAccessTokenKey).value = "";
+export const removeUserAccessToken = () => {
+  useCookie(userAccessTokenKey).value = null;
+};
+
+export const setUserInfo = (info) => {
+  useCookie(userInfoKey).value = info;
+};
+
+export const getUserInfo = (info) => {
+  return useCookie(userInfoKey).value;
+};
+
+export const removeUserInfo = (info) => {
+  useCookie(userInfoKey).value = null;
 };
