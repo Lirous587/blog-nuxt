@@ -1,12 +1,15 @@
 <template>
   <div class="flex justify-center" v-if="pageConfim()">
     <!-- last -->
-    <NuxtLink
-      :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
-      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
-    >
-      <el-icon><ArrowLeft /></el-icon>
-    </NuxtLink>
+    <div :class="ifMin ? 'cursor-not-allowed' : ''">
+      <NuxtLink
+        :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
+        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
+        :class="ifMin ? 'pointer-events-none' : ''"
+      >
+        <el-icon><ArrowLeft /></el-icon>
+      </NuxtLink>
+    </div>
 
     <!-- middle -->
     <NuxtLink
@@ -23,12 +26,15 @@
     </NuxtLink>
 
     <!-- next -->
-    <NuxtLink
-      :to="preHref + '/' + Math.min(totalPage, currentPage + Number(1))"
-      class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
-    >
-      <el-icon><ArrowRight /></el-icon>
-    </NuxtLink>
+    <div :class="ifMax ? 'cursor-not-allowed' : ''">
+      <NuxtLink
+        :to="preHref + '/' + Math.min(totalPage, currentPage + Number(1))"
+        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
+        :class="ifMax ? 'cursor-not-allowed pointer-events-none' : ''"
+      >
+        <el-icon><ArrowRight /></el-icon>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -87,6 +93,14 @@ const initList = () => {
   return resultArr;
 };
 list.value = initList();
+
+const ifMin = computed(() => {
+  return currentPage === 1 ? true : false;
+});
+
+const ifMax = computed(() => {
+  return currentPage === props.totalPage ? true : false;
+});
 </script>
 
 <style scoped>
