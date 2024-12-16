@@ -85,6 +85,7 @@ const validationCodeTimer = () => {
     waitTime.value -= 1;
     if (waitTime.value === 0) {
       hasSentCode.value = false;
+      waitTime.value = 60;
       clearInterval(timer);
     }
   }, 1000);
@@ -92,17 +93,20 @@ const validationCodeTimer = () => {
 
 const validatePass = (rule, value, callback) => {
   if (value === "") {
-    callback(new Error("请输入密码"));
-  }
-  if (value.length > 30 || value.length < 6) {
-    callback(new Error("密码长度应在6-30之间"));
+    return callback(new Error("请输入密码"));
+  } else if (value.length > 30 || value.length < 6) {
+    return callback(new Error("密码长度应在6-30之间"));
+  } else if (form.rePassword !== "") {
+    if (!formRef.value) return;
+    formRef.value.validateField("rePassword");
   }
   callback();
 };
+
 const validateRepassword = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("请再次输入密码"));
-  } else if (form.rePassword !== form.password) {
+  } else if (value !== form.password) {
     callback(new Error("两次输入密码不一致"));
   } else if (value.length > 30 || value.length < 6) {
     callback(new Error("密码长度应在6-30之间"));
@@ -121,10 +125,10 @@ const rules = reactive({
   name: [
     {
       required: true,
-      message: "请输入昵称,宽度应在2-10之间",
+      message: "请输入昵称,宽度应在2-15之间",
       trigger: "blur",
       min: 2,
-      max: 10,
+      max: 15,
     },
   ],
   email: [
@@ -139,14 +143,18 @@ const rules = reactive({
     {
       required: true,
       validator: validatePass,
-      trigger: "blur",
+      trigger: "change",
     },
   ],
   rePassword: [
-    { required: true, validator: validateRepassword, trigger: "change" },
+    {
+      required: true,
+      validator: validateRepassword,
+      trigger: "blur",
+    },
   ],
   validationCode: [
-    { required: true, validator: validateValidationCode, trigger: "change" },
+    { required: true, validator: validateValidationCode, trigger: "blur" },
   ],
 });
 

@@ -1,15 +1,21 @@
 <template>
   <div class="flex flex-col items-center justify-center">
     <h1 class="text-xl font-bold my-3 dark:text-gray-400">登 录</h1>
-    <el-form class="pr-5 w-full" label-width="80px">
-      <el-form-item label="邮箱">
-        <el-input v-model="loginForm.email"></el-input>
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      class="pr-5 w-full"
+      label-width="80px"
+    >
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="form.email"></el-input>
       </el-form-item>
-      <el-form-item label="密码">
+      <el-form-item label="密码" prop="password">
         <el-input
           type="password"
           show-password
-          v-model="loginForm.password"
+          v-model="form.password"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -17,7 +23,8 @@
           class="w-[80%] mx-auto !rounded-3xl"
           size="large"
           type="success"
-          @click="handelLogin"
+          @click="sumbitLogin"
+          :loading="btnLoading"
           >登录
         </el-button>
       </el-form-item>
@@ -27,13 +34,38 @@
 
 <script setup>
 import { login } from "~/api/user";
-const loginForm = reactive({
+const form = reactive({
   email: "",
   password: "",
 });
 
+const router = useRouter();
+
+const btnLoading = ref(false);
+
+const formRef = ref(null);
+
+const rules = reactive({
+  email: [
+    {
+      required: true,
+      message: "请输入邮箱地址",
+      trigger: "blur",
+      type: "email",
+    },
+  ],
+  password: [
+    {
+      required: true,
+      message: "请输入密码",
+      trigger: "blur",
+    },
+  ],
+});
+
 const handelLogin = () => {
-  login(loginForm)
+  btnLoading.value = true;
+  login(form)
     .then((res) => {
       toast("登录成功");
       setUserAccessToken(res.data.token);
@@ -41,8 +73,22 @@ const handelLogin = () => {
       router.push("/");
     })
     .catch((err) => {
-      toast("账号或密码错误", "error");
+      ElMessage.error("账号或密码错误");
+    })
+    .finally(() => {
+      btnLoading.value = false;
     });
+};
+
+const sumbitLogin = () => {
+  if (!formRef) return;
+  formRef.value.validate((valid) => {
+    if (valid) {
+      handelLogin();
+    } else {
+      ElMessage.error("请正确填写账号信息");
+    }
+  });
 };
 </script>
 
