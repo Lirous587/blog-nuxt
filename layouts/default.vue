@@ -30,10 +30,12 @@ const route = useRoute();
 
 <style scoped>
 .sticky-aside {
-  /* 不适用sticky 更加美观 sticky max-h-[calc(100vh-60px)] */
   @apply float-left flex-shrink-0  overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;
+}
+:deep(.el-card) {
+  @apply !border-none bg-white dark:!bg-black  dark:!text-neutral-200;
 }
 </style>

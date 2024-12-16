@@ -8,7 +8,7 @@
       >登录</el-button
     >
     <div v-else>
-      <el-dropdown>
+      <el-dropdown :hide-on-click="false" trigger="click">
         <el-avatar :size="32" :src="imgPre + userInfo?.avatar"></el-avatar>
         <template #dropdown>
           <el-dropdown-menu>
@@ -18,14 +18,24 @@
             <el-dropdown-item @click="drawerRefForRetPwd.open()"
               >修改密码</el-dropdown-item
             >
-            <el-dropdown-item @click="handelLogout">退出登录</el-dropdown-item>
+            <el-dropdown-item>
+              <el-popconfirm
+                title="是否退出登录"
+                :hide-after="0"
+                confirm-button-text="确认"
+                cancel-button-text="取消"
+                @confirm="handelLogout"
+              >
+                <template #reference> 退出登录 </template>
+              </el-popconfirm>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
   </div>
 
-  <MyDrawer title="修改信息" ref="drawerRefForUpdateInfo">
+  <MyDrawer title="修改信息" size="320px" ref="drawerRefForUpdateInfo">
     <el-form :model="updateForm" label-width="80px">
       <el-form-item label="用户名">
         <el-input v-model="updateForm.name"></el-input>
@@ -40,7 +50,7 @@
       </el-form-item>
     </el-form>
   </MyDrawer>
-  <MyDrawer title="修改密码" ref="drawerRefForRetPwd">
+  <MyDrawer title="修改密码" size="320px" ref="drawerRefForRetPwd">
     <el-form :model="resetPwdForm" label-width="80px">
       <el-form-item label="密码">
         <el-input

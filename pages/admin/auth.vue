@@ -68,9 +68,8 @@ const handelLogin = () => {
   @apply flex w-[100vw] h-[100vh] bg-neutral-100  dark:bg-[black] overflow-hidden;
 }
 .main {
-  @apply flex flex-col  items-center justify-center m-auto rounded-xl overflow-hidden  transition-all duration-1000 
-      md:flex-row 
-      h-[540px]  md:h-[520px] w-[90vw] lg:w-[800px]
+  @apply flex flex-col  items-center justify-center m-auto rounded-xl overflow-hidden transition-all duration-1000 
+  w-[80vw]  md:h-[440px]  lg:w-[800px]
   backdrop-blur-sm backdrop-brightness-150 dark:shadow-xl dark:shadow-gray-600;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 1),
     10px 10px 10px rgba(0, 0, 0, 0.5), 15px 15px 15px rgba(0, 0, 0, 0.2),
