@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full h-[100vh]">
+  <div class="relative w-full h-[100vh] overflow-hidden">
     <div class="relative w-full h-full">
       <el-image :src="imgUrl" fit="cover" class="w-full h-full" />
 
