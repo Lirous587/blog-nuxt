@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-center">
     <h1 class="text-xl font-bold my-3 text-purple-300 dark:text-gray-400">
-      注 册
+      找回密码
     </h1>
     <el-form
       ref="formRef"
@@ -10,9 +10,6 @@
       class="pr-5 w-full"
       label-width="80px"
     >
-      <el-form-item label="昵称" prop="name" for="name">
-        <el-input v-model="form.name" name="name"></el-input>
-      </el-form-item>
       <el-form-item label="邮箱" prop="email" for="email">
         <el-input type="email" v-model="form.email" name="email" />
       </el-form-item>
@@ -21,7 +18,7 @@
           <template #suffix>
             <el-button
               :loading="sentCodeBtnLoading"
-              @click="handelSentSignupValidationCode"
+              @click="handelSentResetPwdValidationCode"
               size="small"
               :class="
                 hasSentCode ? 'pointer-events-none cursor-not-allowed' : ''
@@ -52,13 +49,13 @@
 
       <el-form-item>
         <el-button
-          :loading="signupBtnLoading"
+          :loading="resetPasswordBtnLoading"
           class="w-full mx-auto !rounded-3xl"
           size="large"
           type="primary"
           @click="sumbitSignup"
         >
-          注册
+          找回密码
         </el-button>
       </el-form-item>
     </el-form>
@@ -66,7 +63,7 @@
 </template>
 
 <script setup>
-import { sentSignupValidationCode, signup } from "~/api/user";
+import { sentResetPasswordValidationCode, resetPassword } from "~/api/user";
 
 const formRef = ref(null);
 
@@ -78,7 +75,7 @@ const form = reactive({
   rePassword: "",
 });
 
-const signupBtnLoading = ref(false);
+const resetPasswordBtnLoading = ref(false);
 
 const hasSentCode = ref(false);
 const waitTime = ref(60);
@@ -126,15 +123,6 @@ const validateValidationCode = (rule, value, callback) => {
 };
 
 const rules = reactive({
-  name: [
-    {
-      required: true,
-      message: "请输入昵称,宽度应在2-15之间",
-      trigger: "blur",
-      min: 2,
-      max: 15,
-    },
-  ],
   email: [
     {
       required: true,
@@ -166,14 +154,14 @@ const sumbitSignup = () => {
   if (!formRef) return;
   formRef.value.validate((valid) => {
     if (valid) {
-      handelSignup();
+      handelResetPwd();
     } else {
       ElMessage.error("信息填写有误");
     }
   });
 };
 
-const handelSentSignupValidationCode = async () => {
+const handelSentResetPwdValidationCode = async () => {
   let ok = false;
   let validate = formRef.value.validateField("email");
   await validate
@@ -185,7 +173,7 @@ const handelSentSignupValidationCode = async () => {
     });
   if (!ok) return;
   sentCodeBtnLoading.value = true;
-  sentSignupValidationCode(form)
+  sentResetPasswordValidationCode(form)
     .then(() => {
       hasSentCode.value = true;
       sentCodeBtnLoading.value = false;
@@ -196,21 +184,21 @@ const handelSentSignupValidationCode = async () => {
     });
 };
 
-const handelSignup = async () => {
-  signupBtnLoading.value = true;
-  await signup(form)
+const handelResetPwd = async () => {
+  resetPasswordBtnLoading.value = true;
+  await resetPassword(form)
     .then(() => {
-      toast("注册成功");
+      toast("重置密码成功");
       resetForm(form);
-      emits("signup");
+      emits("resetPassword");
     })
     .catch(() => {
-      toast("注册失败,身份验证错误", "error");
+      toast("重置密码失败,身份验证错误", "error");
     })
     .finally(() => {
-      signupBtnLoading.value = false;
+      resetPasswordBtnLoading.value = false;
     });
 };
 
-const emits = defineEmits(["signup"]);
+const emits = defineEmits(["resetPassword"]);
 </script>

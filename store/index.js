@@ -8,6 +8,8 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   const recommentEssayList = ref([]);
   const heartWordsList = ref([]);
 
+  const imgList = ref([]);
+
   const statisticsData = reactive({
     essay: {
       name: "文章",
@@ -31,7 +33,10 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
       recommentEssayList.value = data.essayList;
       labelList.value = data.labelList;
       kindList.value = data.kindList;
-      heartWordsList.value = data.heartWordsList;
+      heartWordsList.value = shuffleArray(data.heartWordsList);
+
+      imgList.value = heartWordsList.value.map((o) => o.img);
+
       statisticsData.label.count = labelList.value.length;
       statisticsData.kind.count = kindList.value.length;
       statisticsData.essay.count = kindList.value.reduce(
@@ -63,6 +68,10 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     return heartWordsList.value;
   };
 
+  const getImgList = () => {
+    return imgList.value;
+  };
+
   const getStatisticsData = () => {
     return statisticsData;
   };
@@ -73,6 +82,7 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     kindList,
     recommentEssayList,
     heartWordsList,
+    imgList,
     statisticsData,
     initData,
     getInitStatus,
@@ -80,6 +90,7 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     getKindList,
     getRecommentEssayList,
     getHeartWordsList,
+    getImgList,
     getStatisticsData,
   };
 });

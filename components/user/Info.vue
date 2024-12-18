@@ -40,10 +40,10 @@
       :rules="updateInfoRules"
       label-width="80px"
     >
-      <el-form-item label="用户名" prop="name">
+      <el-form-item label="用户名" prop="name" for="name">
         <el-input v-model="updateInfoForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="头像">
+      <el-form-item label="头像" for="avatar">
         <el-input v-model="updateInfoForm.avatar"></el-input>
       </el-form-item>
       <el-form-item>
@@ -62,16 +62,18 @@
     >
       <el-form-item label="密码" prop="password">
         <el-input
-          type="password"
-          show-password
           v-model="updatePwdForm.password"
+          type="password"
+          name="password"
+          show-password
         ></el-input>
       </el-form-item>
       <el-form-item label="重复密码" prop="rePassword">
         <el-input
+          v-model="updatePwdForm.rePassword"
           type="password"
           show-password
-          v-model="updatePwdForm.rePassword"
+          name="rePassword"
         ></el-input>
       </el-form-item>
       <el-form-item>

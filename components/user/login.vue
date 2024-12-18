@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center">
-    <h1 class="text-xl font-bold my-3 dark:text-gray-400">登 录</h1>
+    <h1 class="text-xl font-bold my-3 text-yellow-500 dark:text-gray-400">
+      登 录
+    </h1>
     <el-form
       ref="formRef"
       :model="form"
@@ -8,19 +10,20 @@
       class="pr-5 w-full"
       label-width="80px"
     >
-      <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email"></el-input>
+      <el-form-item label="邮箱" prop="email" for="email">
+        <el-input v-model="form.email" name="email"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item label="密码" prop="password" for="password">
         <el-input
+          v-model="form.password"
           type="password"
           show-password
-          v-model="form.password"
+          name="password"
         ></el-input>
       </el-form-item>
       <el-form-item>
         <el-button
-          class="w-[80%] mx-auto !rounded-3xl"
+          class="w-full mx-auto !rounded-3xl"
           size="large"
           type="success"
           @click="sumbitLogin"

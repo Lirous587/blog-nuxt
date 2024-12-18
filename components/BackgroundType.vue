@@ -1,12 +1,7 @@
 <template>
-  <div ref="contaninerRef" class="relative w-full h-[100vh]">
+  <div class="relative w-full h-[100vh]">
     <div class="relative w-full h-full">
-      <el-image
-        :src="imgUrl"
-        fit="cover"
-        class="w-full h-full"
-        @load="imgLoad"
-      />
+      <el-image :src="imgUrl" fit="cover" class="w-full h-full" />
 
       <div
         class="absolute inset-0 bg-black bg-opacity-50 pointer-events-none hidden dark:block"
@@ -14,7 +9,6 @@
     </div>
     <div
       class="absolute inset-0 top-[50%] translate-y-[-50%] flex flex-col justify-center items-center"
-      v-show="loading"
     >
       <TypeWriter
         class="p-3 rounded-xl text-xl text-neutral-300 text-opacity-60 bg-black bg-opacity-40 mb-5"
@@ -52,30 +46,12 @@ const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const indexStore = useMyIndexStore();
 
-const backgoundData = indexStore.getHeartWordsList().map((item) => {
-  return {
-    img: imgPre + item.img.url,
-    sentence: item.content,
-  };
-});
+const list = indexStore.getHeartWordsList();
 
-const imgList = ref([]);
-imgList.value = backgoundData.map((item) => item.img);
-
-const imgUrl = ref(
-  imgList.value[Math.floor(Math.random() * imgList.value.length)]
-);
-
-const loading = ref(false);
-const imgLoad = () => {
-  loading.value = true;
-};
+const imgUrl = ref(imgPre + list[0]?.img.url);
 
 const sentenceList = ref([]);
-
-sentenceList.value = shuffleArray(backgoundData.map((item) => item.sentence));
-
-const contaninerRef = ref(null);
+sentenceList.value = list.map((item) => item.content);
 
 const scrollToMain = () => {
   const height = window.innerHeight;
