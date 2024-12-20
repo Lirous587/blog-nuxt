@@ -1,13 +1,13 @@
 <template>
   <div>
-    
+    <SliderValidation></SliderValidation>
   </div>
 </template>
 
-<script lang="ts" setup>
-
+<script setup>
+definePageMeta({
+  middleware: "index-data",
+});
 </script>
 
-<style>
-
-</style>
+<style></style>

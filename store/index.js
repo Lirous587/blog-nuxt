@@ -7,7 +7,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   const kindList = ref([]);
   const recommentEssayList = ref([]);
   const heartWordsList = ref([]);
-
   const imgList = ref([]);
 
   const statisticsData = reactive({
@@ -34,7 +33,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
       labelList.value = data.labelList;
       kindList.value = data.kindList;
       heartWordsList.value = shuffleArray(data.heartWordsList);
-
       imgList.value = heartWordsList.value.map((o) => o.img);
 
       statisticsData.label.count = labelList.value.length;
