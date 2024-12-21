@@ -35,5 +35,5 @@ export function userAuth() {
 }
 
 export function userUploadImg(formData) {
-  return api.post("/user/uploadImg", formData, "user");
+  return clientApi.post("/user/uploadImg", formData, "user");
 }

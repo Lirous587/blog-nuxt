@@ -40,15 +40,22 @@
       :rules="updateInfoRules"
       label-width="80px"
     >
-      <el-form-item label="用户名" prop="name" for="name">
-        <el-input v-model="updateInfoForm.name"></el-input>
-      </el-form-item>
       <el-form-item label="头像" for="avatar">
         <UploadImg
-          v-model="updateInfoForm.avatar"
+          v-model:imgUrl="updateInfoForm.avatar"
           auth-mode="user"
           ref="uploadImgRef"
-        ></UploadImg>
+        >
+          <template #default>
+            <el-avatar :size="48" :src="imgPre + userInfo?.avatar"></el-avatar>
+          </template>
+          <template #preview="previewProps">
+            <el-avatar :size="48" :src="previewProps.previewUrl"></el-avatar>
+          </template>
+        </UploadImg>
+      </el-form-item>
+      <el-form-item label="用户名" prop="name" for="name">
+        <el-input v-model="updateInfoForm.name"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="success" @click="submitUpdateInfo">
@@ -172,12 +179,11 @@ const updateInfoPre = () => {
   drawerRefForUpdateInfo.value.open();
 };
 
-const submitUpdateInfo = () => {
+const submitUpdateInfo = async () => {
   if (!updateInfoFormRef) return;
   updateInfoFormRef.value.validate((valid) => {
     if (valid) {
       handelUpdateInfo();
-      uploadImgRef.value.submitUpload();
     }
   });
 };
@@ -192,9 +198,11 @@ const submitUpdatePwd = () => {
 };
 
 const handelUpdateInfo = async () => {
+  await uploadImgRef.value.upload();
   await updateMsg(updateInfoForm)
     .then((res) => {
       toast("修改信息成功");
+      updateaUserInfo();
     })
     .catch((err) => {
       toast(err, "error");
@@ -222,6 +230,15 @@ const handelLogout = async () => {
 };
 
 const initUserInfo = async () => {
+  if (!!getUserAccessToken()) {
+    await userAuth().then((res) => {
+      setUserInfo(res.data);
+    });
+    userInfo.value = getUserInfo();
+  }
+};
+
+const updateaUserInfo = async () => {
   if (!!getUserAccessToken()) {
     await userAuth().then((res) => {
       setUserInfo(res.data);

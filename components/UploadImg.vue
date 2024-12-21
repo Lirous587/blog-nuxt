@@ -8,8 +8,8 @@
       class="hidden"
     />
     <div @click="triggerFileInput">
-      <slot name="preview" :previewUrl="previewUrl"> </slot>
-      <slot name="default"></slot>
+      <slot name="default" v-if="!previewUrl"></slot>
+      <slot name="preview" v-else :previewUrl="previewUrl"> </slot>
     </div>
   </div>
 </template>

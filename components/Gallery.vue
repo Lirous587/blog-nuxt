@@ -53,7 +53,14 @@
               auth-mode="admin"
               v-model:imgUrl="galleryForm.imgUrl"
             >
-              <template #default> </template>
+              <template #default>
+                <div
+                  class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+                >
+                 
+                  <el-icon><Plus /></el-icon>
+                </div>
+              </template>
               <template #preview="previewProps">
                 <div
                   class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
