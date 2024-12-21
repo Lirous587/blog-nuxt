@@ -57,7 +57,6 @@ const upload = async () => {
   if (!file) return;
   const formData = new FormData();
   formData.append("img", file);
-  await uploadAuth.value();
   await uploadApi.value(formData).then((res) => {
     imgUrl.value = res.data;
   });

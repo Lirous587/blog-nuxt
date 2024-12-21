@@ -1,5 +1,3 @@
-import { adminAuth } from "~/api/admin";
-
 // 不需要进行服务端渲染
 const apiCore = (url, opt, authType) => {
   const config = useRuntimeConfig();
@@ -90,14 +88,15 @@ const apiCore = (url, opt, authType) => {
       .then((res) => {
         resolve(res);
       })
-      .catch(async (err) => {
+      .catch((err) => {
         const errCode = err.statusCode;
         const errData = err?.data;
         const errDataString = JSON.stringify(errData);
-
+        console.log(err);
+        console.dir(err);
         if (errCode === 401) {
           if (refreshToken && accessToken) {
-            await fetchWithRefreshToken()
+            fetchWithRefreshToken()
               .then((res) => {
                 resolve(res);
               })
