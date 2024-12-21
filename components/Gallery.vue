@@ -48,16 +48,11 @@
       <div v-else>
         <el-form :model="galleryForm">
           <el-form-item>
-            <UploadImg
-              ref="uploadRef"
-              auth-mode="admin"
-              v-model:imgUrl="galleryForm.imgUrl"
-            >
+            <UploadImg v-model:imgData="galleryForm.imgData">
               <template #default>
                 <div
                   class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
                 >
-                 
                   <el-icon><Plus /></el-icon>
                 </div>
               </template>
@@ -91,7 +86,6 @@ import { createGalleryKind } from "~/api/galleryKind";
 
 const asideRef = ref(null);
 const mainRef = ref(null);
-const uploadRef = ref(null);
 
 const props = defineProps({
   oID: {
@@ -112,7 +106,7 @@ const kindForm = reactive({
 
 const galleryForm = reactive({
   kindID: kindID.value,
-  imgUrl: "",
+  imgData: null,
 });
 
 const drawerRef = ref(null);
@@ -138,17 +132,21 @@ const handelCreateKind = () => {
 };
 
 const handelUploadPre = () => {
-  galleryForm.imgUrl = "";
   drawerData.title = "上传图片";
   drawerData.type = "img";
   drawerRef.value.open();
 };
 
 const handelUpload = async () => {
-  await uploadRef.value.upload();
-  console.log(galleryForm.imgUrl);
   galleryForm.kindID = kindID.value;
-  createGallery(galleryForm).then(() => {
+  const formData = new FormData();
+  formData.append("img", galleryForm.imgData);
+  console.log(galleryForm.imgData);
+  formData.append(
+    "info",
+    JSON.stringify({ ...galleryForm, imgData: undefined })
+  );
+  await createGallery(formData).then(() => {
     mainRef.value.getList();
   });
   drawerRef.value.close();
