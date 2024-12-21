@@ -33,3 +33,7 @@ export function sentResetPasswordValidationCode(form) {
 export function userAuth() {
   return clientApi.get("/user/info", "user");
 }
+
+export function userUploadImg(formData) {
+  return api.post("/user/uploadImg", formData, "user");
+}

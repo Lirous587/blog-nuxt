@@ -100,14 +100,17 @@ const apiCore = async (url, opt, authType) => {
                 resolve(res);
               })
               .catch((err) => {
-                if (authType === "admin") {
-                  removeAdminAuth();
-                } else {
-                  removeUserAuth();
+                if (err.msg === "需要登录") {
+                  if (authType === "admin") {
+                    removeAdminAuth();
+                  } else {
+                    removeUserAuth();
+                  }
+                  nuxtApp.runWithContext(() => {
+                    navigateTo("/");
+                  });
                 }
-                nuxtApp.runWithContext(() => {
-                  navigateTo("/");
-                });
+
                 toast(errDataString || "未知错误", "error");
                 reject(errData || err);
               });

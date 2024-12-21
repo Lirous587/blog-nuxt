@@ -1,3 +1,5 @@
+import path from "path";
+import fs from "fs";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
@@ -8,19 +10,19 @@ export default defineNuxtConfig({
     // cdnURL: "https://cdn.jsdelivr.net/npm/",
   },
   devServer: {
-    // port: 80,
+    port: 3000,
     // https: {
-    //   key: "./ssl/server.key",
-    //   cert: "./ssl/server.crt",
+    //   key: "./ssl/localhost-key.pem",
+    //   cert: "./ssl/localhost.pem",
     // },
   },
   runtimeConfig: {
     // Keys within public are also exposed client-side
     public: {
-      apiBase: "http://123.207.217.103:8080/api",
-      imgBase: "http://123.207.217.103:8080/api/img",
-      // apiBase: "http://127.0.0.1:8080/api",
-      // imgBase: "http://127.0.0.1:8080/api/img",
+      // apiBase: "http://123.207.217.103:8080/api",
+      // imgBase: "http://123.207.217.103:8080/api/img",
+      apiBase: "http://127.0.0.1:8080/api",
+      imgBase: "http://127.0.0.1:8080/api/img",
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],
@@ -42,5 +44,8 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  nitro: {
+    routeRules: {},
   },
 });

@@ -50,8 +50,22 @@
           <el-form-item>
             <UploadImg
               ref="uploadRef"
+              auth-mode="admin"
               v-model:imgUrl="galleryForm.imgUrl"
-            ></UploadImg>
+            >
+              <template #default> </template>
+              <template #preview="previewProps">
+                <div
+                  class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+                >
+                  <el-image
+                    v-if="previewProps.previewUrl"
+                    :src="previewProps.previewUrl"
+                  />
+                  <el-icon v-else><Plus /></el-icon>
+                </div>
+              </template>
+            </UploadImg>
           </el-form-item>
           <el-form-item>
             <el-button class="mt-3" type="primary" @click="handelUpload">
@@ -123,8 +137,9 @@ const handelUploadPre = () => {
   drawerRef.value.open();
 };
 
-const handelUpload = () => {
-  uploadRef.value.submitUpload();
+const handelUpload = async () => {
+  await uploadRef.value.upload();
+  console.log(galleryForm.imgUrl);
   galleryForm.kindID = kindID.value;
   createGallery(galleryForm).then(() => {
     mainRef.value.getList();

@@ -44,7 +44,11 @@
         <el-input v-model="updateInfoForm.name"></el-input>
       </el-form-item>
       <el-form-item label="头像" for="avatar">
-        <el-input v-model="updateInfoForm.avatar"></el-input>
+        <UploadImg
+          v-model="updateInfoForm.avatar"
+          auth-mode="user"
+          ref="uploadImgRef"
+        ></UploadImg>
       </el-form-item>
       <el-form-item>
         <el-button type="success" @click="submitUpdateInfo">
@@ -92,6 +96,8 @@ const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const drawerRefForUpdateInfo = ref(null);
 const drawerRefForRetPwd = ref(null);
+
+const uploadImgRef = ref(null);
 
 const userInfo = ref(null);
 
@@ -171,6 +177,7 @@ const submitUpdateInfo = () => {
   updateInfoFormRef.value.validate((valid) => {
     if (valid) {
       handelUpdateInfo();
+      uploadImgRef.value.submitUpload();
     }
   });
 };

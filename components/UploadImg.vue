@@ -1,71 +1,69 @@
 <template>
-  <el-upload
-    ref="upload"
-    name="img"
-    :action="apiBase + '/admin/uploadImg'"
-    :limit="1"
-    :show-file-list="false"
-    :on-exceed="handleExceed"
-    :auto-upload="false"
-    :on-change="handelChange"
-    list-type="picture-card"
-    :headers="{
-      Authorization: token,
-    }"
-    class="overflow-hidden"
-  >
-    <el-image
-      v-if="preview_url.length > 0 || imgUrl"
-      :src="preview_url ? preview_url : imgPre + imgUrl"
-      lazy
-      loading="lazy"
-    ></el-image>
-    <el-icon v-else>
-      <Plus />
-    </el-icon>
-  </el-upload>
+  <div>
+    <input
+      type="file"
+      ref="fileInput"
+      @change="handleFileChange"
+      accept="image/*"
+      class="hidden"
+    />
+    <div @click="triggerFileInput">
+      <slot name="preview" :previewUrl="previewUrl"> </slot>
+      <slot name="default"></slot>
+    </div>
+  </div>
 </template>
 
 <script setup>
-const config = useRuntimeConfig();
-const apiBase = config.public.apiBase;
-const imgPre = config.public.imgBase + "/";
-const upload = ref(null);
+import { adminAuth, adminUploadImg } from "~/api/admin";
+import { userAuth, userUploadImg } from "~/api/user";
+
+const props = defineProps({
+  authMode: {
+    type: String,
+    default: "admin",
+  },
+});
 
 const imgUrl = defineModel("imgUrl", {
   type: String,
-  require: true,
+  required: true,
 });
 
-const token = `Bearer ${getAdminAccessToken()}`;
+const previewUrl = ref("");
+const fileInput = ref(null);
 
-const handleExceed = (files) => {
-  upload.value.clearFiles();
-  const file = files[0];
-  upload.value.handleStart(file);
+const triggerFileInput = () => {
+  fileInput.value.click();
 };
 
-const preview_url = ref("");
+const uploadApi = computed(() => {
+  return props.authMode === "admin" ? adminUploadImg : userUploadImg;
+});
 
-const handelChange = (uploadFile, uploadFiles) => {
-  const sanitizedFileName = uploadFile.name.replace(/\s+/g, "_");
-  imgUrl.value = sanitizedFileName;
-  preview_url.value = uploadFile.url;
+const uploadAuth = computed(() => {
+  return props.authMode === "admin" ? adminAuth : userAuth;
+});
+
+const handleFileChange = async () => {
+  const file = fileInput.value.files[0];
+  if (!file) return;
+  // 创建预览URL
+  previewUrl.value = URL.createObjectURL(file);
 };
 
-const submitUpload = () => {
-  upload.value.submit();
-  toast("上传成功");
+const upload = async () => {
+  const file = fileInput.value.files[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append("img", file);
+  await uploadAuth.value();
+  await uploadApi.value(formData).then((res) => {
+    imgUrl.value = res.data;
+  });
 };
 
 defineExpose({
-  submitUpload,
+  upload,
 });
 </script>
-
-<style scoped>
-:deep(.el-upload--picture-card) {
-  --el-upload-picture-card-size: 250px;
-  @apply dark:bg-black;
-}
-</style>

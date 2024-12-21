@@ -1,5 +1,7 @@
+import { adminAuth } from "~/api/admin";
+
 // 不需要进行服务端渲染
-const apiCore = async (url, opt, authType) => {
+const apiCore = (url, opt, authType) => {
   const config = useRuntimeConfig();
 
   const baseURL = config.public.apiBase;
@@ -70,10 +72,10 @@ const apiCore = async (url, opt, authType) => {
     });
   };
 
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     $fetch(url, {
       method: opt.method || "get",
-      retry: false,
+      retry: true,
       baseURL: baseURL,
       onRequest({ options }) {
         if (accessToken) {
@@ -95,19 +97,22 @@ const apiCore = async (url, opt, authType) => {
 
         if (errCode === 401) {
           if (refreshToken && accessToken) {
-            fetchWithRefreshToken()
+            await fetchWithRefreshToken()
               .then((res) => {
                 resolve(res);
               })
               .catch((err) => {
-                if (authType === "admin") {
-                  removeAdminAuth();
-                } else {
-                  removeUserAuth();
+                if (err.msg === "需要登录") {
+                  if (authType === "admin") {
+                    removeAdminAuth();
+                  } else {
+                    removeUserAuth();
+                  }
+                  nuxtApp.runWithContext(() => {
+                    navigateTo("/");
+                  });
                 }
-                nuxtApp.runWithContext(() => {
-                  navigateTo("/");
-                });
+
                 toast(errDataString || "未知错误", "error");
                 reject(errData || err);
               });
