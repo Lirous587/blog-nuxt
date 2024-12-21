@@ -141,7 +141,6 @@ const handelUpload = async () => {
   galleryForm.kindID = kindID.value;
   const formData = new FormData();
   formData.append("img", galleryForm.imgData);
-  console.log(galleryForm.imgData);
   formData.append(
     "info",
     JSON.stringify({ ...galleryForm, imgData: undefined })

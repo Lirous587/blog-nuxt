@@ -22,7 +22,7 @@
             class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
             size="small"
           >
-            <span class="ml-2"> {{ item.url }}</span>
+            <span class="ml-2 text-red-950"> {{ item.imgUrl }}</span>
           </div>
           <div class="flex justify-evenly">
             <el-checkbox
@@ -33,6 +33,13 @@
               @change="handelSelectOne(index)"
             ></el-checkbox>
 
+            <el-button
+              size="small"
+              text="true"
+              type="warning"
+              @click="handelUpdatePre(item)"
+              >更新</el-button
+            >
             <el-popconfirm
               title="确定删除图片?"
               confirm-button-text="确定"
@@ -48,6 +55,31 @@
           </div>
         </div>
       </div>
+      <MyDrawer ref="updateImgDrawerRef" title="更新图片内容">
+        <div class="flex flex-col items-start gap-y-5">
+          <UploadImg v-model:imgData="updateForm.imgData">
+            <template #default>
+              <div
+                class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+              >
+                <el-icon><Plus /></el-icon>
+              </div>
+            </template>
+            <template #preview="previewProps">
+              <div
+                class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+              >
+                <el-image
+                  v-if="previewProps.previewUrl"
+                  :src="previewProps.previewUrl"
+                />
+                <el-icon v-else><Plus /></el-icon>
+              </div>
+            </template>
+          </UploadImg>
+          <el-button type="success" @click="handelUpdate">更新</el-button>
+        </div>
+      </MyDrawer>
     </div>
 
     <div class="my-5 flex justify-center">
@@ -67,7 +99,7 @@
   </div>
 </template>
 <script setup>
-import { deleteGallery, getGalleryList } from "~/api/gallery";
+import { deleteGallery, getGalleryList, updateGallery } from "~/api/gallery";
 
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 
@@ -93,7 +125,7 @@ const queryParams = reactive({
   pageSize: 10,
 });
 
-const getList = async () => {
+const getList = async (id) => {
   list.value = [];
   loading.value = true;
   await getGalleryList(queryParams)
@@ -102,6 +134,13 @@ const getList = async () => {
       list.value = data.list.map((o) => {
         if (o.id === props.oID) {
           return { ...o, checked: true };
+        }
+        if (o.id === id) {
+          return {
+            ...o,
+            checked: false,
+            imgUrl: o.imgUrl + `?random=` + Math.floor(10000 * Math.random()),
+          };
         }
         return { ...o, checked: false };
       });
@@ -117,6 +156,30 @@ const getList = async () => {
 const handelDelete = async (id) => {
   await deleteGallery(id);
   getList();
+};
+
+const updateForm = reactive({
+  id: null,
+  imgData: null,
+});
+const updateImgDrawerRef = ref(null);
+
+const handelUpdatePre = (item) => {
+  updateForm.id = item.id;
+  updateImgDrawerRef.value.open();
+};
+
+const handelUpdate = async () => {
+  const formData = new FormData();
+  formData.append("img", updateForm.imgData);
+  formData.append(
+    "info",
+    JSON.stringify({ ...updateForm, imgData: undefined })
+  );
+  await updateGallery(formData).then(() => {
+    getList(updateForm.id);
+  });
+  updateImgDrawerRef.value.close();
 };
 
 const changePage = async (page) => {
