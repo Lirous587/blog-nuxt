@@ -15,6 +15,13 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  sizeLimit: {
+    type: String,
+    default: "1MB",
+  },
+});
+
 const imgData = defineModel("imgData", {
   type: Object,
   required: true,
@@ -30,7 +37,26 @@ const triggerFileInput = () => {
 const handleFileChange = async () => {
   const file = fileInput.value.files[0];
   if (!file) return;
-  previewUrl.value = URL.createObjectURL(file);
+  // 获取文件大小限制
+  const sizeLimitInBytes = parseSizeLimit(props.sizeLimit);
   imgData.value = file;
+  // 检查文件大小
+  if (file.size > sizeLimitInBytes) {
+    ElMessage.warning(`文件大小不能超过 ${props.sizeLimit}`);
+    fileInput.value.value = ""; // 清空文件选择
+    return;
+  }
+  previewUrl.value = URL.createObjectURL(file);
+};
+// 解析大小限制字符串
+const parseSizeLimit = (sizeLimit) => {
+  const size = parseInt(sizeLimit, 10);
+  if (sizeLimit.endsWith("MB")) {
+    return size * 1024 * 1024;
+  } else if (sizeLimit.endsWith("KB")) {
+    return size * 1024;
+  } else {
+    return size;
+  }
 };
 </script>

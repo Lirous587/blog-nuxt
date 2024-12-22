@@ -23,9 +23,9 @@
               :class="
                 hasSentCode ? 'pointer-events-none cursor-not-allowed' : ''
               "
-              :type="hasSentCode ? 'info' : 'success'"
+              :type="hasSentCode ? 'warning' : 'success'"
             >
-              {{ hasSentCode ? `请${waitTime}s后再次发送` : "获取验证码" }}
+              {{ hasSentCode ? `${waitTime}s` : "获取" }}
             </el-button>
           </template>
         </el-input>

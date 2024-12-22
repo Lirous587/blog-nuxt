@@ -41,11 +41,7 @@
       label-width="80px"
     >
       <el-form-item label="头像" for="avatar">
-        <UploadImg
-          v-model:imgUrl="updateInfoForm.avatar"
-          auth-mode="user"
-          ref="uploadImgRef"
-        >
+        <UploadImg v-model:imgData="updateInfoForm.imgData">
           <template #default>
             <el-avatar :size="48" :src="imgPre + userInfo?.avatar"></el-avatar>
           </template>
@@ -54,6 +50,7 @@
           </template>
         </UploadImg>
       </el-form-item>
+
       <el-form-item label="用户名" prop="name" for="name">
         <el-input v-model="updateInfoForm.name"></el-input>
       </el-form-item>
@@ -113,6 +110,7 @@ const updatePwdFormRef = ref(null);
 const updateInfoForm = reactive({
   name: "",
   avatar: "",
+  imgData: null,
 });
 const updatePwdForm = reactive({
   password: "",

@@ -10,6 +10,19 @@
       class="pr-5 w-full"
       label-width="80px"
     >
+      <el-form-item label="头像" prop="imgData" for="imgData">
+        <UploadImg v-model:imgData="form.imgData" size-limit="2MB">
+          <template #default>
+            <div class="flex items-center justify-center gap-x-2">
+              <el-avatar size="large"></el-avatar>
+              <small>请上传图片,内容大小不得超过2MB</small>
+            </div>
+          </template>
+          <template #preview="previewProps">
+            <el-avatar size="large" :src="previewProps.previewUrl"></el-avatar>
+          </template>
+        </UploadImg>
+      </el-form-item>
       <el-form-item label="昵称" prop="name" for="name">
         <el-input v-model="form.name" name="name"></el-input>
       </el-form-item>
@@ -26,9 +39,9 @@
               :class="
                 hasSentCode ? 'pointer-events-none cursor-not-allowed' : ''
               "
-              :type="hasSentCode ? 'info' : 'success'"
+              :type="hasSentCode ? 'warning' : 'success'"
             >
-              {{ hasSentCode ? `请${waitTime}s后再次发送` : "获取验证码" }}
+              {{ hasSentCode ? `${waitTime}s` : "获取" }}
             </el-button>
           </template>
         </el-input>
@@ -71,6 +84,7 @@ import { sentSignupValidationCode, signup } from "~/api/user";
 const formRef = ref(null);
 
 const form = reactive({
+  imgData: null,
   name: "",
   email: "",
   validationCode: "",
@@ -126,6 +140,13 @@ const validateValidationCode = (rule, value, callback) => {
 };
 
 const rules = reactive({
+  imgData: [
+    {
+      required: true,
+      message: "请上传图片,内容大小不得超过2MB",
+      trigger: "blur",
+    },
+  ],
   name: [
     {
       required: true,
@@ -198,7 +219,10 @@ const handelSentSignupValidationCode = async () => {
 
 const handelSignup = async () => {
   signupBtnLoading.value = true;
-  await signup(form)
+  const formData = new FormData();
+  formData.append("img", form.imgData);
+  formData.append("info", JSON.stringify({ ...form, imgData: undefined }));
+  await signup(formData)
     .then(() => {
       toast("注册成功");
       resetForm(form);

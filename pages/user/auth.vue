@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="flex w-[100vw] h-[100vh] bg-neutral-100 dark:bg-[black]">
     <UserNavHeader> </UserNavHeader>
-    <div class="outter">
-      <div class="main py-5">
+    <div class="m-auto">
+      <div class="main py-10 px-10">
         <Transition name="left" mode="out-in">
           <UserLogin
             v-if="isLogin && !isResetPwd"
@@ -72,11 +72,9 @@ const toLogin = () => {
   isResetPwd.value = false;
   isLogin.value = true;
 };
-
 const mobileHeight = computed(() => {
   return isLogin.value ? "540px" : "420px";
 });
-
 const handelSignup = () => {
   isLogin.value = true;
 };
@@ -88,19 +86,16 @@ const handelResetPWd = () => {
 
 <style scoped>
 .broad {
-  @apply w-[80vw]  md:w-[420px] flex flex-col items-center justify-center;
+  @apply min-w-[420px] w-[80vw]  md:w-[420px] flex flex-col items-center justify-center;
 }
 
 .narrow {
-  @apply w-[80vw] md:w-[340px] flex flex-col items-center justify-center;
+  @apply min-w-[340px] w-[80vw] md:w-[340px] flex flex-col items-center justify-center;
 }
 
-.outter {
-  @apply flex w-[100vw] h-[100vh] bg-neutral-100  dark:bg-[black];
-}
 .main {
-  @apply flex flex-col  items-center justify-center m-auto rounded-xl transition-all duration-1000  
-   min-h-[v-bind(mobileHeight)]  md:flex-row md:h-[520px] w-[90vw] lg:w-[800px]
+  @apply flex flex-col items-center justify-center rounded-xl transition-all duration-500  
+  min-h-[v-bind(mobileHeight)]  md:flex-row lg:w-[800px]
   backdrop-blur-sm backdrop-brightness-150 dark:shadow-xl dark:shadow-gray-600;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 1),
     10px 10px 10px rgba(0, 0, 0, 0.5), 15px 15px 15px rgba(0, 0, 0, 0.2),
