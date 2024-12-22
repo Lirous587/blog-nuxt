@@ -101,7 +101,7 @@
 <script setup>
 import { deleteGallery, getGalleryList, updateGallery } from "~/api/gallery";
 
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 
 const props = defineProps({
   kindID: {

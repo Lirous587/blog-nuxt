@@ -16,7 +16,7 @@
 
 <script setup>
 const config = useRuntimeConfig();
-const imgPre = config.public.imgBase + "/";
+const imgPre = config.public.imgGalleryBase + "/";
 
 const props = defineProps({
   imgUrl: {

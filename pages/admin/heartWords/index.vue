@@ -120,10 +120,10 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="图片">
-          <ImgPreview
+          <AdminImgPreview
             @click="dialogRef.open()"
             :imgUrl="form.img?.url"
-          ></ImgPreview>
+          ></AdminImgPreview>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -158,7 +158,7 @@ definePageMeta({
 });
 
 const config = useRuntimeConfig();
-const imgPre = config.public.imgBase + "/";
+const imgPre = config.public.imgGalleryBase + "/";
 
 provide("select", true);
 

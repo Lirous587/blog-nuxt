@@ -51,7 +51,7 @@ for (const key in nowKind) {
   }
 }
 
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 
 useSeoMeta({
   title: nowKind.name,

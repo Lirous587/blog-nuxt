@@ -41,6 +41,8 @@ const apiCore = (url, opt, authType) => {
           accessToken = newAccessToken;
         })
         .catch((err) => {
+          console.log("第一次错误");
+          console.log(err);
           const errData = err?.data;
           reject(errData || err);
         });
@@ -64,6 +66,8 @@ const apiCore = (url, opt, authType) => {
           resolve(res);
         })
         .catch((err) => {
+          console.log("第二次错误");
+          console.log(err);
           const errData = err?.data;
           reject(errData || err);
         });
@@ -92,8 +96,6 @@ const apiCore = (url, opt, authType) => {
         const errCode = err.statusCode;
         const errData = err?.data;
         const errDataString = JSON.stringify(errData);
-        console.log(err);
-        console.dir(err);
         if (errCode === 401) {
           if (refreshToken && accessToken) {
             fetchWithRefreshToken()
@@ -111,9 +113,8 @@ const apiCore = (url, opt, authType) => {
                     navigateTo("/");
                   });
                 }
-
-                toast(errDataString || "未知错误", "error");
-                reject(errData || err);
+                toast(err?.msg || "未知错误", "error");
+                reject(err);
               });
           }
           return;

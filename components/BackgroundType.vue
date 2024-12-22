@@ -42,7 +42,7 @@
 <script setup>
 import { useMyIndexStore } from "~/store";
 
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 
 const indexStore = useMyIndexStore();
 

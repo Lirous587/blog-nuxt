@@ -36,8 +36,7 @@
 </template>
 
 <script setup>
-const imgPre = useRuntimeConfig().public.imgBase + "/";
-// const imgUrlArr = ref(["https://liuzihao.online:8080/api/img/6.png"]);
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 const props = defineProps({
   list: {
     type: Array,

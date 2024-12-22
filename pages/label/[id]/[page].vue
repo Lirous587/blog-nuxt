@@ -47,7 +47,7 @@ for (const key in nowLabel) {
   }
 }
 
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 
 useSeoMeta({
   title: nowLabel.name,

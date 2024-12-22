@@ -43,7 +43,7 @@
       </el-form-item>
 
       <el-form-item label="文章图片">
-        <ImgPreview @click="chooseImg" :imgUrl="form.img?.url"></ImgPreview>
+        <AdminImgPreview @click="chooseImg" :imgUrl="form.img?.url"></AdminImgPreview>
       </el-form-item>
 
       <el-form-item label="关键词">

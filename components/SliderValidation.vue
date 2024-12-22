@@ -15,7 +15,7 @@ import { useMyIndexStore } from "~/store";
 definePageMeta({
   middleware: "index-data",
 });
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
 

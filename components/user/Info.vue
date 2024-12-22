@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-center">
     <el-button
-      v-if="!userInfo"
+      v-if="!ifLogin"
       type="primary"
       size="small"
       @click="router.push('/user/auth')"
@@ -98,10 +98,12 @@
 <script setup>
 import { logout, updateMsg, updatePassword, getUserInfo } from "~/api/user";
 const router = useRouter();
-const imgPre = useRuntimeConfig().public.imgBase + "/";
+const imgPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
 const drawerRefForUpdateInfo = ref(null);
 const drawerRefForRetPwd = ref(null);
+
+const ifLogin = ref(false);
 
 const userInfo = reactive({
   name: "",
@@ -250,6 +252,7 @@ const initUserInfo = async () => {
         userInfo[key] = info[key];
       }
     }
+    ifLogin.value = true;
   });
 };
 

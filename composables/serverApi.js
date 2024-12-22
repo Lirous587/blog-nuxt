@@ -110,9 +110,8 @@ const apiCore = async (url, opt, authType) => {
                     navigateTo("/");
                   });
                 }
-
-                toast(errDataString || "未知错误", "error");
-                reject(errData || err);
+                toast(err || "未知错误", "error");
+                reject(err);
               });
           }
           return;
