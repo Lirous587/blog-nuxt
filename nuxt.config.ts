@@ -1,5 +1,3 @@
-import path from "path";
-import fs from "fs";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
@@ -28,10 +26,7 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],
-  css: [
-    "~/assets/css/tailwind.css",
-    // "~/assets/icon/icon.css",
-  ],
+  css: ["~/assets/css/tailwind.css", "~/assets/scss/index.scss"],
   routeRules: {
     // 管理仪表板仅在客户端渲染
     "/admin/**": { ssr: false },
@@ -49,5 +44,20 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {},
+  },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+          additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
+        },
+      },
+    },
+  },
+  elementPlus: {
+    icon: "ElIcon",
+    importStyle: "scss",
+    themes: ["dark"],
   },
 });

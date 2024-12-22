@@ -13,12 +13,9 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.5",
     "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
-    "cos-js-sdk-v5": "^1.8.7",
     "dayjs": "^1.11.13",
     "element-plus": "^2.8.5",
-    "fs": "0.0.1-security",
     "md-editor-v3": "^4.21.3",
-    "path": "^0.12.7",
     "pinia": "^2.2.4"
   },
   "devDependencies": {

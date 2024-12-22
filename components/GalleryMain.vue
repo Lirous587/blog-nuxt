@@ -207,6 +207,7 @@ watch(
   () => props.kindID,
   (newVal) => {
     queryParams.kindID = newVal;
+    currentPage.value = 1;
     getList();
   }
 );

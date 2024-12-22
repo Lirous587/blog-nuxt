@@ -1,6 +1,6 @@
 <template>
   <div class="pt-10 transition-all duration-300 bg-white dark:bg-black">
-    <div class="mb-5">
+    <div>
       <div class="flex justify-between items-center mb-2">
         <TypeWriter
           class="rounded-xl text-opacity-60 dark:text-gray-500"

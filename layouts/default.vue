@@ -35,7 +35,4 @@ const route = useRoute();
 .sticky-aside::-webkit-scrollbar {
   display: none;
 }
-:deep(.el-card) {
-  @apply !border-none bg-white dark:!bg-black  dark:!text-neutral-200;
-}
 </style>

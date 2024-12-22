@@ -9,7 +9,7 @@
       v-if="toolList.includes('top')"
       @click="scrollToTop"
     >
-      <svg viewBox="0 0 24 24" width="24" height="24">
+      <svg viewBox="0 0 24 24" width="24px" height="24px">
         <path
           fill="white"
           d="M12 2l-6 6h4v12h4V8h4z"
@@ -62,14 +62,14 @@ const scrollToTop = () => {
   });
 };
 
-const tollOpcity = ref("hidden opacity-0");
+const tollOpcity = ref("hidden opacity-0 translate-x-[calc(100%+25px)]");
 
 const scroll = () => {
   const top = document.documentElement.scrollTop || document.body.scrollTop;
   if (top > 700) {
-    tollOpcity.value = "opacity-100";
+    tollOpcity.value = "opacity-100 translate-x-[0px]";
   } else {
-    tollOpcity.value = "opacity-0";
+    tollOpcity.value = "opacity-0 translate-x-[calc(100%+25px)]";
   }
 };
 
@@ -85,6 +85,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .tool-container {
-  @apply bg-blue-500 dark:bg-gray-500 rounded-lg w-[32px] h-[32px] flex items-center justify-center hover:cursor-pointer;
+  @apply bg-[rgb(53,212,244)] dark:bg-[rgba(53,212,244,0.77)] rounded-lg w-[28px] h-[28px] md:w-[32px] md:h-[32px] flex items-center justify-center hover:cursor-pointer;
 }
 </style>
