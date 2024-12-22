@@ -30,6 +30,6 @@ export function sentResetPasswordValidationCode(form) {
   return clientApi.post("/user/sentResetPwdValidationCode", form);
 }
 
-export function userAuth() {
+export function getUserInfo() {
   return clientApi.get("/user/info", "user");
 }

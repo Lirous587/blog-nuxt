@@ -9,7 +9,7 @@
     >
     <div v-else>
       <el-dropdown :hide-on-click="false" trigger="click">
-        <el-avatar :size="32" :src="imgPre + userInfo?.avatar"></el-avatar>
+        <el-avatar :size="32" :src="imgPre + userInfo.avatar"></el-avatar>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item @click="updateInfoPre">修改信息</el-dropdown-item>
@@ -41,12 +41,14 @@
       label-width="80px"
     >
       <el-form-item label="头像" for="avatar">
-        <UploadImg v-model:imgData="updateInfoForm.imgData">
+        <UploadImg v-model:imgData="updateInfoForm.imgData" size-limit="2MB">
           <template #default>
-            <el-avatar :size="48" :src="imgPre + userInfo?.avatar"></el-avatar>
+            <el-avatar size="large" :src="imgPre + userInfo.avatar"></el-avatar>
+            <br />
+            <small>请上传图片,内容大小不得超过2MB</small>
           </template>
           <template #preview="previewProps">
-            <el-avatar :size="48" :src="previewProps.previewUrl"></el-avatar>
+            <el-avatar size="large" :src="previewProps.previewUrl"></el-avatar>
           </template>
         </UploadImg>
       </el-form-item>
@@ -94,30 +96,38 @@
 </template>
 
 <script setup>
-import { logout, updateMsg, updatePassword, userAuth } from "~/api/user";
+import { logout, updateMsg, updatePassword, getUserInfo } from "~/api/user";
 const router = useRouter();
 const imgPre = useRuntimeConfig().public.imgBase + "/";
 
 const drawerRefForUpdateInfo = ref(null);
 const drawerRefForRetPwd = ref(null);
 
-const uploadImgRef = ref(null);
-
-const userInfo = ref(null);
+const userInfo = reactive({
+  name: "",
+  avatar: null,
+});
 
 const updateInfoFormRef = ref(null);
 const updatePwdFormRef = ref(null);
 const updateInfoForm = reactive({
   name: "",
-  avatar: "",
   imgData: null,
 });
+
 const updatePwdForm = reactive({
   password: "",
   rePassword: "",
 });
 
 const updateInfoRules = reactive({
+  imgData: [
+    {
+      required: true,
+      message: "请上传图片,内容大小不得超过2MB",
+      trigger: "blur",
+    },
+  ],
   name: [
     {
       required: true,
@@ -171,8 +181,8 @@ const updatePwdRules = reactive({
 });
 
 const updateInfoPre = () => {
-  for (const key in userInfo.value) {
-    updateInfoForm[key] = userInfo.value[key];
+  for (const key in userInfo) {
+    updateInfoForm[key] = userInfo[key];
   }
   drawerRefForUpdateInfo.value.open();
 };
@@ -196,9 +206,14 @@ const submitUpdatePwd = () => {
 };
 
 const handelUpdateInfo = async () => {
-  await uploadImgRef.value.upload();
-  await updateMsg(updateInfoForm)
-    .then((res) => {
+  const formData = new FormData();
+  formData.append("img", updateInfoForm.imgData);
+  formData.append(
+    "info",
+    JSON.stringify({ ...updateInfoForm, imgData: undefined })
+  );
+  await updateMsg(formData)
+    .then(() => {
       toast("修改信息成功");
       updateaUserInfo();
     })
@@ -228,21 +243,18 @@ const handelLogout = async () => {
 };
 
 const initUserInfo = async () => {
-  if (!!getUserAccessToken()) {
-    await userAuth().then((res) => {
-      setUserInfo(res.data);
-    });
-    userInfo.value = getUserInfo();
-  }
+  await getUserInfo().then((res) => {
+    const info = res.data;
+    for (const key in info) {
+      if (info[key]) {
+        userInfo[key] = info[key];
+      }
+    }
+  });
 };
 
 const updateaUserInfo = async () => {
-  if (!!getUserAccessToken()) {
-    await userAuth().then((res) => {
-      setUserInfo(res.data);
-    });
-    userInfo.value = getUserInfo();
-  }
+  await initUserInfo();
 };
 
 onMounted(() => {

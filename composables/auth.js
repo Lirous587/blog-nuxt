@@ -45,14 +45,6 @@ export const getUserRefreshToken = () => {
   return refreshToken;
 };
 
-export const setUserInfo = (info) => {
-  useCookie(userInfoKey).value = info;
-};
-
-export const getUserInfo = (info) => {
-  return useCookie(userInfoKey).value;
-};
-
 export const removeUserAuth = () => {
   useCookie(userRefreshTokenKey).value = null;
   useCookie(userAccessTokenKey).value = null;
