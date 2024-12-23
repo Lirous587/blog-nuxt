@@ -43,7 +43,10 @@
       </el-form-item>
 
       <el-form-item label="文章图片">
-        <AdminImgPreview @click="chooseImg" :imgUrl="form.img?.url"></AdminImgPreview>
+        <AdminImgPreview
+          @click="chooseImg"
+          :imgUrl="form.img?.url"
+        ></AdminImgPreview>
       </el-form-item>
 
       <el-form-item label="关键词">
@@ -78,7 +81,7 @@
     </el-form>
   </MyDrawer>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
+    <AdminGallery :oID="oID" @select-img="handelSelectImg" />
   </MyDialog>
 </template>
 

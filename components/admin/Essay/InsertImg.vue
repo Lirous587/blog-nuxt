@@ -1,6 +1,6 @@
 <template>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <Gallery @select-img="handelSelectImg"></Gallery>
+    <AdminGallery @select-img="handelSelectImg" />
   </MyDialog>
 
   <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>

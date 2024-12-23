@@ -140,7 +140,7 @@
     </MyDrawer>
 
     <MyDialog title="选择图片" width="80%" ref="dialogRef">
-      <Gallery :oID="oID" @select-img="handelSelectImg"></Gallery>
+      <AdminGallery :oID="oID" @select-img="handelSelectImg"></AdminGallery>
     </MyDialog>
   </div>
 </template>

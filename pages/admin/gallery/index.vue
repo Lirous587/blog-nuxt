@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Gallery></Gallery>
+    <AdminGallery></AdminGallery>
   </div>
 </template>
 

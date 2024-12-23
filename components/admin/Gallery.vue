@@ -10,15 +10,15 @@
     </template>
     <el-container>
       <el-aside width="180px">
-        <GalleryAside ref="asideRef" @changeKind="handelChangeKind" />
+        <AdminGalleryAside ref="asideRef" @changeKind="handelChangeKind" />
       </el-aside>
       <div class="min-h-[700px] flex-1">
-        <GalleryMain
+        <AdminGalleryMain
           @select-img="handelSelectImg"
           ref="mainRef"
           :kindID="kindID"
           :oID="props.oID"
-        ></GalleryMain>
+        ></AdminGalleryMain>
       </div>
     </el-container>
   </el-card>

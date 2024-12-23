@@ -1,8 +1,10 @@
 <template>
-  <div class="flex items-center justify-between mb-2 h-[40px] bg-pink-100">
+  <div
+    class="flex items-center justify-between mb-2 h-[40px] bg-pink-100 dark:bg-black"
+  >
     <div class="flex gap-x-4 ml-3 items-center">
       <div class="flex items-center justify-center gap-x-3">
-        <el-icon size="32px" color="pink" @click="toggleFullScreen"
+        <el-icon size="24px" color="pink" @click="toggleFullScreen"
           ><FullScreen
         /></el-icon>
         <el-icon
@@ -10,10 +12,10 @@
           type="info"
           @click="expand"
           color="pink"
-          size="32px"
+          size="24px"
           ><Expand
         /></el-icon>
-        <el-icon v-else type="info" @click="collapse" color="pink" size="32px"
+        <el-icon v-else type="info" @click="collapse" color="pink" size="24px"
           ><Fold
         /></el-icon>
       </div>
