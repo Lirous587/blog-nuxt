@@ -40,7 +40,8 @@ nuxtApp.hook("page:finish", () => {
 
 <style>
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-thumb {

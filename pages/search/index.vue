@@ -8,7 +8,7 @@
 import { searchEssay } from "~/api/essay";
 
 definePageMeta({
-  middleware: ["search", "index-data"],
+  middleware: ["search"],
   scrollToTop: true,
 });
 

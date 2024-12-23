@@ -9,10 +9,9 @@
 import { getEssayList } from "~/api/essay";
 
 definePageMeta({
-  middleware: ["page-validation", "index-data"],
+  middleware: ["page-validation"],
   scrollToTop: true,
 });
-
 
 const route = useRoute();
 const queryForm = reactive({

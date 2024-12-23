@@ -21,13 +21,17 @@
               class="w-[80%] mx-auto !rounded-3xl"
               size="large"
               type="success"
-              @click="handelLogin"
+              @click="sliderValidationRef.open()"
               >登录
             </el-button>
           </el-form-item>
         </el-form>
       </div>
     </div>
+    <SliderValidation
+      ref="sliderValidationRef"
+      @confirm="handelLogin"
+    ></SliderValidation>
   </div>
 </template>
 
@@ -44,6 +48,8 @@ const loginForm = reactive({
 });
 
 const router = useRouter();
+
+const sliderValidationRef = ref(null);
 
 const handelLogin = () => {
   adminLogin(loginForm)

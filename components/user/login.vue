@@ -8,7 +8,7 @@
       :model="form"
       :rules="rules"
       class="pr-5 w-full"
-      label-width="50px"
+      label-width="60px"
     >
       <el-form-item label="邮箱" prop="email" for="email">
         <el-input v-model="form.email" name="email"></el-input>

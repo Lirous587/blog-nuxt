@@ -13,7 +13,7 @@ import { getEssayList } from "~/api/essay";
 import { useMyIndexStore } from "~/store";
 
 definePageMeta({
-  middleware: ["page-validation", "index-data"],
+  middleware: ["page-validation"],
   scrollToTop: true,
 });
 const route = useRoute();

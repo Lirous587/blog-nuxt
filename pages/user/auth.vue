@@ -60,7 +60,6 @@
 definePageMeta({
   layout: "",
   scrollToTop: true,
-  middleware: "index-data",
 });
 
 const isLogin = ref(true);

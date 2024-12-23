@@ -1,13 +1,7 @@
 <template>
-  <div>
-    <SliderValidation></SliderValidation>
-  </div>
+  <div></div>
 </template>
 
-<script setup>
-definePageMeta({
-  middleware: "index-data",
-});
-</script>
+<script setup></script>
 
 <style></style>

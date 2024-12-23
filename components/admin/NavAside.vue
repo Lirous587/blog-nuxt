@@ -8,7 +8,7 @@
       <el-menu-item index="/admin">
         <el-icon><PieChart /></el-icon>
         <template #title>
-          <span>数据展示</span>
+          <span>面板</span>
         </template>
       </el-menu-item>
     </NuxtLink>
@@ -26,25 +26,30 @@
       </NuxtLink>
     </el-sub-menu>
 
-    <el-sub-menu index="3">
-      <template #title>
+    <!-- 分类 -->
+    <NuxtLink to="/admin/kind">
+      <el-menu-item index="/admin/kind">
         <el-icon><Files /></el-icon>
-        <span>分类标签</span>
-      </template>
+        <template #title>
+          <span>分类</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
 
-      <NuxtLink to="/admin/kind">
-        <el-menu-item index="/admin/kind"> 管理分类 </el-menu-item>
-      </NuxtLink>
-      <NuxtLink to="/admin/label">
-        <el-menu-item index="/admin/label"> 管理标签 </el-menu-item>
-      </NuxtLink>
-    </el-sub-menu>
+    <NuxtLink to="/admin/kind">
+      <el-menu-item index="/admin/label">
+        <el-icon><Folder /></el-icon>
+        <template #title>
+          <span>分类</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
 
     <!-- 心语 -->
     <NuxtLink to="/admin/heartWords">
       <el-menu-item index="/admin/heartWords">
+        <el-icon><IceTea /></el-icon>
         <template #title>
-          <el-icon><IceTea /></el-icon>
           <span>心语</span>
         </template>
       </el-menu-item>
@@ -56,16 +61,6 @@
         <el-icon><ToiletPaper /></el-icon>
         <template #title>
           <span>友链</span>
-        </template>
-      </el-menu-item>
-    </NuxtLink>
-
-    <!-- 我的 -->
-    <NuxtLink to="/admin">
-      <el-menu-item index="/admin/me">
-        <el-icon><Collection /></el-icon>
-        <template #title>
-          <span>我的</span>
         </template>
       </el-menu-item>
     </NuxtLink>
@@ -89,6 +84,13 @@ const isCollapse = ref(false);
 
 const defaultActive = ref("/admin");
 
+const expand = () => {
+  isCollapse.value = false;
+};
+const collapse = () => {
+  isCollapse.value = true;
+};
+
 watch(
   () => route.path,
   () => {
@@ -98,4 +100,9 @@ watch(
     immediate: true,
   }
 );
+
+defineExpose({
+  expand,
+  collapse,
+});
 </script>

@@ -96,7 +96,6 @@
 import { getEssay } from "~/api/essay";
 
 definePageMeta({
-  middleware: ["index-data"],
   scrollToTop: true,
 });
 

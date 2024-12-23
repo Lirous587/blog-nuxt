@@ -8,9 +8,7 @@
 <script setup>
 import { getEssayList } from "~/api/essay";
 
-definePageMeta({
-  middleware: "index-data",
-});
+
 
 const route = useRoute();
 const queryForm = reactive({

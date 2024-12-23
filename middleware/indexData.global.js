@@ -5,8 +5,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const ifInit = indexStore.getInitStatus();
 
-  console.log(ifInit);
-
   if (!ifInit) {
     await indexStore.initData();
   }
