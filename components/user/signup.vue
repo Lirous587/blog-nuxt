@@ -8,7 +8,7 @@
       :model="form"
       :rules="rules"
       class="pr-5 w-full"
-      label-width="80px"
+      label-width="70px"
     >
       <el-form-item label="头像" prop="imgData" for="imgData">
         <UploadImg v-model:imgData="form.imgData" size-limit="2MB">
@@ -75,12 +75,18 @@
         </el-button>
       </el-form-item>
     </el-form>
+
+    <slider-validation
+      ref="slideValidationRef"
+      @confirm="handelSlideConfirm"
+    ></slider-validation>
   </div>
 </template>
 
 <script setup>
 import { sentSignupValidationCode, signup } from "~/api/user";
 
+const slideValidationRef = ref(null);
 const formRef = ref(null);
 
 const form = reactive({
@@ -187,7 +193,7 @@ const sumbitSignup = () => {
   if (!formRef) return;
   formRef.value.validate((valid) => {
     if (valid) {
-      handelSignup();
+      slideValidationRef.value.open();
     } else {
       ElMessage.error("信息填写有误");
     }
@@ -215,6 +221,10 @@ const handelSentSignupValidationCode = async () => {
     .catch(() => {
       toast("验证码发送失败,请稍后重试", "waring");
     });
+};
+
+const handelSlideConfirm = () => {
+  handelSignup();
 };
 
 const handelSignup = async () => {

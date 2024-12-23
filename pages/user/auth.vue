@@ -1,8 +1,10 @@
 <template>
-  <div class="flex w-[100vw] h-[100vh] bg-neutral-100 dark:bg-[black]">
+  <div
+    class="flex w-screen h-screen overflow-scroll bg-neutral-100 dark:bg-[black]"
+  >
     <UserNavHeader> </UserNavHeader>
     <div class="m-auto">
-      <div class="main py-10 px-10">
+      <div class="main py-5 px-5">
         <Transition name="left" mode="out-in">
           <UserLogin
             v-if="isLogin && !isResetPwd"

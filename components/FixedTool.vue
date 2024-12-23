@@ -85,6 +85,6 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .tool-container {
-  @apply bg-[rgb(53,212,244)] dark:bg-[rgba(53,212,244,0.77)] rounded-lg w-[28px] h-[28px] md:w-[32px] md:h-[32px] flex items-center justify-center hover:cursor-pointer;
+  @apply bg-[rgb(53,212,244)] dark:bg-[rgb(129,199,213)]  rounded-lg w-[28px] h-[28px] md:w-[32px] md:h-[32px] flex items-center justify-center hover:cursor-pointer;
 }
 </style>

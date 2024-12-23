@@ -8,7 +8,7 @@
       :model="form"
       :rules="rules"
       class="pr-5 w-full"
-      label-width="80px"
+      label-width="70px"
     >
       <el-form-item label="邮箱" prop="email" for="email">
         <el-input v-model="form.email" name="email"></el-input>
@@ -32,6 +32,10 @@
         </el-button>
       </el-form-item>
     </el-form>
+    <slider-validation
+      ref="slideValidationRef"
+      @confirm="handelSlideConfirm"
+    ></slider-validation>
   </div>
 </template>
 
@@ -43,6 +47,8 @@ const form = reactive({
 });
 
 const router = useRouter();
+
+const slideValidationRef = ref(null);
 
 const btnLoading = ref(false);
 
@@ -66,6 +72,10 @@ const rules = reactive({
   ],
 });
 
+const handelSlideConfirm = () => {
+  handelLogin();
+};
+
 const handelLogin = () => {
   btnLoading.value = true;
   login(form)
@@ -87,7 +97,7 @@ const sumbitLogin = () => {
   if (!formRef) return;
   formRef.value.validate((valid) => {
     if (valid) {
-      handelLogin();
+      slideValidationRef.value.open();
     } else {
       ElMessage.error("请正确填写账号信息");
     }
