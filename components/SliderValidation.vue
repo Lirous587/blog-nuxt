@@ -31,9 +31,6 @@
 <script setup>
 import { useMyIndexStore } from "~/store";
 
-definePageMeta({
-  middleware: "index-data",
-});
 const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
@@ -90,6 +87,7 @@ const handelResize = () => {
 };
 
 const open = () => {
+  document.body.style.overflow = "hidden";
   visiable.value = true;
 };
 
@@ -142,6 +140,8 @@ onMounted(() => {
 
   window.addEventListener("mouseup", endDrag);
   window.addEventListener("touchend", endDrag);
+
+  window.addEventListener("resize", throttle(handelResize));
 });
 defineExpose({
   open,

@@ -45,9 +45,11 @@ const props = defineProps({
 const visible = ref(false);
 
 const open = () => {
+  document.body.style.overflow = "hidden";
   visible.value = true;
 };
 const close = () => {
+  document.body.style.overflow = "";
   visible.value = false;
 };
 

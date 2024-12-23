@@ -8,7 +8,7 @@
       :model="form"
       :rules="rules"
       class="pr-5 w-full"
-      label-width="70px"
+      label-width="50px"
     >
       <el-form-item label="邮箱" prop="email" for="email">
         <el-input v-model="form.email" name="email"></el-input>
@@ -32,10 +32,10 @@
         </el-button>
       </el-form-item>
     </el-form>
-    <slider-validation
+    <SliderValidation
       ref="slideValidationRef"
       @confirm="handelSlideConfirm"
-    ></slider-validation>
+    ></SliderValidation>
   </div>
 </template>
 
