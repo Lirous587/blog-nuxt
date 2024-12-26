@@ -15,8 +15,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-
 onMounted(() => {
   const waves = document.querySelectorAll(".wave-animation");
   waves.forEach((wave) => {

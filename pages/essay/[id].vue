@@ -44,6 +44,9 @@
           :previewTheme="data.previewTheme"
           :content="data.content"
         ></MdPreview>
+        <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
+          <EssayComment :eid="id"></EssayComment>
+        </div>
       </main>
       <aside class="md-anchor">
         <div v-if="mdRef">
@@ -68,10 +71,6 @@
       "
       :chat-func="() => scrollToChatArea()"
     ></FixedTool>
-
-    <div id="chatArea" class="dark:bg-black dark:text-neutral-300">
-      这里是未来的聊天区
-    </div>
   </div>
 </template>
 
