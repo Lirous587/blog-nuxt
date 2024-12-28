@@ -21,9 +21,24 @@ export function queryToUrl(query) {
   r = r ? "?" + r : "";
   return r;
 }
-
+// 时间格式化 对应后端的timestamp
 export function formateDate(timeStr) {
-  return timeStr.split("Z")[0].split("T").join(" ");
+  if (
+    typeof timeStr !== "string" ||
+    !timeStr.includes("T") ||
+    !timeStr.includes("Z")
+  ) {
+    return "刚刚";
+  }
+  const parts = timeStr.split("Z");
+  if (parts.length === 0) {
+    return "1970-01-01 00:00:00";
+  }
+  const dateTime = parts[0].split("T");
+  if (dateTime.length !== 2) {
+    return "1970-01-01 00:00:00";
+  }
+  return dateTime.join(" ");
 }
 
 // 节流函数
