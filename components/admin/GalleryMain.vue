@@ -86,7 +86,7 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :page-count="currentPage"
+        :page-count="totalPages"
         @change="changePage"
       />
     </div>
@@ -117,7 +117,7 @@ const props = defineProps({
 const ifSelect = inject("select");
 
 const list = ref([]);
-const currentPage = ref(1);
+const totalPages = ref(1);
 const loading = ref(false);
 const queryParams = reactive({
   kindID: props.kindID,
@@ -144,7 +144,7 @@ const getList = async (id) => {
         }
         return { ...o, checked: false };
       });
-      currentPage.value = data.totalPages;
+      totalPages.value = data.totalPages;
     })
     .finally(() => {
       setTimeout(() => {
@@ -207,7 +207,7 @@ watch(
   () => props.kindID,
   (newVal) => {
     queryParams.kindID = newVal;
-    currentPage.value = 1;
+    totalPages.value = 1;
     getList();
   }
 );

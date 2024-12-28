@@ -1,12 +1,12 @@
 <template>
-  <div class="flex items-start">
+  <div class="flex items-start" v-for="item in list">
     <div class="p-2">
-      <el-avatar :size="30" :src="avatarPre + data.fromUser.avatar"></el-avatar>
+      <el-avatar :size="30" :src="avatarPre + item.fromUser.avatar"></el-avatar>
     </div>
     <div class="flex flex-col flex-1 dark:text-gray-500 gap-y-1 p-1">
       <div class="flex">
         <small>
-          {{ data.fromUser.name }}
+          {{ item.fromUser.name }}
         </small>
         <div class="flex items-center mx-1">
           <div
@@ -14,37 +14,21 @@
           ></div>
         </div>
         <small>
-          {{ data.toUser.name }}
+          {{ item.toUser.name }}
         </small>
       </div>
       <span class="text-sm">
-        {{ data.content }}
+        {{ item.content }}
       </span>
-      <small class="text-gray-500"> {{ formateDate(data.createTime) }}</small>
-      <button class="mb-2" @click="handelCommentPre(data)">
+      <small class="text-gray-500"> {{ formateDate(item.createTime) }}</small>
+      <button class="mb-2" @click="handelCommentPre(item)">
         <div class="flex items-center justify-start">
           <small class="inline-block text-xs my-auto mr-1 text-pink-500">
-            {{ data?.ifComment ? "回复中" : "回复" }}</small
+            {{ item?.ifComment ? "回复中" : "回复" }}</small
           >
           <el-icon size="18"><ChatRound /></el-icon>
         </div>
       </button>
-      <div v-if="data?.ifComment">
-        <el-input
-          placeholder="请输入评论内容"
-          v-model="form.content"
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 15 }"
-        ></el-input>
-        <el-button
-          class="!block !ml-auto mt-2"
-          type="info"
-          @click="handelCreate"
-          size="small"
-        >
-          回复</el-button
-        >
-      </div>
     </div>
   </div>
 </template>
@@ -55,9 +39,9 @@ import { createEssayCommentReply } from "~/api/comment";
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
 const props = defineProps({
-  data: {
+  list: {
     required: true,
-    type: Object,
+    type: Array,
   },
 });
 const eid = parseInt(inject("eid"));

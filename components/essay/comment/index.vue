@@ -52,22 +52,21 @@ const getMoreComment = () => {
   getList(query);
 };
 
-// const handelCloseAllComment = () => {
-//   list.value.forEach((parent) => {
-//     parent.ifComment = false;
-//     console.log(parent);
-//     let sons = parent.sons ? parent.sons : [];
-//     sons.forEach((son) => {
-//       son.ifComment = false;
-//       let replies = son.replies ? son.replies : [];
-//       replies.forEach((reply) => {
-//         reply.ifComment = false;
-//       });
-//     });
-//   });
-// };
-
-onMounted(() => {
-  getList(query);
+onMounted(async () => {
+  await getList(query);
 });
 </script>
+<!-- // const handelCloseAllComment = () => {
+  //   list.value.forEach((parent) => {
+  //     parent.ifComment = false;
+  //     console.log(parent);
+  //     let sons = parent.sons ? parent.sons : [];
+  //     sons.forEach((son) => {
+  //       son.ifComment = false;
+  //       let replies = son.replies ? son.replies : [];
+  //       replies.forEach((reply) => {
+  //         reply.ifComment = false;
+  //       });
+  //     });
+  //   });
+  // }; -->

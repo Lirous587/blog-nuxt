@@ -10,42 +10,41 @@
       <span>
         {{ data.content }}
       </span>
-      <small class="text-gray-500">
-        {{ formateDate(data.createTime) }}
-      </small>
-      <!-- <el-divider></el-divider> -->
-      <div>
-        <button class="mb-2" @click="handelCommentPre(data)">
-          <div class="flex items-center justify-start">
-            <small class="inline-block text-xs my-auto mr-1 text-pink-500">
-              {{ data.ifComment ? "回复中" : "回复" }}</small
-            >
-            <el-icon size="18"><ChatRound /></el-icon>
-          </div>
-        </button>
-        <div v-if="data.ifComment">
-          <el-input
-            placeholder="请输入评论内容"
-            v-model="form.content"
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 15 }"
-          ></el-input>
-          <el-button
-            class="!block !ml-auto mt-2"
-            type="info"
-            @click="handelCreate"
-            size="small"
-          >
-            回复</el-button
-          >
-        </div>
+      <div class="flex items-center gap-x-2 text-sm">
+        <small class="text-gray-500">
+          {{ formateDate(data.createTime) }}
+        </small>
+        <small
+          class="text-pink-500 hover:cursor-pointer hover:text-blue-300"
+          @click="handelCommentPre(data)"
+        >
+          {{ data.ifComment ? "回复中" : "回复" }}
+        </small>
       </div>
+
+      <small
+        @click="getMoreComment"
+        class="text-xs text-gray-500 hover:cursor-pointer hover:text-blue-300 mt-1"
+        v-if="data.replyCount > 0 && !havaExpand"
+      >
+        共{{ data.replyCount }}条评论点击查看
+      </small>
+
+      <EssayCommentReply :list="list"></EssayCommentReply>
+
+      <el-pagination
+        v-if="havaExpand"
+        :hide-on-single-page="true"
+        layout="prev, pager, next"
+        :page-count="pageCount"
+        @change="changePage"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { createEssayCommentReply } from "~/api/comment";
+import { createEssayCommentReply, getEssayCommentReplies } from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
@@ -56,6 +55,7 @@ const props = defineProps({
   },
 });
 
+// 回复
 const eid = parseInt(inject("eid"));
 
 const emits = defineEmits("Choose");
@@ -76,5 +76,40 @@ const handelCreate = () => {
   createEssayCommentReply(form).then((res) => {
     ElMessage.success("评论成功");
   });
+};
+
+// replies
+const query = reactive({
+  pid: props.data.id,
+  page: 1,
+  pageSize: 5,
+});
+const list = ref([]);
+const pageCount = parseInt(
+  (props.data.replyCount + query.pageSize) / query.pageSize
+);
+const havaExpand = ref(false);
+const loading = ref(false);
+
+const getList = async () => {
+  loading.value = true;
+  await getEssayCommentReplies(query)
+    .then((res) => {
+      const data = res.data;
+      havaExpand.value = true;
+      list.value = data;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const getMoreComment = () => {
+  getList();
+};
+
+const changePage = async (page) => {
+  query.page = page;
+  getList();
 };
 </script>
