@@ -92,6 +92,7 @@ const handelCommentPre = () => {
   emits("Choose");
   props.data.ifComment = true;
   form.parentID = props.data.id;
+  toUserName.value = "";
 };
 
 const handelCreate = () => {
@@ -115,7 +116,7 @@ const query = reactive({
 });
 const list = ref([]);
 const pageCount = parseInt(
-  (props.data.replyCount + query.pageSize) / query.pageSize
+  (props.data.replyCount + query.pageSize - 1) / query.pageSize
 );
 const havaExpand = ref(false);
 const loading = ref(false);
@@ -155,7 +156,7 @@ const handelReplyChoose = (item) => {
 
 const addTempData = () => {
   const userInfo = getUserInfoFromCookie();
-  if (!!toUserName.value) toUserName.value = userInfo.name;
+  if (toUserName.value === "") toUserName.value = userInfo.name;
   let row = {
     fromUser: {
       avatar: userInfo.avatar,

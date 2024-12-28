@@ -27,10 +27,10 @@
         {{ item.content }}
       </span>
       <small class="text-gray-500"> {{ formateDate(item.createTime) }}</small>
-      <button class="mb-2" @click="handelCommentPre(item)">
+      <button class="mb-2" @click="handelCommentPre(item)" v-if="item.id">
         <div class="flex items-center justify-start">
           <small class="inline-block text-xs my-auto mr-1 text-pink-500">
-            {{ item?.ifComment ? "回复中" : "回复" }}
+            {{ item.ifComment ? "回复中" : "回复" }}
           </small>
           <el-icon size="18"><ChatRound /></el-icon>
         </div>
