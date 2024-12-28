@@ -13,6 +13,7 @@
       <small class="text-gray-500">
         {{ formateDate(data.createTime) }}
       </small>
+      <!-- <el-divider></el-divider> -->
       <div>
         <button class="mb-2" @click="handelCommentPre(data)">
           <div class="flex items-center justify-start">
@@ -44,7 +45,7 @@
 </template>
 
 <script setup>
-import { createEssayCommentSon } from "~/api/comment";
+import { createEssayCommentReply } from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
@@ -72,7 +73,7 @@ const handelCommentPre = (item) => {
 };
 
 const handelCreate = () => {
-  createEssayCommentSon(form).then((res) => {
+  createEssayCommentReply(form).then((res) => {
     ElMessage.success("评论成功");
   });
 };

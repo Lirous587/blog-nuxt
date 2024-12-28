@@ -1,19 +1,25 @@
-export const createEssayCommentParent = (form) => {
-  return clientApi.post("/comment/createParent", form, "user");
+export const getEssayCommentParents = (query) => {
+  let q = queryToUrl(query);
+  return clientApi.get(`/comment/parents${q}`);
 };
 
-export const createEssayCommentSon = (form) => {
-  return clientApi.post("/comment/createSon", form, "user");
+export const getEssayCommentReplies = (query) => {
+  let q = queryToUrl(query);
+  return clientApi.get(`/comment/replies${q}`);
+};
+
+export const createEssayCommentParent = (form) => {
+  return clientApi.post("/comment/parent", form, "user");
 };
 
 export const createEssayCommentReply = (form) => {
-  return clientApi.post("/comment/createReply", form, "user");
+  return clientApi.post("/comment/reply", form, "user");
 };
 
-export const deleteEssayComment = (form) => {
-  return clientApi.delete("/comment/delete", form, "user");
+export const deleteEssayCommentParent = (form) => {
+  return clientApi.delete("/comment/parent", form, "user");
 };
 
-export const getEssayCommentList = (eid) => {
-  return clientApi.get(`/comment/list?eid=${eid}`);
+export const deleteEssayCommentReply = (form) => {
+  return clientApi.delete("/comment/reply", form, "user");
 };
