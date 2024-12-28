@@ -45,7 +45,7 @@
           :content="data.content"
         ></MdPreview>
         <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
-          <EssayComment :eid="id"></EssayComment>
+          <EssayComment></EssayComment>
         </div>
       </main>
       <aside class="md-anchor">
@@ -106,6 +106,8 @@ const sentenceList = ref([]);
 const route = useRoute();
 const id = route.params.id;
 const data = ref({});
+
+provide("eid", id);
 
 await getEssay(id)
   .then((res) => {

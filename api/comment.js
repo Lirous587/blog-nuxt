@@ -3,11 +3,15 @@ export const createEssayCommentParent = (form) => {
 };
 
 export const createEssayCommentSon = (form) => {
-  return clientApi.post("/commnent/createSon", form, "user");
+  return clientApi.post("/comment/createSon", form, "user");
+};
+
+export const createEssayCommentReply = (form) => {
+  return clientApi.post("/comment/createReply", form, "user");
 };
 
 export const deleteEssayComment = (form) => {
-  return clientApi.delete("/commnent/delete", form, "user");
+  return clientApi.delete("/comment/delete", form, "user");
 };
 
 export const getEssayCommentList = (eid) => {

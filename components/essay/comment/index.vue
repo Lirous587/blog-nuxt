@@ -1,10 +1,17 @@
 <template>
-  <el-card shadow="hover" v-for="item in list" class="my-4 hover:animate-pulse">
-    <EssayCommentParent :data="item"> </EssayCommentParent>
+  <el-card shadow="hover" v-for="item in list" class="my-4">
+    <EssayCommentParent @Choose="handelCloseAllComment" :data="item">
+    </EssayCommentParent>
     <div v-for="son in item.sons" class="ml-5">
-      <EssayCommentSon :data="son"></EssayCommentSon>
+      <EssayCommentSon
+        @Choose="handelCloseAllComment"
+        :data="son"
+      ></EssayCommentSon>
       <div v-for="reply in son.replies">
-        <EssayCommentReply :data="reply"></EssayCommentReply>
+        <EssayCommentReply
+          @Choose="handelCloseAllComment"
+          :data="reply"
+        ></EssayCommentReply>
       </div>
     </div>
   </el-card>
@@ -12,22 +19,31 @@
 
 <script setup>
 import { getEssayCommentList } from "~/api/comment";
-const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
-
-const props = defineProps({
-  eid: {
-    type: Number,
-    require: true,
-  },
-});
 const list = ref([]);
+const eid = inject("eid");
 
 const getList = () => {
-  getEssayCommentList(props.eid).then((res) => {
+  getEssayCommentList(eid).then((res) => {
     const data = res.data;
     list.value = data;
   });
 };
+
+const handelCloseAllComment = () => {
+  list.value.forEach((parent) => {
+    parent.ifComment = false;
+    console.log(parent);
+    let sons = parent.sons ? parent.sons : [];
+    sons.forEach((son) => {
+      son.ifComment = false;
+      let replies = son.replies ? son.replies : [];
+      replies.forEach((reply) => {
+        reply.ifComment = false;
+      });
+    });
+  });
+};
+
 onMounted(() => {
   getList();
 });
