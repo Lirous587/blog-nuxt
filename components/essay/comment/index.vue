@@ -1,7 +1,12 @@
 <template>
-  <EssayCommentCreateParent></EssayCommentCreateParent>
+  <EssayCommentCreateParent @comment="handelComment"></EssayCommentCreateParent>
   <el-card shadow="hover" v-for="item in list" class="my-4">
-    <EssayCommentParent :data="item" :key="item.id"> </EssayCommentParent>
+    <EssayCommentParent
+      @Choose="handelParentChoose"
+      :data="item"
+      :key="item.id"
+    >
+    </EssayCommentParent>
   </el-card>
 
   <el-divider
@@ -52,21 +57,24 @@ const getMoreComment = () => {
   getList(query);
 };
 
+const handelParentChoose = () => {
+  list.value.forEach((parent) => {
+    parent.ifComment = false;
+  });
+};
+
+const handelComment = (content) => {
+  const userInfo = getUserInfoFromCookie();
+  let row = {
+    avatar: userInfo.avatar,
+    name: userInfo.name,
+    createTime: "刚刚",
+    content: content,
+  };
+  list.value.unshift(row);
+};
+
 onMounted(async () => {
   await getList(query);
 });
 </script>
-<!-- // const handelCloseAllComment = () => {
-  //   list.value.forEach((parent) => {
-  //     parent.ifComment = false;
-  //     console.log(parent);
-  //     let sons = parent.sons ? parent.sons : [];
-  //     sons.forEach((son) => {
-  //       son.ifComment = false;
-  //       let replies = son.replies ? son.replies : [];
-  //       replies.forEach((reply) => {
-  //         reply.ifComment = false;
-  //       });
-  //     });
-  //   });
-  // }; -->

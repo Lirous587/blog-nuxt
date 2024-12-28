@@ -28,7 +28,7 @@ export function formateDate(timeStr) {
     !timeStr.includes("T") ||
     !timeStr.includes("Z")
   ) {
-    return "刚刚";
+    return "1970-01-01 00:00:00";
   }
   const parts = timeStr.split("Z");
   if (parts.length === 0) {

@@ -1,18 +1,20 @@
 <template>
-  <el-card>
-    <el-input
-      placeholder="请输入评论内容"
-      v-model="form.content"
-      type="textarea"
-      :autosize="{ minRows: 6, maxRows: 15 }"
-    ></el-input>
-    <el-button
-      class="!block !ml-auto mt-2 !rounded-lg"
-      type="primary"
-      @click="handelCreate"
-    >
-      评论
-    </el-button>
+  <el-card v-loading="loading">
+    <div class="flex flex-col">
+      <el-input
+        placeholder="请输入评论内容"
+        v-model="form.content"
+        type="textarea"
+        :autosize="{ minRows: 3, maxRows: 15 }"
+      ></el-input>
+      <el-button
+        class="ml-auto mt-2 !rounded-md"
+        type="primary"
+        @click="handelCreate"
+      >
+        评论
+      </el-button>
+    </div>
   </el-card>
 </template>
 
@@ -27,17 +29,24 @@ const props = defineProps({
 });
 
 const eid = parseInt(inject("eid"));
-
-const emits = defineEmits("Choose");
-
+const loading = ref(false);
 const form = reactive({
   essayID: eid,
   content: "",
 });
 
+const emits = defineEmits("comment");
+
 const handelCreate = () => {
-  createEssayCommentParent(form).then((res) => {
-    ElMessage.success("评论成功");
-  });
+  loading.value = true;
+  createEssayCommentParent(form)
+    .then((res) => {
+      ElMessage.success("评论成功");
+      emits("comment", form.content);
+      form.content = "";
+    })
+    .finally(() => {
+      loading.value = false;
+    });
 };
 </script>

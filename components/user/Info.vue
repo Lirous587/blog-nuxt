@@ -247,6 +247,7 @@ const handelLogout = async () => {
 const initUserInfo = async () => {
   await getUserInfo().then((res) => {
     const info = res.data;
+    setUserInfoCookie(info);
     for (const key in info) {
       if (info[key]) {
         userInfo[key] = info[key];

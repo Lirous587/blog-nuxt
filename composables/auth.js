@@ -50,3 +50,12 @@ export const removeUserAuth = () => {
   useCookie(userAccessTokenKey).value = null;
   useCookie(userInfoKey).value = null;
 };
+
+export const setUserInfoCookie = (data) => {
+  useCookie(userInfoKey).value = data;
+};
+
+export const getUserInfoFromCookie = () => {
+  const useInfo = useCookie(userInfoKey).value;
+  return useInfo;
+};
