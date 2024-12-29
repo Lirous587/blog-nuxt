@@ -17,13 +17,21 @@
       }"
       ref="validationBox"
     >
-      <div
-        class="img-box"
-        :style="{
-          backgroundImage: `url(${randomImg})`,
-        }"
-        ref="imgBox"
-      ></div>
+      <div class="bg-neutral-300 p-8 relative flex flex-col items-center">
+        <div class="right-0 top-0 absolute">
+          <el-button type="warning" icon="Close" circle @click="close" />
+        </div>
+        <div class="left-0 top-0 absolute">
+          <el-button type="warning" icon="Refresh" circle @click="refresh" />
+        </div>
+        <div
+          class="img-box"
+          :style="{
+            backgroundImage: `url(${randomImg})`,
+          }"
+          ref="imgBox"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
@@ -38,8 +46,9 @@ const imglist = indexStore.getImgList();
 const validationBox = ref(null);
 const imgBox = ref(null);
 
-const randomImg =
-  imgPre + imglist[Math.floor(imglist.length * Math.random())].url;
+const randomImg = ref(
+  imgPre + imglist[Math.floor(imglist.length * Math.random())].url
+);
 
 const props = defineProps({
   width: {
@@ -81,60 +90,47 @@ const initImgBoxSize = () => {
     Math.floor(Math.random() * imgBoxHeight)
   );
 };
+
 const handelResize = () => {
   initImgBoxSize();
 };
 
+let ifDrag = false;
+let startX;
+
+const startDrag = (ev) => {
+  ifDrag = true;
+  startX = ev.clientX || ev.touches[0].clientX;
+};
+
+const moveDrag = (ev) => {
+  if (ifDrag) {
+    const clientX = ev.clientX || ev.touches[0].clientX;
+    const move = `${clientX - startX}px`;
+    validationBox.value.style.setProperty("--dynamic-move", move);
+  }
+};
+
+const endDrag = (ev) => {
+  ifDrag = false;
+  const clientX = ev.clientX || ev.changedTouches[0].clientX;
+  const currentPosition = clientX - startX;
+  const dis = Math.abs(currentPosition - leftOffest.value);
+  // 允许10px的误差范围
+  if (dis < 20) {
+    imgBox.value.classList.add("passed");
+    setTimeout(() => {
+      sumbit();
+    }, 200);
+  } else {
+    validationBox.value.style.setProperty("--dynamic-move", "0px");
+  }
+};
+
 const open = () => {
+  // 滚动锁定
   document.body.style.overflow = "hidden";
   visiable.value = true;
-};
-
-
-const close = () => {
-  
-}
-
-const sumbit = () => {
-  emits("confirm");
-  // 恢复滚动
-  document.body.style.overflow = "";
-  visiable.value = false;
-};
-
-onMounted(() => {
-  initImgBoxSize();
-  let ifDrag = false;
-  let startX;
-
-  const startDrag = (ev) => {
-    ifDrag = true;
-    startX = ev.clientX || ev.touches[0].clientX;
-  };
-
-  const moveDrag = (ev) => {
-    if (ifDrag) {
-      const clientX = ev.clientX || ev.touches[0].clientX;
-      const move = `${clientX - startX}px`;
-      validationBox.value.style.setProperty("--dynamic-move", move);
-    }
-  };
-
-  const endDrag = (ev) => {
-    ifDrag = false;
-    const clientX = ev.clientX || ev.changedTouches[0].clientX;
-    const currentPosition = clientX - startX;
-    const dis = Math.abs(currentPosition - leftOffest.value);
-    // 允许10px的误差范围
-    if (dis < 20) {
-      imgBox.value.classList.add("passed");
-      setTimeout(() => {
-        sumbit();
-      }, 200);
-    } else {
-      validationBox.value.style.setProperty("--dynamic-move", "0px");
-    }
-  };
 
   imgBox.value.addEventListener("mousedown", startDrag);
   imgBox.value.addEventListener("touchstart", startDrag);
@@ -146,6 +142,44 @@ onMounted(() => {
   window.addEventListener("touchend", endDrag);
 
   window.addEventListener("resize", throttle(handelResize));
+};
+
+const close = () => {
+  // 恢复滚动
+  document.body.style.overflow = "";
+  visiable.value = false;
+
+  imgBox.value.removeEventListener("mousedown", startDrag);
+  imgBox.value.removeEventListener("touchstart", startDrag);
+
+  window.removeEventListener("mousemove", moveDrag);
+  window.removeEventListener("touchmove", moveDrag);
+
+  window.removeEventListener("mouseup", endDrag);
+  window.removeEventListener("touchend", endDrag);
+
+  window.removeEventListener("resize", throttle(handelResize));
+};
+
+const refresh = () => {
+  let equal = true;
+  while (equal) {
+    let random =
+      imgPre + imglist[Math.floor(imglist.length * Math.random())].url;
+    if (random !== randomImg.value) {
+      randomImg.value = random;
+      equal = false;
+    }
+  }
+};
+
+const sumbit = () => {
+  close();
+  emits("confirm");
+};
+
+onMounted(() => {
+  initImgBoxSize();
 });
 
 defineExpose({
