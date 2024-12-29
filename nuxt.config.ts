@@ -5,24 +5,24 @@ export default defineNuxtConfig({
   ssr: true,
   app: {
     pageTransition: { name: "page", mode: "out-in" },
-    // cdnURL: "https://cdn.jsdelivr.net/npm/",
   },
   devServer: {
     port: 3000,
-    // https: {
-    //   key: "./ssl/localhost-key.pem",
-    //   cert: "./ssl/localhost.pem",
-    // },
   },
   runtimeConfig: {
-    // Keys within public are also exposed client-side
     public: {
-      // apiBase: "http://123.207.217.103:8080/api",
-      // imgBase: "http://123.207.217.103:8080/api/img",
-      apiBase: "http://127.0.0.1:8080/api",
-      // imgBase: "http://127.0.0.1:8080/api/img",
-      imgGalleryBase: "http://127.0.0.1:8080/api/img/gallery",
-      imgAvatarBase: "http://127.0.0.1:8080/api/img/avatar",
+      apiBase:
+        process.env.NODE_ENV === "production"
+          ? "https://lirous.com/api/"
+          : "http://127.0.0.1:8080/api/",
+      imgGalleryBase:
+        process.env.NODE_ENV === "production"
+          ? "https://lirous.com/api/img/gallery/"
+          : "http://127.0.0.1:8080/api/img/gallery/",
+      imgAvatarBase:
+        process.env.NODE_ENV === "production"
+          ? "https://lirous.com/api/img/avatar/"
+          : "http://127.0.0.1:8080/api/img/avatar/",
     },
   },
   modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],
@@ -41,9 +41,6 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
-  },
-  nitro: {
-    routeRules: {},
   },
   vite: {
     css: {

@@ -23,6 +23,7 @@ logs
 .env.*
 !.env.example
 
-
 pnpm-lock.yaml
 /ssl
+.output.zip
+.docker/ssl

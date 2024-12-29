@@ -6,15 +6,15 @@ services:
       dockerfile: .docker/Dockerfile
     ports:
       - "3000:3000"
-    # env_file:
-    #   - ../.env
-
   nginx:
     container_name: blog-nginx
     image: nginx:alpine
     ports:
       - "80:80"
+      - "443:443" # 添加 HTTPS 端口
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl/server.crt:/etc/nginx/ssl/certs/server.crt # 挂载 SSL 证书
+      - ./ssl/server.key:/etc/nginx/ssl/private/server.key # 挂载 SSL 私钥
     depends_on:
       - nuxt

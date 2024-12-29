@@ -4,7 +4,6 @@
       class="w-[18px] h-[18px] md:w-[24px] md:h-[24px]"
       viewBox="0 0 48 48"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M18 6H8C6.89543 6 6 6.89543 6 8V18C6 19.1046 6.89543 20 8 20H18C19.1046 20 20 19.1046 20 18V8C20 6.89543 19.1046 6 18 6Z"
