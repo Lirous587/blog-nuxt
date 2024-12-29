@@ -75,24 +75,24 @@ const visiable = ref(false);
 
 const leftOffest = ref(Math.max(Math.floor(Math.random() * 250), 200));
 
-const initImgBoxSize = () => {
+const resetSlider = () => {
   // 获取容器实际像素值
   const imgBoxWidth = parseFloat(getComputedStyle(imgBox.value).width);
   const imgBoxHeight = parseFloat(getComputedStyle(imgBox.value).height);
-  randomPosition.x = Math.max(
-    Math.min(
-      imgBoxWidth - clipSize.width,
-      Math.max(imgBoxWidth / 2, Math.floor(Math.random() * imgBoxWidth))
-    )
-  );
-  randomPosition.y = Math.min(
-    imgBoxHeight - clipSize.height,
-    Math.floor(Math.random() * imgBoxHeight)
-  );
+
+  const maxRandomX = imgBoxWidth - clipSize.width;
+  const minRandomX = Math.floor(imgBoxWidth / 2);
+  randomPosition.x =
+    Math.floor(Math.random() * (maxRandomX - minRandomX + 1)) + minRandomX;
+
+  const maxRandomY = imgBoxHeight - 1.5 * clipSize.height;
+  const minRandomY = Math.floor(imgBoxHeight / 2);
+  randomPosition.y =
+    Math.floor(Math.random() * (maxRandomY - minRandomY + 1)) + minRandomY;
 };
 
 const handelResize = () => {
-  initImgBoxSize();
+  resetSlider();
 };
 
 let ifDrag = false;
@@ -168,6 +168,7 @@ const refresh = () => {
       imgPre + imglist[Math.floor(imglist.length * Math.random())].url;
     if (random !== randomImg.value) {
       randomImg.value = random;
+      resetSlider();
       equal = false;
     }
   }
@@ -179,7 +180,7 @@ const sumbit = () => {
 };
 
 onMounted(() => {
-  initImgBoxSize();
+  resetSlider();
 });
 
 defineExpose({
