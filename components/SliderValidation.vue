@@ -30,7 +30,6 @@
 
 <script setup>
 import { useMyIndexStore } from "~/store";
-
 const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
@@ -91,6 +90,11 @@ const open = () => {
   visiable.value = true;
 };
 
+
+const close = () => {
+  
+}
+
 const sumbit = () => {
   emits("confirm");
   // 恢复滚动
@@ -143,6 +147,7 @@ onMounted(() => {
 
   window.addEventListener("resize", throttle(handelResize));
 });
+
 defineExpose({
   open,
 });

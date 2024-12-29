@@ -18,7 +18,7 @@
         </small>
         <small
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
-          @click="handelCommentPre"
+          @click="handleChoose"
         >
           {{ data.ifComment ? "回复中" : "回复" }}
         </small>
@@ -63,7 +63,7 @@
         />
       </div>
 
-      <!-- 评论框 -->
+      <!-- 评论框 ifComment用来标记文本 ifCommenting用来标记输入框状态  -->
       <div v-if="data.ifComment || data.ifCommenting" class="flex flex-col">
         <el-form ref="formRef" :model="form" :rules="rules">
           <el-form-item prop="content">
@@ -131,7 +131,7 @@ const rules = reactive({
   ],
 });
 
-const handelCommentPre = () => {
+const handleChoose = () => {
   clearReplyCommentStatus();
   emits("Choose");
   props.data.ifComment = true;
@@ -249,4 +249,7 @@ const handelReplyDelete = (rid) => {
     loading.value = false;
   }, 300);
 };
+defineExpose({
+  clearReplyCommentStatus,
+});
 </script>

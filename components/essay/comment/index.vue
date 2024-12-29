@@ -1,12 +1,13 @@
 <template>
   <EssayCommentCreateParent @comment="handelComment"></EssayCommentCreateParent>
   <div v-loading="listLoading">
-    <el-card shadow="hover" v-for="item in list" class="my-4">
+    <el-card shadow="hover" v-for="(item, index) in list" class="my-4">
       <EssayCommentParent
         @Choose="handelParentChoose"
         @Delete="handelParentDelete"
         :data="item"
         :key="item.id"
+        :ref="(el) => setListRef(el, index)"
       >
       </EssayCommentParent>
     </el-card>
@@ -26,8 +27,13 @@
 
 <script setup>
 import { getEssayCommentParents } from "~/api/comment";
-const list = ref([]);
 const eid = inject("eid");
+const list = ref([]);
+const listRef = ref([]);
+
+const setListRef = (el, index) => {
+  listRef.value[index] = el;
+};
 
 const query = reactive({
   eid: eid,
@@ -68,6 +74,10 @@ const getMoreComment = () => {
 const handelParentChoose = () => {
   list.value.forEach((parent) => {
     parent.ifComment = false;
+    parent.ifCommenting = false;
+  });
+  listRef.value.forEach((parent) => {
+    parent.clearReplyCommentStatus();
   });
 };
 

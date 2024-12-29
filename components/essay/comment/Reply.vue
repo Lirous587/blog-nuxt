@@ -29,7 +29,7 @@
       <small class="text-gray-500"> {{ formateDate(item.createTime) }}</small>
       <div class="flex gap-x-3" v-if="hadLogin">
         <small
-          @click="handelCommentPre(item)"
+          @click="handleChoose(item)"
           v-if="item.id && item.fromUser.uid != userInfo.uid"
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
         >
@@ -77,7 +77,7 @@ const emitData = reactive({
   parentID: 0,
 });
 
-const handelCommentPre = (item) => {
+const handleChoose = (item) => {
   emitData.toUserUid = item.fromUser.uid;
   emitData.toUserName = item.fromUser.name;
   emitData.parentID = item.parentID;
