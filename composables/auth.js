@@ -59,3 +59,9 @@ export const getUserInfoFromCookie = () => {
   const useInfo = useCookie(userInfoKey).value;
   return useInfo;
 };
+
+export const userIfLofin = () => {
+  let info = getUserInfoFromCookie();
+  if (info && Object.keys(info).length > 0) return true;
+  return false;
+};

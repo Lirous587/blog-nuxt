@@ -12,16 +12,31 @@
       <span>
         {{ data.content }}
       </span>
-      <div class="flex items-center gap-x-2 text-sm" v-if="data.id">
+      <div class="flex items-center gap-x-2 text-sm" v-if="data.id && hadLogin">
         <small class="text-gray-500">
           {{ formateDate(data.createTime) }}
         </small>
         <small
-          class="text-pink-500 hover:cursor-pointer hover:text-blue-300"
+          class="text-green-700 hover:cursor-pointer hover:text-blue-300"
           @click="handelCommentPre"
         >
           {{ data.ifComment ? "回复中" : "回复" }}
         </small>
+
+        <el-popconfirm
+          title="确认删除评论？"
+          confirm-button-text="确认"
+          cancel-button-text="取消"
+          @confirm="handelDelete"
+        >
+          <template #reference>
+            <small
+              class="text-green-700 hover:cursor-pointer hover:text-blue-300"
+            >
+              {{ data.uid === userInfo.uid ? "删除" : "" }}
+            </small>
+          </template>
+        </el-popconfirm>
       </div>
 
       <small
@@ -36,6 +51,7 @@
       <div v-if="havaExpand || list.length > 0" v-loading="loading">
         <EssayCommentReply
           @Choose="handelReplyChoose"
+          @Delete="handelReplyDelete"
           :list="list"
         ></EssayCommentReply>
         <el-pagination
@@ -48,12 +64,13 @@
 
       <div v-if="data.ifComment || data.ifCommenting" class="flex flex-col">
         <el-input
-          placeholder="请输入评论"
+          :placeholder="
+            toUserName ? '正在回复' + '@' + toUserName : '请输入评论'
+          "
           v-model="form.content"
           type="textarea"
           :autosize="{ minRows: 5, maxRows: 15 }"
         ></el-input>
-
         <div class="ml-auto mt-2">
           <el-button type="info" @click="handelCreate">回复</el-button>
         </div>
@@ -63,7 +80,11 @@
 </template>
 
 <script setup>
-import { createEssayCommentReply, getEssayCommentReplies } from "~/api/comment";
+import {
+  createEssayCommentReply,
+  deleteEssayCommentParent,
+  getEssayCommentReplies,
+} from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
@@ -74,10 +95,13 @@ const props = defineProps({
   },
 });
 
+const userInfo = getUserInfoFromCookie();
+const hadLogin = userIfLofin();
+
 // 回复
 const eid = parseInt(inject("eid"));
 
-const emits = defineEmits("Choose");
+const emits = defineEmits("Choose", "Delete");
 
 const form = reactive({
   toUserUid: "0",
@@ -89,6 +113,7 @@ const form = reactive({
 const toUserName = ref("");
 
 const handelCommentPre = () => {
+  clearReplyCommentStatus();
   emits("Choose");
   props.data.ifComment = true;
   form.parentID = props.data.id;
@@ -146,16 +171,19 @@ const handelReplyChoose = (item) => {
   for (const key in item) {
     form[key] = item[key];
   }
-  list.value.forEach((reply) => {
-    reply.ifComment = false;
-  });
+  clearReplyCommentStatus();
   emits("Choose");
   props.data.ifCommenting = true;
   toUserName.value = item.toUserName;
 };
 
+const clearReplyCommentStatus = () => {
+  list.value.forEach((reply) => {
+    reply.ifComment = false;
+  });
+};
+
 const addTempData = () => {
-  const userInfo = getUserInfoFromCookie();
   if (toUserName.value === "") toUserName.value = userInfo.name;
   let row = {
     fromUser: {
@@ -169,5 +197,25 @@ const addTempData = () => {
     content: form.content,
   };
   list.value.unshift(row);
+  props.data.replyCount += 1;
+};
+
+const deleteForm = reactive({
+  commentID: props.data.id,
+});
+const handelDelete = () => {
+  deleteEssayCommentParent(deleteForm).then((res) => {
+    emits("Delete", props.data.id);
+    ElMessage.success("删除评论成功");
+  });
+};
+
+const handelReplyDelete = (rid) => {
+  loading.value = true;
+  setTimeout(() => {
+    list.value = list.value.filter((item) => item.id !== rid);
+    props.data.replyCount -= 1;
+    loading.value = false;
+  }, 300);
 };
 </script>

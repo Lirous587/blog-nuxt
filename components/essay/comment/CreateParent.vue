@@ -1,19 +1,31 @@
 <template>
   <el-card v-loading="loading">
     <div class="flex flex-col">
+      <el-divider direction="horizontal" content-position="center">
+        <span class="ml-auto font-bold text-pink-600">评论区 </span>
+      </el-divider>
       <el-input
         placeholder="请输入评论内容"
         v-model="form.content"
         type="textarea"
-        :autosize="{ minRows: 3, maxRows: 15 }"
+        :autosize="{ minRows: 5, maxRows: 15 }"
       ></el-input>
       <el-button
         class="ml-auto mt-2 !rounded-md"
-        type="primary"
+        :type="hadLogin ? 'primary' : 'warning'"
         @click="handelCreate"
       >
-        评论
+        {{ hadLogin ? "评论" : "请先登录" }}
       </el-button>
+      <el-divider direction="horizontal" content-position="center">
+        <span class="ml-auto font-bold text-blue-600"
+          >{{
+            hadLogin
+              ? "请友善评论"
+              : "登录之后才可以进行评论操作,现在只允许浏览评论"
+          }}
+        </span>
+      </el-divider>
     </div>
   </el-card>
 </template>
@@ -27,6 +39,8 @@ const props = defineProps({
     type: Object,
   },
 });
+
+const hadLogin = userIfLofin();
 
 const eid = parseInt(inject("eid"));
 const loading = ref(false);

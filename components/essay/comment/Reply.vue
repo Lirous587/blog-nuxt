@@ -27,19 +27,36 @@
         {{ item.content }}
       </span>
       <small class="text-gray-500"> {{ formateDate(item.createTime) }}</small>
-      <button class="mb-2" @click="handelCommentPre(item)" v-if="item.id">
-        <div class="flex items-center justify-start">
-          <small class="inline-block text-xs my-auto mr-1 text-pink-500">
-            {{ item.ifComment ? "回复中" : "回复" }}
-          </small>
-          <el-icon size="18"><ChatRound /></el-icon>
-        </div>
-      </button>
+      <div class="flex gap-x-3" v-if="hadLogin">
+        <small
+          @click="handelCommentPre(item)"
+          v-if="item.id && item.fromUser.uid != userInfo.uid"
+          class="text-green-700 hover:cursor-pointer hover:text-blue-300"
+        >
+          {{ item.ifComment ? "回复中" : "回复" }}
+        </small>
+        <el-popconfirm
+          title="确认删除评论？"
+          confirm-button-text="确认"
+          cancel-button-text="取消"
+          @confirm="handelDelete(item)"
+        >
+          <template #reference>
+            <small
+              class="text-green-700 hover:cursor-pointer hover:text-blue-300"
+            >
+              {{ item.fromUser.uid === userInfo.uid ? "删除" : "" }}
+            </small>
+          </template>
+        </el-popconfirm>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { deleteEssayCommentReply } from "~/api/comment";
+
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
 const props = defineProps({
@@ -49,7 +66,10 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits("Choose");
+const userInfo = getUserInfoFromCookie();
+const hadLogin = userIfLofin();
+
+const emits = defineEmits("Choose", "Delete");
 
 const emitData = reactive({
   toUserUid: "",
@@ -63,5 +83,16 @@ const handelCommentPre = (item) => {
   emitData.parentID = item.parentID;
   emits("Choose", emitData);
   item.ifComment = true;
+};
+
+const deleteForm = reactive({
+  commentID: 0,
+});
+const handelDelete = (item) => {
+  deleteForm.commentID = item.id;
+  deleteEssayCommentReply(deleteForm).then((res) => {
+    emits("Delete", item.id);
+    ElMessage.success("删除评论成功");
+  });
 };
 </script>

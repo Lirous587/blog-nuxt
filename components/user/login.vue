@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { login } from "~/api/user";
+import { getUserInfo, login } from "~/api/user";
 const form = reactive({
   email: "",
   password: "",
@@ -83,7 +83,13 @@ const handelLogin = () => {
       toast("登录成功");
       setUserAccessToken(res.data.token);
       setUserRefreshToken(res.data.refreshToken);
-      router.push("/");
+      setTimeout(() => {
+        getUserInfo().then((res) => {
+          const info = res.data;
+          setUserInfoCookie(info);
+          router.push("/");
+        });
+      }, 200);
     })
     .catch((err) => {
       ElMessage.error("账号或密码错误");

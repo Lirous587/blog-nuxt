@@ -245,6 +245,18 @@ const handelLogout = async () => {
 };
 
 const initUserInfo = async () => {
+  const info = getUserInfoFromCookie();
+  if (info && Object.keys(info).length > 0) {
+    for (const key in info) {
+      if (info[key]) {
+        userInfo[key] = info[key];
+      }
+    }
+    ifLogin.value = true;
+  }
+};
+
+const updateaUserInfo = async () => {
   await getUserInfo().then((res) => {
     const info = res.data;
     setUserInfoCookie(info);
@@ -255,10 +267,6 @@ const initUserInfo = async () => {
     }
     ifLogin.value = true;
   });
-};
-
-const updateaUserInfo = async () => {
-  await initUserInfo();
 };
 
 onMounted(() => {

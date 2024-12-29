@@ -106,16 +106,25 @@ const apiCore = (url, opt, authType) => {
                 if (err.msg === "需要登录") {
                   if (authType === "admin") {
                     removeAdminAuth();
+                    nuxtApp.runWithContext(() => {
+                      navigateTo("/user/auth");
+                    });
                   } else {
                     removeUserAuth();
+                    nuxtApp.runWithContext(() => {
+                      navigateTo("/admin/auth");
+                    });
                   }
-                  nuxtApp.runWithContext(() => {
-                    navigateTo("/");
-                  });
                 }
                 toast(err?.msg || "未知错误", "error");
                 reject(err);
               });
+          } else {
+            removeAdminAuth();
+            removeUserAuth();
+            nuxtApp.runWithContext(() => {
+              navigateTo("/user/auth");
+            });
           }
           return;
         }
