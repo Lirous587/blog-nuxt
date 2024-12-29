@@ -4,16 +4,20 @@
       <el-divider direction="horizontal" content-position="center">
         <span class="ml-auto font-bold text-pink-600">评论区 </span>
       </el-divider>
-      <el-input
-        placeholder="请输入评论内容"
-        v-model="form.content"
-        type="textarea"
-        :autosize="{ minRows: 5, maxRows: 15 }"
-      ></el-input>
+      <el-form ref="formRef" :model="form" :rules="rules">
+        <el-form-item prop="content">
+          <el-input
+            placeholder="请输入评论内容"
+            v-model="form.content"
+            type="textarea"
+            :autosize="{ minRows: 5, maxRows: 15 }"
+          ></el-input>
+        </el-form-item>
+      </el-form>
       <el-button
         class="ml-auto mt-2 !rounded-md"
         :type="hadLogin ? 'primary' : 'warning'"
-        @click="handelCreate"
+        @click="submitCreate"
       >
         {{ hadLogin ? "评论" : "请先登录" }}
       </el-button>
@@ -26,6 +30,10 @@
           }}
         </span>
       </el-divider>
+      <slider-validation
+        ref="sliderValidationRef"
+        @confirm="handelCreate"
+      ></slider-validation>
     </div>
   </el-card>
 </template>
@@ -39,9 +47,9 @@ const props = defineProps({
     type: Object,
   },
 });
+const emits = defineEmits("comment");
 
 const hadLogin = userIfLofin();
-
 const eid = parseInt(inject("eid"));
 const loading = ref(false);
 const form = reactive({
@@ -49,7 +57,27 @@ const form = reactive({
   content: "",
 });
 
-const emits = defineEmits("comment");
+const formRef = ref(null);
+const sliderValidationRef = ref(null);
+
+const rules = reactive({
+  content: [
+    {
+      required: true,
+      message: "请输入评论内容",
+      trigger: "blur",
+    },
+  ],
+});
+
+const submitCreate = async () => {
+  if (!formRef.value) return;
+  formRef.value.validate((valid) => {
+    if (valid) {
+      sliderValidationRef.value.open();
+    }
+  });
+};
 
 const handelCreate = () => {
   loading.value = true;

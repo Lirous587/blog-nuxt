@@ -1,16 +1,16 @@
 <template>
-  <div class="pt-10 transition-all duration-300 bg-white dark:bg-black">
+  <div class="pt-5 transition-all duration-300 bg-white dark:bg-black">
     <div>
       <div class="flex justify-between items-center mb-2">
         <TypeWriter
-          class="rounded-xl text-opacity-60 dark:text-gray-500"
+          class="rounded-xl text-opacity-60 text-blue-600 text-lg font-bold dark:text-gray-500"
           :sentenceList="sentenceList"
           :addSpeed="150"
           :deleteSpeed="50"
         />
       </div>
 
-      <div class="text-sm text-gray-500 ml-2">
+      <div class="text-sm text-green-600 dark:text-gray-500 ml-2">
         {{ data.introduction }}
       </div>
 

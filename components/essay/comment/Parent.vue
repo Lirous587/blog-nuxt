@@ -48,6 +48,7 @@
         共{{ data.replyCount }}条评论点击查看
       </small>
 
+      <!-- replies -->
       <div v-if="havaExpand || list.length > 0" v-loading="loading">
         <EssayCommentReply
           @Choose="handelReplyChoose"
@@ -62,18 +63,27 @@
         />
       </div>
 
+      <!-- 评论框 -->
       <div v-if="data.ifComment || data.ifCommenting" class="flex flex-col">
-        <el-input
-          :placeholder="
-            toUserName ? '正在回复' + '@' + toUserName : '请输入评论'
-          "
-          v-model="form.content"
-          type="textarea"
-          :autosize="{ minRows: 5, maxRows: 15 }"
-        ></el-input>
+        <el-form ref="formRef" :model="form" :rules="rules">
+          <el-form-item prop="content">
+            <el-input
+              :placeholder="
+                toUserName ? '正在回复' + '@' + toUserName : '请输入评论'
+              "
+              v-model="form.content"
+              type="textarea"
+              :autosize="{ minRows: 5, maxRows: 15 }"
+            ></el-input>
+          </el-form-item>
+        </el-form>
         <div class="ml-auto mt-2">
-          <el-button type="info" @click="handelCreate">回复</el-button>
+          <el-button type="info" @click="submitCreate">回复</el-button>
         </div>
+        <slider-validation
+          ref="sliderValidationRef"
+          @confirm="handelCreate"
+        ></slider-validation>
       </div>
     </div>
   </div>
@@ -102,15 +112,24 @@ const hadLogin = userIfLofin();
 const eid = parseInt(inject("eid"));
 
 const emits = defineEmits("Choose", "Delete");
-
+const toUserName = ref("");
 const form = reactive({
   toUserUid: "0",
   parentID: 0,
   essayID: eid,
   content: "",
 });
-
-const toUserName = ref("");
+const formRef = ref(null);
+const sliderValidationRef = ref(null);
+const rules = reactive({
+  content: [
+    {
+      required: true,
+      message: "请输入评论内容",
+      trigger: "blur",
+    },
+  ],
+});
 
 const handelCommentPre = () => {
   clearReplyCommentStatus();
@@ -118,6 +137,15 @@ const handelCommentPre = () => {
   props.data.ifComment = true;
   form.parentID = props.data.id;
   toUserName.value = "";
+};
+
+const submitCreate = async () => {
+  if (!formRef.value) return;
+  formRef.value.validate((valid) => {
+    if (valid) {
+      sliderValidationRef.value.open();
+    }
+  });
 };
 
 const handelCreate = () => {
@@ -162,6 +190,7 @@ const getList = async () => {
 const getMoreComment = () => {
   getList();
 };
+
 const changePage = async (page) => {
   query.page = page;
   getList();
@@ -200,9 +229,11 @@ const addTempData = () => {
   props.data.replyCount += 1;
 };
 
+// delete
 const deleteForm = reactive({
   commentID: props.data.id,
 });
+
 const handelDelete = () => {
   deleteEssayCommentParent(deleteForm).then((res) => {
     emits("Delete", props.data.id);
