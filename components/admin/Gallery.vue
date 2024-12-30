@@ -63,6 +63,7 @@
                   <el-image
                     v-if="previewProps.previewUrl"
                     :src="previewProps.previewUrl"
+                    lazy
                   />
                   <el-icon v-else><Plus /></el-icon>
                 </div>

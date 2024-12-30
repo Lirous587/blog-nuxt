@@ -14,9 +14,10 @@
           <div class="flex flex-col">
             <div class="flex items-center w-full">
               <el-image
+                class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
                 :src="imgPre + item.img.url"
                 fit="cover"
-                class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
+                lazy
               ></el-image>
               <div
                 class="ml-5 text-sm text-pink-400 text-ellipsis transition-transform duration-300 hover:scale-110 hover:underline"

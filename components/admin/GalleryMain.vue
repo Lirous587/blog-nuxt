@@ -11,8 +11,8 @@
         <el-image
           :src="imgPre + item.imgUrl"
           class="h-full w-full p-2 rounded-lg"
-          lazy
           fit="cover"
+          lazy
         >
         </el-image>
         <div

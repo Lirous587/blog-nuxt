@@ -1,7 +1,12 @@
 <template>
   <div class="relative w-full h-[100vh] overflow-hidden">
     <div class="relative w-full h-full">
-      <el-image :src="imgUrl" fit="cover" class="w-full h-full" />
+      <el-image
+        loading="eager"
+        :src="imgUrl"
+        fit="cover"
+        class="w-full h-full"
+      />
 
       <div
         class="absolute inset-0 bg-black bg-opacity-50 pointer-events-none hidden dark:block"

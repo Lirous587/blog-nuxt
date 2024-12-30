@@ -41,8 +41,6 @@ const apiCore = (url, opt, authType) => {
           accessToken = newAccessToken;
         })
         .catch((err) => {
-          console.log("第一次错误");
-          console.log(err);
           const errData = err?.data;
           reject(errData || err);
         });
@@ -66,8 +64,6 @@ const apiCore = (url, opt, authType) => {
           resolve(res);
         })
         .catch((err) => {
-          console.log("第二次错误");
-          console.log(err);
           const errData = err?.data;
           reject(errData || err);
         });
@@ -107,12 +103,12 @@ const apiCore = (url, opt, authType) => {
                   if (authType === "admin") {
                     removeAdminAuth();
                     nuxtApp.runWithContext(() => {
-                      navigateTo("/user/auth");
+                      navigateTo("/admin/auth");
                     });
                   } else {
                     removeUserAuth();
                     nuxtApp.runWithContext(() => {
-                      navigateTo("/admin/auth");
+                      navigateTo("/user/auth");
                     });
                   }
                 }

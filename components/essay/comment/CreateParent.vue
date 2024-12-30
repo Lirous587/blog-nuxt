@@ -23,11 +23,7 @@
       </el-button>
       <el-divider direction="horizontal" content-position="center">
         <span class="ml-auto font-bold text-blue-600"
-          >{{
-            hadLogin
-              ? "请友善评论"
-              : "登录之后才可以进行评论操作,现在只允许浏览评论"
-          }}
+          >{{ hadLogin ? "请友善评论" : "登录后才可以评论" }}
         </span>
       </el-divider>
       <slider-validation
