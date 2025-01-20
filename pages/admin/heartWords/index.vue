@@ -1,9 +1,21 @@
 <template>
   <div>
-    <el-card>
+    <el-card shadow="always">
       <template #header>
-        <el-button type="primary" @click="handelCreatePre">添加 </el-button>
+        <AdminSearch @search="getData" @reset="resetSearchForm">
+          <template #default>
+            <el-input
+              placeholder="关键词"
+              v-model="searchForm.keyword"
+              @keydown.enter="getData"
+            ></el-input>
+          </template>
+        </AdminSearch>
+        <el-button type="primary" @click="handelCreatePre" size="small"
+          >添加
+        </el-button>
       </template>
+
       <el-table :data="list" border v-loading="tableLoading">
         <el-table-column
           label="id"
@@ -62,12 +74,13 @@
           </template>
         </el-table-column>
       </el-table>
+
       <template #footer>
         <div class="mt-5 flex justify-center">
           <el-pagination
             background
             layout="prev, pager, next"
-            :page-count="currentPage"
+            :page-count="totalPages"
             @change="changePage"
           />
         </div>
@@ -120,10 +133,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="图片">
-          <AdminImgPreview
-            @click="dialogRef.open()"
-            :imgUrl="form.img?.url"
-          ></AdminImgPreview>
+          <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -138,10 +148,6 @@
         </el-form-item>
       </el-form>
     </MyDrawer>
-
-    <MyDialog title="选择图片" width="80%" ref="dialogRef">
-      <AdminGallery :oID="oID" @select-img="handelSelectImg"></AdminGallery>
-    </MyDialog>
   </div>
 </template>
 
@@ -160,44 +166,27 @@ definePageMeta({
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase + "/";
 
-provide("select", true);
-
-const dialogRef = ref(null);
-
-const oldForm = reactive({
-  id: 1,
-  content: "",
-  source: "",
-  img: {
-    url: "",
-    id: 0,
-  },
-  ifCouldType: false,
-  ifRecommend: false,
-  ifTop: false,
-});
-
 const form = reactive({
   id: 1,
   content: "",
   source: "",
   img: {
-    url: "",
     id: 0,
+    url: "",
   },
   ifCouldType: false,
   ifRecommend: false,
   ifTop: false,
 });
 
-const currentPage = ref(1);
-
-const queryParams = reactive({
+const searchForm = reactive({
   page: 1,
   pageSize: 10,
+  keyword: "",
 });
 
 const drawerRef = ref(null);
+
 const ifCreate = ref(true);
 
 const tableLoading = ref(false);
@@ -205,38 +194,41 @@ const loading = ref(false);
 
 const list = ref([]);
 
-const getList = async () => {
+const totalPages = ref(1);
+
+const changePage = async (page) => {
+  searchForm.page = page;
+  await getData();
+};
+
+const getData = async () => {
   tableLoading.value = true;
-  await getHeartWordsList(queryParams)
+  await getHeartWordsList(searchForm)
     .then((res) => {
       const data = res.data;
-      currentPage.value = data.totalPages;
-      list.value = data.list.map((item) => {
-        return {
-          ...item,
-          loading: false,
-        };
-      });
+      totalPages.value = data.totalPages;
+      if (Array.isArray(data.list)) {
+        list.value = data.list.map((item) => {
+          return {
+            ...item,
+            loading: false,
+          };
+        });
+      }
     })
     .finally(() => {
       tableLoading.value = false;
     });
 };
 
-await getList();
+await getData();
 
 const drawerAction = async () => {
   ifCreate.value ? handelCreate() : handelUpdate();
 };
 
-const cleanForm = () => {
-  for (const key in oldForm) {
-    form[key] = oldForm[key];
-  }
-};
-
 const handelCreatePre = () => {
-  cleanForm();
+  resetForm(form);
   drawerRef.value.open();
   ifCreate.value = true;
 };
@@ -247,7 +239,7 @@ const handelCreate = () => {
   createHeartWords(form)
     .then(async () => {
       toast("创建成功");
-      await getList();
+      await getData();
       tableLoading.value = false;
     })
     .finally(() => {
@@ -257,12 +249,10 @@ const handelCreate = () => {
 };
 
 const handelUpdatePre = (row) => {
-  cleanForm();
+  resetForm(form);
   for (const key in form) {
     form[key] = row[key];
   }
-
-  oID.value = form.img.id;
 
   drawerRef.value.open();
 
@@ -288,23 +278,15 @@ const handelDelete = (row) => {
   deleteHeartWords(row.id)
     .then(async () => {
       toast("删除成功");
-      await getList();
+      await getData();
     })
     .finally(() => {
       tableLoading.value = false;
     });
 };
 
-const changePage = async (row) => {
-  queryParams.page = row;
-  await getList();
-};
-
-const oID = ref(0);
-
-const handelSelectImg = (img) => {
-  form.img.id = img.id;
-  form.img.url = img.imgUrl;
-  dialogRef.value.close();
+const resetSearchForm = () => {
+  resetForm(searchForm);
+  getData();
 };
 </script>

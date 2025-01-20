@@ -24,21 +24,15 @@
       <NuxtLink to="/admin/essay/manage">
         <el-menu-item index="/admin/essay/manage"> 管理文章 </el-menu-item>
       </NuxtLink>
+      <NuxtLink to="/admin/essay/comment">
+        <el-menu-item index="/admin/essay/comment"> 管理评论 </el-menu-item>
+      </NuxtLink>
     </el-sub-menu>
 
     <!-- 分类 -->
     <NuxtLink to="/admin/kind">
       <el-menu-item index="/admin/kind">
         <el-icon><Files /></el-icon>
-        <template #title>
-          <span>分类</span>
-        </template>
-      </el-menu-item>
-    </NuxtLink>
-
-    <NuxtLink to="/admin/kind">
-      <el-menu-item index="/admin/label">
-        <el-icon><Folder /></el-icon>
         <template #title>
           <span>分类</span>
         </template>

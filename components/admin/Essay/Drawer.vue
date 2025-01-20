@@ -43,10 +43,7 @@
       </el-form-item>
 
       <el-form-item label="文章图片">
-        <AdminImgPreview
-          @click="chooseImg"
-          :imgUrl="form.img?.url"
-        ></AdminImgPreview>
+        <ImgSelect v-model:id="form.img.id"></ImgSelect>
       </el-form-item>
 
       <el-form-item label="关键词">
@@ -80,9 +77,6 @@
       </el-form-item>
     </el-form>
   </MyDrawer>
-  <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <AdminGallery :oID="oID" @select-img="handelSelectImg" />
-  </MyDialog>
 </template>
 
 <script setup>
@@ -120,7 +114,6 @@ const loading = ref(false);
 const adminStore = useMyAdminStore();
 
 const drawerRef = ref(null);
-const dialogRef = ref(null);
 
 const labelList = ref([]);
 const kindList = ref([]);
@@ -172,23 +165,6 @@ const handelUpdate = () => {
     .finally(() => {
       loading.value = false;
     });
-};
-
-const oID = ref(0);
-
-const handelSelectImgPre = () => {
-  dialogRef.value.open();
-  oID.value = form.value.img.id;
-};
-
-const handelSelectImg = (img) => {
-  form.value.img.url = img.imgUrl;
-  form.value.img.id = img.id;
-  dialogRef.value.close();
-};
-
-const chooseImg = () => {
-  handelSelectImgPre();
 };
 
 const open = () => {
