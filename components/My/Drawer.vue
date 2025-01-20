@@ -10,7 +10,17 @@
     :close-delay="closeDelay"
     :destroy-on-close="destroyOnClose"
   >
-    <slot />
+    <div class="w-full h-full flex flex-col overflow-auto">
+      <div class="flex-1">
+        <slot />
+      </div>
+      <div class="mb-3 flex items-center">
+        <el-button type="primary" :loading="loading" @click="submit">
+          {{ confirmText }}</el-button
+        >
+        <el-button type="default" @click="close">取 消</el-button>
+      </div>
+    </div>
   </el-drawer>
 </template>
 
@@ -40,9 +50,18 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  confirmText: {
+    type: String,
+    default: "提交",
+  },
 });
 
 const visible = ref(false);
+
+const loading = ref(false);
+
+const showLoading = () => (loading.value = true);
+const hideLoading = () => (loading.value = false);
 
 const open = () => {
   document.body.style.overflow = "hidden";
@@ -54,6 +73,8 @@ const close = () => {
 };
 
 defineExpose({
+  showLoading,
+  hideLoading,
   open,
   close,
 });

@@ -1,4 +1,4 @@
-export function getHeartWordsList(query) {
+export function getHeartWordsList(query = {}) {
   let q = queryToUrl(query);
   return api.get(`/base/heartWordsList${q}`);
 }
@@ -8,7 +8,7 @@ export function createHeartWords(form) {
 }
 
 export function updateHeartWords(form) {
-  return clientApi.put(`/admin/heartWords`, form);
+  return clientApi.put(`/admin/heartWords?id=${id}`, form);
 }
 
 export function deleteHeartWords(id) {

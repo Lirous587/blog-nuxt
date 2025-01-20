@@ -207,14 +207,7 @@ const getData = async () => {
     .then((res) => {
       const data = res.data;
       totalPages.value = data.totalPages;
-      if (Array.isArray(data.list)) {
-        list.value = data.list.map((item) => {
-          return {
-            ...item,
-            loading: false,
-          };
-        });
-      }
+      list.value = data.list;
     })
     .finally(() => {
       tableLoading.value = false;
@@ -240,10 +233,10 @@ const handelCreate = () => {
     .then(async () => {
       toast("创建成功");
       await getData();
-      tableLoading.value = false;
     })
     .finally(() => {
       loading.value = false;
+      tableLoading.value = false;
       drawerRef.value.close();
     });
 };
