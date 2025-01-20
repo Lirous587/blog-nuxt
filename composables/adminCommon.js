@@ -30,11 +30,12 @@ export function useInitTable(opt = {}) {
     opt
       .getList(searchForm)
       .then((res) => {
+        const data = res.data;
         if (opt.onGetListSuccess && typeof opt.onGetListSuccess == "function") {
           opt.onGetListSuccess(res);
         } else {
-          tableData.value = res.list;
-          totalPages.value = res.totalPages;
+          tableData.value = data.list;
+          totalPages.value = data.totalPages;
         }
       })
       .finally(() => {
@@ -83,7 +84,7 @@ export function useInitTable(opt = {}) {
       loading.value = true;
       opt
         .delete(multipleSelectionIds.value)
-        .then((res) => {
+        .then(() => {
           toast("批量删除成功");
           getData();
         })
@@ -127,7 +128,7 @@ export function useInitTable(opt = {}) {
     tableData,
     loading,
     currentPage,
-    total,
+    totalPages,
     getData,
     handelDelete,
     handelStatusChange,
@@ -142,7 +143,7 @@ export function useInitTable(opt = {}) {
 // 新增 修改
 export const useInitForm = (opt) => {
   // 表单部分
-  const drawerRef = opt.drawerRef;
+  const drawerRef = ref(null);
   const formRef = ref(null);
   // 表单默认值
   const defaultForm = opt.form;
@@ -169,9 +170,7 @@ export const useInitForm = (opt) => {
         body = form;
       }
 
-      const fun = editId.value
-        ? opt.update(editId.value, body)
-        : opt.create(body);
+      const fun = editId.value ? opt.update(body) : opt.create(body);
 
       fun
         .then((res) => {
@@ -208,6 +207,10 @@ export const useInitForm = (opt) => {
     resetForm(row);
     drawerRef.value.open();
   };
+
+  watch(editId, (newID) => {
+    form.id = newID;
+  });
 
   return {
     drawerRef,

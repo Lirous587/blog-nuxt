@@ -11,12 +11,12 @@
             ></el-input>
           </template>
         </AdminSearch>
-        <el-button type="primary" @click="handelCreatePre" size="small"
+        <el-button type="primary" @click="handelCreate" size="small"
           >添加
         </el-button>
       </template>
 
-      <el-table :data="list" border v-loading="tableLoading">
+      <el-table :data="tableData" border v-loading="loading">
         <el-table-column
           label="id"
           prop="id"
@@ -54,7 +54,7 @@
             <el-button
               type="warning"
               :loading="scope.row.loading"
-              @click="handelUpdatePre(scope.row)"
+              @click="handelEdit(scope.row)"
               >修改
             </el-button>
 
@@ -65,7 +65,7 @@
               cancel-button-text="取消"
               cancel-button-type="primary"
               icon-color="rgb(245,108,108)"
-              @confirm="handelDelete(scope.row)"
+              @confirm="handelDelete(scope.row.id)"
             >
               <template #reference>
                 <el-button type="danger">删除 </el-button>
@@ -79,23 +79,25 @@
         <div class="mt-5 flex justify-center">
           <el-pagination
             background
-            layout="prev, pager, next"
-            :page-count="totalPages"
-            @change="changePage"
+            layout="prev, pager,next"
+            :current-page="currentPage"
+            @current-change="getData"
+            :total="totalPages"
           />
         </div>
       </template>
     </el-card>
 
     <MyDrawer
-      :title="ifCreate ? '添加心语' : '修改心语'"
+      :title="drawerTitle"
       direction="rtl"
       ref="drawerRef"
       size="50%"
       :destroy-on-close="true"
       class="dark:bg-black"
+      @submit="handelSubmit"
     >
-      <el-form :model="form" label-width="80px" :inline="false">
+      <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
         <el-form-item label="心语内容" prop="content">
           <el-input
             placeholder="请输入心语内容"
@@ -135,17 +137,6 @@
         <el-form-item label="图片">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            size="large"
-            class="mt-5 w-full"
-            @click="drawerAction"
-            :loading="loading"
-          >
-            {{ ifCreate ? "添加心语" : "修改心语" }}
-          </el-button>
-        </el-form-item>
       </el-form>
     </MyDrawer>
   </div>
@@ -166,120 +157,51 @@ definePageMeta({
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase + "/";
 
-const form = reactive({
-  id: 1,
-  content: "",
-  source: "",
-  img: {
+//  table
+const {
+  searchForm,
+  resetSearchForm,
+  tableData,
+  loading,
+  currentPage,
+  totalPages,
+  getData,
+  handelDelete,
+} = useInitTable({
+  getList: getHeartWordsList,
+  delete: deleteHeartWords,
+  update: updateHeartWords,
+  searchForm: reactive({
+    page: 1,
+    pageSize: 10,
+    keyword: "",
+  }),
+});
+
+// form
+const {
+  drawerRef,
+  form,
+  formRef,
+  drawerTitle,
+  handelSubmit,
+  handelCreate,
+  handelEdit,
+} = useInitForm({
+  form: reactive({
     id: 0,
-    url: "",
-  },
-  ifCouldType: false,
-  ifRecommend: false,
-  ifTop: false,
+    content: "",
+    source: "",
+    img: {
+      id: 0,
+      url: "",
+    },
+    ifCouldType: false,
+    ifRecommend: false,
+    ifTop: false,
+  }),
+  getData,
+  create: createHeartWords,
+  update: updateHeartWords,
 });
-
-const searchForm = reactive({
-  page: 1,
-  pageSize: 10,
-  keyword: "",
-});
-
-const drawerRef = ref(null);
-
-const ifCreate = ref(true);
-
-const tableLoading = ref(false);
-const loading = ref(false);
-
-const list = ref([]);
-
-const totalPages = ref(1);
-
-const changePage = async (page) => {
-  searchForm.page = page;
-  await getData();
-};
-
-const getData = async () => {
-  tableLoading.value = true;
-  await getHeartWordsList(searchForm)
-    .then((res) => {
-      const data = res.data;
-      totalPages.value = data.totalPages;
-      list.value = data.list;
-    })
-    .finally(() => {
-      tableLoading.value = false;
-    });
-};
-
-await getData();
-
-const drawerAction = async () => {
-  ifCreate.value ? handelCreate() : handelUpdate();
-};
-
-const handelCreatePre = () => {
-  resetForm(form);
-  drawerRef.value.open();
-  ifCreate.value = true;
-};
-
-const handelCreate = () => {
-  loading.value = true;
-  tableLoading.value = true;
-  createHeartWords(form)
-    .then(async () => {
-      toast("创建成功");
-      await getData();
-    })
-    .finally(() => {
-      loading.value = false;
-      tableLoading.value = false;
-      drawerRef.value.close();
-    });
-};
-
-const handelUpdatePre = (row) => {
-  resetForm(form);
-  for (const key in form) {
-    form[key] = row[key];
-  }
-
-  drawerRef.value.open();
-
-  ifCreate.value = false;
-};
-
-const handelUpdate = () => {
-  updateHeartWords(form)
-    .then(async () => {
-      toast("修改成功");
-      let item = list.value.find((item) => item.id === form.id);
-      for (const key in item) {
-        item[key] = form[key];
-      }
-    })
-    .finally(() => {
-      drawerRef.value.close();
-    });
-};
-
-const handelDelete = (row) => {
-  tableLoading.value = true;
-  deleteHeartWords(row.id)
-    .then(async () => {
-      toast("删除成功");
-      await getData();
-    })
-    .finally(() => {
-      tableLoading.value = false;
-    });
-};
-
-const resetSearchForm = () => {
-  resetForm(searchForm);
-  getData();
-};
 </script>

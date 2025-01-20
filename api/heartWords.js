@@ -8,7 +8,7 @@ export function createHeartWords(form) {
 }
 
 export function updateHeartWords(form) {
-  return clientApi.put(`/admin/heartWords?id=${id}`, form);
+  return clientApi.put(`/admin/heartWords`, form);
 }
 
 export function deleteHeartWords(id) {

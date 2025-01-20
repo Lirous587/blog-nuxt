@@ -60,6 +60,9 @@ const visible = ref(false);
 
 const loading = ref(false);
 
+const emit = defineEmits(["submit"]);
+const submit = () => emit("submit");
+
 const showLoading = () => (loading.value = true);
 const hideLoading = () => (loading.value = false);
 

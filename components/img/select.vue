@@ -6,8 +6,8 @@
     @click="dialogRef.open"
     class="w-[200px] h-[200px] flex items-center justify-center overflow-hidden border rounded-md bg-red-50"
   >
-    <div v-if="!!imgID || !!url">
-      <el-image :src="imgPre + url" fit="contain" />
+    <div v-if="previewUrl || url">
+      <el-image :src="imgPre + (previewUrl ? previewUrl : url)" fit="contain" />
     </div>
     <div v-else>
       <el-icon><Plus /></el-icon>
@@ -22,6 +22,7 @@ const imgID = defineModel("id", {
   type: Number,
   required: true,
 });
+
 const props = defineProps({
   url: {
     type: String,
@@ -29,11 +30,13 @@ const props = defineProps({
   },
 });
 
+const previewUrl = ref("");
+
 const dialogRef = ref(null);
 
 const handelSelectImg = (img) => {
   imgID.value = img.id;
-  props.url = img.imgUrl;
+  previewUrl.value = img.imgUrl;
   dialogRef.value.close();
 };
 </script>
