@@ -18,14 +18,15 @@ export function useInitTable(opt = {}) {
 
   //分页
   const currentPage = ref(1);
-  const totalPages = ref(0);
-
-  watch(currentPage, (page) => {
-    searchForm.page = page;
-  });
+  const pages = ref(1);
 
   // 获取数据
-  function getData() {
+  function getData(page = null) {
+    if (typeof page == "number") {
+      currentPage.value = page;
+      searchForm.page = page;
+      console.log(page);
+    }
     loading.value = true;
     opt
       .getList(searchForm)
@@ -35,7 +36,7 @@ export function useInitTable(opt = {}) {
           opt.onGetListSuccess(res);
         } else {
           tableData.value = data.list;
-          totalPages.value = data.totalPages;
+          pages.value = data.pages;
         }
       })
       .finally(() => {
@@ -130,7 +131,7 @@ export function useInitTable(opt = {}) {
     tableData,
     loading,
     currentPage,
-    totalPages,
+    pages,
     getData,
     handelDelete,
     handelStatusChange,

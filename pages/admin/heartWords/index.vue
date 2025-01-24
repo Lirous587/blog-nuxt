@@ -5,7 +5,7 @@
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>
             <el-input
-              placeholder="关键词"
+              placeholder="请输入关键词"
               v-model="searchForm.keyword"
               @keydown.enter="getData"
             ></el-input>
@@ -22,12 +22,12 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="心语内容" prop="content" align="center">
+        <el-table-column label="内容" prop="content" align="center">
         </el-table-column>
-        <el-table-column label="心语出处" prop="source" align="center">
+        <el-table-column label="出处" prop="source" align="center">
         </el-table-column>
 
-        <el-table-column label="心语图片" align="center">
+        <el-table-column label="图片" align="center">
           <template #default="scope">
             <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
           </template>
@@ -55,7 +55,7 @@
             </el-button>
 
             <el-popconfirm
-              title="确定删除该心语?"
+              title="确定删除?"
               confirm-button-text="确定"
               confirm-button-type="danger"
               cancel-button-text="取消"
@@ -78,7 +78,8 @@
             layout="prev, pager,next"
             :current-page="currentPage"
             @current-change="getData"
-            :total="totalPages"
+            :total="pages"
+            :page-count="pages"
           />
         </div>
       </template>
@@ -94,7 +95,7 @@
       @submit="handelSubmit"
     >
       <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
-        <el-form-item label="心语内容" prop="content">
+        <el-form-item label="内容" prop="content">
           <el-input
             placeholder="请输入心语内容"
             size="large"
@@ -103,7 +104,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="心语出处">
+        <el-form-item label="出处">
           <el-input
             placeholder="请输入心语出处"
             v-model="form.source"
@@ -160,16 +161,15 @@ const {
   tableData,
   loading,
   currentPage,
-  totalPages,
+  pages,
   getData,
   handelDelete,
 } = useInitTable({
   getList: getHeartWordsList,
   delete: deleteHeartWords,
-  update: updateHeartWords,
   searchForm: reactive({
     page: 1,
-    pageSize: 10,
+    limit: 5,
     keyword: "",
   }),
 });
