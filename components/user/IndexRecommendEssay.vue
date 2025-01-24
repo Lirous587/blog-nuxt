@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase;
 const props = defineProps({
   list: {
     type: Array,

@@ -32,9 +32,19 @@
     <!-- 分类 -->
     <NuxtLink to="/admin/kind">
       <el-menu-item index="/admin/kind">
-        <el-icon><Files /></el-icon>
+        <el-icon><Folder /></el-icon>
         <template #title>
           <span>分类</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
+    <!-- 标签 -->
+    <NuxtLink to="/admin/label">
+      <el-menu-item index="/admin/label">
+        <el-icon><Files /></el-icon>
+        <template #title>
+          <span>标签</span>
         </template>
       </el-menu-item>
     </NuxtLink>

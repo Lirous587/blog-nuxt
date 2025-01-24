@@ -1,3 +1,3 @@
 export function getIndexInfo() {
-  return api.get("/base/index");
+  return api.get("/index");
 }

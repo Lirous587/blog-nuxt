@@ -1,22 +1,22 @@
 export const getEssay = (id) => {
-  return api.get(`/base/essayContent?id=${id}`);
+  return api.get(`/essay/${id}`);
 };
 
 export const getEssayList = async (query) => {
   let q = queryToUrl(query);
-  return api.get(`/base/essayList${q}`);
+  return api.get(`/essay${q}`);
 };
 
 export function createEssay(form) {
-  return clientApi.post("/admin/essay", form);
+  return clientApi.post("/essay", form);
 }
 
-export function updateEssay(form) {
-  return clientApi.put("/admin/essay", form);
+export function updateEssay(id, form) {
+  return clientApi.put(`/essay/${id}`, form);
 }
 
 export function deleteEssay(id) {
-  return clientApi.delete(`/admin/essay?id=${id}`);
+  return clientApi.delete(`/essay/${id}`);
 }
 
 export function searchEssay(form) {

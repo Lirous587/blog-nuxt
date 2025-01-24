@@ -15,7 +15,6 @@
           >添加
         </el-button>
       </template>
-
       <el-table :data="tableData" border v-loading="loading">
         <el-table-column
           label="id"
@@ -51,10 +50,7 @@
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
-            <el-button
-              type="warning"
-              :loading="scope.row.loading"
-              @click="handelEdit(scope.row)"
+            <el-button type="warning" @click="handelEdit(scope.row)"
               >修改
             </el-button>
 
@@ -155,7 +151,7 @@ definePageMeta({
 });
 
 const config = useRuntimeConfig();
-const imgPre = config.public.imgGalleryBase + "/";
+const imgPre = config.public.imgGalleryBase;
 
 //  table
 const {

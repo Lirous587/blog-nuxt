@@ -42,7 +42,9 @@ export function useInitTable(opt = {}) {
         loading.value = false;
       });
   }
-  getData();
+  onMounted(() => {
+    getData();
+  });
 
   // 删除
   const handelDelete = (id) => {
@@ -170,12 +172,14 @@ export const useInitForm = (opt) => {
         body = form;
       }
 
-      const fun = editId.value ? opt.update(body) : opt.create(body);
+      const fun = editId.value
+        ? opt.update(editId.value, body)
+        : opt.create(body);
 
       fun
-        .then((res) => {
+        .then(() => {
           toast(drawerTitle.value + "成功");
-          opt.getData(editId ? null : 1);
+          opt.getData();
           drawerRef.value.close();
         })
         .finally(() => {
@@ -207,10 +211,6 @@ export const useInitForm = (opt) => {
     resetForm(row);
     drawerRef.value.open();
   };
-
-  watch(editId, (newID) => {
-    form.id = newID;
-  });
 
   return {
     drawerRef,

@@ -17,7 +17,7 @@
 
 <script setup>
 provide("select", true);
-const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase;
 const imgID = defineModel("id", {
   type: Number,
   required: true,

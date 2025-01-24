@@ -119,7 +119,7 @@ await getEssay(id)
   });
 
 const config = useRuntimeConfig();
-const imgPre = config.public.imgGalleryBase + "/";
+const imgPre = config.public.imgGalleryBase;
 useSeoMeta({
   title: data.value.name,
   ogTitle: data.value.name,

@@ -38,7 +38,7 @@
 
 <script setup>
 import { useMyIndexStore } from "~/store";
-const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase ;
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
 const imglist = indexStore.getImgList();

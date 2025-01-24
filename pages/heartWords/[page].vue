@@ -57,7 +57,7 @@ definePageMeta({
   scrollToTop: true,
 });
 const config = useRuntimeConfig();
-const imgPre = config.public.imgGalleryBase + "/";
+const imgPre = config.public.imgGalleryBase;
 const route = useRoute();
 
 const queryForm = reactive({

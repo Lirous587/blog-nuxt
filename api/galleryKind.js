@@ -1,15 +1,15 @@
 export function getGalleryKindList() {
-  return clientApi.get(`/admin/galleryKindList`);
+  return clientApi.get(`/gallery/kind`);
 }
 
 export function createGalleryKind(form) {
-  return clientApi.post(`/admin/galleryKind`, form);
+  return clientApi.post(`/gallery/kind`, form);
 }
 
-export function updateGalleryKind(form) {
-  return clientApi.put(`/admin/galleryKind`, form);
+export function updateGalleryKind(id, form) {
+  return clientApi.put(`/gallery/kind/${id}`, form);
 }
 
 export function deleteGalleryKind(id) {
-  return clientApi.delete(`/admin/galleryKind?id=${id}`);
+  return clientApi.delete(`/gallery/kind/${id}`);
 }

@@ -1,11 +1,11 @@
 export function createKind(form) {
-  return clientApi.post(`/admin/kind`, form);
+  return clientApi.post(`/essay/kind`, form);
 }
 
-export function updateKind(form) {
-  return clientApi.put(`/admin/kind`, form);
+export function updateKind(id, form) {
+  return clientApi.put(`/essay/kind/${id}`, form);
 }
 
 export function deleteKind(id) {
-  return clientApi.delete(`/admin/kind?id=${id}`);
+  return clientApi.delete(`/essay/kind/${id}`);
 }

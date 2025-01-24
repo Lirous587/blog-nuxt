@@ -12,7 +12,7 @@ const chooseGallery = () => {
   dialogRef.value.open();
 };
 
-const imgPre = useRuntimeConfig().public.imgGalleryBase + "/";
+const imgPre = useRuntimeConfig().public.imgGalleryBase;
 
 const emits = defineEmits(["chooseGalley", "chooseEssay"]);
 

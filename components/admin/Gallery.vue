@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card >
     <template #header>
       <el-button type="success" size="small" @click="handelUploadPre"
         >上传图片</el-button
@@ -12,7 +12,7 @@
       <el-aside width="180px">
         <AdminGalleryAside ref="asideRef" @changeKind="handelChangeKind" />
       </el-aside>
-      <div class="min-h-[700px] flex-1">
+      <div class="min-h-[700px] flex-1 pr-5">
         <AdminGalleryMain
           @select-img="handelSelectImg"
           ref="mainRef"
