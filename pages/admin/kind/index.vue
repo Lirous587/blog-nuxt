@@ -65,7 +65,6 @@
             layout="prev, pager,next"
             :current-page="currentPage"
             @current-change="getData"
-            :total="pages"
             :page-count="pages"
           />
         </div>

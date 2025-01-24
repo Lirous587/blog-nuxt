@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col items-center w-full ml-2 mt-3">
+  <div class="relative h-full p-2">
     <div
-      class="w-full grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+      class="grid h-[calc(100%-40px)] overflow-y-scroll grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
     >
       <div
-        v-for="(item, index) in list"
+        v-for="(item, index) in tableData"
         :key="item.id"
         class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
       >
@@ -24,6 +24,7 @@
           >
             <span class="ml-2 text-red-950"> {{ item.imgUrl }}</span>
           </div>
+          <!-- 选择框 -->
           <div class="flex justify-evenly">
             <el-checkbox
               v-if="ifSelect"
@@ -37,7 +38,7 @@
               size="small"
               text="true"
               type="warning"
-              @click="handelUpdatePre(item)"
+              @click="handelEdit(item)"
               >更新</el-button
             >
             <el-popconfirm
@@ -55,39 +56,15 @@
           </div>
         </div>
       </div>
-      <MyDrawer ref="updateImgDrawerRef" title="更新图片内容">
-        <div class="flex flex-col items-start gap-y-5">
-          <UploadImg v-model:imgData="updateForm.imgData">
-            <template #default>
-              <div
-                class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
-              >
-                <el-icon><Plus /></el-icon>
-              </div>
-            </template>
-            <template #preview="previewProps">
-              <div
-                class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
-              >
-                <el-image
-                  v-if="previewProps.previewUrl"
-                  :src="previewProps.previewUrl"
-                />
-                <el-icon v-else><Plus /></el-icon>
-              </div>
-            </template>
-          </UploadImg>
-          <el-button type="success" @click="handelUpdate">更新</el-button>
-        </div>
-      </MyDrawer>
     </div>
 
-    <div class="my-5 flex justify-center">
+    <div class="flex justify-center absolute left-0 right-0 bottom-[10px]">
       <el-pagination
         background
         layout="prev, pager, next"
-        :page-count="totalPages"
-        @change="changePage"
+        :current-page="currentPage"
+        @current-change="getData"
+        :page-count="pages"
       />
     </div>
   </div>
@@ -97,104 +74,155 @@
       >选择图片</el-button
     >
   </div>
+
+  <MyDrawer
+    :title="drawerTitle"
+    direction="rtl"
+    ref="drawerRef"
+    size="50%"
+    :destroy-on-close="true"
+    class="dark:bg-black"
+    @submit="handelSubmit"
+  >
+    <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
+      <el-form-item label="图片内容" v-if="drawerTitle === '新增'">
+        <UploadImg v-model:imgData="form.imgData">
+          <template #default>
+            <div
+              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+            >
+              <el-icon><Plus /></el-icon>
+            </div>
+          </template>
+          <template #preview="previewProps">
+            <div
+              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+            >
+              <el-image
+                v-if="previewProps.previewUrl"
+                :src="previewProps.previewUrl"
+              />
+              <el-icon v-else><Plus /></el-icon>
+            </div>
+          </template>
+        </UploadImg>
+      </el-form-item>
+      <el-form-item label="图片url" v-if="drawerTitle !== '新增'">
+        <el-input placeholder="" v-model="form.imgUrl"></el-input>
+      </el-form-item>
+      <el-form-item label="备注">
+        <el-input placeholder="" v-model="form.remark"></el-input>
+      </el-form-item>
+    </el-form>
+  </MyDrawer>
 </template>
+
 <script setup>
-import { deleteGallery, getGalleryList, updateGallery } from "~/api/gallery";
+import {
+  getGalleryList,
+  createGallery,
+  deleteGallery,
+  updateGallery,
+} from "~/api/gallery";
 
-const imgPre = useRuntimeConfig().public.imgGalleryBase;
+definePageMeta({
+  layout: "admin",
+});
 
+const config = useRuntimeConfig();
+const imgPre = config.public.imgGalleryBase;
+const ifSelect = inject("select");
 const props = defineProps({
   kindID: {
     type: Number,
     required: true,
   },
+  // 旧图片id
   oID: {
     type: Number,
     default: 0,
   },
 });
 
-const ifSelect = inject("select");
-
-const list = ref([]);
-const totalPages = ref(1);
-const loading = ref(false);
-const queryParams = reactive({
-  kindID: props.kindID,
-  page: 1,
-  pageSize: 10,
-});
-
-const getList = async (id) => {
-  list.value = [];
-  loading.value = true;
-  await getGalleryList(queryParams)
-    .then((res) => {
-      const data = res.data;
-      list.value = data.list.map((o) => {
+//  table
+const {
+  tableData,
+  loading,
+  currentPage,
+  pages,
+  getData,
+  handelDelete,
+  searchForm,
+  resetSearchForm,
+} = useInitTable({
+  getList: getGalleryList,
+  delete: deleteGallery,
+  searchForm: reactive({
+    kindID: 1,
+    page: 1,
+    limit: 10,
+    keyword: "",
+  }),
+  onGetListSuccess: (res) => {
+    const list = res.list;
+    if (Array.isArray(list)) {
+      tableData.value = list.map((o) => {
         if (o.id === props.oID) {
           return { ...o, checked: true };
-        }
-        if (o.id === id) {
+        } else {
           return {
             ...o,
             checked: false,
-            imgUrl: o.imgUrl + `?random=` + Math.floor(10000 * Math.random()),
           };
         }
         return { ...o, checked: false };
       });
-      totalPages.value = data.totalPages;
-    })
-    .finally(() => {
-      setTimeout(() => {
-        loading.value = false;
-      }, 200);
-    });
-};
-
-const handelDelete = async (id) => {
-  await deleteGallery(id);
-  getList();
-};
-
-const updateForm = reactive({
-  id: null,
-  imgData: null,
+    }
+    tableData.value = list;
+    pages.value = res.pages;
+  },
 });
-const updateImgDrawerRef = ref(null);
 
-const handelUpdatePre = (item) => {
-  updateForm.id = item.id;
-  updateImgDrawerRef.value.open();
-};
-
-const handelUpdate = async () => {
-  const formData = new FormData();
-  formData.append("img", updateForm.imgData);
-  formData.append(
-    "info",
-    JSON.stringify({ ...updateForm, imgData: undefined })
-  );
-  await updateGallery(formData).then(() => {
-    getList(updateForm.id);
-  });
-  updateImgDrawerRef.value.close();
-};
-
-const changePage = async (page) => {
-  queryParams.page = page;
-  getList();
-};
+// form
+const {
+  drawerRef,
+  form,
+  formRef,
+  drawerTitle,
+  handelSubmit,
+  handelCreate,
+  handelEdit,
+  editId,
+} = useInitForm({
+  form: reactive({
+    kindID: props.kindID,
+    imgUrl: "",
+    remark: "",
+    imgData: null,
+  }),
+  getData,
+  create: createGallery,
+  beforSumbit: (form) => {
+    if (editId.value === 0) {
+      const formData = new FormData();
+      formData.append("img", form.imgData);
+      formData.append("info", JSON.stringify({ ...form, imgData: undefined }));
+      return formData;
+    } else {
+      return form;
+    }
+  },
+  update: updateGallery,
+});
 
 const checkedItem = ref(null);
 const handelSelectOne = (index) => {
-  list.value.forEach((item, i) => {
+  tableData.value.forEach((item, i) => {
     if (i !== index) {
       item.checked = false;
     }
   });
-  checkedItem.value = list.value[index];
+  checkedItem.value = tableData.value[index];
 };
 
 const emits = defineEmits(["selectImg"]);
@@ -206,17 +234,16 @@ const handelChooseImg = () => {
 watch(
   () => props.kindID,
   (newVal) => {
-    queryParams.kindID = newVal;
-    totalPages.value = 1;
-    getList();
+    searchForm.kindID = newVal;
+    currentPage.value = 1;
+    getData();
   }
 );
 
-onMounted(async () => {
-  await getList();
-});
-
 defineExpose({
-  getList,
+  handelCreate,
+  resetSearchForm,
+  searchForm,
+  getData,
 });
 </script>

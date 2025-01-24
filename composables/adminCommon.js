@@ -21,19 +21,18 @@ export function useInitTable(opt = {}) {
   const pages = ref(1);
 
   // 获取数据
-  function getData(page = null) {
+  async function getData(page = null) {
     if (typeof page == "number") {
       currentPage.value = page;
       searchForm.page = page;
-      console.log(page);
     }
     loading.value = true;
-    opt
+    await opt
       .getList(searchForm)
       .then((res) => {
         const data = res.data;
         if (opt.onGetListSuccess && typeof opt.onGetListSuccess == "function") {
-          opt.onGetListSuccess(res);
+          opt.onGetListSuccess(data);
         } else {
           tableData.value = data.list;
           pages.value = data.pages;
@@ -169,6 +168,7 @@ export const useInitForm = (opt) => {
 
       if (opt.beforSumbit && typeof opt.beforSumbit === "function") {
         body = opt.beforSumbit({ ...form });
+        console.log(body);
       } else {
         body = form;
       }

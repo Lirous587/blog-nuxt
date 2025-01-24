@@ -1,5 +1,6 @@
-export function getGalleryKindList() {
-  return clientApi.get(`/gallery/kind`);
+export function getGalleryKindList(query = {}) {
+  let q = queryToUrl(query);
+  return clientApi.get(`/gallery/kind${q}`);
 }
 
 export function createGalleryKind(form) {

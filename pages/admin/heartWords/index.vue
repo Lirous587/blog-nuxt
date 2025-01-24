@@ -6,8 +6,6 @@
           <template #default>
             <el-input
               placeholder="请输入关键词"
-              v-model="searchForm.keyword"
-              @keydown.enter="getData"
             ></el-input>
           </template>
         </AdminSearch>

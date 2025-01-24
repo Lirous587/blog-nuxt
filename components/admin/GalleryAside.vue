@@ -1,9 +1,14 @@
 <template>
-  <div v-loading="loading">
-    <div v-for="item in list" class="text-sm">
+  <div v-loading="loading" class="relative h-full">
+    <div class="h-[calc(100%-40px)] overflow-y-scroll">
       <div
-        class="flex-1 flex items-center justify-between hover:cursor-pointer px-4 hover:bg-blue-100 leading-[56px]"
-        :class="activeID == item.id ? 'text-blue-400' : ''"
+        v-for="item in tableData"
+        class="flex-1 flex items-center justify-between text-sm hover:cursor-pointer pl-4 pr-3 border-b-[1px] dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-800 py-4"
+        :class="
+          activeID == item.id
+            ? 'text-blue-400 bg-blue-100 dark:bg-gray-800'
+            : ''
+        "
         @click="handelSelect(item.id)"
       >
         <div>
@@ -11,7 +16,7 @@
         </div>
         <div class="flex items-center gap-x-3">
           <div @click.stop="() => {}">
-            <el-icon size="16" @click="handelUpdatePre(item)"><Edit /></el-icon>
+            <el-icon size="16" @click="handelEdit(item)"><Edit /></el-icon>
           </div>
 
           <div @click.stop="() => {}">
@@ -31,21 +36,30 @@
         </div>
       </div>
     </div>
+
+    <div class="absolute left-0 right-0 bottom-[10px] flex justify-center">
+      <el-pagination
+        background
+        layout="prev,next"
+        :current-page="currentPage"
+        @current-change="getData"
+        :page-count="pages"
+      />
+    </div>
   </div>
 
   <MyDrawer
-    title="修改分类名称"
+    :title="drawerTitle"
     direction="rtl"
-    show-close
     ref="drawerRef"
+    size="50%"
+    :destroy-on-close="true"
     class="dark:bg-black"
+    @submit="handelSubmit"
   >
-    <el-form :model="form" label-width="80px">
-      <el-form-item label="分类名称">
+    <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
+      <el-form-item label="图片内容">
         <el-input v-model="form.name"> </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handelUPdate">修改</el-button>
       </el-form-item>
     </el-form>
   </MyDrawer>
@@ -53,65 +67,72 @@
 
 <script setup>
 import {
-  deleteGalleryKind,
   getGalleryKindList,
+  createGalleryKind,
+  deleteGalleryKind,
   updateGalleryKind,
-} from "~/api/galleryKind";
+} from "~/api/gallery_kind";
 
-const list = ref([]);
-const activeID = ref(1);
-const loading = ref(false);
-const form = reactive({
-  id: 1,
-  name: "",
+definePageMeta({
+  layout: "admin",
 });
 
-const drawerRef = ref(null);
-const getList = async () => {
-  loading.value = true;
-  await getGalleryKindList()
-    .then((res) => {
-      const data = res.data;
-      list.value = data.list;
-      handelSelect(list.value[0].id);
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
+const activeID = ref(0);
 
-const emits = defineEmits(["changeKind"]);
+//  table
+const { tableData, loading, currentPage, pages, getData, handelDelete } =
+  useInitTable({
+    getList: getGalleryKindList,
+    delete: deleteGalleryKind,
+    searchForm: reactive({
+      page: 1,
+      limit: 10,
+      keyword: "",
+    }),
+    onGetListSuccess: (res) => {
+      const list = res.list;
+      if (Array.isArray(list) && list.length > 0) {
+        activeID.value = res.list[0]?.id;
+      }
+      tableData.value = list;
+      pages.value = res.pages;
+    },
+  });
+
+// form
+const {
+  drawerRef,
+  form,
+  formRef,
+  drawerTitle,
+  handelSubmit,
+  handelCreate,
+  handelEdit,
+} = useInitForm({
+  form: reactive({
+    name: "",
+    introduction: "",
+  }),
+  getData,
+  create: createGalleryKind,
+  update: updateGalleryKind,
+});
 
 const handelSelect = (id) => {
+  emits("change", id);
   activeID.value = id;
-  emits("changeKind", Number(id));
 };
 
-const handelDelete = (id) => {
-  deleteGalleryKind(id).then(() => {
-    getList();
-    toast("删除成功");
-  });
-};
-
-const handelUpdatePre = (item) => {
-  form.id = item.id;
-  form.name = item.name;
-  drawerRef.value.open();
-};
-
-const handelUPdate = () => {
-  updateGalleryKind(form).then(() => {
-    getList();
-    toast("修改成功");
-  });
-};
-
-defineExpose({
-  getList,
+watch(currentPage, async (newValue) => {
+  currentPage.value = newValue;
+  await getData();
+  handelSelect(tableData.value[0]?.id);
 });
 
-onMounted(async () => {
-  await getList();
+const emits = defineEmits(["change"]);
+
+defineExpose({
+  handelCreate,
+  activeID,
 });
 </script>
