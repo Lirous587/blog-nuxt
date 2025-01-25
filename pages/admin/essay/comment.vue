@@ -15,6 +15,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "admin",
+});
+
 const searchForm = reactive({
   pageSize: 5,
   page: 1,
@@ -22,5 +26,3 @@ const searchForm = reactive({
 });
 const list = ref([""]);
 </script>
-
-<style></style>

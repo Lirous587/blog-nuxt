@@ -16,13 +16,10 @@
     <el-sub-menu index="2">
       <template #title>
         <el-icon><Notebook /></el-icon>
-        <span>文章</span>
+        <span>文章模块</span>
       </template>
-      <NuxtLink to="/admin/essay/create">
-        <el-menu-item index="/admin/essay/create"> 创建文章 </el-menu-item>
-      </NuxtLink>
-      <NuxtLink to="/admin/essay/manage">
-        <el-menu-item index="/admin/essay/manage"> 管理文章 </el-menu-item>
+      <NuxtLink to="/admin/essay">
+        <el-menu-item index="/admin/essay"> 文章管理 </el-menu-item>
       </NuxtLink>
       <NuxtLink to="/admin/essay/comment">
         <el-menu-item index="/admin/essay/comment"> 管理评论 </el-menu-item>

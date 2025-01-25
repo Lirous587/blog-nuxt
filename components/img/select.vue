@@ -1,6 +1,6 @@
 <template>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <AdminGallery @select-img="handelSelectImg" />
+    <AdminGallery @select="handelSelectImg" />
   </MyDialog>
   <div
     @click="dialogRef.open"

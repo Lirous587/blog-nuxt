@@ -1,64 +1,72 @@
 <template>
-  <div class="relative h-full p-2">
+  <div class="relative h-full ml-2 mt-3">
     <div
-      class="grid h-[calc(100%-40px)] overflow-y-scroll grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
+      class="w-full h-[calc(100%-40px)] overflow-y-scroll overflow-x-hidden"
+      v-loading="loading"
     >
-      <div
-        v-for="(item, index) in tableData"
-        :key="item.id"
-        class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
-      >
-        <el-image
-          :src="imgPre + item.imgUrl"
-          class="h-full w-full p-2 rounded-lg"
-          fit="cover"
-          lazy
-        >
-        </el-image>
-        <div
-          class="absolute bottom-0 p-1 translate-y-[-1/2] shadow-sm w-full bg-white dark:bg-gray-800"
+      <el-row :gutter="10">
+        <el-col
+          :span="6"
+          v-for="(item, index) in tableData"
+          :key="item.id"
+          class="mb-2"
         >
           <div
-            class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
-            size="small"
+            class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
           >
-            <span class="ml-2 text-red-950"> {{ item.imgUrl }}</span>
-          </div>
-          <!-- 选择框 -->
-          <div class="flex justify-evenly">
-            <el-checkbox
-              v-if="ifSelect"
-              v-model="item.checked"
-              :value="item.url"
-              size="small"
-              @change="handelSelectOne(index)"
-            ></el-checkbox>
+            <el-image
+              :src="imgPre + item.imgUrl"
+              class="h-full w-full rounded-lg p-2"
+              fit="cover"
+              lazy
+            >
+            </el-image>
+            <div
+              class="absolute bottom-0 p-1 translate-y-[-1/2] shadow-sm w-full bg-white dark:bg-gray-800"
+            >
+              <div
+                class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
+                size="small"
+              >
+                <span class="ml-2 text-red-950"> {{ item.imgUrl }}</span>
+              </div>
+              <!-- 选择框 -->
+              <div class="flex justify-evenly">
+                <el-checkbox
+                  v-if="ifSelect"
+                  v-model="item.checked"
+                  :value="item.url"
+                  size="small"
+                  @change="handelSelectOne(index)"
+                ></el-checkbox>
 
-            <el-button
-              size="small"
-              text="true"
-              type="warning"
-              @click="handelEdit(item)"
-              >更新</el-button
-            >
-            <el-popconfirm
-              title="确定删除图片?"
-              confirm-button-text="确定"
-              cancel-button-text="取消"
-              confirm-button-type="danger"
-              cancel-button-type="primary"
-              @confirm="handelDelete(item.id)"
-            >
-              <template #reference>
-                <el-button size="small" text type="primary">删除</el-button>
-              </template>
-            </el-popconfirm>
+                <el-button
+                  size="small"
+                  text="true"
+                  type="warning"
+                  @click="handelEdit(item)"
+                  >更新</el-button
+                >
+                <el-popconfirm
+                  title="确定删除图片?"
+                  confirm-button-text="确定"
+                  cancel-button-text="取消"
+                  confirm-button-type="danger"
+                  cancel-button-type="primary"
+                  @confirm="handelDelete(item.id)"
+                >
+                  <template #reference>
+                    <el-button size="small" text type="primary">删除</el-button>
+                  </template>
+                </el-popconfirm>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </el-col>
+      </el-row>
     </div>
 
-    <div class="flex justify-center absolute left-0 right-0 bottom-[10px]">
+    <div class="flex justify-center absolute left-0 right-0 bottom-[30px]">
       <el-pagination
         background
         layout="prev, pager, next"
@@ -70,7 +78,7 @@
   </div>
 
   <div class="absolute right-10 bottom-10" v-if="ifSelect">
-    <el-button type="primary" @click="handelChooseImg" class="float-right"
+    <el-button type="primary" @click="handelSelectImg" class="float-right"
       >选择图片</el-button
     >
   </div>
@@ -175,7 +183,6 @@ const {
             checked: false,
           };
         }
-        return { ...o, checked: false };
       });
     }
     tableData.value = list;
@@ -202,7 +209,7 @@ const {
   }),
   getData,
   create: createGallery,
-  beforSumbit: (form) => {
+  berforSubmit: (form) => {
     if (editId.value === 0) {
       const formData = new FormData();
       formData.append("img", form.imgData);
@@ -225,10 +232,10 @@ const handelSelectOne = (index) => {
   checkedItem.value = tableData.value[index];
 };
 
-const emits = defineEmits(["selectImg"]);
+const emits = defineEmits(["select"]);
 
-const handelChooseImg = () => {
-  emits("selectImg", checkedItem.value);
+const handelSelectImg = () => {
+  emits("select", checkedItem.value);
 };
 
 watch(

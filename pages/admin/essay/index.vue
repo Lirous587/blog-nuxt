@@ -4,7 +4,11 @@
       <template #header>
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>
-            <el-input placeholder="请输入关键词"></el-input>
+            <el-input
+              placeholder="请输入关键词"
+              v-model="searchForm.keyword"
+              @keydown.enter="getData"
+            ></el-input>
           </template>
         </AdminSearch>
         <el-button type="primary" @click="handelCreate" size="small"
@@ -18,20 +22,15 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="内容" prop="content" align="center">
+        <el-table-column label="文章名" prop="name" align="center">
         </el-table-column>
-        <el-table-column label="出处" prop="source" align="center">
+        <el-table-column label="分类" prop="kindName" align="center">
         </el-table-column>
-
+        <el-table-column label="简介" prop="introduction" align="center">
+        </el-table-column>
         <el-table-column label="图片" align="center">
           <template #default="scope">
             <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="是否打印" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifCouldType" />
           </template>
         </el-table-column>
         <el-table-column label="是否推荐" align="center">
@@ -80,6 +79,13 @@
       </template>
     </el-card>
 
+    <MyDialog width="80%" ref="dialogRef" fullscreen>
+      <AdminEssayEditContent
+        :id="form.id"
+        v-model:content="form.content"
+      ></AdminEssayEditContent>
+    </MyDialog>
+
     <MyDrawer
       :title="drawerTitle"
       direction="rtl"
@@ -90,44 +96,62 @@
       @submit="handelSubmit"
     >
       <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
-        <el-form-item label="内容" prop="content">
-          <el-input
-            placeholder="请输入心语内容"
-            size="large"
-            v-model="form.content"
-          >
-          </el-input>
+        <el-form-item label="分类">
+          <AdminEssaySelectKind v-model:id="form.kindID">
+          </AdminEssaySelectKind>
+        </el-form-item>
+        <el-form-item label="标签">
+          <AdminEssaySelectLabels
+            v-model:ids="form.labelIds"
+          ></AdminEssaySelectLabels>
         </el-form-item>
 
-        <el-form-item label="出处">
+        <el-form-item label="代码主题">
+          <AdminEssaySelectTheme v-model:theme="form.theme">
+          </AdminEssaySelectTheme>
+        </el-form-item>
+
+        <el-form-item label="文章名">
+          <el-input v-model="form.name" placeholder="文章名" />
+        </el-form-item>
+
+        <el-form-item label="文章内容">
+          <el-button type="warning" @click="dialogRef.open">编辑文章</el-button>
+        </el-form-item>
+
+        <el-form-item label="介绍">
           <el-input
-            placeholder="请输入心语出处"
-            v-model="form.source"
-            type="textarea"
-            :rows="3"
-          >
-          </el-input>
+            v-model="form.introduction"
+            placeholder="介绍"
+            class="input"
+          />
         </el-form-item>
-        <el-form-item label="是否打印">
-          <el-radio-group v-model="form.ifCouldType">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
+
+        <el-form-item label="文章图片">
+          <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
-        <el-form-item label="是否推荐">
-          <el-radio-group v-model="form.ifRecommend">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
+        <el-form-item label="关键词">
+          <DynamicAddTag
+            :list="form.keywords"
+            @change="
+              (value) =>
+                Array.isArray(value) ? (form.keywords = value.join(',')) : null
+            "
+          ></DynamicAddTag>
         </el-form-item>
+
         <el-form-item label="是否置顶">
           <el-radio-group v-model="form.ifTop">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="图片">
-          <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
+
+        <el-form-item label="是否推荐">
+          <el-radio-group v-model="form.ifRecommend">
+            <el-radio :value="true" size="large">是</el-radio>
+            <el-radio :value="false" size="large">否</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -136,15 +160,17 @@
 
 <script setup>
 import {
-  createHeartWords,
-  deleteHeartWords,
-  getHeartWordsList,
-  updateHeartWords,
-} from "~/api/heartWords";
+  createEssay,
+  deleteEssay,
+  getEssayList,
+  updateEssay,
+} from "~/api/essay";
 
 definePageMeta({
   layout: "admin",
 });
+
+const dialogRef = ref(null);
 
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase;
@@ -160,13 +186,28 @@ const {
   getData,
   handelDelete,
 } = useInitTable({
-  getList: getHeartWordsList,
-  delete: deleteHeartWords,
+  getList: getEssayList,
+  delete: deleteEssay,
   searchForm: reactive({
     page: 1,
     limit: 5,
     keyword: "",
   }),
+  onGetListSuccess: (data) => {
+    const list = data.list;
+    if (Array.isArray(list)) {
+      list.forEach((element) => {
+        element.keywords = element.keywords.split(",");
+        if (Array.isArray(element?.labelList)) {
+          element.labelIds = element.labelList.map((o) => {
+            return o.id;
+          });
+        }
+      });
+    }
+    tableData.value = list;
+    pages.value = data.pages;
+  },
 });
 
 // form
@@ -181,18 +222,25 @@ const {
 } = useInitForm({
   form: reactive({
     id: 0,
+    name: "",
+    kindID: 0,
+    labelIds: [],
+    introduction: "",
     content: "",
-    source: "",
+    ifTop: false,
+    ifRecommend: false,
+    theme: "default",
+    keywords: "",
     img: {
       id: 0,
       url: "",
     },
-    ifCouldType: false,
-    ifRecommend: false,
-    ifTop: false,
   }),
   getData,
-  create: createHeartWords,
-  update: updateHeartWords,
+  create: createEssay,
+  update: updateEssay,
+  onEdit: () => {
+    dialogRef.value.open();
+  },
 });
 </script>

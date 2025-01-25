@@ -58,7 +58,6 @@
             layout="prev, pager,next"
             :current-page="currentPage"
             @current-change="getData"
-            :total="pages"
             :page-count="pages"
           />
         </div>
@@ -76,11 +75,7 @@
     >
       <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
         <el-form-item label="名称" prop="content">
-          <el-input
-            placeholder="请输入名称"
-            size="large"
-            v-model="form.name"
-          >
+          <el-input placeholder="请输入名称" size="large" v-model="form.name">
           </el-input>
         </el-form-item>
 
@@ -125,7 +120,7 @@ const {
   delete: deleteEssayLabel,
   searchForm: reactive({
     page: 1,
-    limit: 5,
+    limit: 10,
     keyword: "",
   }),
 });

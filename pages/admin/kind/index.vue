@@ -129,7 +129,7 @@ const {
   delete: deleteEssayKind,
   searchForm: reactive({
     page: 1,
-    limit: 5,
+    limit: 10,
     keyword: "",
   }),
 });

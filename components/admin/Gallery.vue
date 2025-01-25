@@ -28,7 +28,7 @@
       </el-aside>
       <div class="flex-1 pr-5 border dark:border-gray-600">
         <AdminGalleryMain
-          @select-img="handelSelectImg"
+          @select="handelSelectImg"
           ref="mainRef"
           :kindID="kindID"
           :oID="props.oID"
@@ -85,9 +85,9 @@ const handelChangeKind = (id) => {
   kindID.value = id;
 };
 
-const handelSelectImg = (img) => {
-  emits("selectImg", img);
-};
+const emits = defineEmits(["select"]);
 
-const emits = defineEmits(["selectImg"]);
+const handelSelectImg = (img) => {
+  emits("select", img);
+};
 </script>

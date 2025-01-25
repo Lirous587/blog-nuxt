@@ -166,9 +166,8 @@ export const useInitForm = (opt) => {
 
       let body = {};
 
-      if (opt.beforSumbit && typeof opt.beforSumbit === "function") {
-        body = opt.beforSumbit({ ...form });
-        console.log(body);
+      if (opt.berforSumbit && typeof opt.berforSubmit === "function") {
+        body = opt.berforSubmit({ ...form });
       } else {
         body = form;
       }
@@ -211,6 +210,9 @@ export const useInitForm = (opt) => {
     editId.value = row.id;
     resetForm(row);
     drawerRef.value.open();
+    if (opt.onEdit && typeof opt.onEdit === "function") {
+      opt.onEdit();
+    }
   };
 
   return {

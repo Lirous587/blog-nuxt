@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <AdminGallery></AdminGallery>
-  </div>
+  <AdminGallery></AdminGallery>
 </template>
 
 <script setup>

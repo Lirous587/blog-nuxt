@@ -9,8 +9,10 @@
     @close="close()"
     :close-delay="closeDelay"
     :destroy-on-close="destroyOnClose"
+    :lock-scroll="true"
+    :close-on-click-modal="false"
   >
-    <div class="w-full h-full flex flex-col overflow-auto">
+    <div class="pr-5 h-full flex flex-col overflow-auto">
       <div class="flex-1">
         <slot />
       </div>

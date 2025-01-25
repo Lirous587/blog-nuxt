@@ -3,24 +3,12 @@
     <el-tag
       v-for="(tag, index) in tags"
       class="my-2"
-      :class="{ 'p-0': showEdit[index] }"
       :key="index"
       closable
       :disable-transitions="false"
       @close="handleClose(tag)"
-      @click="handleEdit(index)"
     >
-      <el-input
-        v-if="showEdit[index]"
-        v-model="tags[index]"
-        class="w-min-30"
-        @keyup.enter="handleEditConfirm(tag, index)"
-        @blur="handleEditConfirm(tag, index)"
-      >
-      </el-input>
-      <span v-else>
-        {{ tag }}
-      </span>
+      {{ tag }}
     </el-tag>
 
     <el-input
@@ -39,14 +27,21 @@
 </template>
 
 <script setup>
-const tags = ref([]);
-
 const props = defineProps({
+  list: {
+    type: Array,
+    default: [],
+  },
   addText: {
     type: String,
     default: "+ 添加",
   },
 });
+
+const tags = ref(props.list);
+if (!Array.isArray(props.list)) {
+  tags.value = [];
+}
 
 const inputValue = ref("");
 const inputVisible = ref(false);
@@ -55,10 +50,7 @@ const showEdit = ref(Array(tags.value.length).fill(false));
 
 const handleClose = (tag) => {
   tags.value.splice(tags.value.indexOf(tag), 1);
-};
-
-const handleEdit = (index) => {
-  showEdit.value[index] = true;
+  emits("change", tags.value);
 };
 
 const showInput = () => {
@@ -78,19 +70,13 @@ const handleInputConfirm = () => {
   if (tag && !tag.includes(",")) {
     tags.value.push(tag);
     showEdit.value.push(false);
-    emits("tagChange", tags.value);
+    emits("change", tags.value);
   } else {
     toast("非法关键词", "warning");
   }
   inputVisible.value = false;
   inputValue.value = "";
 };
-
-const handleEditConfirm = (oldTag, index) => {
-  let tag = oldTag.split(" ").join("").toLowerCase();
-  tags.value[index] = tag;
-  showEdit.value[index] = false;
-};
-
-const emits = defineEmits(["tagChange"]);
+const emits = defineEmits(["change"]);
+emits("change", tags.value);
 </script>
