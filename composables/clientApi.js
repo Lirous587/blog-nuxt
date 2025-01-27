@@ -175,14 +175,7 @@ export const clientApi = {
       authType
     );
   },
-  delete(url, form, authType = "admin") {
-    return commonApi(
-      "DELETE",
-      url,
-      {
-        body: form,
-      },
-      authType
-    );
+  delete(url, authType = "admin") {
+    return commonApi("DELETE", url, {}, authType);
   },
 };

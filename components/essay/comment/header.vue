@@ -1,5 +1,5 @@
 <template>
-  <el-card v-loading="loading">
+  <el-card>
     <div class="flex flex-col">
       <el-divider direction="horizontal" content-position="center">
         <span class="ml-auto font-bold text-pink-600">评论区 </span>
@@ -18,6 +18,7 @@
         class="ml-auto mt-2 !rounded-md"
         :type="hadLogin ? 'primary' : 'warning'"
         @click="submitCreate"
+        :loading="btnLoading"
       >
         {{ hadLogin ? "评论" : "请先登录" }}
       </el-button>
@@ -38,18 +39,18 @@
 import { createEssayCommentParent } from "~/api/comment";
 
 const props = defineProps({
-  data: {
-    required: true,
-    type: Object,
+  eid: {
+    type: Number,
+    require: true,
   },
 });
 const emits = defineEmits("comment");
 
 const hadLogin = userIfLofin();
-const eid = parseInt(inject("eid"));
-const loading = ref(false);
+
+const btnLoading = ref(false);
 const form = reactive({
-  essayID: eid,
+  essayID: parseInt(props.eid),
   content: "",
 });
 
@@ -76,7 +77,7 @@ const submitCreate = async () => {
 };
 
 const handelCreate = () => {
-  loading.value = true;
+  btnLoading.value = true;
   createEssayCommentParent(form)
     .then((res) => {
       ElMessage.success("评论成功");
@@ -84,7 +85,7 @@ const handelCreate = () => {
       form.content = "";
     })
     .finally(() => {
-      loading.value = false;
+      btnLoading.value = false;
     });
 };
 </script>

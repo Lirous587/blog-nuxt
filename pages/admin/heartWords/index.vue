@@ -11,7 +11,7 @@
           >添加
         </el-button>
       </template>
-      <el-table :data="tableData" border v-loading="loading">
+      <el-table stripe :data="tableData" v-loading="loading">
         <el-table-column
           label="id"
           prop="id"

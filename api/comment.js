@@ -16,10 +16,10 @@ export const createEssayCommentReply = (form) => {
   return clientApi.post("/comment/reply", form, "user");
 };
 
-export const deleteEssayCommentParent = (form) => {
-  return clientApi.delete("/comment/parent", form, "user");
+export const deleteEssayCommentParent = (id) => {
+  return clientApi.delete(`/comment/parent/${id}`, "user");
 };
 
 export const deleteEssayCommentReply = (form) => {
-  return clientApi.delete("/comment/reply", form, "user");
+  return clientApi.delete(`/comment/reply/${id}`, "user");
 };

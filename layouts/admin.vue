@@ -32,7 +32,7 @@ const handelCollapse = () => {
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 :deep(.el-header) {
   @apply h-auto p-0;
 }
@@ -40,4 +40,4 @@ const handelCollapse = () => {
 :deep(.el-card__body) {
   padding: 0 !important;
 }
-</style>
+</style> -->

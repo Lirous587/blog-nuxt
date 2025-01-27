@@ -54,9 +54,9 @@
           @Choose="handelReplyChoose"
           @Delete="handelReplyDelete"
           :list="list"
+          :pid="data.id"
         ></EssayCommentReply>
         <el-pagination
-          :hide-on-single-page="true"
           layout="prev, pager, next"
           :page-count="pageCount"
           @change="changePage"
@@ -108,15 +108,11 @@ const props = defineProps({
 const userInfo = getUserInfoFromCookie();
 const hadLogin = userIfLofin();
 
-// 回复
-const eid = parseInt(inject("eid"));
-
 const emits = defineEmits("Choose", "Delete");
 const toUserName = ref("");
 const form = reactive({
   toUserUid: "0",
   parentID: 0,
-  essayID: eid,
   content: "",
 });
 const formRef = ref(null);
@@ -142,16 +138,14 @@ const handleChoose = () => {
 const submitCreate = async () => {
   if (!formRef.value) return;
   formRef.value.validate((valid) => {
-    if (valid) {
-      sliderValidationRef.value.open();
-    }
+    if (!valid) return;
   });
 };
 
 const handelCreate = () => {
   loading.value = true;
   createEssayCommentReply(form)
-    .then((res) => {
+    .then(() => {
       ElMessage.success("评论成功");
       addTempData();
       form.content = "";
@@ -229,13 +223,8 @@ const addTempData = () => {
   props.data.replyCount += 1;
 };
 
-// delete
-const deleteForm = reactive({
-  commentID: props.data.id,
-});
-
 const handelDelete = () => {
-  deleteEssayCommentParent(deleteForm).then((res) => {
+  deleteEssayCommentParent(props.data.id).then(() => {
     emits("Delete", props.data.id);
     ElMessage.success("删除评论成功");
   });
@@ -249,6 +238,7 @@ const handelReplyDelete = (rid) => {
     loading.value = false;
   }, 300);
 };
+
 defineExpose({
   clearReplyCommentStatus,
 });

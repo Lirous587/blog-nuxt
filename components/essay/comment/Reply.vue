@@ -85,12 +85,8 @@ const handleChoose = (item) => {
   item.ifComment = true;
 };
 
-const deleteForm = reactive({
-  commentID: 0,
-});
 const handelDelete = (item) => {
-  deleteForm.commentID = item.id;
-  deleteEssayCommentReply(deleteForm).then((res) => {
+  deleteEssayCommentReply(item.id).then((res) => {
     emits("Delete", item.id);
     ElMessage.success("删除评论成功");
   });

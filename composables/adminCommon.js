@@ -203,6 +203,9 @@ export const useInitForm = (opt) => {
     editId.value = 0;
     resetForm(defaultForm);
     drawerRef.value.open();
+    if (opt.onCreate && typeof opt.onCreate === "function") {
+      opt.onCreate();
+    }
   };
 
   // 编辑

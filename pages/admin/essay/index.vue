@@ -15,7 +15,13 @@
           >添加
         </el-button>
       </template>
-      <el-table :data="tableData" border v-loading="loading">
+
+      <el-table stripe :data="tableData" v-loading="loading">
+        <el-table-column type="expand">
+          <template #default="scope">
+            <EssayCommentBody :eid="scope.row.id"></EssayCommentBody>
+          </template>
+        </el-table-column>
         <el-table-column
           label="id"
           prop="id"
@@ -85,7 +91,6 @@
         v-model:content="form.content"
       ></AdminEssayEditContent>
     </MyDialog>
-
     <MyDrawer
       :title="drawerTitle"
       direction="rtl"
@@ -240,7 +245,14 @@ const {
   create: createEssay,
   update: updateEssay,
   onEdit: () => {
-    dialogRef.value.open();
+    setTimeout(() => {
+      dialogRef.value.open();
+    }, 200);
+  },
+  onCreate: () => {
+    setTimeout(() => {
+      dialogRef.value.open();
+    }, 200);
   },
 });
 </script>

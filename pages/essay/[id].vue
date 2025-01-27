@@ -45,7 +45,7 @@
           :content="data.content"
         ></MdPreview>
         <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
-          <EssayComment></EssayComment>
+          <EssayComment :eid="id"></EssayComment>
         </div>
       </main>
       <aside class="md-anchor">
@@ -74,49 +74,40 @@
   </div>
 </template>
 
-<style scoped>
-.md-anchor {
-  @apply sticky top-[70px] right-0 mx-3 max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl  hidden md:block md:min-w-[240px] lg:min-w-[280px] lg:mx-4;
-}
-.md-anchor::-webkit-scrollbar {
-  display: none;
-}
-
-.mobile-anchor {
-  @apply fixed top-[65px] right-0  max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl lg:hidden;
-}
-
-.mobile-anchor::-webkit-scrollbar {
-  display: none;
-}
-</style>
-
 <script setup>
 import { getEssay } from "~/api/essay";
-
 definePageMeta({
   scrollToTop: true,
 });
-
 const mdRef = ref(null);
-
 const mobileAnchorShow = ref(false);
-
 const sentenceList = ref([]);
+const loading = ref(false);
+const data = ref(null);
+
 const route = useRoute();
 const id = route.params.id;
-const data = ref({});
 
-provide("eid", id);
+const getData = async () => {
+  loading.value = true;
 
-await getEssay(id)
-  .then((res) => {
-    data.value = res.data;
-    sentenceList.value = [data.value.name, formateDate(data.value.createdTime)];
-  })
-  .catch((err) => {
-    if (err.code === 1005) navigateTo("/");
-  });
+  await getEssay(id)
+    .then((res) => {
+      data.value = res.data;
+      sentenceList.value = [
+        data.value.name,
+        formateDate(data.value.createdTime),
+      ];
+    })
+    .catch(() => {
+      navigateTo("/");
+    })
+    .finally(() => {
+      loading.value = true;
+    });
+};
+
+await getData();
 
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase;
@@ -137,3 +128,20 @@ const scrollToChatArea = () => {
   });
 };
 </script>
+
+<style scoped>
+.md-anchor {
+  @apply sticky top-[70px] right-0 mx-3 max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl  hidden md:block md:min-w-[240px] lg:min-w-[280px] lg:mx-4;
+}
+.md-anchor::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-anchor {
+  @apply fixed top-[65px] right-0  max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl lg:hidden;
+}
+
+.mobile-anchor::-webkit-scrollbar {
+  display: none;
+}
+</style>

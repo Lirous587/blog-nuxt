@@ -4,27 +4,35 @@
     :default-active="defaultActive"
     :unique-opened="true"
   >
-    <NuxtLink to="/admin">
-      <el-menu-item index="/admin">
-        <el-icon><PieChart /></el-icon>
-        <template #title>
-          <span>面板</span>
-        </template>
-      </el-menu-item>
-    </NuxtLink>
-
-    <el-sub-menu index="2">
+    <el-sub-menu index="1">
       <template #title>
-        <el-icon><Notebook /></el-icon>
-        <span>文章模块</span>
+        <el-icon><Coin /></el-icon>
+        <span>首页数据</span>
       </template>
-      <NuxtLink to="/admin/essay">
-        <el-menu-item index="/admin/essay"> 文章管理 </el-menu-item>
+      <NuxtLink to="/admin">
+        <el-menu-item index="/admin/1">
+          <el-icon><PieChart /></el-icon>
+          <template #title>
+            <span>面板</span>
+          </template>
+        </el-menu-item>
       </NuxtLink>
-      <NuxtLink to="/admin/essay/comment">
-        <el-menu-item index="/admin/essay/comment"> 管理评论 </el-menu-item>
+      <NuxtLink to="/admin">
+        <el-menu-item index="/admin/2">
+          <el-icon><PieChart /></el-icon>
+          <template #title>
+            <span>面板2</span>
+          </template>
+        </el-menu-item>
       </NuxtLink>
     </el-sub-menu>
+
+    <NuxtLink to="/admin/essay">
+      <el-menu-item index="/admin/essay">
+        <el-icon><Notebook /></el-icon>
+        <span>文章模块</span>
+      </el-menu-item>
+    </NuxtLink>
 
     <!-- 分类 -->
     <NuxtLink to="/admin/kind">
