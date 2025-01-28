@@ -41,7 +41,7 @@
       <main class="flex-1 overflow-x-scroll" @click="mobileAnchorShow = false">
         <MdPreview
           ref="mdRef"
-          :previewTheme="data.previewTheme"
+          :previewTheme="data.theme"
           :content="data.content"
         ></MdPreview>
         <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
@@ -86,7 +86,7 @@ const loading = ref(false);
 const data = ref(null);
 
 const route = useRoute();
-const id = route.params.id;
+const id = parseInt(route.params.id);
 
 const getData = async () => {
   loading.value = true;

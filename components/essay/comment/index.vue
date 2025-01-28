@@ -1,5 +1,6 @@
 <template>
   <EssayCommentHeader @comment="handleComment" :eid="eid"></EssayCommentHeader>
+  
   <EssayCommentBody :eid="eid" ref="bodyRef"></EssayCommentBody>
 </template>
 
@@ -11,9 +12,9 @@ const props = defineProps({
   },
 });
 
-const bodyRef = ref(null);
-
 const userInfo = getUserInfoFromCookie();
+
+const tempList = ref([]);
 
 const handleComment = (content) => {
   let row = {
@@ -21,6 +22,6 @@ const handleComment = (content) => {
     name: userInfo.name,
     content: content,
   };
-  bodyRef.value.list.unshift(row);
+  tempList.value.unshift(row);
 };
 </script>

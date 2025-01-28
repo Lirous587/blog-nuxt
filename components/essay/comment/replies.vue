@@ -10,8 +10,8 @@
     <div v-for="item in list" :key="item.id">
       <EssayCommentReply
         :data="item"
-        @choose="handleChoose"
-        @delete="handleDelete"
+        @choose="handleReplyChoose"
+        @delete="handleReplyDelete"
       >
       </EssayCommentReply>
     </div>
@@ -73,20 +73,24 @@ const changePage = async (page) => {
   getList();
 };
 
-const handleDelete = () => {
+const handleReplyDelete = () => {
   count.value--;
   getList();
 };
 
-// choose和创建问题尚未完善
-const clearReplyCommentStatus = () => {
+const emits = defineEmits(["choose"]);
+
+const handleReplyChoose = (emitData) => {
+  emits("choose", emitData);
+};
+
+const clearRepliesChooseStatus = () => {
   list.value.forEach((item) => {
     item.replayStatus = false;
   });
 };
 
-const handleChoose = (data) => {
-  clearReplyCommentStatus();
-  emits("choose");
-};
+defineExpose({
+  clearRepliesChooseStatus,
+});
 </script>

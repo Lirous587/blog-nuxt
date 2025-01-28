@@ -54,41 +54,6 @@
   </div>
 </template>
 
-<script setup>
-import { deleteEssayCommentReply } from "~/api/comment";
+<script lang="ts" setup></script>
 
-const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
-
-const props = defineProps({
-  data: {
-    required: true,
-    type: Array,
-  },
-});
-
-const userInfo = getUserInfoFromCookie();
-const hadLogin = userIfLofin();
-
-const emits = defineEmits(["choose", "delete"]);
-
-const emitData = reactive({
-  toUserUid: "",
-  toUserName: "",
-  parentID: 0,
-});
-
-const handleChoose = (item) => {
-  emitData.toUserUid = item.fromUser.uid;
-  emitData.toUserName = item.fromUser.name;
-  emitData.parentID = item.parentID;
-  emits("choose", emitData);
-  item.replayStatus = true;
-};
-
-const handleDelete = () => {
-  deleteEssayCommentReply(data.id).then(() => {
-    emits("delete");
-    ElMessage.success("删除回复成功");
-  });
-};
-</script>
+<style></style>

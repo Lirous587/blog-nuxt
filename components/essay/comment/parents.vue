@@ -7,8 +7,9 @@
       class="my-4"
     >
       <EssayCommentParent
-        @Choose="handleChoose"
-        @Delete="handleDelete"
+        @choose="handleChoose"
+        @delete="handleDelete"
+        @repliesChoose="handleRepliesChoose"
         :data="item"
         :ref="(el) => setListRef(el, index)"
       >
@@ -77,21 +78,41 @@ onMounted(async () => {
   await getMore(query);
 });
 
-const handleChoose = () => {
-  list.value.forEach((parent) => {
-    parent.replayStatus = false;
-  });
-  listRef.value.forEach((parent) => {
-    // parent.clearReplyCommentStatus();
-  });
-};
-
 const handleDelete = (id) => {
   loading.value = true;
   setTimeout(() => {
     list.value = list.value.filter((item) => item.id !== id);
     loading.value = false;
   }, 300);
+};
+
+const clearAllReplies = () => {
+  listRef.value.forEach((parent) => {
+    parent.clearRepliesChooseStatus();
+  });
+};
+
+const handleChoose = (id) => {
+  list.value.forEach((parent) => {
+    parent.replayStatus = false;
+    parent.commentStatus = false;
+    if (parent.id == id) {
+      parent.replayStatus = true;
+      parent.commentStatus = true;
+    }
+  });
+  clearAllReplies();
+};
+
+const handleRepliesChoose = (emitData) => {
+  list.value.forEach((parent) => {
+    parent.replayStatus = false;
+    parent.commentStatus = false;
+    if (parent.id == emitData.parentID) {
+      parent.commentStatus = true;
+    }
+  });
+  clearAllReplies();
 };
 
 defineExpose({

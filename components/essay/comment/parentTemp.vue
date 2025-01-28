@@ -1,21 +1,19 @@
 <template>
-  <div class="flex items-start">
+  <div class="flex items-start" v-for="item in list">
     <!-- 左侧头像 -->
     <div class="p-2">
-      <el-avatar :size="38" :src="avatarPre + data.avatar"></el-avatar>
+      <el-avatar :size="38" :src="avatarPre + item.avatar"></el-avatar>
     </div>
     <!-- 右侧信息 -->
     <div class="flex flex-col flex-1 dark:text-gray-500 p-1 gap-y-1">
       <span class="font-bold font-sans">
-        {{ data.name }}
+        {{ item.name }}
       </span>
       <span>
-        {{ data.content }}
+        {{ item.content }}
       </span>
-      <div class="flex items-center gap-x-2 text-sm" v-if="data.id && hadLogin">
-        <small class="text-gray-500">
-          {{ formateDate(data.createTime) }}
-        </small>
+      <div class="flex items-center gap-x-2 text-sm">
+        <small class="text-gray-500"> 刚刚 </small>
         <small
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
           @click="handleChoose"
@@ -73,90 +71,12 @@
 </template>
 
 <script setup>
-import {
-  createEssayCommentReply,
-  deleteEssayCommentParent,
-} from "~/api/comment";
-
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
 const props = defineProps({
-  data: {
+  list: {
+    type: Array,
     required: true,
-    type: Object,
   },
-});
-
-const repliesRef = ref(null);
-const sliderValidationRef = ref(null);
-
-const userInfo = getUserInfoFromCookie();
-const hadLogin = userIfLofin();
-
-const form = reactive({
-  toUserUid: "0",
-  parentID: 0,
-  content: "",
-});
-const formRef = ref(null);
-const rules = reactive({
-  content: [
-    {
-      required: true,
-      message: "请输入评论内容",
-      trigger: "blur",
-    },
-  ],
-});
-
-const emits = defineEmits(["choose", "delete", "repliesChoose"]);
-const toUserName = ref("");
-
-const handleDelete = () => {
-  deleteEssayCommentParent(props.data.id).then(() => {
-    emits("delete", props.data.id);
-    ElMessage.success("删除评论成功");
-  });
-};
-
-const handleChoose = () => {
-  emits("choose", props.data.id);
-  form.parentID = props.data.id;
-  toUserName.value = "";
-};
-
-const handleRepliesChoose = (emitData) => {
-  for (const key in emitData) {
-    form[key] = emitData[key];
-  }
-  emits("repliesChoose", emitData);
-};
-
-const clearRepliesChooseStatus = () => {
-  repliesRef.value.clearRepliesChooseStatus();
-};
-
-const submitCreate = async () => {
-  if (!formRef.value) return;
-  formRef.value.validate((valid) => {
-    if (valid) sliderValidationRef.value.open();
-  });
-};
-
-const handleCreate = () => {
-  loading.value = true;
-  createEssayCommentReply(form)
-    .then(() => {
-      ElMessage.success("评论成功");
-      addTempData();
-      form.content = "";
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
-
-defineExpose({
-  clearRepliesChooseStatus,
 });
 </script>

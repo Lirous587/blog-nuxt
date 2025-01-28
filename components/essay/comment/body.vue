@@ -9,10 +9,4 @@ const props = defineProps({
     require: true,
   },
 });
-
-const list = ref([]);
-
-defineExpose({
-  list,
-});
 </script>
