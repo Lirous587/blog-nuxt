@@ -30,7 +30,7 @@
     </div>
     <SliderValidation
       ref="sliderValidationRef"
-      @confirm="handelLogin"
+      @confirm="handleLogin"
     ></SliderValidation>
   </div>
 </template>
@@ -51,7 +51,7 @@ const router = useRouter();
 
 const sliderValidationRef = ref(null);
 
-const handelLogin = () => {
+const handleLogin = () => {
   adminLogin(loginForm)
     .then((res) => {
       toast("登录成功");

@@ -7,8 +7,8 @@
       class="my-4"
     >
       <EssayCommentParent
-        @Choose="handelChoose"
-        @Delete="handelDelete"
+        @Choose="handleChoose"
+        @Delete="handleDelete"
         :data="item"
         :ref="(el) => setListRef(el, index)"
       >
@@ -77,7 +77,7 @@ onMounted(async () => {
   await getMore(query);
 });
 
-const handelChoose = () => {
+const handleChoose = () => {
   list.value.forEach((parent) => {
     parent.replayStatus = false;
   });
@@ -86,7 +86,7 @@ const handelChoose = () => {
   });
 };
 
-const handelDelete = (id) => {
+const handleDelete = (id) => {
   loading.value = true;
   setTimeout(() => {
     list.value = list.value.filter((item) => item.id !== id);

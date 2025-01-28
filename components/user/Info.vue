@@ -22,7 +22,7 @@
                 :hide-after="0"
                 confirm-button-text="确认"
                 cancel-button-text="取消"
-                @confirm="handelLogout"
+                @confirm="handleLogout"
               >
                 <template #reference> 退出登录 </template>
               </el-popconfirm>
@@ -193,7 +193,7 @@ const submitUpdateInfo = async () => {
   if (!updateInfoFormRef) return;
   updateInfoFormRef.value.validate((valid) => {
     if (valid) {
-      handelUpdateInfo();
+      handleUpdateInfo();
     }
   });
 };
@@ -202,12 +202,12 @@ const submitUpdatePwd = () => {
   if (!updatePwdFormRef) return;
   updatePwdFormRef.value.validate((valid) => {
     if (valid) {
-      handelUpdatePwd();
+      handleUpdatePwd();
     }
   });
 };
 
-const handelUpdateInfo = async () => {
+const handleUpdateInfo = async () => {
   const formData = new FormData();
   formData.append("img", updateInfoForm.imgData);
   formData.append(
@@ -224,7 +224,7 @@ const handelUpdateInfo = async () => {
     });
 };
 
-const handelUpdatePwd = async () => {
+const handleUpdatePwd = async () => {
   await updatePassword(updatePwdForm)
     .then(() => {
       toast("修改密码成功");
@@ -236,7 +236,7 @@ const handelUpdatePwd = async () => {
     });
 };
 
-const handelLogout = async () => {
+const handleLogout = async () => {
   await logout().then(() => {
     toast("退出登录成功");
     removeUserAuth();

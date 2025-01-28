@@ -9,14 +9,14 @@
             ? 'text-blue-400 bg-blue-100 dark:bg-gray-800'
             : ''
         "
-        @click="handelSelect(item.id)"
+        @click="handleSelect(item.id)"
       >
         <div>
           {{ item.name }}
         </div>
         <div class="flex items-center gap-x-3">
           <div @click.stop="() => {}">
-            <el-icon size="16" @click="handelEdit(item)"><Edit /></el-icon>
+            <el-icon size="16" @click="handleEdit(item)"><Edit /></el-icon>
           </div>
 
           <div @click.stop="() => {}">
@@ -26,7 +26,7 @@
               cancel-button-text="取消"
               confirm-button-type="danger"
               cancel-button-type="primary"
-              @confirm.stop="handelDelete(item.id)"
+              @confirm.stop="handleDelete(item.id)"
             >
               <template #reference>
                 <el-icon size="16"><Close /></el-icon>
@@ -55,7 +55,7 @@
     size="50%"
     :destroy-on-close="true"
     class="dark:bg-black"
-    @submit="handelSubmit"
+    @submit="handleSubmit"
   >
     <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
       <el-form-item label="图片内容">
@@ -80,7 +80,7 @@ definePageMeta({
 const activeID = ref(0);
 
 //  table
-const { tableData, loading, currentPage, pages, getData, handelDelete } =
+const { tableData, loading, currentPage, pages, getData, handleDelete } =
   useInitTable({
     getList: getGalleryKindList,
     delete: deleteGalleryKind,
@@ -105,9 +105,9 @@ const {
   form,
   formRef,
   drawerTitle,
-  handelSubmit,
-  handelCreate,
-  handelEdit,
+  handleSubmit,
+  handleCreate,
+  handleEdit,
 } = useInitForm({
   form: reactive({
     name: "",
@@ -118,7 +118,7 @@ const {
   update: updateGalleryKind,
 });
 
-const handelSelect = (id) => {
+const handleSelect = (id) => {
   emits("change", id);
   activeID.value = id;
 };
@@ -126,13 +126,13 @@ const handelSelect = (id) => {
 watch(currentPage, async (newValue) => {
   currentPage.value = newValue;
   await getData();
-  handelSelect(tableData.value[0]?.id);
+  handleSelect(tableData.value[0]?.id);
 });
 
 const emits = defineEmits(["change"]);
 
 defineExpose({
-  handelCreate,
+  handleCreate,
   activeID,
 });
 </script>

@@ -12,10 +12,10 @@
           </template>
         </AdminSearch>
         <div>
-          <el-button type="primary" size="small" @click="asideRef.handelCreate"
+          <el-button type="primary" size="small" @click="asideRef.handleCreate"
             >创建分类</el-button
           >
-          <el-button type="success" size="small" @click="mainRef.handelCreate"
+          <el-button type="success" size="small" @click="mainRef.handleCreate"
             >上传图片</el-button
           >
         </div>
@@ -24,11 +24,11 @@
 
     <el-container class="h-[600px]">
       <el-aside width="180px" class="border dark:border-gray-600">
-        <AdminGalleryAside ref="asideRef" @change="handelChangeKind" />
+        <AdminGalleryAside ref="asideRef" @change="handleChangeKind" />
       </el-aside>
       <div class="flex-1 pr-5 border dark:border-gray-600">
         <AdminGalleryMain
-          @select="handelSelectImg"
+          @select="handleSelectImg"
           ref="mainRef"
           :kindID="kindID"
           :oID="props.oID"
@@ -61,7 +61,7 @@
             </UploadImg>
           </el-form-item>
           <el-form-item>
-            <el-button class="mt-3" type="primary" @click="handelUpload">
+            <el-button class="mt-3" type="primary" @click="handleUpload">
               上传图片
             </el-button>
           </el-form-item>
@@ -81,13 +81,13 @@ const props = defineProps({
 
 const kindID = ref(1);
 
-const handelChangeKind = (id) => {
+const handleChangeKind = (id) => {
   kindID.value = id;
 };
 
 const emits = defineEmits(["select"]);
 
-const handelSelectImg = (img) => {
+const handleSelectImg = (img) => {
   emits("select", img);
 };
 </script>

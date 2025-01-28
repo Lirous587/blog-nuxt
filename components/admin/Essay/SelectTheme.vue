@@ -2,7 +2,7 @@
   <el-select
     v-model="theme"
     placeholder="选择代码主题"
-    @change="handelPreviewThemeChange"
+    @change="handlePreviewThemeChange"
   >
     <el-option
       v-for="item in themeOptions"

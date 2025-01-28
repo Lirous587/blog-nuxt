@@ -29,7 +29,7 @@
       </el-divider>
       <slider-validation
         ref="sliderValidationRef"
-        @confirm="handelCreate"
+        @confirm="handleCreate"
       ></slider-validation>
     </div>
   </el-card>
@@ -76,7 +76,7 @@ const submitCreate = async () => {
   });
 };
 
-const handelCreate = () => {
+const handleCreate = () => {
   btnLoading.value = true;
   createEssayCommentParent(form)
     .then((res) => {

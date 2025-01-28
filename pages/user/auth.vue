@@ -45,10 +45,10 @@
             </small>
           </div>
           <div v-else-if="!isResetPwd" class="broad shadow-md">
-            <UserSignup @signup="handelSignup"></UserSignup>
+            <UserSignup @signup="handleSignup"></UserSignup>
           </div>
           <div v-else class="broad shadow-md">
-            <UserResetPwd @reset-password="handelResetPWd"></UserResetPwd>
+            <UserResetPwd @reset-password="handleResetPWd"></UserResetPwd>
           </div>
         </Transition>
       </div>
@@ -77,11 +77,11 @@ const toLogin = () => {
 const mobileHeight = computed(() => {
   return isLogin.value ? "540px" : "420px";
 });
-const handelSignup = () => {
+const handleSignup = () => {
   isLogin.value = true;
 };
 
-const handelResetPWd = () => {
+const handleResetPWd = () => {
   isResetPwd.value = false;
 };
 </script>

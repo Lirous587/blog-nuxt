@@ -1,6 +1,6 @@
 <template>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <AdminGallery @select="handelSelectImg" />
+    <AdminGallery @select="handleSelectImg" />
   </MyDialog>
   <div
     @click="dialogRef.open"
@@ -34,7 +34,7 @@ const previewUrl = ref("");
 
 const dialogRef = ref(null);
 
-const handelSelectImg = (img) => {
+const handleSelectImg = (img) => {
   imgID.value = img.id;
   previewUrl.value = img.imgUrl;
   dialogRef.value.close();

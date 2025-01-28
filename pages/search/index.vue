@@ -21,7 +21,7 @@ const form = reactive({
   ifAdd: true,
 });
 
-const searchEssayHandel = async () => {
+const searchEssayhandle = async () => {
   if (!form.keyword) return;
 
   loading.value = true;
@@ -39,7 +39,7 @@ watch(
   () => route.query.keyword,
   async (keyword) => {
     form.keyword = keyword;
-    searchEssayHandel();
+    searchEssayhandle();
   },
   { immediate: true }
 );

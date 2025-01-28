@@ -4,7 +4,7 @@
     :class="visiable ? 'fixed' : 'hidden'"
   >
     <div
-      id="handel"
+      id="handle"
       class="validationBox flex flex-col items-center m-auto"
       :style="{
         '--img-box-width': width,
@@ -91,7 +91,7 @@ const resetSlider = () => {
     Math.floor(Math.random() * (maxRandomY - minRandomY + 1)) + minRandomY;
 };
 
-const handelResize = () => {
+const handleResize = () => {
   resetSlider();
 };
 
@@ -141,7 +141,7 @@ const open = () => {
   window.addEventListener("mouseup", endDrag);
   window.addEventListener("touchend", endDrag);
 
-  window.addEventListener("resize", throttle(handelResize));
+  window.addEventListener("resize", throttle(handleResize));
 };
 
 const close = () => {
@@ -158,7 +158,7 @@ const close = () => {
   window.removeEventListener("mouseup", endDrag);
   window.removeEventListener("touchend", endDrag);
 
-  window.removeEventListener("resize", throttle(handelResize));
+  window.removeEventListener("resize", throttle(handleResize));
 };
 
 const refresh = () => {
@@ -233,7 +233,7 @@ defineExpose({
   transition: transform 0.5s ease-in;
 }
 
-#handel:active .img-box::after {
+#handle:active .img-box::after {
   transition: none;
 }
 

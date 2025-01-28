@@ -39,7 +39,7 @@
           title="确认删除评论？"
           confirm-button-text="确认"
           cancel-button-text="取消"
-          @confirm="handelDelete"
+          @confirm="handleDelete"
         >
           <template #reference>
             <small
@@ -91,7 +91,7 @@ const handleChoose = (item) => {
   item.replayStatus = true;
 };
 
-const handelDelete = () => {
+const handleDelete = () => {
   deleteEssayCommentReply(data.id).then(() => {
     emits("delete");
     ElMessage.success("删除回复成功");

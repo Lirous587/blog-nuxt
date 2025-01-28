@@ -9,7 +9,7 @@
   </div>
   <!-- create -->
   <div>
-    <el-button type="primary" @click="handelCreatePre">添加 </el-button>
+    <el-button type="primary" @click="handleCreatePre">添加 </el-button>
   </div>
 </template>
 

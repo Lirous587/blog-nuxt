@@ -1,5 +1,5 @@
 <template>
-  <EssayCommentHeader @comment="handelComment" :eid="eid"></EssayCommentHeader>
+  <EssayCommentHeader @comment="handleComment" :eid="eid"></EssayCommentHeader>
   <EssayCommentBody :eid="eid" ref="bodyRef"></EssayCommentBody>
 </template>
 
@@ -15,7 +15,7 @@ const bodyRef = ref(null);
 
 const userInfo = getUserInfoFromCookie();
 
-const handelComment = (content) => {
+const handleComment = (content) => {
   let row = {
     avatar: userInfo.avatar,
     name: userInfo.name,

@@ -3,7 +3,7 @@
     <el-card>
       <template #header>
         <AdminEssayInsertImg
-          @choose-galley="chooseGalleyHandel"
+          @choose-galley="chooseGalleyhandle"
         ></AdminEssayInsertImg>
       </template>
       <MdEdit ref="mdEditRef" v-model:content="content"></MdEdit>
@@ -30,7 +30,7 @@ provide("select", true);
 
 const mdEditRef = ref(null);
 
-const chooseGalleyHandel = (imgUrl) => {
+const chooseGalleyhandle = (imgUrl) => {
   const insertValue = `\n![图片信息](${imgUrl})\n`;
   mdEditRef.value.editorRef.insert(() => {
     return {

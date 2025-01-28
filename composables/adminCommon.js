@@ -47,7 +47,7 @@ export function useInitTable(opt = {}) {
   });
 
   // 删除
-  const handelDelete = (id) => {
+  const handleDelete = (id) => {
     loading.value = true;
     opt
       .delete(id)
@@ -61,7 +61,7 @@ export function useInitTable(opt = {}) {
   };
 
   //修改状态
-  const handelStatusChange = async (status, row) => {
+  const handleStatusChange = async (status, row) => {
     row.statusLoading = true;
     await opt
       .updateStatus(row.id, status)
@@ -81,7 +81,7 @@ export function useInitTable(opt = {}) {
   const handleSelectionChange = (e) => {
     multipleSelectionIds.value = e.map((o) => o.id);
   };
-  const handelMultipleDelete = () => {
+  const handleMultipleDelete = () => {
     if (multipleSelectionIds.value.length > 0) {
       loading.value = true;
       opt
@@ -103,7 +103,7 @@ export function useInitTable(opt = {}) {
   };
 
   // 批量修改状态
-  const handelMultipleStatusChange = (status) => {
+  const handleMultipleStatusChange = (status) => {
     if (multipleSelectionIds.value.length > 0) {
       loading.value = true;
       opt
@@ -132,12 +132,12 @@ export function useInitTable(opt = {}) {
     currentPage,
     pages,
     getData,
-    handelDelete,
-    handelStatusChange,
+    handleDelete,
+    handleStatusChange,
     multipleTableRef,
     handleSelectionChange,
-    handelMultipleDelete,
-    handelMultipleStatusChange,
+    handleMultipleDelete,
+    handleMultipleStatusChange,
     multipleSelectionIds,
   };
 }
@@ -158,7 +158,7 @@ export const useInitForm = (opt) => {
   const drawerTitle = computed(() => (editId.value ? "修改" : "新增"));
 
   // 提交表单
-  const handelSubmit = () => {
+  const handleSubmit = () => {
     formRef.value.validate((valid) => {
       if (!valid) return;
 
@@ -199,7 +199,7 @@ export const useInitForm = (opt) => {
   }
 
   // 新增
-  const handelCreate = () => {
+  const handleCreate = () => {
     editId.value = 0;
     resetForm(defaultForm);
     drawerRef.value.open();
@@ -209,7 +209,7 @@ export const useInitForm = (opt) => {
   };
 
   // 编辑
-  const handelEdit = (row) => {
+  const handleEdit = (row) => {
     editId.value = row.id;
     resetForm(row);
     drawerRef.value.open();
@@ -225,9 +225,9 @@ export const useInitForm = (opt) => {
     rules,
     editId,
     drawerTitle,
-    handelSubmit,
+    handleSubmit,
     resetForm,
-    handelCreate,
-    handelEdit,
+    handleCreate,
+    handleEdit,
   };
 };

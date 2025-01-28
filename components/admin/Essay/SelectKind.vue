@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="id" placeholder="选择分类" @change="handelChange">
+  <el-select v-model="id" placeholder="选择分类" @change="handleChange">
     <el-option
       v-for="item in list"
       :key="item.id"
@@ -28,9 +28,9 @@ await getEssayKindList(searchForm).then((res) => {
   list.value = data.list;
 });
 
-const handelChange = (value) => {
+const handleChange = (value) => {
   id.value = value;
 };
 
-handelChange(id.value | list.value[0].id);
+handleChange(id.value | list.value[0].id);
 </script>

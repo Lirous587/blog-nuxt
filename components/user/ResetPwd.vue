@@ -18,7 +18,7 @@
           <template #suffix>
             <el-button
               :loading="sentCodeBtnLoading"
-              @click="handelSentResetPwdValidationCode"
+              @click="handleSentResetPwdValidationCode"
               size="small"
               :class="
                 hasSentCode ? 'pointer-events-none cursor-not-allowed' : ''
@@ -154,14 +154,14 @@ const sumbitSignup = () => {
   if (!formRef) return;
   formRef.value.validate((valid) => {
     if (valid) {
-      handelResetPwd();
+      handleResetPwd();
     } else {
       ElMessage.error("信息填写有误");
     }
   });
 };
 
-const handelSentResetPwdValidationCode = async () => {
+const handleSentResetPwdValidationCode = async () => {
   let ok = false;
   let validate = formRef.value.validateField("email");
   await validate
@@ -184,7 +184,7 @@ const handelSentResetPwdValidationCode = async () => {
     });
 };
 
-const handelResetPwd = async () => {
+const handleResetPwd = async () => {
   resetPasswordBtnLoading.value = true;
   await resetPassword(form)
     .then(() => {

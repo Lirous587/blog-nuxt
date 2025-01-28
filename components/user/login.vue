@@ -34,7 +34,7 @@
     </el-form>
     <SliderValidation
       ref="slideValidationRef"
-      @confirm="handelSlideConfirm"
+      @confirm="handleSlideConfirm"
     ></SliderValidation>
   </div>
 </template>
@@ -72,11 +72,11 @@ const rules = reactive({
   ],
 });
 
-const handelSlideConfirm = () => {
-  handelLogin();
+const handleSlideConfirm = () => {
+  handleLogin();
 };
 
-const handelLogin = () => {
+const handleLogin = () => {
   btnLoading.value = true;
   login(form)
     .then((res) => {

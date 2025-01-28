@@ -34,7 +34,7 @@
           <template #suffix>
             <el-button
               :loading="sentCodeBtnLoading"
-              @click="handelSentSignupValidationCode"
+              @click="handleSentSignupValidationCode"
               size="small"
               :class="
                 hasSentCode ? 'pointer-events-none cursor-not-allowed' : ''
@@ -78,7 +78,7 @@
 
     <slider-validation
       ref="slideValidationRef"
-      @confirm="handelSlideConfirm"
+      @confirm="handleSlideConfirm"
     ></slider-validation>
   </div>
 </template>
@@ -200,7 +200,7 @@ const sumbitSignup = () => {
   });
 };
 
-const handelSentSignupValidationCode = async () => {
+const handleSentSignupValidationCode = async () => {
   let ok = false;
   let validate = formRef.value.validateField("email");
   await validate
@@ -223,11 +223,11 @@ const handelSentSignupValidationCode = async () => {
     });
 };
 
-const handelSlideConfirm = () => {
-  handelSignup();
+const handleSlideConfirm = () => {
+  handleSignup();
 };
 
-const handelSignup = async () => {
+const handleSignup = async () => {
   signupBtnLoading.value = true;
   const formData = new FormData();
   formData.append("img", form.imgData);

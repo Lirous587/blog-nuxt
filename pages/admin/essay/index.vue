@@ -11,7 +11,7 @@
             ></el-input>
           </template>
         </AdminSearch>
-        <el-button type="primary" @click="handelCreate" size="small"
+        <el-button type="primary" @click="handleCreate" size="small"
           >添加
         </el-button>
       </template>
@@ -51,7 +51,7 @@
         </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
-            <el-button type="warning" @click="handelEdit(scope.row)"
+            <el-button type="warning" @click="handleEdit(scope.row)"
               >修改
             </el-button>
 
@@ -62,7 +62,7 @@
               cancel-button-text="取消"
               cancel-button-type="primary"
               icon-color="rgb(245,108,108)"
-              @confirm="handelDelete(scope.row.id)"
+              @confirm="handleDelete(scope.row.id)"
             >
               <template #reference>
                 <el-button type="danger">删除 </el-button>
@@ -98,7 +98,7 @@
       size="50%"
       :destroy-on-close="true"
       class="dark:bg-black"
-      @submit="handelSubmit"
+      @submit="handleSubmit"
     >
       <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
         <el-form-item label="分类">
@@ -189,7 +189,7 @@ const {
   currentPage,
   pages,
   getData,
-  handelDelete,
+  handleDelete,
 } = useInitTable({
   getList: getEssayList,
   delete: deleteEssay,
@@ -221,9 +221,9 @@ const {
   form,
   formRef,
   drawerTitle,
-  handelSubmit,
-  handelCreate,
-  handelEdit,
+  handleSubmit,
+  handleCreate,
+  handleEdit,
 } = useInitForm({
   form: reactive({
     id: 0,

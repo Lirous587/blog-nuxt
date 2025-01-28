@@ -26,7 +26,7 @@
           title="确认删除评论？"
           confirm-button-text="确认"
           cancel-button-text="取消"
-          @confirm="handelDelete"
+          @confirm="handleDelete"
         >
           <template #reference>
             <small
@@ -42,6 +42,7 @@
       <EssayCommentReplies
         :replyCount="data?.replyCount"
         :pid="data?.id"
+        :choose="handleChoose"
       ></EssayCommentReplies>
 
       <!-- 评论框 ifComment用来标记文本 ifCommenting用来标记输入框状态  -->
@@ -63,7 +64,7 @@
         </div>
         <slider-validation
           ref="sliderValidationRef"
-          @confirm="handelCreate"
+          @confirm="handleCreate"
         ></slider-validation>
       </div> -->
     </div>
@@ -108,7 +109,7 @@ const rules = reactive({
 const emits = defineEmits("choose", "delete");
 const toUserName = ref("");
 
-const handelDelete = () => {
+const handleDelete = () => {
   deleteEssayCommentParent(props.data.id).then(() => {
     emits("delete", props.data.id);
     ElMessage.success("删除评论成功");
@@ -136,7 +137,7 @@ const submitCreate = async () => {
   });
 };
 
-const handelCreate = () => {
+const handleCreate = () => {
   loading.value = true;
   createEssayCommentReply(form)
     .then(() => {

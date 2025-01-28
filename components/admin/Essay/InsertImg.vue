@@ -1,6 +1,6 @@
 <template>
   <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <AdminGallery @select="handelSelectImg" />
+    <AdminGallery @select="handleSelectImg" />
   </MyDialog>
 
   <el-button type="success" @click="chooseGallery"> 选择图片 </el-button>
@@ -16,7 +16,7 @@ const imgPre = useRuntimeConfig().public.imgGalleryBase;
 
 const emits = defineEmits(["chooseGalley"]);
 
-const handelSelectImg = (img) => {
+const handleSelectImg = (img) => {
   const imgUrl = imgPre + img.imgUrl;
   dialogRef.value.close();
   emits("chooseGalley", imgUrl);

@@ -37,14 +37,14 @@
                   v-model="item.checked"
                   :value="item.url"
                   size="small"
-                  @change="handelSelectOne(index)"
+                  @change="handleSelectOne(index)"
                 ></el-checkbox>
 
                 <el-button
                   size="small"
                   text="true"
                   type="warning"
-                  @click="handelEdit(item)"
+                  @click="handleEdit(item)"
                   >更新</el-button
                 >
                 <el-popconfirm
@@ -53,7 +53,7 @@
                   cancel-button-text="取消"
                   confirm-button-type="danger"
                   cancel-button-type="primary"
-                  @confirm="handelDelete(item.id)"
+                  @confirm="handleDelete(item.id)"
                 >
                   <template #reference>
                     <el-button size="small" text type="primary">删除</el-button>
@@ -78,7 +78,7 @@
   </div>
 
   <div class="absolute right-10 bottom-10" v-if="ifSelect">
-    <el-button type="primary" @click="handelSelectImg" class="float-right"
+    <el-button type="primary" @click="handleSelectImg" class="float-right"
       >选择图片</el-button
     >
   </div>
@@ -90,7 +90,7 @@
     size="50%"
     :destroy-on-close="true"
     class="dark:bg-black"
-    @submit="handelSubmit"
+    @submit="handleSubmit"
   >
     <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
       <el-form-item label="图片内容" v-if="drawerTitle === '新增'">
@@ -159,7 +159,7 @@ const {
   currentPage,
   pages,
   getData,
-  handelDelete,
+  handleDelete,
   searchForm,
   resetSearchForm,
 } = useInitTable({
@@ -196,9 +196,9 @@ const {
   form,
   formRef,
   drawerTitle,
-  handelSubmit,
-  handelCreate,
-  handelEdit,
+  handleSubmit,
+  handleCreate,
+  handleEdit,
   editId,
 } = useInitForm({
   form: reactive({
@@ -223,7 +223,7 @@ const {
 });
 
 const checkedItem = ref(null);
-const handelSelectOne = (index) => {
+const handleSelectOne = (index) => {
   tableData.value.forEach((item, i) => {
     if (i !== index) {
       item.checked = false;
@@ -234,7 +234,7 @@ const handelSelectOne = (index) => {
 
 const emits = defineEmits(["select"]);
 
-const handelSelectImg = () => {
+const handleSelectImg = () => {
   emits("select", checkedItem.value);
 };
 
@@ -248,7 +248,7 @@ watch(
 );
 
 defineExpose({
-  handelCreate,
+  handleCreate,
   resetSearchForm,
   searchForm,
   getData,

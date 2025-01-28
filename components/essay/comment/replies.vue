@@ -10,8 +10,8 @@
     <div v-for="item in list" :key="item.id">
       <EssayCommentReply
         :data="item"
-        @choose="handelChoose"
-        @delete="handelDelete"
+        @choose="handleChoose"
+        @delete="handleDelete"
       >
       </EssayCommentReply>
     </div>
@@ -73,7 +73,7 @@ const changePage = async (page) => {
   getList();
 };
 
-const handelDelete = () => {
+const handleDelete = () => {
   count.value--;
   getList();
 };
@@ -85,7 +85,7 @@ const clearReplyCommentStatus = () => {
   });
 };
 
-const handelChoose = (data) => {
+const handleChoose = (data) => {
   clearReplyCommentStatus();
   emits("choose");
 };
