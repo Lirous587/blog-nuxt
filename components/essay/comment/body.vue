@@ -1,5 +1,5 @@
 <template>
-  <EssayCommentParents :eid="eid"></EssayCommentParents>
+  <EssayCommentParents ref="parentsRef" :eid="eid"></EssayCommentParents>
 </template>
 
 <script setup>
@@ -8,5 +8,16 @@ const props = defineProps({
     type: Number,
     require: true,
   },
+});
+
+const parents = ref([]);
+
+const parentsRef = ref(null);
+
+onMounted(() => {
+  parents.value = parentsRef.value.list;
+});
+defineExpose({
+  parents,
 });
 </script>

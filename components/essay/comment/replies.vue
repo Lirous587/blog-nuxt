@@ -1,26 +1,28 @@
 <template>
-  <small
-    @click="getList"
-    class="text-xs text-gray-500 hover:cursor-pointer hover:text-blue-300 mt-1"
-    v-if="replyCount > 0 && !haveExpand"
-  >
-    共{{ replyCount }}条评论点击查看
-  </small>
-  <div v-else v-loading="loading">
-    <div v-for="item in list" :key="item.id">
-      <EssayCommentReply
-        :data="item"
-        @choose="handleReplyChoose"
-        @delete="handleReplyDelete"
-      >
-      </EssayCommentReply>
+  <div>
+    <small
+      @click="getList"
+      class="text-xs text-gray-500 hover:cursor-pointer hover:text-blue-300 mt-1"
+      v-if="replyCount > 0 && !haveExpand"
+    >
+      共{{ count }}条评论点击查看
+    </small>
+    <div v-else v-loading="loading">
+      <div v-for="item in list" :key="item.id">
+        <EssayCommentReply
+          :data="item"
+          @choose="handleReplyChoose"
+          @delete="handleReplyDelete"
+        >
+        </EssayCommentReply>
+      </div>
+      <el-pagination
+        layout="prev, pager, next"
+        :page-count="pages"
+        :hide-on-single-page="true"
+        @change="changePage"
+      />
     </div>
-    <el-pagination
-      layout="prev, pager, next"
-      :page-count="pages"
-      :hide-on-single-page="true"
-      @change="changePage"
-    />
   </div>
 </template>
 
@@ -90,7 +92,19 @@ const clearRepliesChooseStatus = () => {
   });
 };
 
+const unshitOneReply = (row) => {
+  list.value.unshift(row);
+  count.value++;
+};
+
+onMounted(() => {
+  if (props.replyCount > 0) {
+    getList();
+  }
+});
+
 defineExpose({
   clearRepliesChooseStatus,
+  unshitOneReply,
 });
 </script>

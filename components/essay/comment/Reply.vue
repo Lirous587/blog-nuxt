@@ -5,7 +5,11 @@
     </div>
     <div class="flex flex-col flex-1 dark:text-gray-500 gap-y-1 p-1">
       <div class="flex">
-        <small v-if="data.fromUser.name === data.toUser.name">
+        <small
+          v-if="
+            data.fromUser.name === data.toUser.name || data.toUser?.name == ''
+          "
+        >
           {{ data.fromUser.name }}
         </small>
         <div class="flex" v-else>
@@ -62,7 +66,7 @@ const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 const props = defineProps({
   data: {
     required: true,
-    type: Array,
+    type: Object,
   },
 });
 
@@ -86,7 +90,7 @@ const handleChoose = (item) => {
 };
 
 const handleDelete = () => {
-  deleteEssayCommentReply(data.id).then(() => {
+  deleteEssayCommentReply(props.data.id).then(() => {
     emits("delete");
     ElMessage.success("删除回复成功");
   });

@@ -91,8 +91,6 @@ export function resetForm(form) {
   }
 }
 
-import { isRef } from "vue";
-
 export function validateListAndFetchData(list, query, getlist) {
   if (!isRef(list)) {
     toast("传入的list非响应式", "error");
@@ -110,11 +108,15 @@ export function validateListAndFetchData(list, query, getlist) {
       return;
     }
 
-    if (query.page > 1 && Number.isInteger(query.page)) {
-      query.page--;
-    } else {
+    if (!Number.isInteger(query.page)) {
       toast("传入的query的page字段类型错误", "error");
       return;
+    }
+
+    if (query.page > 1) {
+      query.page--;
+    } else {
+      query.page = 1;
     }
 
     if (typeof getlist === "function") {

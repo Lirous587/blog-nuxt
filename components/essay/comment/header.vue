@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card shadow="hover">
     <div class="flex flex-col">
       <el-divider direction="horizontal" content-position="center">
         <span class="ml-auto font-bold text-pink-600">评论区 </span>
@@ -27,12 +27,12 @@
           >{{ hadLogin ? "请友善评论" : "登录后才可以评论" }}
         </span>
       </el-divider>
-      <slider-validation
-        ref="sliderValidationRef"
-        @confirm="handleCreate"
-      ></slider-validation>
     </div>
   </el-card>
+  <slider-validation
+    ref="sliderValidationRef"
+    @confirm="handleCreate"
+  ></slider-validation>
 </template>
 
 <script setup>
@@ -47,6 +47,7 @@ const props = defineProps({
 const emits = defineEmits("comment");
 
 const hadLogin = userIfLofin();
+const userInfo = getUserInfoFromCookie();
 
 const btnLoading = ref(false);
 const form = reactive({
@@ -81,7 +82,15 @@ const handleCreate = () => {
   createEssayCommentParent(form)
     .then((res) => {
       ElMessage.success("评论成功");
-      emits("comment", form.content);
+      const row = {
+        id: res.data.id,
+        content: form.content,
+        avatar: userInfo.avatar,
+        name: userInfo.name,
+        createTime: "刚刚",
+        replyCount: 0,
+      };
+      emits("comment", row);
       form.content = "";
     })
     .finally(() => {

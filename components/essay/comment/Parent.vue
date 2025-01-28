@@ -12,9 +12,11 @@
       <span>
         {{ data.content }}
       </span>
-      <div class="flex items-center gap-x-2 text-sm" v-if="data.id && hadLogin">
+      <div class="flex items-center gap-x-2 text-sm" v-if="hadLogin">
         <small class="text-gray-500">
-          {{ formateDate(data.createTime) }}
+          {{
+            data.createTime === "刚刚" ? "刚刚" : formateDate(data.createTime)
+          }}
         </small>
         <small
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
@@ -97,6 +99,9 @@ const form = reactive({
   toUserUid: "0",
   parentID: 0,
   content: "",
+  // 这里是非必须的 写下来方便后续unshift加
+  toUserName: "",
+  parentID: 0,
 });
 const formRef = ref(null);
 const rules = reactive({
@@ -122,13 +127,14 @@ const handleDelete = () => {
 const handleChoose = () => {
   emits("choose", props.data.id);
   form.parentID = props.data.id;
-  toUserName.value = "";
+  toUserName.value = props.data.name;
 };
 
 const handleRepliesChoose = (emitData) => {
   for (const key in emitData) {
     form[key] = emitData[key];
   }
+  toUserName.value = emitData.toUserName;
   emits("repliesChoose", emitData);
 };
 
@@ -144,16 +150,28 @@ const submitCreate = async () => {
 };
 
 const handleCreate = () => {
-  loading.value = true;
-  createEssayCommentReply(form)
-    .then(() => {
-      ElMessage.success("评论成功");
-      addTempData();
-      form.content = "";
-    })
-    .finally(() => {
-      loading.value = false;
-    });
+  createEssayCommentReply(form).then((res) => {
+    ElMessage.success("评论成功");
+
+    const row = {
+      fromUser: {
+        name: userInfo.name,
+        avatar: userInfo.avatar,
+        uid: userInfo.uid,
+      },
+      toUser: {
+        name: form.toUserName,
+        avatar: "",
+      },
+      content: form.content,
+      createTime: "刚刚",
+      parentID: form.parentID,
+      id: res.data.id,
+    };
+    repliesRef.value.unshitOneReply(row);
+
+    form.content = "";
+  });
 };
 
 defineExpose({
