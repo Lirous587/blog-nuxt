@@ -19,7 +19,6 @@ const handelComment = (content) => {
   let row = {
     avatar: userInfo.avatar,
     name: userInfo.name,
-    createTime: "刚刚",
     content: content,
   };
   bodyRef.value.list.unshift(row);

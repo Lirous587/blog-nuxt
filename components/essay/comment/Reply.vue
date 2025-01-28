@@ -1,16 +1,16 @@
 <template>
-  <div class="flex items-start" v-for="item in list">
+  <div class="flex items-start">
     <div class="p-2">
-      <el-avatar :size="30" :src="avatarPre + item.fromUser.avatar"></el-avatar>
+      <el-avatar :size="30" :src="avatarPre + data.fromUser.avatar"></el-avatar>
     </div>
     <div class="flex flex-col flex-1 dark:text-gray-500 gap-y-1 p-1">
       <div class="flex">
-        <small v-if="item.fromUser.name === item.toUser.name">
-          {{ item.fromUser.name }}
+        <small v-if="data.fromUser.name === data.toUser.name">
+          {{ data.fromUser.name }}
         </small>
         <div class="flex" v-else>
           <small>
-            {{ item.fromUser.name }}
+            {{ data.fromUser.name }}
           </small>
           <div class="flex items-center mx-1">
             <div
@@ -18,34 +18,34 @@
             ></div>
           </div>
           <small>
-            {{ item.toUser.name }}
+            {{ data.toUser.name }}
           </small>
         </div>
       </div>
 
       <span class="text-sm">
-        {{ item.content }}
+        {{ data.content }}
       </span>
-      <small class="text-gray-500"> {{ formateDate(item.createTime) }}</small>
+      <small class="text-gray-500"> {{ formateDate(data.createTime) }}</small>
       <div class="flex gap-x-3" v-if="hadLogin">
         <small
-          @click="handleChoose(item)"
-          v-if="item.id && item.fromUser.uid != userInfo.uid"
+          @click="handleChoose(data)"
+          v-if="data.id && data.fromUser.uid != userInfo.uid"
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
         >
-          {{ item.ifComment ? "回复中" : "回复" }}
+          {{ data.replayStatus ? "回复中" : "回复" }}
         </small>
         <el-popconfirm
           title="确认删除评论？"
           confirm-button-text="确认"
           cancel-button-text="取消"
-          @confirm="handelDelete(item)"
+          @confirm="handelDelete"
         >
           <template #reference>
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ item.fromUser.uid === userInfo.uid ? "删除" : "" }}
+              {{ data.fromUser.uid === userInfo.uid ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -59,8 +59,13 @@ import { deleteEssayCommentReply } from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
+const data = defineModel("data", {
+  required: true,
+  type: Object,
+});
+
 const props = defineProps({
-  list: {
+  data: {
     required: true,
     type: Array,
   },
@@ -81,14 +86,15 @@ const handleChoose = (item) => {
   emitData.toUserUid = item.fromUser.uid;
   emitData.toUserName = item.fromUser.name;
   emitData.parentID = item.parentID;
-  emits("Choose", emitData);
-  item.ifComment = true;
+
+  emits("choose", emitData);
+  item.replayStatus = true;
 };
 
-const handelDelete = (item) => {
-  deleteEssayCommentReply(item.id).then((res) => {
-    emits("Delete", item.id);
-    ElMessage.success("删除评论成功");
+const handelDelete = () => {
+  deleteEssayCommentReply(data.id).then(() => {
+    emits("delete");
+    ElMessage.success("删除回复成功");
   });
 };
 </script>

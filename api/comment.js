@@ -20,6 +20,6 @@ export const deleteEssayCommentParent = (id) => {
   return clientApi.delete(`/comment/parent/${id}`, "user");
 };
 
-export const deleteEssayCommentReply = (form) => {
+export const deleteEssayCommentReply = (id) => {
   return clientApi.delete(`/comment/reply/${id}`, "user");
 };

@@ -90,3 +90,37 @@ export function resetForm(form) {
     }
   }
 }
+
+import { isRef } from "vue";
+
+export function validateListAndFetchData(list, query, getlist) {
+  if (!isRef(list)) {
+    toast("传入的list非响应式", "error");
+    return;
+  }
+
+  if (!Array.isArray(list.value)) {
+    toast("传入的list非数组类型", "error");
+    return;
+  }
+
+  if (list.value.length === 0) {
+    if (!query.page) {
+      toast("传入的query无page字段", "error");
+      return;
+    }
+
+    if (query.page > 1 && Number.isInteger(query.page)) {
+      query.page--;
+    } else {
+      toast("传入的query的page字段类型错误", "error");
+      return;
+    }
+
+    if (typeof getlist === "function") {
+      getlist();
+    } else {
+      toast("传入了非函数，无法获取数据", "error");
+    }
+  }
+}
