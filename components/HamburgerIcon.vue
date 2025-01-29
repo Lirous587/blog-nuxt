@@ -49,8 +49,8 @@ defineExpose({
 </script>
 
 <style scoped>
-.hamburger-btn {
-  @apply cursor-pointer;
+.hamburger-btn:hover {
+  cursor: pointer;
 }
 
 .hamburger-icon {

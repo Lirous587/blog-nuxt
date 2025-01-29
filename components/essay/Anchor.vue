@@ -45,6 +45,8 @@ const props = defineProps({
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 .anchor {
   @apply relative font-serif hover:cursor-pointer transition-all duration-300 lg:text-lg pr-5;
 }

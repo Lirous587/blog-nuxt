@@ -99,6 +99,8 @@ const props = defineProps({
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 * {
   @apply font-serif;
 }

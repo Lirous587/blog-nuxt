@@ -87,6 +87,8 @@ const handleResetPWd = () => {
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 .broad {
   @apply min-w-[420px] w-[80vw]  md:w-[420px] flex flex-col items-center justify-center;
 }

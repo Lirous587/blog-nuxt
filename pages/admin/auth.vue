@@ -66,6 +66,8 @@ const handleLogin = () => {
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 .text-dark {
   @apply dark:text-gray-400;
 }

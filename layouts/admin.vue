@@ -31,13 +31,3 @@ const handleCollapse = () => {
   navAsideRef.value.collapse();
 };
 </script>
-
-<!-- <style scoped>
-:deep(.el-header) {
-  @apply h-auto p-0;
-}
-
-:deep(.el-card__body) {
-  padding: 0 !important;
-}
-</style> -->

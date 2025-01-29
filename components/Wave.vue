@@ -29,6 +29,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 @keyframes wave {
   0% {
     background-position-x: 0;

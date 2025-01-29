@@ -189,6 +189,8 @@ defineExpose({
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 .validationBox {
   --dynamic-move: 0px;
   --move: clamp(0px, var(--dynamic-move), calc(1 * var(--img-box-width)));

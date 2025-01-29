@@ -76,6 +76,8 @@ await getHeartWordsList(queryForm).then((res) => {
 </script>
 
 <style scoped>
+@reference "assets/css/tailwind.css";
+
 * {
   @apply font-serif;
 }

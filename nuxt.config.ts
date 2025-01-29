@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
@@ -25,7 +26,7 @@ export default defineNuxtConfig({
           : "http://127.0.0.1:8080/api/img/avatar/",
     },
   },
-  modules: ["@element-plus/nuxt", "@nuxtjs/tailwindcss", "@pinia/nuxt"],
+  modules: ["@element-plus/nuxt", "@pinia/nuxt"],
   css: ["~/assets/css/tailwind.css", "~/assets/scss/index.scss"],
   routeRules: {
     // 管理仪表板仅在客户端渲染
@@ -36,13 +37,8 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
   vite: {
+    plugins: [tailwindcss()],
     css: {
       preprocessorOptions: {
         scss: {

@@ -39,6 +39,8 @@ nuxtApp.hook("page:finish", () => {
 </script>
 
 <style>
+@reference "assets/css/tailwind.css";
+
 ::-webkit-scrollbar {
   width: 2px;
   height: 2px;
