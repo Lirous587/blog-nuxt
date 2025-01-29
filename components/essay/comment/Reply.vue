@@ -31,7 +31,7 @@
         {{ data.content }}
       </span>
       <small class="text-gray-500"> {{ formateDate(data.createTime) }}</small>
-      <div class="flex gap-x-3" v-if="hadLogin">
+      <div class="flex gap-x-3" v-if="hadLogin || ifAdmin">
         <small
           @click="handleChoose(data)"
           v-if="data.id && data.fromUser.uid != userInfo.uid"
@@ -49,7 +49,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.fromUser.uid === userInfo.uid ? "删除" : "" }}
+              {{ data.fromUser.uid === userInfo.uid || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -62,6 +62,8 @@
 import { deleteEssayCommentReply } from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
+
+const ifAdmin = inject("admin");
 
 const props = defineProps({
   data: {

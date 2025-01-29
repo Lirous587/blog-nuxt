@@ -7,12 +7,12 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "start": "cross-env PORT=3001 node .output/server/index.mjs"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.5",
     "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7",
+    "@tailwindcss/upgrade": "^4.0.0",
     "dayjs": "^1.11.13",
     "element-plus": "^2.8.5",
     "md-editor-v3": "^4.21.3",

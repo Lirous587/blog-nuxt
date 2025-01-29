@@ -12,7 +12,7 @@
       <span>
         {{ data.content }}
       </span>
-      <div class="flex items-center gap-x-2 text-sm" v-if="hadLogin">
+      <div class="flex items-center gap-x-2 text-sm" v-if="hadLogin || ifAdmin">
         <small class="text-gray-500">
           {{
             data.createTime === "刚刚" ? "刚刚" : formateDate(data.createTime)
@@ -34,7 +34,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.uid === userInfo.uid ? "删除" : "" }}
+              {{ data.uid === userInfo.uid || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -81,6 +81,8 @@ import {
 } from "~/api/comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
+
+const ifAdmin = inject("admin");
 
 const props = defineProps({
   data: {

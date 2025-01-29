@@ -175,6 +175,8 @@ definePageMeta({
   layout: "admin",
 });
 
+provide("admin", true);
+
 const dialogRef = ref(null);
 
 const config = useRuntimeConfig();
