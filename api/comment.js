@@ -17,9 +17,9 @@ export const createEssayCommentReply = (form) => {
 };
 
 export const deleteEssayCommentParent = (id) => {
-  return clientApi.delete(`/comment/parent/${id}`, "user");
+  return clientApi.delete(`/comment/parent/${id}`, "both");
 };
 
 export const deleteEssayCommentReply = (id) => {
-  return clientApi.delete(`/comment/reply/${id}`, "user");
+  return clientApi.delete(`/comment/reply/${id}`, "both");
 };

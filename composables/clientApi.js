@@ -7,7 +7,15 @@ const apiCore = (url, opt, authType) => {
   const nuxtApp = useNuxtApp();
 
   let accessToken, refreshToken;
-  if (authType === "admin") {
+
+  if (authType === "both") {
+    accessToken = getAdminAccessToken();
+    refreshToken = getAdminRefreshToken();
+    if (!accessToken && !refreshToken) {
+      accessToken = getUserAccessToken();
+      refreshToken = getUserRefreshToken();
+    }
+  } else if (authType === "admin") {
     accessToken = getAdminAccessToken();
     refreshToken = getAdminRefreshToken();
   } else if (authType === "user") {

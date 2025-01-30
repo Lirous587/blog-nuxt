@@ -56,9 +56,9 @@ const props = defineProps({
 }
 
 .active {
-  @apply !text-yellow-300 blur-0 scale-110;
+  @apply !text-yellow-300 blur-none scale-110;
 }
 .anchor-outer:hover a {
-  @apply blur-0;
+  @apply blur-none;
 }
 </style>

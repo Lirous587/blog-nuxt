@@ -21,6 +21,7 @@
         <small
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
           @click="handleChoose"
+          v-if="!ifAdmin"
         >
           {{ data.replayStatus ? "回复中" : "回复" }}
         </small>
@@ -34,7 +35,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.uid === userInfo.uid || ifAdmin ? "删除" : "" }}
+              {{ data.uid === userInfo?.uid || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>

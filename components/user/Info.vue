@@ -41,7 +41,7 @@
       label-width="80px"
     >
       <el-form-item label="头像" for="avatar">
-        <UploadImg v-model:imgData="updateInfoForm.imgData" size-limit="2MB">
+        <ImgUpload v-model:imgData="updateInfoForm.imgData" size-limit="2MB">
           <template #default>
             <el-avatar size="large" :src="imgPre + userInfo.avatar"></el-avatar>
             <br />
@@ -50,7 +50,7 @@
           <template #preview="previewProps">
             <el-avatar size="large" :src="previewProps.previewUrl"></el-avatar>
           </template>
-        </UploadImg>
+        </ImgUpload>
       </el-form-item>
 
       <el-form-item label="用户名" prop="name" for="name">

@@ -17,6 +17,7 @@ const parentsRef = ref(null);
 onMounted(() => {
   parents.value = parentsRef.value.list;
 });
+
 defineExpose({
   parents,
 });

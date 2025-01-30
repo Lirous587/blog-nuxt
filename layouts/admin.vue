@@ -1,5 +1,5 @@
 <template>
-  <div class="transition-all duration-300 bg-white dark:bg-black min-h-[100vh]">
+  <div class="transition-all duration-300 min-h-[100vh]">
     <header>
       <AdminNavHeader @expand="handleExpand" @collapse="handleCollapse">
       </AdminNavHeader>
@@ -8,9 +8,7 @@
       <aside :style="{ width: `${asideAside}` }">
         <AdminNavAside ref="navAsideRef"></AdminNavAside>
       </aside>
-      <main
-        class="flex-1 w-[0px] mx-5 !py-0 transition-all duration-300 bg-white dark:bg-black"
-      >
+      <main class="flex-1 w-[0px] mx-5 !py-0 transition-all duration-300">
         <slot />
       </main>
     </div>

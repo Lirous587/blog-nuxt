@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="relative h-full">
-    <div class="h-[calc(100%-40px)] overflow-y-scroll">
+    <div class="h-[calc(100%-40px)] overflow-y-auto">
       <div
         v-for="item in tableData"
         class="flex-1 flex items-center justify-between text-sm hover:cursor-pointer pl-4 pr-3 border-b-[1px] dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-800 py-4"
@@ -57,9 +57,15 @@
     class="dark:bg-black"
     @submit="handleSubmit"
   >
-    <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
-      <el-form-item label="图片内容">
-        <el-input v-model="form.name"> </el-input>
+    <el-form
+      :model="form"
+      ref="formRef"
+      label-width="80px"
+      :inline="false"
+      :rules="rules"
+    >
+      <el-form-item label="分类名" prop="name">
+        <el-input v-model="form.name" placeholder="请输入分类名"> </el-input>
       </el-form-item>
     </el-form>
   </MyDrawer>
@@ -86,7 +92,7 @@ const { tableData, loading, currentPage, pages, getData, handleDelete } =
     delete: deleteGalleryKind,
     searchForm: reactive({
       page: 1,
-      limit: 10,
+      limit: 8,
       keyword: "",
     }),
     onGetListSuccess: (res) => {
@@ -108,6 +114,7 @@ const {
   handleSubmit,
   handleCreate,
   handleEdit,
+  rules,
 } = useInitForm({
   form: reactive({
     name: "",
@@ -116,6 +123,9 @@ const {
   getData,
   create: createGalleryKind,
   update: updateGalleryKind,
+  rules: {
+    name: [{ required: true, message: "请输入分类名", trigger: "blur" }],
+  },
 });
 
 const handleSelect = (id) => {

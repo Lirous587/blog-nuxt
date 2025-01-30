@@ -91,6 +91,7 @@
         v-model:content="form.content"
       ></AdminEssayEditContent>
     </MyDialog>
+
     <MyDrawer
       :title="drawerTitle"
       direction="rtl"
@@ -100,12 +101,18 @@
       class="dark:bg-black"
       @submit="handleSubmit"
     >
-      <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
+      <el-form
+        :model="form"
+        ref="formRef"
+        :rules="rules"
+        label-width="80px"
+        :inline="false"
+      >
         <el-form-item label="分类">
           <AdminEssaySelectKind v-model:id="form.kindID">
           </AdminEssaySelectKind>
         </el-form-item>
-        <el-form-item label="标签">
+        <el-form-item label="标签" prop="labelIds">
           <AdminEssaySelectLabels
             v-model:ids="form.labelIds"
           ></AdminEssaySelectLabels>
@@ -116,15 +123,15 @@
           </AdminEssaySelectTheme>
         </el-form-item>
 
-        <el-form-item label="文章名">
+        <el-form-item label="文章名" prop="name">
           <el-input v-model="form.name" placeholder="文章名" />
         </el-form-item>
 
-        <el-form-item label="文章内容">
+        <el-form-item label="文章内容" prop="content">
           <el-button type="warning" @click="dialogRef.open">编辑文章</el-button>
         </el-form-item>
 
-        <el-form-item label="介绍">
+        <el-form-item label="介绍" prop="introduction">
           <el-input
             v-model="form.introduction"
             placeholder="介绍"
@@ -132,10 +139,10 @@
           />
         </el-form-item>
 
-        <el-form-item label="文章图片">
+        <el-form-item label="文章图片" prop="img">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
-        <el-form-item label="关键词">
+        <el-form-item label="关键词" prop="keywords">
           <DynamicAddTag
             :list="form.keywords"
             @change="
@@ -226,6 +233,7 @@ const {
   handleSubmit,
   handleCreate,
   handleEdit,
+  rules,
 } = useInitForm({
   form: reactive({
     id: 0,
@@ -246,15 +254,25 @@ const {
   getData,
   create: createEssay,
   update: updateEssay,
-  onEdit: () => {
-    setTimeout(() => {
-      dialogRef.value.open();
-    }, 200);
-  },
-  onCreate: () => {
-    setTimeout(() => {
-      dialogRef.value.open();
-    }, 200);
+  rules: {
+    name: [{ required: true, message: "请输入文章名", trigger: "blur" }],
+    labelIds: [{ required: true, message: "请选择标签", trigger: "blur" }],
+    introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+    img: [
+      {
+        required: true,
+        validator: (rule, value, callback) => {
+          if (!value.url) {
+            callback(new Error("请选择图片"));
+          } else {
+            callback();
+          }
+        },
+        trigger: "blur",
+      },
+    ],
+    content: [{ required: true, message: "请输入内容", trigger: "blur" }],
+    keywords: [{ required: true, message: "请输入关键词", trigger: "blur" }],
   },
 });
 </script>

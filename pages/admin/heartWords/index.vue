@@ -89,7 +89,13 @@
       class="dark:bg-black"
       @submit="handleSubmit"
     >
-      <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
+      <el-form
+        :model="form"
+        ref="formRef"
+        label-width="80px"
+        :inline="false"
+        :rules="rules"
+      >
         <el-form-item label="内容" prop="content">
           <el-input
             placeholder="请输入心语内容"
@@ -99,7 +105,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="出处">
+        <el-form-item label="出处" prop="source">
           <el-input
             placeholder="请输入心语出处"
             v-model="form.source"
@@ -126,7 +132,7 @@
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="图片">
+        <el-form-item label="图片" prop="img">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
       </el-form>
@@ -178,6 +184,7 @@ const {
   handleSubmit,
   handleCreate,
   handleEdit,
+  rules,
 } = useInitForm({
   form: reactive({
     id: 0,
@@ -194,5 +201,23 @@ const {
   getData,
   create: createHeartWords,
   update: updateHeartWords,
+  rules: {
+    content: [{ required: true, message: "请输入心语内容", trigger: "blur" }],
+    source: [{ required: true, message: "请输入心语出处", trigger: "blur" }],
+    introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+    img: [
+      {
+        required: true,
+        validator: (rule, value, callback) => {
+          if (!value.url) {
+            callback(new Error("请选择图片"));
+          } else {
+            callback();
+          }
+        },
+        trigger: "blur",
+      },
+    ],
+  },
 });
 </script>

@@ -80,12 +80,18 @@
       class="dark:bg-black"
       @submit="handleSubmit"
     >
-      <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
-        <el-form-item label="名称" prop="content">
+      <el-form
+        :model="form"
+        ref="formRef"
+        label-width="80px"
+        :inline="false"
+        :rules="rules"
+      >
+        <el-form-item label="名称" prop="name">
           <el-input placeholder="请输入名称" size="large" v-model="form.name">
           </el-input>
         </el-form-item>
-        <el-form-item label="介绍">
+        <el-form-item label="介绍" prop="introduction">
           <el-input
             placeholder="请输入介绍"
             v-model="form.introduction"
@@ -94,7 +100,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="图标" prop="content">
+        <el-form-item label="图标" prop="icon">
           <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
         </el-form-item>
       </el-form>
@@ -143,6 +149,7 @@ const {
   handleSubmit,
   handleCreate,
   handleEdit,
+  rules,
 } = useInitForm({
   form: reactive({
     name: "",
@@ -152,5 +159,10 @@ const {
   getData,
   create: createEssayKind,
   update: updateEssayKind,
+  rules: {
+    name: [{ required: true, message: "请输入分类名", trigger: "blur" }],
+    icon: [{ required: true, message: "请选择图标", trigger: "blur" }],
+    introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+  },
 });
 </script>

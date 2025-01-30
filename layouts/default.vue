@@ -4,7 +4,7 @@
 
     <BackgroundType> </BackgroundType>
 
-    <div class="pt-10 transition-all duration-300 bg-white dark:bg-black flex">
+    <div class="pt-10 transition-all duration-300 dark:bg-black flex">
       <aside class="sticky-aside">
         <UserNavAside></UserNavAside>
       </aside>

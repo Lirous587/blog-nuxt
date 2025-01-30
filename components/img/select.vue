@@ -4,7 +4,7 @@
   </MyDialog>
   <div
     @click="dialogRef.open"
-    class="w-[200px] h-[200px] flex items-center justify-center overflow-hidden border rounded-md bg-red-50"
+    class="w-[200px] h-[200px] flex items-center justify-center overflow-hidden border border-pink-200 dark:border-gray-600 rounded-md"
   >
     <div v-if="previewUrl || url">
       <el-image :src="imgPre + (previewUrl ? previewUrl : url)" fit="contain" />

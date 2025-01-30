@@ -23,10 +23,13 @@
     </template>
 
     <el-container class="h-[600px]">
-      <el-aside width="180px" class="border dark:border-gray-600">
+      <el-aside
+        width="180px"
+        class="border border-pink-200 dark:border-gray-600"
+      >
         <AdminGalleryAside ref="asideRef" @change="handleChangeKind" />
       </el-aside>
-      <div class="flex-1 pr-5 border dark:border-gray-600">
+      <div class="flex-1 pr-5 border border-pink-200 dark:border-gray-600">
         <AdminGalleryMain
           @select="handleSelectImg"
           ref="mainRef"
@@ -36,36 +39,6 @@
       </div>
     </el-container>
   </el-card>
-
-  <!-- <el-form :model="galleryForm">
-          <el-form-item>
-            <UploadImg v-model:imgData="galleryForm.imgData">
-              <template #default>
-                <div
-                  class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
-                >
-                  <el-icon><Plus /></el-icon>
-                </div>
-              </template>
-              <template #preview="previewProps">
-                <div
-                  class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
-                >
-                  <el-image
-                    v-if="previewProps.previewUrl"
-                    :src="previewProps.previewUrl"
-                  />
-                  <el-icon v-else><Plus /></el-icon>
-                </div>
-              </template>
-            </UploadImg>
-          </el-form-item>
-          <el-form-item>
-            <el-button class="mt-3" type="primary" @click="handleUpload">
-              上传图片
-            </el-button>
-          </el-form-item>
-        </el-form> -->
 </template>
 
 <script setup>

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex items-center justify-between mb-2 h-[40px] bg-pink-100 dark:bg-black"
-  >
+  <el-header class="flex items-center justify-between h-[40px]">
     <div class="flex gap-x-4 ml-3 items-center">
       <div class="flex items-center justify-center gap-x-3">
         <el-icon size="24px" color="pink" @click="toggleFullScreen"
@@ -35,7 +33,7 @@
         <Sunny />
       </el-icon>
     </div>
-  </div>
+  </el-header>
 </template>
 
 <script setup>
@@ -75,11 +73,3 @@ onMounted(() => {
   themeStore.initMode();
 });
 </script>
-
-<style scoped>
-@reference "assets/css/tailwind.css";
-
-* {
-  @apply font-mono;
-}
-</style>

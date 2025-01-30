@@ -34,7 +34,7 @@
       <div class="flex gap-x-3" v-if="hadLogin || ifAdmin">
         <small
           @click="handleChoose(data)"
-          v-if="data.id && data.fromUser.uid != userInfo.uid"
+          v-if="data.id && data.fromUser.uid != userInfo?.uid && !ifAdmin"
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
         >
           {{ data.replayStatus ? "回复中" : "回复" }}
@@ -49,7 +49,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.fromUser.uid === userInfo.uid || ifAdmin ? "删除" : "" }}
+              {{ data.fromUser.uid === userInfo?.uid || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>

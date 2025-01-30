@@ -11,7 +11,7 @@
       label-width="70px"
     >
       <el-form-item label="头像" prop="imgData" for="imgData">
-        <UploadImg v-model:imgData="form.imgData" size-limit="2MB">
+        <ImgUpload v-model:imgData="form.imgData" size-limit="2MB">
           <template #default>
             <div class="flex items-center justify-center gap-x-2">
               <el-avatar size="large"></el-avatar>
@@ -21,7 +21,7 @@
           <template #preview="previewProps">
             <el-avatar size="large" :src="previewProps.previewUrl"></el-avatar>
           </template>
-        </UploadImg>
+        </ImgUpload>
       </el-form-item>
       <el-form-item label="昵称" prop="name" for="name">
         <el-input v-model="form.name" name="name"></el-input>
