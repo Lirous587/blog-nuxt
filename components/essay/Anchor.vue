@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-w-[220px] flex flex-col transition-all duration-300 gap-y-1 border dark:border-none rounded-xl mb-4 dark:text-neutral-300 pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
+    class="min-w-[220px] flex flex-col transition-all duration-300 gap-y-1 border border-pink-300 dark:border-none rounded-xl mb-4 dark:text-neutral-300 pl-10 py-3 bg-gradient-to-br from-neutral-50 to-zinc-100 dark:from-pink-900 dark:to-slate-900"
   >
     <div
       class="h-[1em] leading-[1em] font-bold relative pl-1 mb-2 pointer-events-none"

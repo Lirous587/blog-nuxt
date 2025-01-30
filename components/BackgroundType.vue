@@ -7,16 +7,12 @@
         fit="cover"
         class="w-full h-full"
       />
-
-      <div
-        class="absolute inset-0 bg-black bg-opacity-50 pointer-events-none hidden dark:block"
-      ></div>
     </div>
     <div
       class="absolute inset-0 top-[50%] translate-y-[-50%] flex flex-col justify-center items-center"
     >
       <TypeWriter
-        class="p-3 rounded-xl text-xl text-neutral-300 text-opacity-60 bg-black bg-opacity-40 mb-5"
+        class="p-3 rounded-xl text-xl text-neutral-300 bg-black/40 mb-5"
         :sentenceList="sentenceList"
         :addSpeed="150"
         :deleteSpeed="70"

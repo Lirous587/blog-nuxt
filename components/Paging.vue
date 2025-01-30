@@ -18,7 +18,7 @@
       :key="index"
       class="bg-neutral-200 hover:text-blue-300 hover:shadow-md h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white transition-all duration-200 shadow-sm"
       :class="{
-        'bg-sky-400 dark:bg-pink-600': item.page == currentPage,
+        'bg-sky-200 dark:bg-pink-600': item.page == currentPage,
         'pointer-events-none': item.page == currentPage,
       }"
     >
@@ -28,7 +28,7 @@
     <!-- next -->
     <div :class="ifMax ? 'cursor-not-allowed' : ''">
       <NuxtLink
-        :to="preHref + '/' + Math.min(totalPage, currentPage + Number(1))"
+        :to="preHref + '/' + Math.min(pages, currentPage + Number(1))"
         class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center shadow-sm hover:shadow-md bg-neutral-200 text-white dark:bg-gray-500 hover:bg-blue-300 dark:hover:bg-gray-400 transition-all duration-200"
         :class="ifMax ? 'cursor-not-allowed pointer-events-none' : ''"
       >
@@ -45,7 +45,7 @@ const route = useRoute();
 const currentPage = parseInt(route.params.page) || 1;
 
 const props = defineProps({
-  totalPage: {
+  pages: {
     type: Number,
     require: true,
   },
@@ -56,13 +56,13 @@ const props = defineProps({
 });
 
 const pageConfim = () => {
-  return typeof props.totalPage === "number";
+  return typeof props.pages === "number";
 };
 
 const initList = () => {
   if (!pageConfim()) return;
-  if (props.totalPage <= 3 + offset * 2) {
-    return Array.from({ length: props.totalPage }, (_, i) => {
+  if (props.pages <= 3 + offset * 2) {
+    return Array.from({ length: props.pages }, (_, i) => {
       return {
         value: i + 1,
         page: i + 1,
@@ -71,7 +71,7 @@ const initList = () => {
   }
   let middelArr = [];
   let start = Math.max(2, currentPage - offset);
-  let end = Math.min(props.totalPage - 1, currentPage + offset);
+  let end = Math.min(props.pages - 1, currentPage + offset);
   middelArr = Array.from(
     {
       length: end - start + 1,
@@ -81,10 +81,10 @@ const initList = () => {
   if (middelArr[0] - 1 > 1) {
     middelArr.unshift("...");
   }
-  if (props.totalPage - middelArr[middelArr.length - 1] > 1) {
+  if (props.pages - middelArr[middelArr.length - 1] > 1) {
     middelArr.push("...");
   }
-  let resultArr = [1, ...middelArr, props.totalPage].map((o, index) => {
+  let resultArr = [1, ...middelArr, props.pages].map((o, index) => {
     return {
       value: o,
       page: index + 1,
@@ -99,7 +99,7 @@ const ifMin = computed(() => {
 });
 
 const ifMax = computed(() => {
-  return currentPage === props.totalPage ? true : false;
+  return currentPage === props.pages ? true : false;
 });
 </script>
 

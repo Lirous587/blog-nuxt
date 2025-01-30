@@ -12,7 +12,7 @@
           class="mb-2"
         >
           <div
-            class="relative h-[180px] w-full shadow-lg border overflow-hidden border-gray-200 rounded-lg dark:border-gray-700"
+            class="relative h-[180px] w-full shadow-lg border border-gray-200 overflow-hidden rounded-lg dark:border-gray-700"
           >
             <el-image
               :src="imgPre + item.imgUrl"
@@ -97,14 +97,14 @@
         <ImgUpload v-model:imgData="form.imgData">
           <template #default>
             <div
-              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+              class="w-[200px] h-[200px] flex items-center justify-center border border-pink-300 rounded-md bg-red-50"
             >
               <el-icon><Plus /></el-icon>
             </div>
           </template>
           <template #preview="previewProps">
             <div
-              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+              class="w-[200px] h-[200px] flex items-center justify-center border border-pink-300 rounded-md bg-red-50"
             >
               <el-image
                 v-if="previewProps.previewUrl"

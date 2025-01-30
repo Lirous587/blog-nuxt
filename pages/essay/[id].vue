@@ -1,9 +1,9 @@
 <template>
-  <div class="pt-5 transition-all duration-300 bg-white dark:bg-black">
+  <div class="pt-5 bg-white dark:bg-black">
     <div>
       <div class="flex justify-between items-center mb-2">
         <TypeWriter
-          class="rounded-xl text-opacity-60 text-blue-600 text-lg font-bold dark:text-gray-500"
+          class="rounded-xl text-blue-600 text-lg font-bold dark:text-gray-500"
           :sentenceList="sentenceList"
           :addSpeed="150"
           :deleteSpeed="50"

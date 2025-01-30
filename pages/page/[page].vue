@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-y-4">
     <UserEssayList :list="list"></UserEssayList>
-    <Paging :total-page="totalPages"></Paging>
+    <Paging :pages="pages"></Paging>
   </div>
 </template>
 
@@ -16,14 +16,14 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
-  pageSize: 10,
+  limit: 10,
 });
 
 const list = ref([]);
-const totalPages = ref(1);
+const pages = ref(1);
 await getEssayList(queryForm).then((res) => {
   const data = res.data;
   list.value = data.list;
-  totalPages.value = data.totalPages;
+  pages.value = data.pages;
 });
 </script>

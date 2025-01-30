@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed flex right-0 top-0 left-0 bottom-0 z-[9999] bg-black bg-opacity-80"
+    class="fixed flex right-0 top-0 left-0 bottom-0 z-[9999] bg-black/80"
     :class="visiable ? 'fixed' : 'hidden'"
   >
     <div
@@ -38,7 +38,7 @@
 
 <script setup>
 import { useMyIndexStore } from "~/store";
-const imgPre = useRuntimeConfig().public.imgGalleryBase ;
+const imgPre = useRuntimeConfig().public.imgGalleryBase;
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
 const imglist = indexStore.getImgList();
