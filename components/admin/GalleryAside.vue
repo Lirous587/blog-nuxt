@@ -3,7 +3,7 @@
     <div class="h-[calc(100%-40px)] overflow-y-auto">
       <div
         v-for="item in tableData"
-        class="flex-1 flex items-center justify-between text-sm hover:cursor-pointer pl-4 pr-3 border-b-[1px] dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-800 py-4"
+        class="flex-1 flex items-center justify-between text-sm hover:cursor-pointer pl-4 pr-3 border-b-[1px] border-pink-200 dark:border-gray-600 hover:bg-blue-100 dark:hover:bg-gray-800 py-4"
         :class="
           activeID == item.id
             ? 'text-blue-400 bg-blue-100 dark:bg-gray-800'

@@ -1,13 +1,14 @@
 <template>
-  <FullLoading
-    v-if="isFullLoading || !isAnimationComplete"
-    v-model:ifLoad="isFullLoading"
-  />
-  <TopLoading></TopLoading>
-
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
+  <div>
+    <FullLoading
+      v-if="isFullLoading || !isAnimationComplete"
+      v-model:ifLoad="isFullLoading"
+    />
+    <TopLoading></TopLoading>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>
 
 <script setup>

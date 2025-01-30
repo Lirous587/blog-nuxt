@@ -1,12 +1,12 @@
 <template>
   <div>
-    <UserNavHeader> </UserNavHeader>
+    <DefaultNavHeader></DefaultNavHeader>
 
     <BackgroundType> </BackgroundType>
 
     <div class="pt-10 transition-all duration-300 dark:bg-black flex">
       <aside class="sticky-aside">
-        <UserNavAside></UserNavAside>
+        <DefaultNavAside></DefaultNavAside>
       </aside>
       <!-- 此处加一个w-0 通知子元素可以在父元素发生溢出 -->
       <main class="w-0 flex-1 mx-1 md:mx-2 lg:mx-4">
@@ -19,8 +19,7 @@
     </div>
 
     <FixedTool v-if="route.path.split('/')[1] != 'essay'"></FixedTool>
-
-    <RecordBottom></RecordBottom>
+    <DefaultRecordBottom></DefaultRecordBottom>
   </div>
 </template>
 

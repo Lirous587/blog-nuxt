@@ -10,13 +10,15 @@
     :close-delay="closeDelay"
     :destroy-on-close="destroyOnClose"
     :lock-scroll="true"
-    :close-on-click-modal="false"
+    :close-on-click-modal="!ifAdminMode"
   >
+    {{ scrollBarWidth }}
+
     <div class="pr-5 h-full flex flex-col overflow-auto">
       <div class="flex-1">
         <slot />
       </div>
-      <div class="mb-3 flex items-center">
+      <div v-if="ifAdminMode" class="mb-3 flex items-center">
         <el-button type="primary" :loading="loading" @click="submit">
           {{ confirmText }}</el-button
         >
@@ -27,6 +29,8 @@
 </template>
 
 <script setup>
+import { useMyBodyFiexedStore } from "./store/bodyFixed";
+
 const props = defineProps({
   title: {
     type: String,
@@ -56,6 +60,10 @@ const props = defineProps({
     type: String,
     default: "提交",
   },
+  mode: {
+    type: String,
+    default: "admin",
+  },
 });
 
 const visible = ref(false);
@@ -65,14 +73,26 @@ const loading = ref(false);
 const emit = defineEmits(["submit"]);
 const submit = () => emit("submit");
 
+const ifAdminMode = computed(() => {
+  return props.mode === "amdin";
+});
+
 const showLoading = () => (loading.value = true);
 const hideLoading = () => (loading.value = false);
 
+const bodyFixedStore = useMyBodyFiexedStore();
+
 const open = () => {
-  document.body.style.overflow = "hidden";
+  bodyFixedStore.fixed();
+  document.body.style.borderRight =
+    bodyFixedStore.rightBorderWidth + " solid transparent";
+  document.body.style.overflowY = "hidden";
   visible.value = true;
 };
 const close = () => {
+  bodyFixedStore.release();
+
+  document.body.style.borderRight = "none";
   document.body.style.overflow = "";
   visible.value = false;
 };
