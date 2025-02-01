@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <UserEssayList :list="list"></UserEssayList>
+    <EssayList :list="list"></EssayList>
     <Paging :pages="pages" :preHref="'/kind' + '/' + queryForm.kindID"></Paging>
   </div>
 </template>

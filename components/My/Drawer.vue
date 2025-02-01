@@ -74,7 +74,7 @@ const emit = defineEmits(["submit"]);
 const submit = () => emit("submit");
 
 const ifAdminMode = computed(() => {
-  return props.mode === "amdin";
+  return props.mode === "admin";
 });
 
 const showLoading = () => (loading.value = true);
@@ -82,16 +82,16 @@ const hideLoading = () => (loading.value = false);
 
 const bodyFixedStore = useMyBodyFiexedStore();
 
+const barWidth = bodyFixedStore.barWidth;
+
 const open = () => {
   bodyFixedStore.fixed();
-  document.body.style.borderRight =
-    bodyFixedStore.rightBorderWidth + " solid transparent";
+  document.body.style.borderRight = barWidth + " solid transparent";
   document.body.style.overflowY = "hidden";
   visible.value = true;
 };
 const close = () => {
   bodyFixedStore.release();
-
   document.body.style.borderRight = "none";
   document.body.style.overflow = "";
   visible.value = false;

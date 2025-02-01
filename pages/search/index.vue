@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <UserEssayList :list="result"></UserEssayList>
+    <EssayList :list="result"></EssayList>
   </div>
 </template>
 

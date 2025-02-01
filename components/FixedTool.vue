@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed bottom-[20px] right-[20px] flex flex-col gap-y-3 z-50 transition-all duration-500"
+    class="fixed bottom-[50px] right-[20px] flex flex-col gap-y-3 z-50 transition-all duration-500"
     :class="tollOpcity"
   >
     <!-- top -->

@@ -1,11 +1,11 @@
 <template>
   <div
     class="headerContainer fixed left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-white/70 dark:bg-black/70 transition-transform duration-300 z-[100] backdrop-blur-sm"
-    :class="
-      bodyFixedStore?.ifFixed
-        ? 'border-r-[2px] border-transparent'
-        : 'border-none'
-    "
+    :style="{
+      borderRight: bodyFixedStore?.ifFixed
+        ? `${bodyFixedStore.barWidth} solid transparent`
+        : 'none',
+    }"
   >
     <div class="pl-5 flex items-center gap-x-4">
       <NuxtLink to="/" class="nav hidden lg:block"> Lirous的日记本 </NuxtLink>
@@ -143,7 +143,6 @@ onBeforeUnmount(() => {
 
 .headerContainer {
   transform: translateY(v-bind(translateY));
-  padding-right: v-bind(scrollBarWidth);
 }
 .nav {
   @apply gap-x-1 duration-300 relative cursor-pointer whitespace-nowrap  hover:scale-110 text-pink-600 dark:text-neutral-400 lg:text-lg;
