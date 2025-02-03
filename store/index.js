@@ -3,11 +3,11 @@ import { getIndexInfo } from "~/api";
 
 export const useMyIndexStore = defineStore("myIndexStore", () => {
   const ifInit = ref(false);
-  const labelList = ref([]);
-  const kindList = ref([]);
-  const recommentEssayList = ref([]);
-  const heartWordsList = ref([]);
-  const imgList = ref([]);
+  const kinds = ref([]);
+  const labels = ref([]);
+  const recommendEssays = ref([]);
+  const heartWords = ref([]);
+  const carousels = ref([]);
 
   const statisticsData = reactive({
     essay: {
@@ -29,15 +29,15 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
     await getIndexInfo().then((res) => {
       const data = res.data;
-      recommentEssayList.value = data.essayList;
-      labelList.value = data.labelList;
-      kindList.value = data.kindList;
-      heartWordsList.value = shuffleArray(data.heartWordsList);
-      imgList.value = heartWordsList.value.map((o) => o.img);
+      kinds.value = data.kinds;
+      labels.value = data.labels;
+      recommendEssays.value = data.recommendEssays;
+      heartWords.value = shuffleArray(data.heartWords);
+      carousels.value = shuffleArray(data.carousels);
 
-      statisticsData.label.count = labelList.value.length;
-      statisticsData.kind.count = kindList.value.length;
-      statisticsData.essay.count = kindList.value.reduce(
+      statisticsData.label.count = labels.value.length;
+      statisticsData.kind.count = kinds.value.length;
+      statisticsData.essay.count = kinds.value.reduce(
         (accumulator, kind) => accumulator + kind.essayCount,
         0
       );
@@ -50,24 +50,24 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     return ifInit.value;
   };
 
-  const getLabelList = () => {
-    return labelList.value;
+  const getKinds = () => {
+    return kinds.value;
   };
 
-  const getKindList = () => {
-    return kindList.value;
+  const getLabels = () => {
+    return labels.value;
   };
 
-  const getRecommentEssayList = () => {
-    return recommentEssayList.value;
+  const getRecommentEssays = () => {
+    return recommendEssays.value;
   };
 
-  const getHeartWordsList = () => {
-    return heartWordsList.value;
+  const getHeartWords = () => {
+    return heartWords.value;
   };
 
-  const getImgList = () => {
-    return imgList.value;
+  const getCarousels = () => {
+    return carousels.value;
   };
 
   const getStatisticsData = () => {
@@ -76,19 +76,19 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
   return {
     ifInit,
-    labelList,
-    kindList,
-    recommentEssayList,
-    heartWordsList,
-    imgList,
+    labels,
+    kinds,
+    recommendEssays,
+    heartWords,
+    carousels,
     statisticsData,
     initData,
     getInitStatus,
-    getLabelList,
-    getKindList,
-    getRecommentEssayList,
-    getHeartWordsList,
-    getImgList,
+    getKinds,
+    getLabels,
+    getRecommentEssays,
+    getHeartWords,
+    getCarousels,
     getStatisticsData,
   };
 });

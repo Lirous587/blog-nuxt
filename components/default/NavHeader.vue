@@ -42,7 +42,7 @@
         <span>首页</span>
       </NuxtLink>
       <!-- 心语 -->
-      <NuxtLink to="/heartWords/1" class="nav flex items-center justify-center">
+      <NuxtLink to="/heartWord/1" class="nav flex items-center justify-center">
         <MyIconHeart />
         <span>心语</span>
       </NuxtLink>

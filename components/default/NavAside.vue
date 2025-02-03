@@ -8,7 +8,7 @@
     <IndexRecommendEssays
       v-if="showList.includes('recommentEssay')"
       class="bg-gradient-to-br from-pink-50 to-green-50 dark:from-pink-950 dark:to-green-950"
-      :list="recommentEssayList"
+      :list="recommentEssays"
     ></IndexRecommendEssays>
 
     <IndexGuide
@@ -20,13 +20,13 @@
     <IndexKinds
       v-if="showList.includes('kind')"
       class="bg-gradient-to-br from-cyan-100 to-green-50 dark:from-cyan-950 dark:to-green-950"
-      :list="kindList"
+      :list="kinds"
     ></IndexKinds>
 
     <IndexLabels
       v-if="showList.includes('label')"
       class="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-950"
-      :list="labelList"
+      :list="labels"
     ></IndexLabels>
   </div>
 </template>
@@ -35,9 +35,9 @@
 import { useMyIndexStore } from "~/store";
 
 const indexStore = useMyIndexStore();
-const labelList = indexStore.getLabelList();
-const kindList = indexStore.getKindList();
-const recommentEssayList = indexStore.getRecommentEssayList();
+const labels = indexStore.getLabels();
+const kinds = indexStore.getKinds();
+const recommentEssays = indexStore.getRecommentEssays();
 const statisticsData = indexStore.getStatisticsData();
 
 const props = defineProps({

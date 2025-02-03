@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup>  
 import { getEssayList } from "~/api/essay";
 import { useMyIndexStore } from "~/store";
 
@@ -31,13 +31,13 @@ await getEssayList(queryForm).then((res) => {
 });
 
 const indexStore = useMyIndexStore();
-const labelList = indexStore.getLabelList();
+const labels = indexStore.getLabels();
 const nowLabel = reactive({
   name: "",
   introduction: "",
 });
 
-const data = labelList.filter((l) => {
+const data = labels.filter((l) => {
   return l.id == route.params.id;
 })[0];
 

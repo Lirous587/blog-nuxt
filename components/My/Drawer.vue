@@ -12,8 +12,6 @@
     :lock-scroll="true"
     :close-on-click-modal="!ifAdminMode"
   >
-    {{ scrollBarWidth }}
-
     <div class="pr-5 h-full flex flex-col overflow-auto">
       <div class="flex-1">
         <slot />

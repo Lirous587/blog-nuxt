@@ -47,12 +47,14 @@ const imgPre = useRuntimeConfig().public.imgGalleryBase;
 
 const indexStore = useMyIndexStore();
 
-const list = indexStore.getHeartWordsList();
+const heartWords = indexStore.getHeartWords();
 
-const imgUrl = ref(imgPre + list[0]?.img.url);
+const carousels = indexStore.getCarousels();
+
+const imgUrl = ref(imgPre + carousels[0]?.img.url);
 
 const sentenceList = ref([]);
-sentenceList.value = list.map((item) => item.content);
+sentenceList.value = heartWords.map((item) => item.content);
 
 const scrollToMain = () => {
   const height = window.innerHeight;

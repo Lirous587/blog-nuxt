@@ -144,7 +144,7 @@
         </el-form-item>
         <el-form-item label="关键词" prop="keywords">
           <DynamicAddTag
-            :list="form.keywords"
+            :str="form.keywords"
             @change="
               (value) =>
                 Array.isArray(value) ? (form.keywords = value.join(',')) : null
@@ -211,7 +211,6 @@ const {
     const list = data.list;
     if (Array.isArray(list)) {
       list.forEach((element) => {
-        element.keywords = element.keywords.split(",");
         if (Array.isArray(element?.labelList)) {
           element.labelIds = element.labelList.map((o) => {
             return o.id;
@@ -262,7 +261,7 @@ const {
       {
         required: true,
         validator: (rule, value, callback) => {
-          if (!value.url) {
+          if (!value.id) {
             callback(new Error("请选择图片"));
           } else {
             callback();

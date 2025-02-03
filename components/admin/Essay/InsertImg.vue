@@ -17,7 +17,7 @@ const imgPre = useRuntimeConfig().public.imgGalleryBase;
 const emits = defineEmits(["chooseGalley"]);
 
 const handleSelectImg = (img) => {
-  const imgUrl = imgPre + img.imgUrl;
+  const imgUrl = imgPre + img.url;
   dialogRef.value.close();
   emits("chooseGalley", imgUrl);
 };

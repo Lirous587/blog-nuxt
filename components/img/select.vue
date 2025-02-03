@@ -36,7 +36,7 @@ const dialogRef = ref(null);
 
 const handleSelectImg = (img) => {
   imgID.value = img.id;
-  previewUrl.value = img.imgUrl;
+  previewUrl.value = img.url;
   dialogRef.value.close();
 };
 </script>

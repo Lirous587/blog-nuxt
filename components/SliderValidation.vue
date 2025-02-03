@@ -41,13 +41,13 @@ import { useMyIndexStore } from "~/store";
 const imgPre = useRuntimeConfig().public.imgGalleryBase;
 const indexStore = useMyIndexStore();
 const emits = defineEmits(["confirm"]);
-const imglist = indexStore.getImgList();
+const carousels = indexStore.getCarousels();
 
 const validationBox = ref(null);
 const imgBox = ref(null);
 
 const randomImg = ref(
-  imgPre + imglist[Math.floor(imglist.length * Math.random())].url
+  imgPre + carousels[Math.floor(carousels.length * Math.random())].img.url
 );
 
 const props = defineProps({
@@ -165,7 +165,7 @@ const refresh = () => {
   let equal = true;
   while (equal) {
     let random =
-      imgPre + imglist[Math.floor(imglist.length * Math.random())].url;
+      imgPre + carousels[Math.floor(carousels.length * Math.random())].img.url;
     if (random !== randomImg.value) {
       randomImg.value = random;
       resetSlider();

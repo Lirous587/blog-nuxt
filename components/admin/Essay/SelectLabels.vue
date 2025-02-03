@@ -23,4 +23,9 @@ getEssayLabelList(searchForm).then((res) => {
   const data = res.data;
   list.value = data.list;
 });
+onMounted(() => {
+  if (!idsModel.value) {
+    idsModel.value = [];
+  }
+});
 </script>

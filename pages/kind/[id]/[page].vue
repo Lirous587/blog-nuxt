@@ -32,13 +32,13 @@ await getEssayList(queryForm).then((res) => {
 });
 
 const indexStore = useMyIndexStore();
-const kindList = indexStore.getKindList();
+const kinds = indexStore.getKinds();
 const nowKind = reactive({
   name: "",
   introduction: "",
 });
 
-const data = kindList.filter((k) => {
+const data = kinds.filter((k) => {
   return k.id == route.params.id;
 })[0];
 

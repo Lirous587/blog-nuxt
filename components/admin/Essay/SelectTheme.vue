@@ -1,9 +1,5 @@
 <template>
-  <el-select
-    v-model="theme"
-    placeholder="选择代码主题"
-    @change="handlePreviewThemeChange"
-  >
+  <el-select v-model="theme" placeholder="选择代码主题">
     <el-option
       v-for="item in themeOptions"
       :label="item.name"
@@ -14,7 +10,7 @@
 
 <script setup>
 const theme = defineModel("theme", {
-  type: Array,
+  type: String,
   required: true,
 });
 

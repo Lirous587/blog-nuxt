@@ -55,11 +55,21 @@
     </NuxtLink>
 
     <!-- 心语 -->
-    <NuxtLink to="/admin/heartWords">
-      <el-menu-item index="/admin/heartWords">
+    <NuxtLink to="/admin/heartWord">
+      <el-menu-item index="/admin/heartWord">
         <el-icon><IceTea /></el-icon>
         <template #title>
           <span>心语</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
+    <!-- 轮播图 -->
+    <NuxtLink to="/admin/carousel">
+      <el-menu-item index="/admin/carousel">
+        <el-icon><Film /></el-icon>
+        <template #title>
+          <span>轮播图</span>
         </template>
       </el-menu-item>
     </NuxtLink>
@@ -77,7 +87,7 @@
     <!-- 图库 -->
     <NuxtLink to="/admin/gallery">
       <el-menu-item index="/admin/gallery">
-        <el-icon><DocumentCopy /></el-icon>
+        <el-icon><Picture /></el-icon>
         <template #title>
           <span>图库</span>
         </template>

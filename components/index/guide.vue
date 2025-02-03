@@ -26,7 +26,7 @@ const list = ref([
   },
   {
     title: "心语",
-    url: "/heartWords/1",
+    url: "/heartWord/1",
   },
   {
     title: "我的",

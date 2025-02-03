@@ -4,7 +4,10 @@
       <template #header>
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>
-            <el-input placeholder="请输入关键词"></el-input>
+            <el-input
+              placeholder="请输入关键词"
+              v-model="searchForm.keyword"
+            ></el-input>
           </template>
         </AdminSearch>
         <el-button type="primary" @click="handleCreate" size="small"
@@ -18,9 +21,7 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="内容" prop="content" align="center">
-        </el-table-column>
-        <el-table-column label="出处" prop="source" align="center">
+        <el-table-column label="介绍" prop="introduction" align="center">
         </el-table-column>
 
         <el-table-column label="图片" align="center">
@@ -29,21 +30,6 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="是否打印" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifCouldType" />
-          </template>
-        </el-table-column>
-        <el-table-column label="是否推荐" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifRecommend" />
-          </template>
-        </el-table-column>
-        <el-table-column label="是否置顶" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifTop" />
-          </template>
-        </el-table-column>
         <el-table-column label="操作" prop="icon" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
@@ -96,41 +82,14 @@
         :inline="false"
         :rules="rules"
       >
-        <el-form-item label="内容" prop="content">
+        <el-form-item label="介绍" prop="introduction">
           <el-input
-            placeholder="请输入心语内容"
-            size="large"
-            v-model="form.content"
-          >
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="出处" prop="source">
-          <el-input
-            placeholder="请输入心语出处"
-            v-model="form.source"
+            placeholder="请输入介绍"
+            v-model="form.introduction"
             type="textarea"
             :rows="3"
           >
           </el-input>
-        </el-form-item>
-        <el-form-item label="是否打印">
-          <el-radio-group v-model="form.ifCouldType">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否推荐">
-          <el-radio-group v-model="form.ifRecommend">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否置顶">
-          <el-radio-group v-model="form.ifTop">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
         </el-form-item>
         <el-form-item label="图片" prop="img">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
@@ -142,11 +101,11 @@
 
 <script setup>
 import {
-  createHeartWords,
-  deleteHeartWords,
-  getHeartWordsList,
-  updateHeartWords,
-} from "~/api/heartWords";
+  createCarousel,
+  deleteCarousel,
+  getCarouselList,
+  updateCarousel,
+} from "~/api/carousel";
 
 definePageMeta({
   layout: "admin",
@@ -166,11 +125,11 @@ const {
   getData,
   handleDelete,
 } = useInitTable({
-  getList: getHeartWordsList,
-  delete: deleteHeartWords,
+  getList: getCarouselList,
+  delete: deleteCarousel,
   searchForm: reactive({
     page: 1,
-    limit: 5,
+    limit: 10,
     keyword: "",
   }),
 });
@@ -188,28 +147,22 @@ const {
 } = useInitForm({
   form: reactive({
     id: 0,
-    content: "",
-    source: "",
+    introduction: "",
     img: {
       id: 0,
       url: "",
     },
-    ifCouldType: false,
-    ifRecommend: false,
-    ifTop: false,
   }),
   getData,
-  create: createHeartWords,
-  update: updateHeartWords,
+  create: createCarousel,
+  update: updateCarousel,
   rules: {
-    content: [{ required: true, message: "请输入心语内容", trigger: "blur" }],
-    source: [{ required: true, message: "请输入心语出处", trigger: "blur" }],
     introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
     img: [
       {
         required: true,
         validator: (rule, value, callback) => {
-          if (!value.url) {
+          if (!value.id) {
             callback(new Error("请选择图片"));
           } else {
             callback();

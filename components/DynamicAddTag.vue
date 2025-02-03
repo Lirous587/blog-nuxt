@@ -28,6 +28,10 @@
 
 <script setup>
 const props = defineProps({
+  str: {
+    type: String,
+    default: "",
+  },
   list: {
     type: Array,
     default: [],
@@ -38,8 +42,12 @@ const props = defineProps({
   },
 });
 
-const tags = ref(props.list);
-if (!Array.isArray(props.list)) {
+const tags = ref([]);
+if (props.list.length > 0) {
+  tags.value = props.list;
+} else if (typeof props.str === "string" && props.str != "") {
+  tags.value = props.str.split(",");
+} else {
   tags.value = [];
 }
 

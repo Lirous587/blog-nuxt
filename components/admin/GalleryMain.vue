@@ -15,7 +15,7 @@
             class="relative h-[180px] w-full shadow-lg border border-gray-200 overflow-hidden rounded-lg dark:border-gray-700"
           >
             <el-image
-              :src="imgPre + item.imgUrl"
+              :src="imgPre + item.url"
               class="h-full w-full rounded-lg p-2"
               fit="cover"
               lazy
@@ -28,7 +28,7 @@
                 class="absolute left-[50%] -translate-x-1/2 top-0 translate-y-[-100%] text-black text-sm bg-gray-400 opacity-90 w-full"
                 size="small"
               >
-                <span class="ml-2 text-red-950"> {{ item.imgUrl }}</span>
+                <span class="ml-2 text-red-950"> {{ item.url }}</span>
               </div>
               <!-- 选择框 -->
               <div class="flex justify-evenly">
@@ -42,7 +42,7 @@
 
                 <el-button
                   size="small"
-                  text="true"
+                  text
                   type="warning"
                   @click="handleEdit(item)"
                   >更新</el-button
@@ -116,10 +116,10 @@
         </ImgUpload>
       </el-form-item>
       <el-form-item label="图片url" v-if="drawerTitle !== '新增'">
-        <el-input placeholder="" v-model="form.imgUrl"></el-input>
+        <el-input placeholder="" v-model="form.url"></el-input>
       </el-form-item>
       <el-form-item label="备注">
-        <el-input placeholder="" v-model="form.remark"></el-input>
+        <el-input placeholder="" v-model="form.introduction"></el-input>
       </el-form-item>
     </el-form>
   </MyDrawer>
@@ -203,8 +203,8 @@ const {
 } = useInitForm({
   form: reactive({
     kindID: props.kindID,
-    imgUrl: "",
-    remark: "",
+    url: "",
+    introduction: "",
     imgData: null,
   }),
   getData,

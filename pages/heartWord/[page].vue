@@ -34,9 +34,6 @@
           {{ item.content }}
         </div>
         <template #footer>
-          <div class="hidden md:block float-left">
-            <el-avatar :src="imgPre + item.img.url"></el-avatar>
-          </div>
           <div class="float-right relative flex items-center">
             <span
               class="absolute w-[30px] h-[1px] -translate-y-1/2 top-1/2 left-[-33px] bg-gray-400"
@@ -46,18 +43,17 @@
         </template>
       </el-card>
     </div>
-    <Paging :pages="pages" preHref="/heartWords"></Paging>
+    <Paging :pages="pages" preHref="/heartWord"></Paging>
   </div>
 </template>
 
 <script setup>
-import { getHeartWordsList } from "~/api/heartWords";
+import { getHeartWordList } from "~/api/heartWord";
 
 definePageMeta({
   scrollToTop: true,
 });
-const config = useRuntimeConfig();
-const imgPre = config.public.imgGalleryBase;
+
 const route = useRoute();
 
 const queryForm = reactive({
@@ -68,7 +64,7 @@ const queryForm = reactive({
 const list = ref([]);
 const pages = ref(1);
 
-await getHeartWordsList(queryForm).then((res) => {
+await getHeartWordList(queryForm).then((res) => {
   const data = res.data;
   list.value = data.list;
   pages.value = data.pages;
