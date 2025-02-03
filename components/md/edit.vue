@@ -1,6 +1,5 @@
 <template>
   <MdEditor
-    class="!h-[700px]"
     v-model="content"
     editorId="editorId-edit"
     :previewTheme="codeTheme"

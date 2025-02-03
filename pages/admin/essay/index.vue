@@ -85,18 +85,11 @@
       </template>
     </el-card>
 
-    <MyDialog width="80%" ref="dialogRef" fullscreen>
-      <AdminEssayEditContent
-        :id="form.id"
-        v-model:content="form.content"
-      ></AdminEssayEditContent>
-    </MyDialog>
-
     <MyDrawer
       :title="drawerTitle"
       direction="rtl"
       ref="drawerRef"
-      size="50%"
+      size="80%"
       :destroy-on-close="true"
       class="dark:bg-black"
       @submit="handleSubmit"
@@ -108,6 +101,9 @@
         label-width="80px"
         :inline="false"
       >
+        <el-form-item label="文章名" prop="name">
+          <el-input v-model="form.name" placeholder="文章名" />
+        </el-form-item>
         <el-form-item label="分类">
           <AdminEssaySelectKind v-model:id="form.kindID">
           </AdminEssaySelectKind>
@@ -117,20 +113,17 @@
             v-model:ids="form.labelIds"
           ></AdminEssaySelectLabels>
         </el-form-item>
-
         <el-form-item label="代码主题">
           <AdminEssaySelectTheme v-model:theme="form.theme">
           </AdminEssaySelectTheme>
         </el-form-item>
-
-        <el-form-item label="文章名" prop="name">
-          <el-input v-model="form.name" placeholder="文章名" />
-        </el-form-item>
-
         <el-form-item label="文章内容" prop="content">
-          <el-button type="warning" @click="dialogRef.open">编辑文章</el-button>
+          <AdminEssayEditContent
+            :id="form.id"
+            :theme="form.theme"
+            v-model:content="form.content"
+          ></AdminEssayEditContent>
         </el-form-item>
-
         <el-form-item label="介绍" prop="introduction">
           <el-input
             v-model="form.introduction"
@@ -138,7 +131,6 @@
             class="input"
           />
         </el-form-item>
-
         <el-form-item label="文章图片" prop="img">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
@@ -151,14 +143,12 @@
             "
           ></DynamicAddTag>
         </el-form-item>
-
         <el-form-item label="是否置顶">
           <el-radio-group v-model="form.ifTop">
             <el-radio :value="true" size="large">是</el-radio>
             <el-radio :value="false" size="large">否</el-radio>
           </el-radio-group>
         </el-form-item>
-
         <el-form-item label="是否推荐">
           <el-radio-group v-model="form.ifRecommend">
             <el-radio :value="true" size="large">是</el-radio>
@@ -183,8 +173,6 @@ definePageMeta({
 });
 
 provide("admin", true);
-
-const dialogRef = ref(null);
 
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase;
@@ -221,6 +209,7 @@ const {
     tableData.value = list;
     pages.value = data.pages;
   },
+  onBerfoerEdit: () => {},
 });
 
 // form

@@ -1,14 +1,16 @@
 <template>
-  <div class="mx-3 my-3">
-    <el-card>
-      <template #header>
-        <AdminEssayInsertImg
-          @choose-galley="chooseGalleyhandle"
-        ></AdminEssayInsertImg>
-      </template>
-      <MdEdit ref="mdEditRef" v-model:content="content"></MdEdit>
-    </el-card>
-  </div>
+  <el-card>
+    <template #header>
+      <AdminEssayInsertImg
+        @choose-galley="chooseGalleyhandle"
+      ></AdminEssayInsertImg>
+    </template>
+    <MdEdit
+      ref="mdEditRef"
+      v-model:content="content"
+      :code-theme="theme"
+    ></MdEdit>
+  </el-card>
 </template>
 
 <script setup>
@@ -18,6 +20,9 @@ const props = defineProps({
   id: {
     type: Number,
     required: true,
+  },
+  theme: {
+    type: String,
   },
 });
 

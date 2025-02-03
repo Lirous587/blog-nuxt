@@ -213,8 +213,8 @@ export const useInitForm = (opt) => {
     editId.value = row.id;
     resetForm(row);
     drawerRef.value.open();
-    if (opt.onEdit && typeof opt.onEdit === "function") {
-      opt.onEdit();
+    if (opt.onBerfoerEdit && typeof opt.onBerfoerEdit === "function") {
+      opt.onBerfoerEdit();
     }
   };
 
