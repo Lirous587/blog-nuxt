@@ -33,3 +33,16 @@ export function sentResetPasswordValidationCode(form) {
 export function getUserInfo() {
   return clientApi.get("/user/info", "user");
 }
+
+export function createUser() {
+  return clientApi.post("/user", "amin");
+}
+
+export function updateUser() {
+  return clientApi.put("/user", "amin");
+}
+
+export function getUserList(query) {
+  const q = queryToUrl(query);
+  return clientApi.get(`/user${q}`, "admin");
+}

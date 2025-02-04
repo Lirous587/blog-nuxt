@@ -43,7 +43,6 @@
 
       <!-- replies -->
       <EssayCommentReplies
-        :replyCount="data?.replyCount"
         :pid="data?.id"
         @choose="handleRepliesChoose"
         ref="repliesRef"
@@ -79,16 +78,20 @@
 import {
   createEssayCommentReply,
   deleteEssayCommentParent,
-} from "~/api/comment";
+} from "~/api/essay_comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
-const ifAdmin = inject("admin");
+const ifAdmin = inject("admin", false);
 
 const props = defineProps({
   data: {
     required: true,
     type: Object,
+  },
+  eid: {
+    require: true,
+    type: Number,
   },
 });
 
@@ -121,7 +124,7 @@ const emits = defineEmits(["choose", "delete", "repliesChoose"]);
 const toUserName = ref("");
 
 const handleDelete = () => {
-  deleteEssayCommentParent(props.data.id).then(() => {
+  deleteEssayCommentParent(props.eid, props.data.id).then(() => {
     emits("delete", props.data.id);
     ElMessage.success("删除评论成功");
   });

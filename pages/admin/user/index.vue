@@ -5,7 +5,7 @@
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>
             <el-input
-              placeholder="标签名"
+              placeholder="请输入用户名/邮箱"
               v-model="searchForm.keyword"
               @keydown.enter="getData"
             ></el-input>
@@ -22,38 +22,23 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="名称" prop="name" align="center">
-        </el-table-column>
-        <el-table-column label="介绍" prop="introduction" align="center">
-        </el-table-column>
-        <el-table-column label="图标" width="180" align="center">
+        <el-table-column label="用户名" prop="name" align="center" />
+        <el-table-column label="邮箱" prop="email" align="center" />
+        <el-table-column label="头像" align="center">
           <template #default="scope">
-            <el-icon>
-              <component :is="scope.row.icon" />
-            </el-icon>
+            <el-avatar :src="imgPre + scope.row.avatar"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column label="文章数" prop="essayCount" align="center">
+        <el-table-column label="状态" align="center">
+          <template #default="scope">
+            <el-switch v-model="scope.row.status" disabled></el-switch>
+          </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="180">
+        <el-table-column label="操作" prop="status" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
               >修改
             </el-button>
-
-            <el-popconfirm
-              title="确定删除?"
-              confirm-button-text="确定"
-              confirm-button-type="danger"
-              cancel-button-text="取消"
-              cancel-button-type="primary"
-              icon-color="rgb(245,108,108)"
-              @confirm="handleDelete(scope.row.id)"
-            >
-              <template #reference>
-                <el-button type="danger">删除 </el-button>
-              </template>
-            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -87,21 +72,23 @@
         :inline="false"
         :rules="rules"
       >
-        <el-form-item label="名称" prop="name">
-          <el-input placeholder="请输入名称" size="large" v-model="form.name">
-          </el-input>
+        <el-form-item label="用户名" prop="name">
+          <el-input placeholder="请输入名称" v-model="form.name"> </el-input>
         </el-form-item>
+
         <el-form-item label="介绍" prop="introduction">
+          <el-input placeholder="请输入邮箱" v-model="form.email"> </el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
           <el-input
-            placeholder="请输入介绍"
-            v-model="form.introduction"
-            type="textarea"
-            :rows="3"
+            placeholder="请输入密码"
+            v-model="form.password"
+            type="password"
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="图标" prop="icon">
-          <ChooseIcon v-model:icon="form.icon"></ChooseIcon>
+        <el-form-item label="头像" prop="avatar">
+          <ImgSelect v-model:id="form.avatar" :url="form.avatar"></ImgSelect>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -109,16 +96,14 @@
 </template>
 
 <script setup>
-import {
-  getEssayKindList,
-  createEssayKind,
-  deleteEssayKind,
-  updateEssayKind,
-} from "~/api/essay_kind";
+import { getUserList, createUser, updateUser } from "~/api/user";
 
 definePageMeta({
   layout: "admin",
 });
+
+const config = useRuntimeConfig();
+const imgPre = config.public.imgAvatarBase;
 
 //  table
 const {
@@ -129,10 +114,8 @@ const {
   currentPage,
   pages,
   getData,
-  handleDelete,
 } = useInitTable({
-  getList: getEssayKindList,
-  delete: deleteEssayKind,
+  getList: getUserList,
   searchForm: reactive({
     page: 1,
     limit: 10,
@@ -153,15 +136,15 @@ const {
 } = useInitForm({
   form: reactive({
     name: "",
-    icon: "",
-    introduction: "",
+    email: "",
+    password: "",
+    avatar: "",
   }),
   getData,
-  create: createEssayKind,
-  update: updateEssayKind,
+  create: createUser,
+  update: updateUser,
   rules: {
-    name: [{ required: true, message: "请输入分类名", trigger: "blur" }],
-    icon: [{ required: true, message: "请选择图标", trigger: "blur" }],
+    name: [{ required: true, message: "请输入标签名", trigger: "blur" }],
     introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
   },
 });

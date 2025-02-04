@@ -11,6 +11,7 @@
         @delete="handleDelete"
         @repliesChoose="handleRepliesChoose"
         :data="item"
+        :eid="eid"
         :ref="(el) => setListRef(el, index)"
       >
       </EssayCommentParent>
@@ -30,7 +31,7 @@
 </template>
 
 <script setup>
-import { getEssayCommentParents } from "~/api/comment";
+import { getEssayCommentParents } from "~/api/essay_comment";
 
 const props = defineProps({
   eid: {

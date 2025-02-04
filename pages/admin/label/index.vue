@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column label="文章数" prop="essayCount" align="center">
         </el-table-column>
-        <el-table-column label="操作" prop="icon" align="center" width="180">
+        <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
               >修改

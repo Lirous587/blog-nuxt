@@ -17,6 +17,7 @@
             :src="imgPre + item.img.url"
             class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out hover:animate-pulse dark:opacity-60"
             fit="cover"
+            :key="genRandomKey()"
             lazy
           >
           </el-image>

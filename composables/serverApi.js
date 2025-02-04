@@ -6,9 +6,11 @@ const apiCore = async (url, opt, authType) => {
 
   let accessToken, refreshToken;
   if (authType === "both") {
+    authType = "admin";
     accessToken = getAdminAccessToken();
     refreshToken = getAdminRefreshToken();
-    if (!accessToken && !refreshToken) {
+    if (!accessToken || !refreshToken) {
+      authType = "user";
       accessToken = getUserAccessToken();
       refreshToken = getUserRefreshToken();
     }

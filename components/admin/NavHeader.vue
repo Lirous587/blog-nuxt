@@ -1,21 +1,25 @@
 <template>
-  <el-header class="flex items-center justify-between h-[40px]">
-    <div class="flex gap-x-4 ml-3 items-center">
+  <el-header
+    class="left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-pink-100 dark:bg-black z-[100] backdrop-blur-sm"
+  >
+    <div class="flex gap-x-4 items-center">
       <div class="flex items-center justify-center gap-x-3">
-        <el-icon size="24px" color="pink" @click="toggleFullScreen"
-          ><FullScreen
-        /></el-icon>
         <el-icon
-          v-if="status === 'collapse'"
-          type="info"
-          @click="expand"
-          color="pink"
           size="24px"
-          ><Expand
-        /></el-icon>
-        <el-icon v-else type="info" @click="collapse" color="pink" size="24px"
-          ><Fold
-        /></el-icon>
+          @click="toggleFullScreen"
+          :color="themeStore.theme === 'dark' ? 'white' : 'purple'"
+        >
+          <Aim v-if="isFullscreen" />
+          <FullScreen v-else />
+        </el-icon>
+        <el-icon
+          size="24px"
+          @click="toggleAsideStatus"
+          :color="themeStore.theme === 'dark' ? 'white' : 'purple'"
+        >
+          <Expand v-if="asideStatus === 'collapse'" />
+          <Fold v-else />
+        </el-icon>
       </div>
     </div>
     <NuxtLink to="/" class="flex items-center justify-center">
@@ -23,13 +27,13 @@
     </NuxtLink>
     <!-- 设置mode -->
     <div
-      class="mr-2 flex justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
+      class="mr-2 flex justify-center items-center rounded-full"
       @click="changeMode"
     >
       <el-icon size="24px" v-if="themeStore.theme === 'dark'">
         <Moon />
       </el-icon>
-      <el-icon size="24px" v-else>
+      <el-icon size="24px" v-else color="purple">
         <Sunny />
       </el-icon>
     </div>
@@ -46,19 +50,26 @@ const changeMode = () => {
 };
 const emits = defineEmits("expand", "collapse");
 
-const status = ref("expand");
+const asideStatus = ref("expand");
 
-const expand = () => {
-  status.value = "expand";
-  emits("expand");
+const toggleAsideStatus = () => {
+  if (asideStatus.value === "expand") {
+    asideStatus.value = "collapse";
+    emits("collapse");
+  } else {
+    asideStatus.value = "expand";
+    emits("expand");
+  }
 };
-const collapse = () => {
-  status.value = "collapse";
-  emits("collapse");
+
+const isFullscreen = ref(!!document.fullscreenElement);
+
+const updateFullscreenStatus = () => {
+  isFullscreen.value = !!document.fullscreenElement;
 };
 
 const toggleFullScreen = () => {
-  if (!document.fullscreenElement) {
+  if (!isFullscreen.value) {
     document.documentElement.requestFullscreen().catch((err) => {
       console.error(
         `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
@@ -71,5 +82,10 @@ const toggleFullScreen = () => {
 
 onMounted(() => {
   themeStore.initMode();
+  document.addEventListener("fullscreenchange", updateFullscreenStatus);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("fullscreenchange", updateFullscreenStatus);
 });
 </script>

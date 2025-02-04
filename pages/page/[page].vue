@@ -16,7 +16,7 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   page: route.params.page || 1,
-  limit: 10,
+  limit: 8,
 });
 
 const list = ref([]);

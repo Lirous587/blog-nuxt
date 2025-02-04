@@ -9,11 +9,13 @@ const apiCore = (url, opt, authType) => {
   let accessToken, refreshToken;
 
   if (authType === "both") {
+    authType = "admin";
     accessToken = getAdminAccessToken();
     refreshToken = getAdminRefreshToken();
-    if (!accessToken && !refreshToken) {
+    if (!accessToken || !refreshToken) {
       accessToken = getUserAccessToken();
       refreshToken = getUserRefreshToken();
+      authType = "user";
     }
   } else if (authType === "admin") {
     accessToken = getAdminAccessToken();

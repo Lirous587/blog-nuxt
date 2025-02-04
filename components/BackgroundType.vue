@@ -5,7 +5,7 @@
         loading="eager"
         :src="imgUrl"
         fit="cover"
-        class="w-full h-full"
+        class="w-full h-full dark:opacity-60"
       />
     </div>
     <div

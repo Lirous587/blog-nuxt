@@ -17,6 +17,7 @@
                 class="w-[80px] h-[45px] rounded-lg flex-shrink-0 transition-transform duration-300 hover:scale-110"
                 :src="imgPre + item.img.url"
                 fit="cover"
+                :key="genRandomKey()"
                 lazy
               ></el-image>
               <div

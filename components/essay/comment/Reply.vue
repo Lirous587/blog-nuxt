@@ -1,7 +1,10 @@
 <template>
   <div class="flex items-start">
     <div class="p-2">
-      <el-avatar :size="30" :src="avatarPre + data.fromUser.avatar"></el-avatar>
+      <el-avatar
+        :size="30"
+        :src="avatarPre + data.fromUser?.avatar"
+      ></el-avatar>
     </div>
     <div class="flex flex-col flex-1 dark:text-gray-500 gap-y-1 p-1">
       <div class="flex">
@@ -59,11 +62,11 @@
 </template>
 
 <script setup>
-import { deleteEssayCommentReply } from "~/api/comment";
+import { deleteEssayCommentReply } from "~/api/essay_comment";
 
 const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
 
-const ifAdmin = inject("admin");
+const ifAdmin = inject("admin", false);
 
 const props = defineProps({
   data: {
@@ -92,7 +95,8 @@ const handleChoose = (item) => {
 };
 
 const handleDelete = () => {
-  deleteEssayCommentReply(props.data.id).then(() => {
+  console.log(props.data);
+  deleteEssayCommentReply(props.data.parentID, props.data.id).then(() => {
     emits("delete");
     ElMessage.success("删除回复成功");
   });

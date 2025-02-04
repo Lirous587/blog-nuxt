@@ -27,10 +27,23 @@
       </NuxtLink>
     </el-sub-menu>
 
+    <!-- 标签 -->
+    <NuxtLink to="/admin/user">
+      <el-menu-item index="/admin/user">
+        <el-icon><User /></el-icon>
+        <template #title>
+          <span>用户</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
+    <!-- 文章 -->
     <NuxtLink to="/admin/essay">
       <el-menu-item index="/admin/essay">
         <el-icon><Notebook /></el-icon>
-        <span>文章模块</span>
+        <template #title>
+          <span>文章模块</span>
+        </template>
       </el-menu-item>
     </NuxtLink>
 

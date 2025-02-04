@@ -91,38 +91,9 @@ export function resetForm(form) {
   }
 }
 
-export function validateListAndFetchData(list, query, getlist) {
-  if (!isRef(list)) {
-    toast("传入的list非响应式", "error");
-    return;
-  }
-
-  if (!Array.isArray(list.value)) {
-    toast("传入的list非数组类型", "error");
-    return;
-  }
-
-  if (list.value.length === 0) {
-    if (!query.page) {
-      toast("传入的query无page字段", "error");
-      return;
-    }
-
-    if (!Number.isInteger(query.page)) {
-      toast("传入的query的page字段类型错误", "error");
-      return;
-    }
-
-    if (query.page > 1) {
-      query.page--;
-    } else {
-      query.page = 1;
-    }
-
-    if (typeof getlist === "function") {
-      getlist();
-    } else {
-      toast("传入了非函数，无法获取数据", "error");
-    }
-  }
+export function genRandomKey() {
+  // Math.random()：生成一个随机数，并将其转换为 36 进制字符串。
+  // substring(2, 9)：截取字符串的第 2 到第 10 个字符，以去掉 0. 前缀并限制长度。
+  // Date.now()：获取当前时间戳，确保生成的键是唯一的。
+  return "key_" + Math.random().toString(36).substring(2, 9);
 }

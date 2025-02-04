@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { createEssayCommentParent } from "~/api/comment";
+import { createEssayCommentParent } from "~/api/essay_comment";
 
 const props = defineProps({
   eid: {
@@ -84,11 +84,11 @@ const handleCreate = () => {
       ElMessage.success("评论成功");
       const row = {
         id: res.data.id,
+        uid: userInfo.uid,
         content: form.content,
         avatar: userInfo.avatar,
         name: userInfo.name,
         createTime: "刚刚",
-        replyCount: 0,
       };
       emits("comment", row);
       form.content = "";
