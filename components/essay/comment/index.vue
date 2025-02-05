@@ -1,6 +1,11 @@
 <template>
-  <EssayCommentHeader @comment="handleComment" :eid="eid"></EssayCommentHeader>
-  <EssayCommentBody :eid="eid" ref="bodyRef"></EssayCommentBody>
+  <div>
+    <EssayCommentHeader
+      @comment="handleComment"
+      :eid="eid"
+    ></EssayCommentHeader>
+    <EssayCommentBody :eid="eid" ref="bodyRef"></EssayCommentBody>
+  </div>
 </template>
 
 <script setup>

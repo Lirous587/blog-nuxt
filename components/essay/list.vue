@@ -11,11 +11,11 @@
 
         <NuxtLink
           :to="'/essay/' + item.id"
-          class="flex justify-center w-full h-[180px] md:h-[250px] lg:h-[200px]"
+          class="flex justify-center w-full h-[180px] md:h-[250px] lg:h-[200px] overflow-hidden"
         >
           <el-image
             :src="imgPre + item.img.url"
-            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out hover:animate-pulse dark:opacity-60"
+            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out hover:animate-pulse dark:opacity-60 hover:scale-110 transition-transform duration-500"
             fit="cover"
             :key="genRandomKey()"
             lazy
