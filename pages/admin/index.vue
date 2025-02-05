@@ -50,11 +50,8 @@
 </template>
 
 <script setup>
-import { useMyAdminStore } from "~/store/admin";
-
 definePageMeta({
   layout: "admin",
-  middleware: "admin",
 });
 
 const options = [
@@ -93,19 +90,7 @@ const keywordRank = reactive({
 });
 const currentTag = ref("year");
 
-const adminStore = useMyAdminStore();
-
-const getData = () => {
-  // const data = adminStore.getPanelData();
-  // let ipSet = data.ipSet;
-  // let rankList = data.rank_list;
-  // visitedCount.value[0].count = ipSet.year;
-  // visitedCount.value[1].count = ipSet.month;
-  // visitedCount.value[2].count = ipSet.week;
-  // for (const time in rankList) {
-  //   keywordRank[time] = rankList[time];
-  // }
-};
+const getData = () => {};
 
 const handerlChoose = (tag) => {
   currentTag.value = tag;
@@ -148,8 +133,4 @@ function changeTimeTag(tag) {
     ],
   };
 }
-
-onMounted(() => {
-  getData();
-});
 </script>

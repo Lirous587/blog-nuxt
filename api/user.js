@@ -46,3 +46,7 @@ export function getUserList(query) {
   const q = queryToUrl(query);
   return clientApi.get(`/user${q}`, "admin");
 }
+
+export function userAuth() {
+  return clientApi.get("/user/auth", "user");
+}

@@ -46,7 +46,7 @@ const props = defineProps({
 });
 const emits = defineEmits("comment");
 
-const hadLogin = userIfLofin();
+const hadLogin = userIfLogin();
 const userInfo = getUserInfoFromCookie();
 
 const btnLoading = ref(false);

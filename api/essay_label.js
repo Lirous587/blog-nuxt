@@ -1,6 +1,6 @@
 export function getEssayLabelList(query = {}) {
   let q = queryToUrl(query);
-  return api.get(`/essay/label${q}`);
+  return clientApi.get(`/essay/label${q}`);
 }
 
 export function createEssayLabel(form) {

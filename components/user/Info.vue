@@ -245,6 +245,7 @@ const handleLogout = async () => {
 };
 
 const initUserInfo = async () => {
+  await userStatusAuth();
   const info = getUserInfoFromCookie();
   if (info && Object.keys(info).length > 0) {
     for (const key in info) {
@@ -273,5 +274,3 @@ onMounted(() => {
   initUserInfo();
 });
 </script>
-
-<style></style>

@@ -76,7 +76,7 @@ const props = defineProps({
 });
 
 const userInfo = getUserInfoFromCookie();
-const hadLogin = userIfLofin();
+const hadLogin = userIfLogin();
 
 const emits = defineEmits(["choose", "delete"]);
 

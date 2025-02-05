@@ -135,6 +135,7 @@ definePageMeta({
 
 //  table
 const {
+  searchForm,
   resetSearchForm,
   tableData,
   loading,

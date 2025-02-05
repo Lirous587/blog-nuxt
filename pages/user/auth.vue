@@ -2,7 +2,7 @@
   <div
     class="flex w-screen h-screen overflow-scroll bg-neutral-100 dark:bg-[black]"
   >
-    <UserNavHeader> </UserNavHeader>
+    <DefaultNavHeader></DefaultNavHeader>
     <div class="m-auto">
       <div class="main py-5 px-5">
         <Transition name="left" mode="out-in">

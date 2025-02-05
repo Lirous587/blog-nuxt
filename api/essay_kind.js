@@ -1,6 +1,6 @@
 export function getEssayKindList(query = {}) {
   let q = queryToUrl(query);
-  return api.get(`/essay/kind${q}`);
+  return clientApi.get(`/essay/kind${q}`);
 }
 
 export function createEssayKind(form) {

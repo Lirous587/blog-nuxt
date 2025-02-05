@@ -99,7 +99,7 @@ const repliesRef = ref(null);
 const sliderValidationRef = ref(null);
 
 const userInfo = getUserInfoFromCookie();
-const hadLogin = userIfLofin();
+const hadLogin = userIfLogin();
 
 const form = reactive({
   toUserUid: "0",

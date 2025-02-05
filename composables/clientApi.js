@@ -80,8 +80,8 @@ const apiCore = (url, opt, authType) => {
     });
   };
 
-  return new Promise((resolve, reject) => {
-    $fetch(url, {
+  return new Promise(async (resolve, reject) => {
+    await $fetch(url, {
       method: opt.method || "get",
       retry: true,
       baseURL: baseURL,
@@ -109,18 +109,10 @@ const apiCore = (url, opt, authType) => {
                 resolve(res);
               })
               .catch((err) => {
-                if (err.msg === "需要登录") {
-                  if (authType === "admin") {
-                    removeAdminAuth();
-                    nuxtApp.runWithContext(() => {
-                      navigateTo("/admin/auth");
-                    });
-                  } else {
-                    removeUserAuth();
-                    nuxtApp.runWithContext(() => {
-                      navigateTo("/user/auth");
-                    });
-                  }
+                if (authType === "admin") {
+                  removeAdminAuth();
+                } else {
+                  removeUserAuth();
                 }
                 toast(err?.msg || "未知错误", "error");
                 reject(err);
@@ -128,9 +120,7 @@ const apiCore = (url, opt, authType) => {
           } else {
             removeAdminAuth();
             removeUserAuth();
-            nuxtApp.runWithContext(() => {
-              navigateTo("/user/auth");
-            });
+            reject(errData || err);
           }
           return;
         }

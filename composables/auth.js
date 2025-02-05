@@ -1,3 +1,5 @@
+import { userAuth } from "~/api/user";
+
 const adminAccessTokenKey = "adminAccessToken";
 const adminRefreshTokenKey = "adminRefreshToken";
 const userAccessTokenKey = "userAccessToken";
@@ -55,13 +57,32 @@ export const setUserInfoCookie = (data) => {
   useCookie(userInfoKey).value = data;
 };
 
+export const removeUserInfoCookie = () => {
+  useCookie(userInfoKey).value = null;
+};
+
 export const getUserInfoFromCookie = () => {
   const useInfo = useCookie(userInfoKey).value;
   return useInfo;
 };
 
-export const userIfLofin = () => {
+export const userIfLogin = () => {
   let info = getUserInfoFromCookie();
   if (info && Object.keys(info).length > 0) return true;
   return false;
+};
+
+export const userStatusAuth = async () => {
+  let info = getUserInfoFromCookie();
+  if (info && Object.keys(info).length > 0) {
+    await userAuth()
+      .then((res) => {
+        return true;
+      })
+      .catch((err) => {
+        removeUserAuth();
+        removeUserInfoCookie();
+        return false;
+      });
+  }
 };
