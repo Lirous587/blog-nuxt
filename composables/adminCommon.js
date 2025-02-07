@@ -166,8 +166,9 @@ export const useInitForm = (opt) => {
 
       let body = {};
 
-      if (opt.berforSumbit && typeof opt.berforSubmit === "function") {
+      if (typeof opt?.berforSubmit === "function") {
         body = opt.berforSubmit({ ...form });
+        console.log(body);
       } else {
         body = form;
       }

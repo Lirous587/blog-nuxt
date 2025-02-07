@@ -2,7 +2,7 @@ export const getEssay = (id) => {
   return api.get(`/essay/${id}`);
 };
 
-export const getEssayList = async (query) => {
+export const getEssayList = (query) => {
   let q = queryToUrl(query);
   return api.get(`/essay${q}`);
 };

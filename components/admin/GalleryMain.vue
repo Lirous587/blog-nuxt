@@ -133,10 +133,6 @@ import {
   updateGallery,
 } from "~/api/gallery";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase;
 const ifSelect = inject("select");
@@ -209,6 +205,7 @@ const {
   }),
   getData,
   create: createGallery,
+  update: updateGallery,
   berforSubmit: (form) => {
     if (editId.value === 0) {
       const formData = new FormData();
@@ -219,7 +216,6 @@ const {
       return form;
     }
   },
-  update: updateGallery,
 });
 
 const checkedItem = ref(null);

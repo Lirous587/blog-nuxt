@@ -1,25 +1,30 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <h1 class="text-xl font-bold my-3 text-yellow-500 dark:text-gray-400">
+  <div>
+    <h1
+      class="text-xl text-center font-bold my-3 text-yellow-500 dark:text-gray-400"
+    >
       登 录
     </h1>
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      class="pr-5 w-full"
-      label-width="60px"
-    >
-      <el-form-item label="邮箱" prop="email" for="email">
-        <el-input v-model="form.email" name="email"></el-input>
+    <el-form ref="formRef" :model="form" :rules="rules" class="w-full">
+      <el-form-item prop="email" for="email">
+        <el-input v-model="form.email" name="email" placeholder="请输入邮箱">
+          <template #prefix>
+            <el-icon><Message /></el-icon>
+          </template>
+        </el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password" for="password">
+      <el-form-item prop="password" for="password">
         <el-input
           v-model="form.password"
+          placeholder="请输入密码"
           type="password"
           show-password
           name="password"
-        ></el-input>
+        >
+          <template #prefix>
+            <el-icon><Lock /></el-icon>
+          </template>
+        </el-input>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -110,5 +115,3 @@ const sumbitLogin = () => {
   });
 };
 </script>
-
-<style></style>

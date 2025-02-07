@@ -15,7 +15,7 @@
         >
           <el-image
             :src="imgPre + item.img.url"
-            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out hover:animate-pulse dark:opacity-60 hover:scale-110 transition-transform duration-500"
+            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out dark:opacity-60 hover:animate-pulse hover:scale-120 transition-transform duration-500"
             fit="cover"
             :key="genRandomKey()"
             lazy

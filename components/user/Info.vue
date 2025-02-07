@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex items-center justify-center hover:cursor-pointer">
     <el-button
       v-if="!ifLogin"
       type="primary"

@@ -9,7 +9,7 @@
     />
     <div @click="triggerFileInput">
       <slot name="default" v-if="!previewUrl"></slot>
-      <slot name="preview" v-else :previewUrl="previewUrl"> </slot>
+      <slot name="preview" v-else :previewUrl="previewUrl"></slot>
     </div>
   </div>
 </template>
@@ -24,30 +24,43 @@ const props = defineProps({
 
 const imgData = defineModel("imgData", {
   type: Object,
-  required: true,
 });
 
 const previewUrl = ref("");
 const fileInput = ref(null);
+let currentObjectUrl = null;
 
 const triggerFileInput = () => {
   fileInput.value.click();
 };
 
-const handleFileChange = async () => {
+const handleFileChange = () => {
   const file = fileInput.value.files[0];
   if (!file) return;
   // 获取文件大小限制
   const sizeLimitInBytes = parseSizeLimit(props.sizeLimit);
-  imgData.value = file;
   // 检查文件大小
   if (file.size > sizeLimitInBytes) {
     ElMessage.warning(`文件大小不能超过 ${props.sizeLimit}`);
     fileInput.value.value = ""; // 清空文件选择
+    // 清空之前数据
+    imgData.value = null;
+    if (currentObjectUrl) {
+      URL.revokeObjectURL(currentObjectUrl);
+      currentObjectUrl = null;
+    }
+    previewUrl.value = "";
     return;
   }
-  previewUrl.value = URL.createObjectURL(file);
+  imgData.value = file;
+  // 释放上一个预览 URL
+  if (currentObjectUrl) {
+    URL.revokeObjectURL(currentObjectUrl);
+  }
+  currentObjectUrl = URL.createObjectURL(file);
+  previewUrl.value = currentObjectUrl;
 };
+
 // 解析大小限制字符串
 const parseSizeLimit = (sizeLimit) => {
   const size = parseInt(sizeLimit, 10);

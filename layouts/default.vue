@@ -2,7 +2,9 @@
   <div>
     <DefaultNavHeader></DefaultNavHeader>
 
-    <BackgroundType> </BackgroundType>
+    <DefaultBackground>
+      <DefaultTypeHeartWord />
+    </DefaultBackground>
 
     <div class="pt-10 transition-all duration-300 dark:bg-black flex">
       <aside class="sticky-aside">

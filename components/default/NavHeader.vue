@@ -62,9 +62,10 @@
       <div class="pl-5">
         <UserSearchEssay></UserSearchEssay>
       </div>
+
       <!-- 设置mode -->
       <div
-        class="h-[30px] w-[30px] flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
+        class="h-[30px] w-[30px] hover:cursor-pointer flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
         @click="changeMode"
       >
         <el-icon v-if="themeStore.theme === 'dark'">
@@ -74,6 +75,7 @@
           <Sunny />
         </el-icon>
       </div>
+
       <!-- 用户相关 -->
       <UserInfo></UserInfo>
     </div>

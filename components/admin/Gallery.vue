@@ -2,7 +2,7 @@
   <el-card>
     <template #header>
       <div v-if="asideRef && mainRef">
-        <AdminSearch @search="getData" @reset="mainRef.resetSearchForm">
+        <AdminSearch @search="mainRef.getData" @reset="mainRef.resetSearchForm">
           <template #default>
             <el-input
               placeholder="请输入关键词"

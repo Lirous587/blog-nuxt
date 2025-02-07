@@ -64,6 +64,7 @@
       :destroy-on-close="true"
       class="dark:bg-black"
       @submit="handleSubmit"
+      mode="user"
     >
       <el-form
         :model="form"

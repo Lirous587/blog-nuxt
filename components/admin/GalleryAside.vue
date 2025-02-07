@@ -79,10 +79,6 @@ import {
   updateGalleryKind,
 } from "~/api/gallery_kind";
 
-definePageMeta({
-  layout: "admin",
-});
-
 const activeID = ref(0);
 
 //  table

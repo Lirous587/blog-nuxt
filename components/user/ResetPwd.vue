@@ -1,20 +1,32 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <h1 class="text-xl font-bold my-3 text-purple-300 dark:text-gray-400">
+  <div>
+    <h1
+      class="text-xl text-center font-bold my-3 text-purple-300 dark:text-gray-400"
+    >
       找回密码
     </h1>
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      class="pr-5 w-full"
-      label-width="80px"
-    >
-      <el-form-item label="邮箱" prop="email" for="email">
-        <el-input type="email" v-model="form.email" name="email" />
+    <el-form ref="formRef" :model="form" :rules="rules">
+      <el-form-item prop="email" for="email">
+        <el-input
+          type="email"
+          v-model="form.email"
+          name="email"
+          placeholder="邮箱"
+        >
+          <template #prefix>
+            <el-icon><Message /></el-icon>
+          </template>
+        </el-input>
       </el-form-item>
-      <el-form-item label="验证码" prop="validationCode" for="validationCode">
-        <el-input v-model="form.validationCode" name="validationCode">
+      <el-form-item prop="validationCode" for="validationCode">
+        <el-input
+          v-model="form.validationCode"
+          name="validationCode"
+          placeholder="验证码"
+        >
+          <template #prefix>
+            <el-icon><ChatLineRound /></el-icon>
+          </template>
           <template #suffix>
             <el-button
               :loading="sentCodeBtnLoading"
@@ -30,23 +42,32 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="password" for="password">
+      <el-form-item prop="password" for="password">
         <el-input
           v-model="form.password"
           type="password"
           show-password
           name="password"
-        ></el-input>
+          placeholder="密码"
+        >
+          <template #prefix>
+            <el-icon><Lock /></el-icon>
+          </template>
+        </el-input>
       </el-form-item>
-      <el-form-item label="重复密码" prop="rePassword" for="rePassword">
+      <el-form-item prop="rePassword" for="rePassword">
         <el-input
           v-model="form.rePassword"
           type="password"
           show-password
           name="rePassword"
-        ></el-input>
+          placeholder="重复密码"
+        >
+          <template #prefix>
+            <el-icon><Lock /></el-icon>
+          </template>
+        </el-input>
       </el-form-item>
-
       <el-form-item>
         <el-button
           :loading="resetPasswordBtnLoading"
@@ -135,7 +156,7 @@ const rules = reactive({
     {
       required: true,
       validator: validatePass,
-      trigger: "change",
+      trigger: "blur",
     },
   ],
   rePassword: [
