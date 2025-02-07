@@ -97,3 +97,13 @@ export function genRandomKey() {
   // Date.now()：获取当前时间戳，确保生成的键是唯一的。
   return "key_" + Math.random().toString(36).substring(2, 9);
 }
+export function getNowEquipment() {
+  let facilityType = "computer";
+  let windowWidth = window.innerWidth;
+  if (windowWidth < 768) {
+    facilityType = "mobile";
+  } else if (768 <= windowWidth && windowWidth < 992) {
+    facilityType = "ipad";
+  }
+  return facilityType;
+}

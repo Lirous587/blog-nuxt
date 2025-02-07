@@ -1,91 +1,112 @@
 <template>
-  <div
-    class="fixed flex right-0 top-0 left-0 bottom-0 z-[9999] bg-black/80"
-    :class="visiable ? 'fixed' : 'hidden'"
-  >
+  <teleport to="body">
     <div
-      id="handle"
-      class="validationBox flex flex-col items-center m-auto"
-      :style="{
-        '--img-box-width': width,
-        '--img-box-height': height,
-        '--clip-box-width': clipSize.width + 'px',
-        '--clip-box-height': clipSize.height + 'px',
-        '--random-x': randomPosition.x + 'px',
-        '--random-y': randomPosition.y + 'px',
-        '--left-offest': leftOffest + 'px',
-      }"
-      ref="validationBox"
+      class="absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
+      :class="visiable ? 'absolute' : 'hidden'"
     >
-      <div class="bg-neutral-300 p-8 relative flex flex-col items-center">
-        <div class="right-0 top-0 absolute">
+      <div
+        id="handle"
+        class="validationBox"
+        :style="{
+          '--img-box-width': imgSize.width + 'px',
+          '--img-box-height': imgSize.height + 'px',
+          '--clip-box-size': clipSize + 'px',
+          '--random-x': randomPosition.x + 'px',
+          '--random-y': randomPosition.y + 'px',
+          '--left-offest': leftOffest + 'px',
+        }"
+        ref="validationBox"
+      >
+        <div class="mx-auto bg-white p-4 md:p-6 lg:p-8">
+          <!-- <div class="flex justify-between">
           <el-button type="warning" icon="Close" circle @click="close" />
-        </div>
-        <div class="left-0 top-0 absolute">
           <el-button type="warning" icon="Refresh" circle @click="refresh" />
+        </div> -->
+          <div
+            class="img-box"
+            :style="{
+              backgroundImage: `url(${randomImg})`,
+            }"
+            ref="imgBox"
+          ></div>
+          <!-- bg-[rgb(211,245,241)] -->
+          <div
+            class="flex items-center h-[40px] mt-3 bg-gray-300 border border-pink-400 overflow-hidden"
+          >
+            <div
+              class="h-[42px] w-[42px] flex bg-white text-pink-300 hover:bg-blue-400 hover:text-white shadow-lg rounded-sm transition-colors duration-300"
+            >
+              <el-icon class="m-auto" size="24"><DArrowRight /></el-icon>
+            </div>
+          </div>
         </div>
-        <div
-          class="img-box"
-          :style="{
-            backgroundImage: `url(${randomImg})`,
-          }"
-          ref="imgBox"
-        ></div>
       </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script setup>
 import { useMyIndexStore } from "~/store";
+
 const imgPre = useRuntimeConfig().public.imgGalleryBase;
+
 const indexStore = useMyIndexStore();
+
 const emits = defineEmits(["confirm"]);
+
 const carousels = indexStore.getCarousels();
 
 const validationBox = ref(null);
 const imgBox = ref(null);
 
+const imgSize = reactive({
+  width: 0,
+  height: 0,
+});
+
+const clipSize = ref(50);
+
+const aspectRatio = 16 / 9;
+
+const setAspect = () => {
+  const windowWidth = parseFloat(
+    getComputedStyle(document.documentElement).width
+  );
+  const nowEquipment = getNowEquipment();
+  if (nowEquipment === "computer") {
+    imgSize.width = windowWidth * 0.3;
+  } else if (nowEquipment === "ipad") {
+    imgSize.width = windowWidth * 0.35;
+  } else {
+    imgSize.width = windowWidth * 0.8;
+  }
+  clipSize.value = imgSize.width * 0.1;
+  imgSize.height = imgSize.width / aspectRatio;
+};
+
 const randomImg = ref(
   imgPre + carousels[Math.floor(carousels.length * Math.random())].img.url
 );
-
-const props = defineProps({
-  width: {
-    type: String,
-    default: "400px",
-  },
-  height: {
-    type: String,
-    default: "260px",
-  },
-});
-
-const clipSize = reactive({
-  width: 50,
-  height: 50,
-});
 
 const randomPosition = reactive({
   x: 0,
   y: 0,
 });
 
-const visiable = ref(false);
-
 const leftOffest = ref(Math.max(Math.floor(Math.random() * 250), 200));
 
 const resetSlider = () => {
+  setAspect();
   // 获取容器实际像素值
   const imgBoxWidth = parseFloat(getComputedStyle(imgBox.value).width);
   const imgBoxHeight = parseFloat(getComputedStyle(imgBox.value).height);
 
-  const maxRandomX = imgBoxWidth - clipSize.width;
+  const maxRandomX = imgBoxWidth - clipSize.value;
   const minRandomX = Math.floor(imgBoxWidth / 2);
   randomPosition.x =
     Math.floor(Math.random() * (maxRandomX - minRandomX + 1)) + minRandomX;
 
-  const maxRandomY = imgBoxHeight - 1.5 * clipSize.height;
+  const maxRandomY = imgBoxHeight - 1.5 * clipSize.value;
   const minRandomY = Math.floor(imgBoxHeight / 2);
   randomPosition.y =
     Math.floor(Math.random() * (maxRandomY - minRandomY + 1)) + minRandomY;
@@ -127,6 +148,7 @@ const endDrag = (ev) => {
   }
 };
 
+const visiable = ref(false);
 const open = () => {
   // 滚动锁定
   document.body.style.overflow = "hidden";
@@ -143,7 +165,6 @@ const open = () => {
 
   window.addEventListener("resize", throttle(handleResize));
 };
-
 const close = () => {
   // 恢复滚动
   document.body.style.overflow = "";
@@ -201,8 +222,6 @@ defineExpose({
   height: var(--img-box-height);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
-  position: relative;
 }
 
 .img-box::after,
@@ -216,8 +235,8 @@ defineExpose({
   /* 上右下左 */
   clip-path: inset(
     var(--random-y)
-      calc(var(--img-box-width) - var(--random-x) - var(--clip-box-width))
-      calc(var(--img-box-height) - var(--random-y) - var(--clip-box-height))
+      calc(var(--img-box-width) - var(--random-x) - var(--clip-box-size))
+      calc(var(--img-box-height) - var(--random-y) - var(--clip-box-size))
       var(--random-x)
   );
 }

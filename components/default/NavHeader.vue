@@ -60,7 +60,7 @@
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
-        <UserSearchEssay></UserSearchEssay>
+        <!-- <UserSearchEssay></UserSearchEssay> -->
       </div>
 
       <!-- 设置mode -->
@@ -68,10 +68,10 @@
         class="h-[30px] w-[30px] hover:cursor-pointer flex flex-shrink-0 justify-center items-center dark:bg-black dark:text-neutral-300 rounded-full"
         @click="changeMode"
       >
-        <el-icon v-if="themeStore.theme === 'dark'">
+        <el-icon v-if="themeStore.theme === 'dark'" size="20">
           <Moon />
         </el-icon>
-        <el-icon v-else>
+        <el-icon v-else size="20">
           <Sunny />
         </el-icon>
       </div>

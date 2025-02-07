@@ -38,7 +38,7 @@
           class="w-[85vw] md:w-[380px] flex flex-col items-center justify-center"
         >
           <small class="text-gray-400 my-5"
-            >填写您的一些信息然后加入我们
+            >将要填写您的一些信息
             <span
               @click="isLogin = false"
               class="text-blue-400 underline underline-offset-2 hover:cursor-pointer"

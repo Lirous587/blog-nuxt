@@ -1,15 +1,12 @@
 <template>
   <div class="flex items-center justify-center hover:cursor-pointer">
-    <el-button
-      v-if="!ifLogin"
-      type="primary"
-      size="small"
-      @click="router.push('/user/auth')"
-      >登录</el-button
-    >
+    <el-icon size="20" v-if="!ifLogin" @click="router.push('/user/auth')"
+      ><User
+    /></el-icon>
+
     <div v-else>
       <el-dropdown :hide-on-click="false" trigger="click">
-        <el-avatar :size="32" :src="imgPre + userInfo.avatar"></el-avatar>
+        <el-avatar :size="28" :src="imgPre + userInfo.avatar"></el-avatar>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item @click="updateInfoPre">修改信息</el-dropdown-item>
