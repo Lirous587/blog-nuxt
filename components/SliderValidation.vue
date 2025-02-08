@@ -145,22 +145,30 @@ const pass = ref(false);
 const startDrag = (ev) => {
   ifDraging.value = true;
   dragStatus.value = true;
-  startX = ev.clientX || ev.touches[0].clientX;
+  validationBoxRef.value.classList.add("active");
+  startX = ev.clientX;
 };
 
+let animationFrameId = null;
 const moveDrag = (ev) => {
-  if (!validationBoxRef.value) return;
-  if (ifDraging.value) {
-    const clientX = ev.clientX || ev.touches[0].clientX;
-    const move = `${clientX - startX}px`;
-    validationBoxRef.value.style.setProperty("--dynamic-move", move);
-  }
+  if (!validationBoxRef.value || !ifDraging.value) return;
+  if (animationFrameId) return;
+  animationFrameId = requestAnimationFrame(() => {
+    const clientX = ev.clientX;
+    const moveDistance = clientX - startX;
+    validationBoxRef.value.style.setProperty(
+      "--dynamic-move",
+      `${moveDistance}px`
+    );
+    animationFrameId = null;
+  });
 };
 
 const endDrag = (ev) => {
   if (!imgBoxRef.value || !validationBoxRef.value) return;
   ifDraging.value = false;
-  const clientX = ev.clientX || ev.changedTouches[0].clientX;
+  validationBoxRef.value.classList.remove("active");
+  const clientX = ev.clientX;
   const currentPosition = clientX - startX;
   const dis = Math.abs(currentPosition - randomPosition.x);
   // 允许15px的误差范围
@@ -185,32 +193,23 @@ const open = () => {
   document.body.style.overflow = "hidden";
   visiable.value = true;
 
-  sliderRef.value.addEventListener("mousedown", startDrag);
-  sliderRef.value.addEventListener("touchstart", startDrag);
-
-  window.addEventListener("mousemove", moveDrag);
-  window.addEventListener("touchmove", moveDrag);
-
-  window.addEventListener("mouseup", endDrag);
-  window.addEventListener("touchend", endDrag);
-
-  window.addEventListener("resize", throttle(handleResize));
+  // 使用 pointer 事件注册，确保选项中 passive 为 false
+  sliderRef.value.addEventListener("pointerdown", startDrag, {
+    passive: false,
+  });
+  window.addEventListener("pointermove", moveDrag, { passive: false });
+  window.addEventListener("pointerup", endDrag, { passive: false });
+  window.addEventListener("resize", throttle(handleResize, 100));
 };
 const close = () => {
   // 恢复滚动
   document.body.style.overflow = "";
   visiable.value = false;
 
-  sliderRef.value.removeEventListener("mousedown", startDrag);
-  sliderRef.value.removeEventListener("touchstart", startDrag);
-
-  window.removeEventListener("mousemove", moveDrag);
-  window.removeEventListener("touchmove", moveDrag);
-
-  window.removeEventListener("mouseup", endDrag);
-  window.removeEventListener("touchend", endDrag);
-
-  window.removeEventListener("resize", throttle(handleResize));
+  sliderRef.value.removeEventListener("pointerdown", startDrag);
+  window.removeEventListener("pointermove", moveDrag);
+  window.removeEventListener("pointerup", endDrag);
+  window.removeEventListener("resize", throttle(handleResize, 100));
 };
 
 const sumbit = () => {
@@ -277,11 +276,12 @@ defineExpose({
 .slider {
   transform: translateX(var(--move));
   transition: transform 0.5s ease-in;
+  touch-action: none;
 }
 
-.validationBox:active .img-box::after,
-.validationBox:active .slider,
-.validationBox:active .filler {
+.validationBox.active .img-box::after,
+.validationBox.active .slider,
+.validationBox.active .filler {
   transition: none;
 }
 
