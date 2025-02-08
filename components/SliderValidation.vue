@@ -1,7 +1,5 @@
 <template>
   <!-- <teleport to="body"> -->
-  <!-- </teleport> -->
-
   <div
     class="absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
     :class="visiable ? 'absolute' : 'hidden'"
@@ -18,6 +16,10 @@
       ref="validationBoxRef"
     >
       <div class="mx-auto bg-white rounded dark:bg-gray-900 p-4 md:p-6 lg:p-8">
+        <div class="flex items-center justify-between mb-1">
+          <el-button text icon="Refresh" @click="resetSlider"></el-button>
+          <el-button text icon="close" @click="close"></el-button>
+        </div>
         <div
           class="img-box relative rounded"
           :style="{
@@ -25,7 +27,6 @@
           }"
           ref="imgBoxRef"
         ></div>
-
         <div
           class="relative flex items-center mt-3 bg-gray-300 dark:bg-gray-600 border border-pink-400 overflow-hidden"
           style="height: var(--clip-box-size)"
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+  <!-- </teleport> -->
 </template>
 
 <script setup>
