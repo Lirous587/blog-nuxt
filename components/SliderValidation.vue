@@ -1,48 +1,64 @@
 <template>
-  <teleport to="body">
+  <!-- <teleport to="body"> -->
+  <!-- </teleport> -->
+
+  <div
+    class="absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
+    :class="visiable ? 'absolute' : 'hidden'"
+  >
     <div
-      class="absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
-      :class="visiable ? 'absolute' : 'hidden'"
+      class="validationBox"
+      :style="{
+        '--img-box-width': imgSize.width + 'px',
+        '--img-box-height': imgSize.height + 'px',
+        '--clip-box-size': clipSize + 'px',
+        '--random-x': randomPosition.x + 'px',
+        '--random-y': randomPosition.y + 'px',
+      }"
+      ref="validationBoxRef"
     >
-      <div
-        id="handle"
-        class="validationBox"
-        :style="{
-          '--img-box-width': imgSize.width + 'px',
-          '--img-box-height': imgSize.height + 'px',
-          '--clip-box-size': clipSize + 'px',
-          '--random-x': randomPosition.x + 'px',
-          '--random-y': randomPosition.y + 'px',
-          '--left-offest': leftOffest + 'px',
-        }"
-        ref="validationBox"
-      >
-        <div class="mx-auto bg-white p-4 md:p-6 lg:p-8">
-          <!-- <div class="flex justify-between">
-          <el-button type="warning" icon="Close" circle @click="close" />
-          <el-button type="warning" icon="Refresh" circle @click="refresh" />
-        </div> -->
+      <div class="mx-auto bg-white rounded dark:bg-gray-900 p-4 md:p-6 lg:p-8">
+        <div
+          class="img-box relative rounded"
+          :style="{
+            backgroundImage: `url(${randomImg})`,
+          }"
+          ref="imgBoxRef"
+        ></div>
+
+        <div
+          class="relative flex items-center mt-3 bg-gray-300 dark:bg-gray-600 border border-pink-400 overflow-hidden"
+          style="height: var(--clip-box-size)"
+        >
+          <!-- 滑动时填充 -->
           <div
-            class="img-box"
-            :style="{
-              backgroundImage: `url(${randomImg})`,
-            }"
-            ref="imgBox"
+            class="filler absolute top-0 bottom-0 left-0 w-[0px] bg-green-400 dark:bg-red-400 transition-all ease-in duration-500"
+            style="width: var(--dynamic-move)"
           ></div>
-          <!-- bg-[rgb(211,245,241)] -->
+          <!-- 滑块 -->
           <div
-            class="flex items-center h-[40px] mt-3 bg-gray-300 border border-pink-400 overflow-hidden"
+            class="slider flex z-[1] shadow-lg rounded transition-colors duration-300"
+            :class="
+              ifDraging
+                ? 'bg-blue-400 dark:bg-green-500 text-white'
+                : 'bg-white dark:bg-green-300 text-black'
+            "
+            style="width: var(--clip-box-size); height: var(--clip-box-size)"
+            ref="sliderRef"
           >
-            <div
-              class="h-[42px] w-[42px] flex bg-white text-pink-300 hover:bg-blue-400 hover:text-white shadow-lg rounded-sm transition-colors duration-300"
-            >
-              <el-icon class="m-auto" size="24"><DArrowRight /></el-icon>
-            </div>
+            <el-icon class="m-auto" v-if="pass"><Check /></el-icon>
+            <el-icon class="m-auto" v-else><Right /></el-icon>
           </div>
+          <!-- 文字 -->
+          <el-text
+            v-show="!dragStatus"
+            class="z-[0] absolute inset-0 text-center"
+            >向右滑动滑块</el-text
+          >
         </div>
       </div>
     </div>
-  </teleport>
+  </div>
 </template>
 
 <script setup>
@@ -56,8 +72,9 @@ const emits = defineEmits(["confirm"]);
 
 const carousels = indexStore.getCarousels();
 
-const validationBox = ref(null);
-const imgBox = ref(null);
+const validationBoxRef = ref(null);
+const sliderRef = ref(null);
+const imgBoxRef = ref(null);
 
 const imgSize = reactive({
   width: 0,
@@ -74,13 +91,18 @@ const setAspect = () => {
   );
   const nowEquipment = getNowEquipment();
   if (nowEquipment === "computer") {
-    imgSize.width = windowWidth * 0.3;
+    imgSize.width = windowWidth * 0.4;
+    clipSize.value = 45;
   } else if (nowEquipment === "ipad") {
-    imgSize.width = windowWidth * 0.35;
+    imgSize.width = windowWidth * 0.45;
+    clipSize.value = 40;
   } else {
-    imgSize.width = windowWidth * 0.8;
+    imgSize.width = windowWidth * 0.75;
+    clipSize.value = 35;
   }
-  clipSize.value = imgSize.width * 0.1;
+  if (imgSize.width < 300) {
+    imgSize.width = 300;
+  }
   imgSize.height = imgSize.width / aspectRatio;
 };
 
@@ -93,13 +115,12 @@ const randomPosition = reactive({
   y: 0,
 });
 
-const leftOffest = ref(Math.max(Math.floor(Math.random() * 250), 200));
-
 const resetSlider = () => {
   setAspect();
   // 获取容器实际像素值
-  const imgBoxWidth = parseFloat(getComputedStyle(imgBox.value).width);
-  const imgBoxHeight = parseFloat(getComputedStyle(imgBox.value).height);
+  if (!imgBoxRef.value) return;
+  const imgBoxWidth = parseFloat(getComputedStyle(imgBoxRef.value).width);
+  const imgBoxHeight = parseFloat(getComputedStyle(imgBoxRef.value).height);
 
   const maxRandomX = imgBoxWidth - clipSize.value;
   const minRandomX = Math.floor(imgBoxWidth / 2);
@@ -116,46 +137,56 @@ const handleResize = () => {
   resetSlider();
 };
 
-let ifDrag = false;
 let startX;
+const ifDraging = ref(false);
+const dragStatus = ref(false);
+const pass = ref(false);
 
 const startDrag = (ev) => {
-  ifDrag = true;
+  ifDraging.value = true;
+  dragStatus.value = true;
   startX = ev.clientX || ev.touches[0].clientX;
 };
 
 const moveDrag = (ev) => {
-  if (ifDrag) {
+  if (!validationBoxRef.value) return;
+  if (ifDraging.value) {
     const clientX = ev.clientX || ev.touches[0].clientX;
     const move = `${clientX - startX}px`;
-    validationBox.value.style.setProperty("--dynamic-move", move);
+    validationBoxRef.value.style.setProperty("--dynamic-move", move);
   }
 };
 
 const endDrag = (ev) => {
-  ifDrag = false;
+  if (!imgBoxRef.value || !validationBoxRef.value) return;
+  ifDraging.value = false;
   const clientX = ev.clientX || ev.changedTouches[0].clientX;
   const currentPosition = clientX - startX;
-  const dis = Math.abs(currentPosition - leftOffest.value);
-  // 允许10px的误差范围
-  if (dis < 20) {
-    imgBox.value.classList.add("passed");
+  const dis = Math.abs(currentPosition - randomPosition.x);
+  // 允许15px的误差范围
+  if (dis < 15) {
+    imgBoxRef.value.classList.add("passed");
+    pass.value = true;
     setTimeout(() => {
       sumbit();
     }, 200);
   } else {
-    validationBox.value.style.setProperty("--dynamic-move", "0px");
+    validationBoxRef.value.style.setProperty("--dynamic-move", "0px");
+    setTimeout(() => {
+      dragStatus.value = false;
+    }, 500);
   }
 };
 
 const visiable = ref(false);
 const open = () => {
+  resetSlider();
   // 滚动锁定
   document.body.style.overflow = "hidden";
   visiable.value = true;
 
-  imgBox.value.addEventListener("mousedown", startDrag);
-  imgBox.value.addEventListener("touchstart", startDrag);
+  sliderRef.value.addEventListener("mousedown", startDrag);
+  sliderRef.value.addEventListener("touchstart", startDrag);
 
   window.addEventListener("mousemove", moveDrag);
   window.addEventListener("touchmove", moveDrag);
@@ -170,8 +201,8 @@ const close = () => {
   document.body.style.overflow = "";
   visiable.value = false;
 
-  imgBox.value.removeEventListener("mousedown", startDrag);
-  imgBox.value.removeEventListener("touchstart", startDrag);
+  sliderRef.value.removeEventListener("mousedown", startDrag);
+  sliderRef.value.removeEventListener("touchstart", startDrag);
 
   window.removeEventListener("mousemove", moveDrag);
   window.removeEventListener("touchmove", moveDrag);
@@ -180,19 +211,6 @@ const close = () => {
   window.removeEventListener("touchend", endDrag);
 
   window.removeEventListener("resize", throttle(handleResize));
-};
-
-const refresh = () => {
-  let equal = true;
-  while (equal) {
-    let random =
-      imgPre + carousels[Math.floor(carousels.length * Math.random())].img.url;
-    if (random !== randomImg.value) {
-      randomImg.value = random;
-      resetSlider();
-      equal = false;
-    }
-  }
 };
 
 const sumbit = () => {
@@ -210,11 +228,13 @@ defineExpose({
 </script>
 
 <style scoped>
-@reference "assets/css/tailwind.css";
-
 .validationBox {
   --dynamic-move: 0px;
-  --move: clamp(0px, var(--dynamic-move), calc(1 * var(--img-box-width)));
+  --move: clamp(
+    0px,
+    var(--dynamic-move),
+    calc(1 * var(--img-box-width) - var(--clip-box-size))
+  );
 }
 
 .img-box {
@@ -231,7 +251,6 @@ defineExpose({
   background: inherit;
   height: inherit;
   width: inherit;
-  border: solid 5px palevioletred;
   /* 上右下左 */
   clip-path: inset(
     var(--random-y)
@@ -239,22 +258,30 @@ defineExpose({
       calc(var(--img-box-height) - var(--random-y) - var(--clip-box-size))
       var(--random-x)
   );
+  filter: contrast(1.2);
 }
 
 .img-box::before {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   background-blend-mode: multiply;
 }
 
 .img-box::after {
-  @apply animate-pulse;
-  left: calc(-1 * var(--left-offest));
+  background-color: rgba(0, 0, 0, 0.8);
+  left: calc(-1 * var(--random-x));
   position: absolute;
+  filter: contrast(1.5) brightness(1.5);
+}
+
+.img-box::after,
+.slider {
   transform: translateX(var(--move));
   transition: transform 0.5s ease-in;
 }
 
-#handle:active .img-box::after {
+.validationBox:active .img-box::after,
+.validationBox:active .slider,
+.validationBox:active .filler {
   transition: none;
 }
 
