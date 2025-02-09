@@ -1,7 +1,7 @@
 <template>
   <div class="relative h-full ml-2 mt-3">
     <div
-      class="w-full h-[calc(100%-40px)] overflow-y-auto overflow-x-hidden"
+      class="w-full h-[calc(100%-40px)] overflow-y-auto overflow-x-hidden min-w-[600px]"
       v-loading="loading"
     >
       <el-row :gutter="10">

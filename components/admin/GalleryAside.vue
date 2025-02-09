@@ -93,11 +93,21 @@ const { tableData, loading, currentPage, pages, getData, handleDelete } =
     }),
     onGetListSuccess: (res) => {
       const list = res.list;
-      if (Array.isArray(list) && list.length > 0) {
-        activeID.value = res.list[0]?.id;
-      }
       tableData.value = list;
       pages.value = res.pages;
+      if (Array.isArray(list) && list.length > 0) {
+        let flag = false;
+        // 如果list里面有activeId 就不做处理 否则默认第一条
+        list.forEach((item) => {
+          if (item.id === activeID.value) {
+            flag = true;
+            return;
+          }
+        });
+        if (!flag) {
+          handleSelect(list[0].id);
+        }
+      }
     },
   });
 
