@@ -10,7 +10,7 @@
     </div>
     <slot />
     <div
-      class="animate-bounce absolute flex cursor-pointer bottom-[60px] p-5 items-center justify-center left-[50%] translate-x-[-50%] text-white/80 dark:text-gray-900"
+      class="animate-bounce absolute flex cursor-pointer bottom-[60px] p-5 items-center justify-center left-[50%] translate-x-[-50%] text-white/80 dark:text-white/50"
       :class="showIcon ? '' : 'hidden'"
       @click="scrollToMain"
     >

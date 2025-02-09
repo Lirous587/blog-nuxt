@@ -34,7 +34,7 @@
             <el-switch v-model="scope.row.status" disabled></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" prop="status" align="center" width="180">
+        <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
               >修改
@@ -64,7 +64,6 @@
       :destroy-on-close="true"
       class="dark:bg-black"
       @submit="handleSubmit"
-      mode="user"
     >
       <el-form
         :model="form"
@@ -73,11 +72,25 @@
         :inline="false"
         :rules="rules"
       >
+        <el-form-item label="头像" prop="imgData">
+          <ImgUpload v-model:imgData="form.imgData" size-limit="2MB">
+            <template #default>
+              <el-avatar size="large" :src="imgPre + form.avatar"></el-avatar>
+              <br />
+              <small>请上传图片,内容大小不得超过2MB</small>
+            </template>
+            <template #preview="previewProps">
+              <el-avatar
+                size="large"
+                :src="previewProps.previewUrl"
+              ></el-avatar>
+            </template>
+          </ImgUpload>
+        </el-form-item>
         <el-form-item label="用户名" prop="name">
           <el-input placeholder="请输入名称" v-model="form.name"> </el-input>
         </el-form-item>
-
-        <el-form-item label="介绍" prop="introduction">
+        <el-form-item label="邮箱" prop="email">
           <el-input placeholder="请输入邮箱" v-model="form.email"> </el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
@@ -88,8 +101,8 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="头像" prop="avatar">
-          <ImgSelect v-model:id="form.avatar" :url="form.avatar"></ImgSelect>
+        <el-form-item label="状态" prop="password">
+          <el-switch v-model="form.status"></el-switch>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -136,17 +149,26 @@ const {
   rules,
 } = useInitForm({
   form: reactive({
+    imgData: null,
     name: "",
     email: "",
     password: "",
     avatar: "",
+    uid: "",
+    status: false,
   }),
   getData,
   create: createUser,
   update: updateUser,
   rules: {
-    name: [{ required: true, message: "请输入标签名", trigger: "blur" }],
-    introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
+    name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+    email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+  },
+  berforSubmit: (form) => {
+    const formData = new FormData();
+    formData.append("img", form.imgData);
+    formData.append("info", JSON.stringify({ ...form, imgData: undefined }));
+    return formData;
   },
 });
 </script>

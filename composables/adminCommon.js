@@ -42,6 +42,7 @@ export function useInitTable(opt = {}) {
         loading.value = false;
       });
   }
+
   onMounted(() => {
     getData();
   });
@@ -53,7 +54,14 @@ export function useInitTable(opt = {}) {
       .delete(id)
       .then(() => {
         toast("删除成功");
-        getData();
+        if (
+          opt.afterDeleteSuccess &&
+          typeof opt.afterDeleteSuccess == "function"
+        ) {
+          opt.afterDeleteSuccess();
+        } else {
+          getData();
+        }
       })
       .finally(() => {
         loading.value = false;
@@ -168,7 +176,6 @@ export const useInitForm = (opt) => {
 
       if (typeof opt?.berforSubmit === "function") {
         body = opt.berforSubmit({ ...form });
-        console.log(body);
       } else {
         body = form;
       }
