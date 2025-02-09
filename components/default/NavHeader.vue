@@ -1,6 +1,6 @@
 <template>
   <div
-    class="headerContainer fixed left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-white/70 dark:bg-black/70 transition-transform duration-300 z-[100] backdrop-blur-sm"
+    class="headerContainer select-none fixed left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-white/70 dark:bg-black/70 transition-transform duration-300 z-[100] backdrop-blur-sm"
     :style="{
       borderRight: bodyFixedStore?.ifFixed
         ? `${bodyFixedStore.barWidth} solid transparent`

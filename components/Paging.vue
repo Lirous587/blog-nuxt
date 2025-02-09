@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center" v-if="pageConfim()">
+  <div class="select-none flex justify-center" v-if="pageConfim()">
     <!-- last -->
     <div :class="ifMin ? 'cursor-not-allowed' : ''">
       <NuxtLink

@@ -12,7 +12,7 @@
     <div class="flex justify-center items-center">
       <div
         v-for="(word, index) in 'Lirous不想coding'"
-        class="relative inline-flex text-sm mx-2 float-action text-neutral-300 md:text-base lg:text-lg"
+        class="float-action relative inline-flex text-sm mx-2 text-neutral-300 md:text-base lg:text-lg"
         :style="{ animationDelay: `${index * 0.3}s` }"
       >
         {{ word }}
@@ -40,5 +40,17 @@ sentenceList.value = heartWords.map((item) => item.content);
 
 * {
   @apply font-serif;
+}
+.float-action {
+  animation: float 1.5s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 </style>

@@ -3,7 +3,7 @@
     <div>
       <div class="flex justify-between items-center mb-2">
         <TypeWriter
-          class="rounded-xl text-blue-600 text-lg font-bold dark:text-gray-500"
+          class="select-none rounded-xl text-blue-600 text-lg font-bold dark:text-gray-500"
           :sentenceList="sentenceList"
           :addSpeed="150"
           :deleteSpeed="50"
@@ -14,7 +14,7 @@
         {{ data.introduction }}
       </div>
 
-      <div class="flex mt-2 flex-wrap items-center ml-2">
+      <div class="select-none flex mt-2 flex-wrap items-center ml-2">
         <el-tag
           type="primary"
           size="small"
@@ -48,14 +48,14 @@
           <EssayComment :eid="id"></EssayComment>
         </div>
       </main>
-      <aside class="md-anchor">
+      <aside class="md-anchor select-none">
         <div v-if="mdRef">
           <EssayAnchor :anchors="mdRef.anchors"></EssayAnchor>
         </div>
       </aside>
     </div>
 
-    <div class="mobile-anchor" v-if="mdRef">
+    <div class="select-none mobile-anchor" v-if="mdRef">
       <EssayAnchor
         :anchors="mdRef.anchors"
         :class="mobileAnchorShow ? 'block' : 'hidden'"

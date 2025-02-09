@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
+  <div class="select-none flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
     <IndexAuthCard
       v-if="showList.includes('statistics')"
       class="bg-gradient-to-br from-green-200 to-blue-100 dark:from-green-950 dark:to-blue-950"

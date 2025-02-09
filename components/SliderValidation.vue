@@ -1,66 +1,68 @@
 <template>
-  <!-- <teleport to="body"> -->
-  <div
-    class="absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
-    :class="visiable ? 'absolute' : 'hidden'"
-  >
+  <teleport to="body">
     <div
-      class="validationBox"
-      :style="{
-        '--img-box-width': imgSize.width + 'px',
-        '--img-box-height': imgSize.height + 'px',
-        '--clip-box-size': clipSize + 'px',
-        '--random-x': randomPosition.x + 'px',
-        '--random-y': randomPosition.y + 'px',
-      }"
-      ref="validationBoxRef"
+      class="select-none absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
+      :class="visiable ? 'absolute' : 'hidden'"
     >
-      <div class="mx-auto bg-white rounded dark:bg-gray-900 p-4 md:p-6 lg:p-8">
-        <div class="flex items-center justify-between mb-1">
-          <el-button text icon="Refresh" @click="resetSlider"></el-button>
-          <el-button text icon="close" @click="close"></el-button>
-        </div>
+      <div
+        class="validationBox"
+        :style="{
+          '--img-box-width': imgSize.width + 'px',
+          '--img-box-height': imgSize.height + 'px',
+          '--clip-box-size': clipSize + 'px',
+          '--random-x': randomPosition.x + 'px',
+          '--random-y': randomPosition.y + 'px',
+        }"
+        ref="validationBoxRef"
+      >
         <div
-          class="img-box relative rounded"
-          :style="{
-            backgroundImage: `url(${randomImg})`,
-          }"
-          ref="imgBoxRef"
-        ></div>
-        <div
-          class="relative flex items-center mt-3 bg-gray-300 dark:bg-gray-600 border border-pink-400 overflow-hidden"
-          style="height: var(--clip-box-size)"
+          class="mx-auto bg-white rounded dark:bg-gray-900 p-4 md:p-6 lg:p-8"
         >
-          <!-- 滑动时填充 -->
-          <div
-            class="filler absolute top-0 bottom-0 left-0 w-[0px] bg-green-400 dark:bg-red-400 transition-all ease-in duration-500"
-            style="width: var(--dynamic-move)"
-          ></div>
-          <!-- 滑块 -->
-          <div
-            class="slider flex z-[1] shadow-lg rounded transition-colors duration-300"
-            :class="
-              ifDraging
-                ? 'bg-blue-400 dark:bg-green-500 text-white'
-                : 'bg-white dark:bg-green-300 text-black'
-            "
-            style="width: var(--clip-box-size); height: var(--clip-box-size)"
-            ref="sliderRef"
-          >
-            <el-icon class="m-auto" v-if="pass"><Check /></el-icon>
-            <el-icon class="m-auto" v-else><Right /></el-icon>
+          <div class="flex items-center justify-between mb-1">
+            <el-button text icon="Refresh" @click="resetSlider"></el-button>
+            <el-button text icon="close" @click="close"></el-button>
           </div>
-          <!-- 文字 -->
-          <el-text
-            v-show="!dragStatus"
-            class="z-[0] absolute inset-0 text-center"
-            >向右滑动滑块</el-text
+          <div
+            class="img-box relative rounded"
+            :style="{
+              backgroundImage: `url(${randomImg})`,
+            }"
+            ref="imgBoxRef"
+          ></div>
+          <div
+            class="relative flex items-center mt-3 bg-gray-300 dark:bg-gray-600 border border-pink-400 overflow-hidden"
+            style="height: var(--clip-box-size)"
           >
+            <!-- 滑动时填充 -->
+            <div
+              class="filler absolute top-0 bottom-0 left-0 w-[0px] bg-green-400 dark:bg-red-400 transition-all ease-in duration-500"
+              style="width: var(--dynamic-move)"
+            ></div>
+            <!-- 滑块 -->
+            <div
+              class="slider flex z-[1] shadow-lg rounded transition-colors duration-300"
+              :class="
+                ifDraging
+                  ? 'bg-blue-400 dark:bg-green-500 text-white'
+                  : 'bg-white dark:bg-green-300 text-black'
+              "
+              style="width: var(--clip-box-size); height: var(--clip-box-size)"
+              ref="sliderRef"
+            >
+              <el-icon class="m-auto" v-if="pass"><Check /></el-icon>
+              <el-icon class="m-auto" v-else><Right /></el-icon>
+            </div>
+            <!-- 文字 -->
+            <el-text
+              v-show="!dragStatus"
+              class="z-[0] absolute inset-0 text-center"
+              >向右滑动滑块</el-text
+            >
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- </teleport> -->
+  </teleport>
 </template>
 
 <script setup>
@@ -184,7 +186,7 @@ const endDrag = (ev) => {
     validationBoxRef.value.style.setProperty("--dynamic-move", "0px");
     setTimeout(() => {
       dragStatus.value = false;
-    }, 500);
+    }, 600);
   }
 };
 

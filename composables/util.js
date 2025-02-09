@@ -23,6 +23,8 @@ export function queryToUrl(query) {
 }
 // 时间格式化 对应后端的timestamp
 export function formateDate(timeStr) {
+  console.log(timeStr);
+
   if (
     typeof timeStr !== "string" ||
     !timeStr.includes("T") ||
