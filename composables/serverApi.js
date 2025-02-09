@@ -118,8 +118,11 @@ const apiCore = async (url, opt, authType) => {
                 reject(err);
               });
           } else {
-            removeAdminAuth();
-            removeUserAuth();
+            if (authType === "admin") {
+              removeAdminAuth();
+            } else if (authType === "user") {
+              removeUserAuth();
+            }
             reject(errData || err);
           }
           return;
