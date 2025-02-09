@@ -104,7 +104,7 @@ const ifLogin = ref(false);
 
 const userInfo = reactive({
   name: "",
-  avatar: null,
+  avatar: "",
 });
 
 const updateInfoFormRef = ref(null);
@@ -233,10 +233,11 @@ const handleUpdatePwd = async () => {
     });
 };
 
-const handleLogout = async () => {
-  await logout().then(() => {
+const handleLogout = () => {
+  logout().then(() => {
     toast("退出登录成功");
     removeUserAuth();
+    resetForm(userInfo);
     router.push("/user/auth");
   });
 };

@@ -19,7 +19,7 @@ export function updatePassword(form) {
 }
 
 export function logout() {
-  return clientApi.delete("/user/logout", {}, "user");
+  return clientApi.delete("/user/logout", "user");
 }
 
 export function resetPassword(form) {
@@ -49,4 +49,8 @@ export function getUserList(query) {
 
 export function userAuth() {
   return clientApi.get("/user/auth", "user");
+}
+
+export function downLine(uid) {
+  return clientApi.delete(`user/${uid}`, "admin");
 }

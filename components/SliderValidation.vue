@@ -1,8 +1,8 @@
 <template>
   <teleport to="body">
     <div
-      class="select-none absolute inset-0 z-10 bg-black/80 flex items-center justify-center"
-      :class="visiable ? 'absolute' : 'hidden'"
+      class="select-none inset-0 z-10 bg-black/80 flex items-center justify-center"
+      :class="visiable ? 'fixed' : 'hidden'"
     >
       <div
         class="validationBox"
@@ -16,7 +16,7 @@
         ref="validationBoxRef"
       >
         <div
-          class="mx-auto bg-white rounded dark:bg-gray-900 p-4 md:p-6 lg:p-8"
+          class="mx-auto bg-white rounded dark:bg-gray-900 px-4 pb-4 pt-2 md:px-6 md:pb-6 lg:px-8 lg:pb-8"
         >
           <div class="flex items-center justify-between mb-1">
             <el-button text icon="Refresh" @click="resetSlider"></el-button>
@@ -146,6 +146,19 @@ const ifDraging = ref(false);
 const dragStatus = ref(false);
 const pass = ref(false);
 
+const initStatus = () => {
+  startX = 0;
+  ifDraging.value = false;
+  dragStatus.value = false;
+  pass.value = false;
+  if (imgBoxRef.value) {
+    imgBoxRef.value.classList.remove("passed");
+  }
+  if (validationBoxRef.value) {
+    validationBoxRef.value.style.setProperty("--dynamic-move", "0px");
+  }
+};
+
 const startDrag = (ev) => {
   ifDraging.value = true;
   dragStatus.value = true;
@@ -157,15 +170,13 @@ let animationFrameId = null;
 const moveDrag = (ev) => {
   if (!validationBoxRef.value || !ifDraging.value) return;
   if (animationFrameId) return;
-  animationFrameId = requestAnimationFrame(() => {
-    const clientX = ev.clientX;
-    const moveDistance = clientX - startX;
-    validationBoxRef.value.style.setProperty(
-      "--dynamic-move",
-      `${moveDistance}px`
-    );
-    animationFrameId = null;
-  });
+  const clientX = ev.clientX;
+  const moveDistance = clientX - startX;
+  validationBoxRef.value.style.setProperty(
+    "--dynamic-move",
+    `${moveDistance}px`
+  );
+  animationFrameId = null;
 };
 
 const endDrag = (ev) => {
@@ -175,6 +186,7 @@ const endDrag = (ev) => {
   const clientX = ev.clientX;
   const currentPosition = clientX - startX;
   const dis = Math.abs(currentPosition - randomPosition.x);
+
   // 允许15px的误差范围
   if (dis < 15) {
     imgBoxRef.value.classList.add("passed");
@@ -186,7 +198,7 @@ const endDrag = (ev) => {
     validationBoxRef.value.style.setProperty("--dynamic-move", "0px");
     setTimeout(() => {
       dragStatus.value = false;
-    }, 600);
+    }, 550);
   }
 };
 
@@ -201,7 +213,7 @@ const open = () => {
   sliderRef.value.addEventListener("pointerdown", startDrag, {
     passive: false,
   });
-  window.addEventListener("pointermove", moveDrag, { passive: false });
+  window.addEventListener("pointermove", moveDrag);
   window.addEventListener("pointerup", endDrag, { passive: false });
   window.addEventListener("resize", throttle(handleResize, 100));
 };
@@ -214,6 +226,7 @@ const close = () => {
   window.removeEventListener("pointermove", moveDrag);
   window.removeEventListener("pointerup", endDrag);
   window.removeEventListener("resize", throttle(handleResize, 100));
+  initStatus();
 };
 
 const sumbit = () => {

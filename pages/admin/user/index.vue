@@ -36,6 +36,19 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
+            <el-popconfirm
+              title="确定下线该用户?"
+              confirm-button-text="确定"
+              confirm-button-type="danger"
+              cancel-button-text="取消"
+              cancel-button-type="primary"
+              @confirm="handleDownLine(scope.row.id)"
+            >
+              <template #reference>
+                <el-button type="danger"> 下线 </el-button>
+              </template>
+            </el-popconfirm>
+
             <el-button type="warning" @click="handleEdit(scope.row)"
               >修改
             </el-button>
@@ -110,7 +123,7 @@
 </template>
 
 <script setup>
-import { getUserList, createUser, updateUser } from "~/api/user";
+import { getUserList, createUser, updateUser, downLine } from "~/api/user";
 
 definePageMeta({
   layout: "admin",
@@ -161,8 +174,39 @@ const {
   create: createUser,
   update: updateUser,
   rules: {
-    name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-    email: [{ required: true, message: "请输入邮箱", trigger: "blur" }],
+    imgData: [
+      {
+        required: false,
+        message: "请上传图片,内容大小不得超过2MB",
+        trigger: "blur",
+      },
+    ],
+    name: [
+      {
+        required: true,
+        message: "请输入昵称,宽度应在2-15之间",
+        trigger: "blur",
+        min: 2,
+        max: 15,
+      },
+    ],
+    email: [
+      {
+        required: true,
+        message: "请输入邮箱地址",
+        trigger: "blur",
+        type: "email",
+      },
+    ],
+    password: [
+      {
+        required: false,
+        message: "密码长度应在6-30之间",
+        trigger: "blur",
+        min: 6,
+        max: 30,
+      },
+    ],
   },
   berforSubmit: (form) => {
     const formData = new FormData();
@@ -171,4 +215,10 @@ const {
     return formData;
   },
 });
+
+const handleDownLine = (uid) => {
+  downLine(uid).then((res) => {
+    toast("下线成功");
+  });
+};
 </script>

@@ -96,9 +96,6 @@ const handleLogin = () => {
         });
       }, 200);
     })
-    .catch((err) => {
-      ElMessage.error("账号或密码错误");
-    })
     .finally(() => {
       btnLoading.value = false;
     });

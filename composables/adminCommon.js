@@ -54,14 +54,7 @@ export function useInitTable(opt = {}) {
       .delete(id)
       .then(() => {
         toast("删除成功");
-        if (
-          opt.afterDeleteSuccess &&
-          typeof opt.afterDeleteSuccess == "function"
-        ) {
-          opt.afterDeleteSuccess();
-        } else {
-          getData();
-        }
+        getData();
       })
       .finally(() => {
         loading.value = false;

@@ -44,7 +44,7 @@ const props = defineProps({
     require: true,
   },
 });
-const emits = defineEmits("comment");
+const emits = defineEmits(["comment"]);
 
 const hadLogin = userIfLogin();
 const userInfo = getUserInfoFromCookie();
