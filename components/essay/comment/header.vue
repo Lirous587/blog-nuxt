@@ -84,10 +84,12 @@ const handleCreate = () => {
       ElMessage.success("评论成功");
       const row = {
         id: res.data.id,
-        uid: userInfo.id,
+        user: {
+          id: userInfo.id,
+          avatar: userInfo.avatar,
+          name: userInfo.name,
+        },
         content: form.content,
-        avatar: userInfo.avatar,
-        name: userInfo.name,
         createTime: "刚刚",
       };
       emits("comment", row);

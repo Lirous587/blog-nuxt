@@ -2,12 +2,12 @@
   <div class="flex items-start">
     <!-- 左侧头像 -->
     <div class="p-2">
-      <el-avatar :size="38" :src="avatarPre + data.avatar"></el-avatar>
+      <el-avatar :size="38" :src="avatarPre + data.user.avatar"></el-avatar>
     </div>
     <!-- 右侧信息 -->
     <div class="flex flex-col flex-1 dark:text-gray-500 p-1 gap-y-1">
       <span class="font-bold font-sans">
-        {{ data.name }}
+        {{ data.user.name }}
       </span>
       <span>
         {{ data.content }}
@@ -25,6 +25,7 @@
         >
           {{ data.replayStatus ? "回复中" : "回复" }}
         </small>
+
         <el-popconfirm
           title="确认删除评论？"
           confirm-button-text="确认"
@@ -35,7 +36,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.uid === userInfo?.id || ifAdmin ? "删除" : "" }}
+              {{ data.user.id === userInfo?.id || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -133,7 +134,7 @@ const handleDelete = () => {
 const handleChoose = () => {
   emits("choose", props.data.id);
   form.parentID = props.data.id;
-  toUserName.value = props.data.name;
+  toUserName.value = props.data.user.name;
 };
 
 const handleRepliesChoose = (emitData) => {
@@ -157,13 +158,11 @@ const submitCreate = async () => {
 
 const handleCreate = () => {
   createEssayCommentReply(form).then((res) => {
-    ElMessage.success("评论成功");
-
     const row = {
       fromUser: {
         name: userInfo.name,
         avatar: userInfo.avatar,
-        uid: userInfo.id,
+        id: userInfo.id,
       },
       toUser: {
         name: form.toUserName,
@@ -176,6 +175,7 @@ const handleCreate = () => {
     };
     repliesRef.value.unshitOneReply(row);
 
+    ElMessage.success("评论成功");
     form.content = "";
   });
 };

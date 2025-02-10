@@ -52,7 +52,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.fromUser.uid === userInfo?.id || ifAdmin ? "删除" : "" }}
+              {{ data.fromUser.id === userInfo?.id || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -95,7 +95,6 @@ const handleChoose = (item) => {
 };
 
 const handleDelete = () => {
-  console.log(props.data);
   deleteEssayCommentReply(props.data.parentID, props.data.id).then(() => {
     emits("delete");
     ElMessage.success("删除回复成功");
