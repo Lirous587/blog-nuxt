@@ -51,6 +51,6 @@ export function userAuth() {
   return clientApi.get("/user/auth", "user");
 }
 
-export function downLine(uid) {
-  return clientApi.delete(`user/${uid}`, "admin");
+export function downLine(id) {
+  return clientApi.delete(`user/${id}`, "admin");
 }

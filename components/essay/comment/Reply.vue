@@ -37,7 +37,7 @@
       <div class="flex gap-x-3" v-if="hadLogin || ifAdmin">
         <small
           @click="handleChoose(data)"
-          v-if="data.id && data.fromUser.uid != userInfo?.uid && !ifAdmin"
+          v-if="data.id && data.fromUser.uid != userInfo?.id && !ifAdmin"
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
         >
           {{ data.replayStatus ? "回复中" : "回复" }}
@@ -52,7 +52,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.fromUser.uid === userInfo?.uid || ifAdmin ? "删除" : "" }}
+              {{ data.fromUser.uid === userInfo?.id || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -81,13 +81,13 @@ const hadLogin = userIfLogin();
 const emits = defineEmits(["choose", "delete"]);
 
 const emitData = reactive({
-  toUserUid: "",
+  toUID: "",
   toUserName: "",
   parentID: 0,
 });
 
 const handleChoose = (item) => {
-  emitData.toUserUid = item.fromUser.uid;
+  emitData.toUID = item.fromUser.uid;
   emitData.toUserName = item.fromUser.name;
   emitData.parentID = item.parentID;
   emits("choose", emitData);

@@ -35,7 +35,7 @@
             <small
               class="text-green-700 hover:cursor-pointer hover:text-blue-300"
             >
-              {{ data.uid === userInfo?.uid || ifAdmin ? "删除" : "" }}
+              {{ data.uid === userInfo?.id || ifAdmin ? "删除" : "" }}
             </small>
           </template>
         </el-popconfirm>
@@ -102,7 +102,7 @@ const userInfo = getUserInfoFromCookie();
 const hadLogin = userIfLogin();
 
 const form = reactive({
-  toUserUid: "0",
+  toUid: "0",
   parentID: 0,
   content: "",
   // 这里是非必须的 写下来方便后续unshift加
@@ -163,7 +163,7 @@ const handleCreate = () => {
       fromUser: {
         name: userInfo.name,
         avatar: userInfo.avatar,
-        uid: userInfo.uid,
+        uid: userInfo.id,
       },
       toUser: {
         name: form.toUserName,

@@ -84,7 +84,7 @@ const handleCreate = () => {
       ElMessage.success("评论成功");
       const row = {
         id: res.data.id,
-        uid: userInfo.uid,
+        uid: userInfo.id,
         content: form.content,
         avatar: userInfo.avatar,
         name: userInfo.name,

@@ -167,7 +167,7 @@ const {
     email: "",
     password: "",
     avatar: "",
-    uid: "",
+    id: "",
     status: false,
   }),
   getData,
@@ -216,8 +216,8 @@ const {
   },
 });
 
-const handleDownLine = (uid) => {
-  downLine(uid).then((res) => {
+const handleDownLine = (id) => {
+  downLine(id).then((res) => {
     toast("下线成功");
   });
 };

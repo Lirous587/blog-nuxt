@@ -30,7 +30,12 @@
     </div>
   </div>
 
-  <MyDrawer title="修改信息" size="320px" ref="drawerRefForUpdateInfo">
+  <MyDrawer
+    title="修改信息"
+    size="320px"
+    ref="drawerRefForUpdateInfo"
+    @submit="submitUpdateInfo"
+  >
     <el-form
       ref="updateInfoFormRef"
       :model="updateInfoForm"
@@ -53,14 +58,15 @@
       <el-form-item label="用户名" prop="name" for="name">
         <el-input v-model="updateInfoForm.name"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button type="success" @click="submitUpdateInfo">
-          更新信息
-        </el-button>
-      </el-form-item>
     </el-form>
   </MyDrawer>
-  <MyDrawer title="修改密码" size="320px" ref="drawerRefForRetPwd">
+
+  <MyDrawer
+    title="修改密码"
+    size="320px"
+    ref="drawerRefForRetPwd"
+    @submit="submitUpdatePwd"
+  >
     <el-form
       ref="updatePwdFormRef"
       :model="updatePwdForm"
@@ -82,11 +88,6 @@
           show-password
           name="rePassword"
         ></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="success" @click="submitUpdatePwd">
-          更新密码
-        </el-button>
       </el-form-item>
     </el-form>
   </MyDrawer>
