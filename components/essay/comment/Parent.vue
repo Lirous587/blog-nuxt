@@ -81,7 +81,7 @@ import {
   deleteEssayCommentParent,
 } from "~/api/essay_comment";
 
-const avatarPre = useRuntimeConfig().public.imgAvatarBase + "/";
+const avatarPre = useRuntimeConfig().public.imgAvatarBase;
 
 const ifAdmin = inject("admin", false);
 

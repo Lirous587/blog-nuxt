@@ -164,7 +164,7 @@ const {
   searchForm: reactive({
     kindID: 1,
     page: 1,
-    limit: 10,
+    limit: 12,
     keyword: "",
   }),
   onGetListSuccess: (res) => {

@@ -96,7 +96,7 @@
 <script setup>
 import { logout, updateMsg, updatePassword, getUserInfo } from "~/api/user";
 const router = useRouter();
-const imgPre = useRuntimeConfig().public.imgAvatarBase + "/";
+const imgPre = useRuntimeConfig().public.imgAvatarBase;
 
 const drawerRefForUpdateInfo = ref(null);
 const drawerRefForRetPwd = ref(null);

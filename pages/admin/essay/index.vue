@@ -192,7 +192,7 @@ const {
   delete: deleteEssay,
   searchForm: reactive({
     page: 1,
-    limit: 5,
+    limit: 8,
     keyword: "",
   }),
   onGetListSuccess: (data) => {
