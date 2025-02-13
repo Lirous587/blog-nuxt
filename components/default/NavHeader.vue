@@ -36,7 +36,7 @@
       </NuxtLink>
     </div>
 
-    <div class="mx-auto items-center gap-x-8 hidden lg:flex">
+    <div class="mx-auto items-center gap-x-4 hidden lg:flex">
       <NuxtLink to="/" class="nav flex items-center justify-center">
         <MyIconHome />
         <span>首页</span>
@@ -51,10 +51,10 @@
         <MyIconLink />
         <span>友链</span>
       </NuxtLink>
-      <!-- 我的 -->
-      <NuxtLink to="/me" class="nav flex items-center justify-center">
+      <!-- 时间轴 -->
+      <NuxtLink to="/timeEvent/1" class="nav flex items-center justify-center">
         <MyIconStar />
-        <span>知识库</span>
+        <span>时间轴</span>
       </NuxtLink>
     </div>
 

@@ -21,16 +21,16 @@
 <script setup>
 const list = ref([
   {
-    title: "友链",
-    url: "/friendLink",
+    title: "时间轴",
+    url: "/timeEvent/1",
   },
   {
     title: "心语",
     url: "/heartWord/1",
   },
   {
-    title: "我的",
-    url: "/me",
+    title: "友链",
+    url: "/friendLink",
   },
 ]);
 </script>
