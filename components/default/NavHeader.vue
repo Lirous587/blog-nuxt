@@ -36,7 +36,7 @@
       </NuxtLink>
     </div>
 
-    <div class="mx-auto items-center gap-x-4 hidden lg:flex">
+    <div class="mx-auto items-center gap-x-8 hidden lg:flex">
       <NuxtLink to="/" class="nav flex items-center justify-center">
         <MyIconHome />
         <span>首页</span>

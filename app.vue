@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-w-[320px]">
     <FullLoading
       v-if="isFullLoading || !isAnimationComplete"
       v-model:ifLoad="isFullLoading"

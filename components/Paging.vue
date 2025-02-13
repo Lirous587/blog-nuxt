@@ -4,7 +4,7 @@
     <div :class="ifMin ? 'cursor-not-allowed' : ''">
       <NuxtLink
         :to="preHref + '/' + Math.max(1, currentPage - Number(1))"
-        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center bg-neutral-200 text-white hover:bg-sky-200 dark:bg-gray-800 dark:hover:bg-gray-900 transition-all duration-200"
+        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center bg-neutral-100 text-white hover:bg-sky-200 dark:bg-gray-800 dark:hover:bg-gray-900 transition-all duration-200"
         :class="ifMin ? 'pointer-events-none' : ''"
       >
         <el-icon><ArrowLeft /></el-icon>
@@ -16,7 +16,7 @@
       v-for="(item, index) in list"
       :to="preHref + '/' + item.page"
       :key="index"
-      class="bg-neutral-200 hover:bg-sky-200 dark:bg-gray-800 hover:dark:bg-gray-900 h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white transition-all duration-200"
+      class="bg-neutral-100 hover:bg-sky-200 dark:bg-gray-800 hover:dark:bg-gray-900 h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 text-white transition-all duration-200"
       :class="{
         'bg-sky-200 dark:bg-gray-900': item.page == currentPage,
         'pointer-events-none': item.page == currentPage,
@@ -29,7 +29,7 @@
     <div :class="ifMax ? 'cursor-not-allowed' : ''">
       <NuxtLink
         :to="preHref + '/' + Math.min(pages, currentPage + Number(1))"
-        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center bg-neutral-200 text-white hover:bg-blue-200 dark:bg-gray-800 dark:hover:bg-gray-900 transition-all duration-200"
+        class="h-[2em] w-[2em] rounded-md leading-[2em] text-center mx-2 flex items-center justify-center bg-neutral-100 text-white hover:bg-blue-200 dark:bg-gray-800 dark:hover:bg-gray-900 transition-all duration-200"
         :class="ifMax ? 'cursor-not-allowed pointer-events-none' : ''"
       >
         <el-icon><ArrowRight /></el-icon>

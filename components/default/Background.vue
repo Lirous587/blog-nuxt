@@ -1,5 +1,5 @@
 <template>
-  <div class="select-none w-screen h-screen overflow-hidden">
+  <div class="select-none w-full h-screen overflow-hidden">
     <div class="w-full h-full">
       <el-image
         loading="eager"
