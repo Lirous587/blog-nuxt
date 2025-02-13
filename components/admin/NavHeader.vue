@@ -22,7 +22,7 @@
         </el-icon>
       </div>
     </div>
-    <NuxtLink to="/" class="flex items-center justify-center">
+    <NuxtLink to="/" class="my-auto">
       <MyIconHome></MyIconHome>
     </NuxtLink>
     <!-- 设置mode -->

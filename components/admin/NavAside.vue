@@ -87,6 +87,16 @@
       </el-menu-item>
     </NuxtLink>
 
+    <!-- 时间轴 -->
+    <NuxtLink to="/admin/timeEvent">
+      <el-menu-item index="/admin/timeEvent">
+        <el-icon><Calendar /></el-icon>
+        <template #title>
+          <span>时间轴</span>
+        </template>
+      </el-menu-item>
+    </NuxtLink>
+
     <!-- 友链 -->
     <NuxtLink to="/admin/">
       <el-menu-item index="/admin/friendLink">
