@@ -22,7 +22,7 @@
       </div>
     </template>
 
-    <el-container class="h-[600px]">
+    <div class="class flex h-[600px] overflow-auto">
       <el-aside
         width="180px"
         class="border border-pink-200 dark:border-gray-600"
@@ -38,7 +38,7 @@
           :oID="props.oID"
         ></AdminGalleryMain>
       </div>
-    </el-container>
+    </div>
   </el-card>
 </template>
 

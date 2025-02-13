@@ -17,7 +17,11 @@
       <el-table stripe :data="tableData" v-loading="loading">
         <el-table-column label="id" prop="id" width="120" align="center" />
         <el-table-column label="topic" prop="topic" align="center" />
-        <el-table-column label="介绍" prop="introduction" align="center" />
+        <el-table-column label="介绍" prop="introduction" align="center">
+          <template #default="scope">
+            <span class="truncate">{{ scope.row.introduction }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="图片" align="center">
           <template #default="scope">
             <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>

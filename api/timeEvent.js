@@ -1,3 +1,8 @@
+export function getTimeEventTimelines(query = {}) {
+  let q = queryToUrl(query);
+  return api.get(`/timeEvent/timelines${q}`);
+}
+
 export function getTimeEventList(query = {}) {
   let q = queryToUrl(query);
   return api.get(`/timeEvent${q}`);

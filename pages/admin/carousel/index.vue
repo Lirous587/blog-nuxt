@@ -92,7 +92,11 @@
           </el-input>
         </el-form-item>
         <el-form-item label="图片" prop="img">
-          <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
+          <ImgSelect
+            v-model:id="form.img.id"
+            :url="form.img.url"
+            :oID="form.img.id"
+          ></ImgSelect>
         </el-form-item>
       </el-form>
     </MyDrawer>

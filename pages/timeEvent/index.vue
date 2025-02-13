@@ -29,10 +29,10 @@
               </div>
 
               <div
-                class="h-[180px] sm:h-[200px] md:h-[220px] lg:h-[250px] overflow-auto"
+                class="h-[180px] sm:h-[200px] md:h-[220px] lg:h-[250px] overflow-auto mt-1"
               >
                 <el-image
-                  class="float-left select-none w-[120px] sm:w-[140px] md:w-[150px] h-full p-3 rounded-xs shadow-2xs border border-pink-400 ease-in-out dark:opacity-60 transition-all duration-500 mr-2"
+                  class="float-left select-none w-[120px] sm:w-[140px] md:w-[150px] h-full rounded-md shadow-2xs ease-in-out dark:opacity-60 transition-all duration-500 mr-2"
                   :src="imgPre + event.img.url"
                   lazy
                   fit="cover"
@@ -49,7 +49,7 @@
     <div ref="loadMoreTrigger" class="w-full flex items-center justify-center">
       <el-skeleton
         class="pl-10 !grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mr-2"
-        :loading="ifHaveMore"
+        :loading="isLoadingMore"
         animated
         :throttle="500"
         :count="3"
@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { getTimeEventList } from "~/api/timeEvent";
+import { getTimeEventTimelines } from "~/api/timeEvent";
 
 const config = useRuntimeConfig();
 const imgPre = config.public.imgGalleryBase;
@@ -93,16 +93,14 @@ definePageMeta({
 
 const queryForm = reactive({
   page: 1,
-  limit: 10,
+  limit: 4,
 });
 
 const list = ref([]);
-const pages = ref(1);
 
-await getTimeEventList(queryForm).then((res) => {
+await getTimeEventTimelines(queryForm).then((res) => {
   const data = res.data;
-  list.value = data.list;
-  pages.value = data.pages;
+  list.value = data;
 });
 
 const isLoadingMore = ref(false);
@@ -111,23 +109,23 @@ const loadMoreTrigger = ref(null);
 
 const loadMore = () => {
   //  1.正在加载的时候不去处理
-  if (isLoadingMore.value) {
-    ifHaveMore.value = false;
-    return;
-  }
-  // 2.queryForm.page >= pages.value时加载完成
-  // 判断是否还有下一页且当前不在加载中
-  if (queryForm.page >= pages.value) {
-    ifHaveMore.value = false;
+  if (isLoadingMore.value || !ifHaveMore.value) {
     return;
   }
 
   isLoadingMore.value = true;
   queryForm.page += 1;
-  getTimeEventList(queryForm)
+  getTimeEventTimelines(queryForm)
     .then((res) => {
+      const data = res.data;
+      if (Array.isArray(data) && data.length < queryForm.limit) {
+        ifHaveMore.value = false;
+      }
+      if (!res) {
+        ifHaveMore.value = false;
+      }
       // 合并新数据到原列表
-      list.value.push(...res.data.list);
+      list.value.push(...res.data);
     })
     .finally(() => {
       isLoadingMore.value = false;

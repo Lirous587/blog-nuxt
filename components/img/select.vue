@@ -1,6 +1,6 @@
 <template>
-  <MyDialog title="选择图片" width="80%" ref="dialogRef">
-    <AdminGallery @select="handleSelectImg" />
+  <MyDialog title="选择图片" width="100%" ref="dialogRef" class="overflow-auto">
+    <AdminGallery :oID="imgID" @select="handleSelectImg" />
   </MyDialog>
   <div
     @click="dialogRef.open"
