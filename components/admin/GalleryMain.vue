@@ -104,7 +104,7 @@
           </template>
           <template #preview="previewProps">
             <div
-              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
+              class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50 overflow-hidden"
             >
               <el-image
                 v-if="previewProps.previewUrl"
@@ -162,7 +162,7 @@ const {
   getList: getGalleryList,
   delete: deleteGallery,
   searchForm: reactive({
-    kindID: 1,
+    kindID: props.kindID,
     page: 1,
     limit: 12,
     keyword: "",
@@ -207,6 +207,7 @@ const {
   create: createGallery,
   update: updateGallery,
   berforSubmit: (form) => {
+    form.kindID = props.kindID;
     if (editId.value === 0) {
       const formData = new FormData();
       formData.append("img", form.imgData);

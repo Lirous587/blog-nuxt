@@ -31,6 +31,7 @@
       </el-aside>
       <div class="flex-1 pr-5 border border-pink-200 dark:border-gray-600">
         <AdminGalleryMain
+          v-if="kindID"
           @select="handleSelectImg"
           ref="mainRef"
           :kindID="kindID"
@@ -52,7 +53,7 @@ const props = defineProps({
   },
 });
 
-const kindID = ref(1);
+const kindID = ref(0);
 
 const handleChangeKind = (id) => {
   kindID.value = id;
