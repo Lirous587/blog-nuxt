@@ -52,7 +52,7 @@
         <span>友链</span>
       </NuxtLink>
       <!-- 时间轴 -->
-      <NuxtLink to="/timeEvent/1" class="nav flex items-center justify-center">
+      <NuxtLink to="/timeEvent" class="nav flex items-center justify-center">
         <MyIconStar />
         <span>时间轴</span>
       </NuxtLink>

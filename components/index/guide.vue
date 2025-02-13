@@ -22,7 +22,7 @@
 const list = ref([
   {
     title: "时间轴",
-    url: "/timeEvent/1",
+    url: "/timeEvent",
   },
   {
     title: "心语",

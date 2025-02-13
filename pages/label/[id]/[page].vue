@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>  
+<script setup>
 import { getEssayList } from "~/api/essay";
 import { useMyIndexStore } from "~/store";
 
@@ -19,7 +19,7 @@ definePageMeta({
 const route = useRoute();
 const queryForm = reactive({
   labelID: route.params.id,
-  page: route.params.page || 1,
+  page: parseInt(route.params.page) || 1,
   limit: 8,
 });
 const list = ref([]);

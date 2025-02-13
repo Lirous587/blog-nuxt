@@ -97,6 +97,7 @@ export function genRandomKey() {
   // Date.now()：获取当前时间戳，确保生成的键是唯一的。
   return "key_" + Math.random().toString(36).substring(2, 9);
 }
+
 export function getNowEquipment() {
   let facilityType = "computer";
   let windowWidth = window.innerWidth;
@@ -106,4 +107,26 @@ export function getNowEquipment() {
     facilityType = "ipad";
   }
   return facilityType;
+}
+
+export function ScrollLoading(elemntRef, loadMore) {
+  let observer = null;
+
+  onMounted(() => {
+    observer = new IntersectionObserver((entries) => {
+      // 当目标元素进入视口
+      if (entries[0].isIntersecting) {
+        loadMore();
+      }
+    });
+    if (elemntRef.value) {
+      observer.observe(elemntRef.value);
+    }
+  });
+
+  onUnmounted(() => {
+    if (observer && elemntRef.value) {
+      observer.unobserve(elemntRef.value);
+    }
+  });
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="select-none grid grid-cols-1 lg:grid-cols-2 gap-3">
+  <div class="select-none grid grid-cols-1 md:grid-cols-2 gap-3">
     <div v-for="item in list" :key="item.id">
       <div
         class="relative border border-pink-300 hover:!border-yellow-200 rounded-md overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg dark:bg-black dark:border-gray-800"
