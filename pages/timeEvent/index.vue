@@ -7,23 +7,23 @@
         placement="top"
       >
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mr-2">
-          <div v-for="event in item.events">
+          <div v-for="record in item.records">
             <el-card
               shadow="always"
               class="min-w-[300px] overflow-hidden relative hover:!shadow-lg transition-all duration-300 transform mb-4"
             >
               <div class="flex justify-between">
                 <div class="font-bold text-pink-400 dark:text-yellow-600">
-                  {{ event.topic }}
+                  {{ record.topic }}
                 </div>
 
                 <el-link
-                  :href="event.relatedLink"
+                  :href="record.relatedLink"
                   target="_blank"
                   :underline="true"
                 >
                   <span class="font-bold text-pink-400 dark:text-blue-600">
-                    {{ event.relatedLink ? "相关链接" : "" }}
+                    {{ record.relatedLink ? "相关链接" : "" }}
                   </span>
                 </el-link>
               </div>
@@ -33,12 +33,12 @@
               >
                 <el-image
                   class="float-left select-none w-[120px] sm:w-[140px] md:w-[150px] h-full rounded-md shadow-2xs ease-in-out dark:opacity-60 transition-all duration-500 mr-2"
-                  :src="imgPre + event.img.url"
+                  :src="imgPre + record.img.url"
                   lazy
                   fit="cover"
                 />
                 <small class="block mt-2 text-pink-400">
-                  {{ event.introduction }}
+                  {{ record.introduction }}
                 </small>
               </div>
             </el-card>
@@ -125,7 +125,7 @@ const loadMore = () => {
         ifHaveMore.value = false;
       }
       // 合并新数据到原列表
-      list.value.push(...res.data);
+      list.value.push(...data);
     })
     .finally(() => {
       isLoadingMore.value = false;

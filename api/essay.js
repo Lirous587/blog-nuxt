@@ -22,3 +22,8 @@ export function deleteEssay(id) {
 export function searchEssay(form) {
   return clientApi.post("/base/essaySearch", form);
 }
+
+export function getEssayTimelines(query = {}) {
+  let q = queryToUrl(query);
+  return api.get(`/essay/timelines${q}`);
+}

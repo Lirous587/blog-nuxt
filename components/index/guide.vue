@@ -25,6 +25,10 @@ const list = ref([
     url: "/timeEvent",
   },
   {
+    title: "归档",
+    url: "/essay/timelines",
+  },
+  {
     title: "心语",
     url: "/heartWord/1",
   },

@@ -21,7 +21,7 @@
         <MyDrawer
           title="相关导航"
           direction="ltr"
-          size="280px"
+          size="300px"
           class="dark:bg-black"
           :open-delay="250"
           ref="drawerRef"
@@ -55,6 +55,15 @@
       <NuxtLink to="/timeEvent" class="nav flex items-center justify-center">
         <MyIconStar />
         <span>时间轴</span>
+      </NuxtLink>
+
+      <!-- 归档 -->
+      <NuxtLink
+        to="/essay/timelines"
+        class="nav flex items-center justify-center"
+      >
+        <MyIconBook />
+        <span>归档</span>
       </NuxtLink>
     </div>
 
