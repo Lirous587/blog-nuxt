@@ -141,10 +141,20 @@ const confirmCrop = () => {
     const canvas = cropper.getCroppedCanvas();
     if (canvas) {
       canvas.toBlob((blob) => {
-        // 更新 imgData 为裁剪后的 blob 数据
-        imgData.value = blob;
+        // 获取原始文件的后缀，若不存在则默认使用 .jpg
+        const originalFileName = imgData.value.name || "original.jpg";
+        const extension =
+          originalFileName.substring(originalFileName.lastIndexOf(".")) ||
+          ".jpg";
+        const newFileName = "cropped" + extension;
+        // 创建新的 File 对象，保留后缀
+        const fileWithExtension = new File([blob], newFileName, {
+          type: blob.type,
+        });
+        // 更新 imgData 为裁剪后的 File 对象
+        imgData.value = fileWithExtension;
         // 生成新的预览 URL
-        const croppedUrl = URL.createObjectURL(blob);
+        const croppedUrl = URL.createObjectURL(fileWithExtension);
         if (currentObjectUrl) {
           URL.revokeObjectURL(currentObjectUrl);
         }
