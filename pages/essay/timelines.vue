@@ -21,7 +21,12 @@
       </el-timeline-item>
     </el-timeline>
     <div ref="loadMoreTrigger" class="w-full flex items-center justify-center">
-      <el-skeleton :rows="3" animated :loading="isLoadingMore"></el-skeleton>
+      <el-skeleton
+        :rows="3"
+        throttle="500"
+        animated
+        :loading="isLoadingMore"
+      ></el-skeleton>
     </div>
   </div>
 </template>

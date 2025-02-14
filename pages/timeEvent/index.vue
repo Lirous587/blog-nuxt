@@ -93,7 +93,7 @@ definePageMeta({
 
 const queryForm = reactive({
   page: 1,
-  limit: 4,
+  limit: 10,
 });
 
 const list = ref([]);
@@ -117,7 +117,7 @@ const loadMore = () => {
   queryForm.page += 1;
   getTimeEventTimelines(queryForm)
     .then((res) => {
-      const data = res.data;
+      let data = res.data;
       if (Array.isArray(data) && data.length < queryForm.limit) {
         ifHaveMore.value = false;
       }

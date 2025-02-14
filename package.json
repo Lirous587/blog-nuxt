@@ -12,6 +12,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@tailwindcss/vite": "^4.0.0",
+    "cropperjs": "^1.6.2",
     "dayjs": "^1.11.13",
     "element-plus": "^2.9.3",
     "md-editor-v3": "^5.2.1",

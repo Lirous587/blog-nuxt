@@ -90,7 +90,12 @@
   >
     <el-form :model="form" ref="formRef" label-width="80px" :inline="false">
       <el-form-item label="图片内容" v-if="drawerTitle === '新增'">
-        <ImgUpload v-model:imgData="form.imgData">
+        <ImgUpload
+          v-model:imgData="form.imgData"
+          size-limit="10MB"
+          :if-custom="true"
+          :-crop-ratio="NaN"
+        >
           <template #default>
             <div
               class="w-[200px] h-[200px] flex items-center justify-center border rounded-md bg-red-50"
@@ -167,8 +172,6 @@ const {
     let list = res.list;
     if (Array.isArray(list)) {
       list = list.map((o) => {
-        console.log(o.id);
-        console.log(props.oID);
         if (o.id === props.oID) {
           return { ...o, checked: true };
         } else {
