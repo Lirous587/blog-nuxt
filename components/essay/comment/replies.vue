@@ -11,9 +11,10 @@
 
     <el-pagination
       layout="prev, pager, next"
-      :page-count="pages"
       :hide-on-single-page="true"
       @change="changePage"
+      :page-count="pages || 1"
+      @current-change="changePage"
     />
   </div>
 </template>
@@ -42,7 +43,10 @@ const getList = async () => {
   await getEssayCommentReplies(query)
     .then((res) => {
       const data = res.data;
-      list.value = data.list;
+      list.value = [];
+      if (Array.isArray(data.list)) {
+        list.value = data.list;
+      }
       pages.value = data.pages;
     })
     .finally(() => {

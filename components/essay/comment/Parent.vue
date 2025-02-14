@@ -108,15 +108,23 @@ const form = reactive({
   content: "",
   // 这里是非必须的 写下来方便后续unshift加
   toUserName: "",
-  parentID: 0,
 });
 const formRef = ref(null);
+const validateContent = (rule, value, callback) => {
+  if (!value || value.trim().length === 0) {
+    form.content = "";
+    callback(new Error("评论内容不能为空或全为空格"));
+  } else {
+    callback();
+  }
+};
+
 const rules = reactive({
   content: [
     {
       required: true,
-      message: "请输入评论内容",
       trigger: "blur",
+      validator: validateContent,
     },
   ],
 });

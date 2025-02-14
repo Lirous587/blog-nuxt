@@ -160,8 +160,11 @@ export const useInitForm = (opt) => {
 
   // 提交表单
   const handleSubmit = () => {
-    formRef.value.validate((valid) => {
-      if (!valid) return;
+    formRef.value.validate((valid, fields) => {
+      if (!valid) {
+        toast("信息填写有误,请检查表单", "error");
+        return;
+      }
 
       drawerRef.value.showLoading();
 
