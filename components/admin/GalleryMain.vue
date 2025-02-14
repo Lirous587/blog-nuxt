@@ -92,7 +92,7 @@
       <el-form-item label="图片内容" v-if="drawerTitle === '新增'">
         <ImgUpload
           v-model:imgData="form.imgData"
-          size-limit="10MB"
+          size-limit="5MB"
           :if-custom="true"
           :-crop-ratio="NaN"
         >

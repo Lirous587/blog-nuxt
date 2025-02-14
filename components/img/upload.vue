@@ -46,7 +46,7 @@ import "cropperjs/dist/cropper.css";
 const props = defineProps({
   sizeLimit: {
     type: String,
-    default: "1MB",
+    default: "3MB",
   },
   CropRatio: {
     type: Number,
@@ -125,7 +125,6 @@ const initCropper = () => {
       dragMode: props.ifCustom ? "crop" : "move", // move是固定裁剪框，不允许拖动改变大小
       cropBoxResizable: props.ifCustom, // 禁止调整裁剪框大小
       ready() {
-        console.log(!props.ifCustom);
         if (!props.ifCustom) {
           cropper.setCropBoxData({
             width: props.CropWidth,

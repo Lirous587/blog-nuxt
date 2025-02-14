@@ -67,6 +67,9 @@
       <el-form-item label="分类名" prop="name">
         <el-input v-model="form.name" placeholder="请输入分类名"> </el-input>
       </el-form-item>
+      <el-form-item label="优先级" prop="priority">
+        <el-input-number v-model="form.priority" :min="0" :max="200" />
+      </el-form-item>
     </el-form>
   </MyDrawer>
 </template>
@@ -125,6 +128,7 @@ const {
   form: reactive({
     name: "",
     introduction: "",
+    priority: 50,
   }),
   getData,
   create: createGalleryKind,

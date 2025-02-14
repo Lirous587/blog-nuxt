@@ -7,7 +7,7 @@
     </h1>
     <el-form ref="formRef" :model="form" :rules="rules" class="w-full">
       <el-form-item prop="imgData" for="imgData">
-        <ImgUpload v-model:imgData="form.imgData" size-limit="2MB">
+        <ImgUpload v-model:imgData="form.imgData" size-limit="4MB">
           <template #default>
             <div class="flex items-center justify-center gap-x-2">
               <el-avatar size="large"></el-avatar>

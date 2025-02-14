@@ -86,7 +86,7 @@
         :rules="rules"
       >
         <el-form-item label="头像" prop="imgData">
-          <ImgUpload v-model:imgData="form.imgData" size-limit="2MB">
+          <ImgUpload v-model:imgData="form.imgData" size-limit="4MB">
             <template #default>
               <el-avatar size="large" :src="imgPre + form.avatar"></el-avatar>
               <br />
