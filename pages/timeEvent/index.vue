@@ -18,7 +18,7 @@
                 </div>
 
                 <el-link
-                  :href="record.relatedLink"
+                  :href="getLink(record.relatedLink)"
                   target="_blank"
                   :underline="true"
                 >
@@ -46,38 +46,34 @@
         </div>
       </el-timeline-item>
     </el-timeline>
-    <div ref="loadMoreTrigger" class="w-full flex items-center justify-center">
-      <el-skeleton
-        class="pl-10 !grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mr-2"
-        :loading="isLoadingMore"
-        animated
-        :throttle="500"
-        :count="3"
-      >
-        <template #template>
-          <div>
-            <el-skeleton-item variant="text" class="!w-[80px]" />
-            <div class="flex">
-              <el-skeleton-item
-                variant="image"
-                class="!h-[180px] sm:!h-[200px] md:!h-[220px] lg:!h-[250px] !w-[120px] sm:!w-[140px] md:!w-[150px] overflow-auto"
-              />
-              <div>
-                <el-skeleton-item
-                  variant="text"
-                  class="!ml-[20px] !w-[100px]"
-                />
-                <br />
-                <el-skeleton-item
-                  variant="text"
-                  class="!ml-[20px] !w-[100px]"
-                />
-              </div>
+
+    <el-skeleton
+      class="pl-10 !grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mr-2"
+      :loading="isLoadingMore"
+      animated
+      :count="3"
+    >
+      <template #template>
+        <div>
+          <el-skeleton-item variant="text" class="!w-[80px]" />
+          <div class="flex">
+            <el-skeleton-item
+              variant="image"
+              class="!h-[180px] sm:!h-[200px] md:!h-[220px] lg:!h-[250px] !w-[120px] sm:!w-[140px] md:!w-[150px] overflow-auto"
+            />
+            <div>
+              <el-skeleton-item variant="text" class="!ml-[20px] !w-[100px]" />
+              <br />
+              <el-skeleton-item variant="text" class="!ml-[20px] !w-[100px]" />
             </div>
           </div>
-        </template>
-      </el-skeleton>
-    </div>
+        </div>
+      </template>
+    </el-skeleton>
+    <div
+      ref="loadMoreTrigger"
+      class="w-full h-[50px] flex items-center justify-center"
+    ></div>
   </div>
 </template>
 
@@ -108,28 +104,26 @@ const ifHaveMore = ref(true);
 const loadMoreTrigger = ref(null);
 
 const loadMore = () => {
-  //  1.正在加载的时候不去处理
+  //  1.正在加载的时候或者没有数据了就不去处理
   if (isLoadingMore.value || !ifHaveMore.value) {
     return;
   }
 
   isLoadingMore.value = true;
   queryForm.page += 1;
-  getTimeEventTimelines(queryForm)
-    .then((res) => {
-      let data = res.data;
-      if (Array.isArray(data) && data.length < queryForm.limit) {
-        ifHaveMore.value = false;
-      }
-      if (!res) {
-        ifHaveMore.value = false;
-      }
-      // 合并新数据到原列表
-      list.value.push(...data);
-    })
-    .finally(() => {
+  getTimeEventTimelines(queryForm).then((res) => {
+    const data = res.data || [];
+    if (Array.isArray(data) && data.length < queryForm.limit) {
+      ifHaveMore.value = false;
+    }
+    if (!res) {
+      ifHaveMore.value = false;
+    }
+    setTimeout(() => {
       isLoadingMore.value = false;
-    });
+      list.value.push(...data);
+    }, 800);
+  });
 };
 
 ScrollLoading(loadMoreTrigger, loadMore);

@@ -24,7 +24,12 @@
         ></el-table-column>
         <el-table-column label="名称" prop="name" align="center">
         </el-table-column>
-        <el-table-column label="介绍" prop="introduction" align="center">
+        <el-table-column
+          label="介绍"
+          prop="introduction"
+          align="center"
+          show-overflow-tooltip
+        >
         </el-table-column>
         <el-table-column label="文章数" prop="essayCount" align="center">
         </el-table-column>

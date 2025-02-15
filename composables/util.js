@@ -130,3 +130,8 @@ export function ScrollLoading(elemntRef, loadMore) {
     }
   });
 }
+
+export function getLink(url) {
+  if (!url) return "";
+  return /^https?:\/\//.test(url) ? url : "http://" + url;
+}

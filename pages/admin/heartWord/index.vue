@@ -21,20 +21,14 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="内容" prop="content" align="center">
-        </el-table-column>
-        <el-table-column label="出处" prop="source" align="center">
-        </el-table-column>
-        <el-table-column label="是否推荐" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifRecommend" />
-          </template>
-        </el-table-column>
-        <el-table-column label="是否置顶" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifTop" />
-          </template>
-        </el-table-column>
+        <el-table-column
+          label="内容"
+          prop="content"
+          align="center"
+          show-overflow-tooltip
+        />
+        <el-table-column label="出处" prop="source" align="center" />
+        <el-table-column label="优先级" prop="priority" align="center" />
         <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
@@ -104,17 +98,12 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="是否推荐">
-          <el-radio-group v-model="form.ifRecommend">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否置顶">
-          <el-radio-group v-model="form.ifTop">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
+        <el-form-item label="优先级">
+          <el-input-number
+            :min="0"
+            :max="200"
+            v-model="form.priority"
+          ></el-input-number>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -168,8 +157,7 @@ const {
     id: 0,
     content: "",
     source: "",
-    ifRecommend: false,
-    ifTop: false,
+    priority: 100,
   }),
   getData,
   create: createHeartWord,

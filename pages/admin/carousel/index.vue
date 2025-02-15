@@ -21,7 +21,12 @@
           width="120"
           align="center"
         ></el-table-column>
-        <el-table-column label="介绍" prop="introduction" align="center">
+        <el-table-column
+          label="介绍"
+          prop="introduction"
+          align="center"
+          show-overflow-tooltip
+        >
         </el-table-column>
 
         <el-table-column label="图片" align="center">

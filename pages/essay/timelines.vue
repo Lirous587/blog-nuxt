@@ -20,14 +20,11 @@
         </div>
       </el-timeline-item>
     </el-timeline>
-    <div ref="loadMoreTrigger" class="w-full flex items-center justify-center">
-      <el-skeleton
-        :rows="3"
-        throttle="500"
-        animated
-        :loading="isLoadingMore"
-      ></el-skeleton>
-    </div>
+    <el-skeleton :rows="3" animated :loading="isLoadingMore"></el-skeleton>
+    <div
+      ref="loadMoreTrigger"
+      class="w-full h-[50px] flex items-center justify-center"
+    ></div>
   </div>
 </template>
 
@@ -40,7 +37,7 @@ definePageMeta({
 
 const queryForm = reactive({
   page: 1,
-  limit: 10,
+  limit: 3,
 });
 
 const list = ref([]);
@@ -62,21 +59,23 @@ const loadMore = () => {
 
   isLoadingMore.value = true;
   queryForm.page += 1;
-  getEssayTimelines(queryForm)
-    .then((res) => {
-      const data = res.data;
-      if (Array.isArray(data) && data.length < queryForm.limit) {
-        ifHaveMore.value = false;
-      }
-      if (!res) {
-        ifHaveMore.value = false;
-      }
-      // 合并新数据到原列表
-      list.value.push(...res.data);
-    })
-    .finally(() => {
+
+  let x;
+
+  getEssayTimelines(queryForm).then((res) => {
+    const data = res.data || [];
+    if (Array.isArray(data) && data.length < queryForm.limit) {
+      ifHaveMore.value = false;
+    }
+    if (!res) {
+      ifHaveMore.value = false;
+    }
+
+    setTimeout(() => {
       isLoadingMore.value = false;
-    });
+      list.value.push(...res.data);
+    }, 500);
+  });
 };
 
 ScrollLoading(loadMoreTrigger, loadMore);

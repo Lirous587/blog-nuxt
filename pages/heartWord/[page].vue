@@ -10,26 +10,6 @@
             : '!bg-green-50 dark:!bg-black'
         "
       >
-        <div
-          v-if="item.ifRecommend || item.ifTop"
-          class="absolute top-0 left-0 w-[35px] h-[35px] flex items-center justify-center bg-gradient-to-r dark:from-black dark:to-black shadow-sm rounded-br-full"
-          :class="
-            item.ifTop
-              ? 'from-purple-300 to-blue-400'
-              : 'from-blue-200 to-pink-200'
-          "
-        ></div>
-
-        <div
-          v-if="item.ifRecommend || item.ifTop"
-          class="absolute bottom-0 right-0 w-[35px] h-[35px] flex items-center justify-center bg-gradient-to-r dark:from-black dark:to-black shadow-sm rounded-tl-full"
-          :class="
-            item.ifTop
-              ? 'from-blue-200 to-green-300'
-              : 'from-green-300 to-yellow-200'
-          "
-        ></div>
-
         <div class="color-text-radial">
           {{ item.content }}
         </div>

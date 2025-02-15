@@ -32,23 +32,19 @@
         </el-table-column>
         <el-table-column label="分类" prop="kindName" align="center">
         </el-table-column>
-        <el-table-column label="简介" prop="introduction" align="center">
+        <el-table-column
+          label="简介"
+          prop="introduction"
+          align="center"
+          show-overflow-tooltip
+        >
         </el-table-column>
         <el-table-column label="图片" align="center">
           <template #default="scope">
             <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column label="是否推荐" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifRecommend" />
-          </template>
-        </el-table-column>
-        <el-table-column label="是否置顶" align="center">
-          <template #default="scope">
-            <el-switch disabled v-model="scope.row.ifTop" />
-          </template>
-        </el-table-column>
+        <el-table-column label="优先级" prop="priority" align="center" />
         <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
@@ -143,17 +139,12 @@
             "
           ></DynamicAddTag>
         </el-form-item>
-        <el-form-item label="是否置顶">
-          <el-radio-group v-model="form.ifTop">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="是否推荐">
-          <el-radio-group v-model="form.ifRecommend">
-            <el-radio :value="true" size="large">是</el-radio>
-            <el-radio :value="false" size="large">否</el-radio>
-          </el-radio-group>
+        <el-form-item label="优先级">
+          <el-input-number
+            v-model="form.priority"
+            :min="0"
+            :max="200"
+          ></el-input-number>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -230,8 +221,7 @@ const {
     labelIds: [],
     introduction: "",
     content: "",
-    ifTop: false,
-    ifRecommend: false,
+    priority: 100,
     theme: "default",
     keywords: "",
     img: {

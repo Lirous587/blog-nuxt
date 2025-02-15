@@ -4,11 +4,6 @@
       <div
         class="relative border border-pink-300 hover:!border-yellow-200 rounded-md overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg dark:bg-black dark:border-gray-800"
       >
-        <div
-          v-if="item.ifRecommend || item.ifTop"
-          class="absolute z-10 bottom-0 right-0 w-[35px] h-[35px] bg-gradient-to-r dark:from-black dark:to-black shadow-sm rounded-tl-full from-pink-100 to-indigo-100"
-        ></div>
-
         <NuxtLink
           :to="'/essay/' + item.id"
           class="flex justify-center w-full h-[180px] md:h-[250px] lg:h-[200px] overflow-hidden"
