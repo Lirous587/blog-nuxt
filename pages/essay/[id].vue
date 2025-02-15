@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5 bg-white dark:bg-black">
+  <div class="pt-5 px-2 md:px-4 bg-white dark:bg-black">
     <div>
       <div class="flex justify-between items-center mb-2">
         <TypeWriter
@@ -38,7 +38,10 @@
     </div>
 
     <div class="flex">
-      <main class="flex-1 overflow-x-scroll" @click="mobileAnchorShow = false">
+      <main
+        class="flex-1 overflow-x-auto min-w-[300px]"
+        @click="mobileAnchorShow = false"
+      >
         <MdPreview
           ref="mdRef"
           :previewTheme="data.theme"
@@ -47,15 +50,20 @@
         <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
           <EssayComment :eid="id"></EssayComment>
         </div>
+        <EssayNearList :list="data.nearEssayList"></EssayNearList>
       </main>
-      <aside class="md-anchor select-none">
-        <div v-if="mdRef">
-          <EssayAnchor :anchors="mdRef.anchors"></EssayAnchor>
-        </div>
+      <aside
+        v-if="mdRef && Array.isArray(mdRef.anchors) && mdRef.anchors.length > 0"
+        class="anchor sticky top-[70px] right-[5px] hidden lg:block"
+      >
+        <EssayAnchor :anchors="mdRef.anchors"></EssayAnchor>
       </aside>
     </div>
 
-    <div class="select-none mobile-anchor" v-if="mdRef">
+    <div
+      class="anchor fixed top-[70px] right-[5px] lg:hidden"
+      v-if="mdRef && Array.isArray(mdRef.anchors) && mdRef.anchors.length > 0"
+    >
       <EssayAnchor
         :anchors="mdRef.anchors"
         :class="mobileAnchorShow ? 'block' : 'hidden'"
@@ -130,20 +138,18 @@ const scrollToChatArea = () => {
 </script>
 
 <style scoped>
-@reference "assets/css/tailwind.css";
-
-.md-anchor {
-  @apply sticky top-[70px] right-0 mx-3 max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl  hidden md:block md:min-w-[240px] lg:min-w-[280px] lg:mx-4;
+.anchor {
+  height: fit-content;
+  max-height: 500px;
+  min-width: 160px;
+  overflow: auto;
+  border-radius: 8px;
+  border: 1px solid pink;
 }
-.md-anchor::-webkit-scrollbar {
-  display: none;
+.dark .anchor {
+  border: 1px solid rgb(14, 21, 52);
 }
-
-.mobile-anchor {
-  @apply fixed top-[65px] right-0  max-h-[calc(100vh-120px)] overflow-y-scroll overflow-x-hidden rounded-xl lg:hidden;
-}
-
-.mobile-anchor::-webkit-scrollbar {
+.anchor::-webkit-scrollbar {
   display: none;
 }
 </style>

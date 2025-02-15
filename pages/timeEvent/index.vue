@@ -89,7 +89,7 @@ definePageMeta({
 
 const queryForm = reactive({
   page: 1,
-  limit: 10,
+  limit: 5,
 });
 
 const list = ref([]);

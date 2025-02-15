@@ -187,7 +187,10 @@ export const useInitForm = (opt) => {
           drawerRef.value.close();
         })
         .finally(() => {
-          drawerRef.value.hideLoading();
+          // 放在误触
+          setTimeout(() => {
+            drawerRef.value.hideLoading();
+          }, 1000);
         });
     });
   };

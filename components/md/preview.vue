@@ -61,7 +61,10 @@ const observerHList = () => {
           anchors.value.forEach((anchor) => {
             anchor.active = false;
           });
-          anchors.value.find((item) => item.id === id).active = true;
+          const anchor = anchors.value.find((item) => item.id === id);
+          if (!anchor.active) {
+            anchor.active = true;
+          }
         }
       });
     },
