@@ -43,7 +43,7 @@
       label-width="80px"
     >
       <el-form-item label="头像" for="avatar">
-        <ImgUpload v-model:imgData="updateInfoForm.imgData" size-limit="4MB">
+        <ImgUpload v-model:imgData="updateInfoForm.imgData" size-limit="3MB">
           <template #default>
             <el-avatar size="large" :src="imgPre + userInfo.avatar"></el-avatar>
             <br />

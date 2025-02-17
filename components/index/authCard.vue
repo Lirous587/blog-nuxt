@@ -22,10 +22,12 @@
       <NuxtLink
         target="_blank"
         to="https://github.com/Lirous587"
-        class="bg-green-400 py-1 px-5 rounded-2xl flex items-center gap-x-1 transition-all duration-300 hover:bg-yellow-500"
+        class="bg-green-400 dark:bg-pink-400 py-1 px-5 rounded-2xl flex items-center gap-x-1 transition-all duration-300 hover:bg-yellow-500"
       >
-        <el-icon color="red" size="16"><Star /></el-icon>
-        <span class="text-cyan-50">关于作者 </span>
+        <el-icon size="16" class="!text-gray-500 dark:!text-blue-300"
+          ><Star
+        /></el-icon>
+        <span class="text-gray-500 dark:text-blue-200">关于作者 </span>
       </NuxtLink>
     </div>
   </el-card>

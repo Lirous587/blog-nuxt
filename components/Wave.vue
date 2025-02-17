@@ -1,15 +1,15 @@
 <template>
   <div class="relative">
     <div
-      class="wave-animation h-[80px]"
+      class="wave-animation h-[80px] backdrop-brightness-150 backdrop-opacity-0"
       style="background-image: url(/wave1.png)"
     ></div>
     <div
-      class="wave-animation h-[80px]"
+      class="wave-animation h-[80px] ackdrop-brightness-150 backdrop-opacity-0"
       style="background-image: url(/wave2.png)"
     ></div>
     <div
-      class="absolute inset-0 transition-all duration-300 bg-black/70 h-0 dark:h-[60px]"
+      class="absolute inset-0 transition-all duration-300 bg-black/60 h-0 dark:h-[60px]"
     ></div>
   </div>
 </template>

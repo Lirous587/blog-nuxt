@@ -5,7 +5,6 @@
     :previewTheme="codeTheme"
     :showToolbarName="true"
     :theme="themeStore.theme"
-    :toolbarsExclude="toolbarsExclude"
     noUploadImg
     ref="editorRef"
   >
@@ -35,6 +34,7 @@ const props = defineProps({
 const content = defineModel("content", {
   type: String,
   required: true,
+  default: "",
 });
 
 const editorRef = ref(null);
