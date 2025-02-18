@@ -10,7 +10,7 @@
       <div
         class="absolute top-0 left-0 w-[5px] h-full bg-pink-300 dark:bg-blue-800 rounded-tl-2xl rounded-bl-2xl"
       ></div>
-      <p class="text-pink-300 dark:text-pink-500">网站名称: Lirous的日记本</p>
+      <p class="text-pink-300 dark:text-pink-300">网站名称: Lirous的日记本</p>
       <p class="text-blue-300 dark:text-blue-500">
         网址: <span class="underline">https://lirous.com</span>
       </p>
@@ -31,7 +31,7 @@
       <div
         class="absolute top-0 left-0 w-[5px] h-full bg-pink-300 dark:bg-blue-800 rounded-tl-2xl rounded-bl-2xl"
       ></div>
-      <p class="text-pink-300 dark:text-pink-500">
+      <p class="text-pink-300 dark:text-pink-300">
         申请之前请将本网站添加为您的友链 ❤ ❤ ❤
       </p>
       <p class="text-blue-300 dark:text-blue-500">
@@ -44,7 +44,7 @@
       <p class="text-blue-300 dark:text-blue-500">
         审核结果将以邮箱形式发送 ✉ ✉ ✉
       </p>
-      <p class="text-pink-300 dark:text-pink-500">
+      <p class="text-pink-300 dark:text-pink-400">
         本站将定期清除已失效友链，请确保网站的可连通性
       </p>
     </div>

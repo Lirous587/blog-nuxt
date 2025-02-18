@@ -14,3 +14,11 @@ export function updateFriendLink(id, form) {
 export function deleteFriendLink(id) {
   return clientApi.delete(`/friendLink/${id}`, "both");
 }
+
+export function getFriendLink() {
+  return clientApi.get(`/friendLink`, "user");
+}
+
+export function getFriendLinkRandom20() {
+  return clientApi.get(`/friendLink/random20`);
+}

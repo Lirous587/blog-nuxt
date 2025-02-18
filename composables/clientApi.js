@@ -4,8 +4,6 @@ const apiCore = (url, opt, authType) => {
 
   const baseURL = config.public.apiBase;
 
-  const nuxtApp = useNuxtApp();
-
   let accessToken, refreshToken;
 
   if (authType === "both") {

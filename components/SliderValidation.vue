@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div
-      class="select-none inset-0 z-10 bg-black/80 flex items-center justify-center"
+      class="select-none inset-0 z-[9999] bg-black/80 flex items-center justify-center"
       :class="visiable ? 'fixed' : 'hidden'"
     >
       <div
