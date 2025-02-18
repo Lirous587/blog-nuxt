@@ -9,10 +9,21 @@
         <el-avatar :size="28" :src="imgPre + userInfo.avatar"></el-avatar>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="updateInfoPre">修改信息</el-dropdown-item>
-            <el-dropdown-item @click="drawerRefForRetPwd.open()"
-              >修改密码</el-dropdown-item
-            >
+            <el-dropdown-item @click="modifyInfoRef.open()">
+              <UserModifyInfo
+                ref="modifyInfoRef"
+                @sumbit="handleModifyInfo"
+                :user-info="userInfo"
+              ></UserModifyInfo>
+              修改信息
+            </el-dropdown-item>
+            <el-dropdown-item @click="modifyPwdRef.open()">
+              <UserModifyPassword
+                ref="modifyPwdRef"
+                @submit="handleModifyPwd"
+              ></UserModifyPassword>
+              修改密码
+            </el-dropdown-item>
             <el-dropdown-item>
               <el-popconfirm
                 title="是否退出登录"
@@ -29,77 +40,12 @@
       </el-dropdown>
     </div>
   </div>
-
-  <MyDrawer
-    title="修改信息"
-    size="320px"
-    ref="drawerRefForUpdateInfo"
-    @submit="submitUpdateInfo"
-  >
-    <el-form
-      ref="updateInfoFormRef"
-      :model="updateInfoForm"
-      :rules="updateInfoRules"
-      label-width="80px"
-    >
-      <el-form-item label="头像" for="avatar">
-        <ImgUpload v-model:imgData="updateInfoForm.imgData" size-limit="3MB">
-          <template #default>
-            <el-avatar size="large" :src="imgPre + userInfo.avatar"></el-avatar>
-            <br />
-            <small>请上传图片,内容大小不得超过2MB</small>
-          </template>
-          <template #preview="previewProps">
-            <el-avatar size="large" :src="previewProps.previewUrl"></el-avatar>
-          </template>
-        </ImgUpload>
-      </el-form-item>
-
-      <el-form-item label="用户名" prop="name" for="name">
-        <el-input v-model="updateInfoForm.name"></el-input>
-      </el-form-item>
-    </el-form>
-  </MyDrawer>
-
-  <MyDrawer
-    title="修改密码"
-    size="320px"
-    ref="drawerRefForRetPwd"
-    @submit="submitUpdatePwd"
-  >
-    <el-form
-      ref="updatePwdFormRef"
-      :model="updatePwdForm"
-      :rules="updatePwdRules"
-      label-width="80px"
-    >
-      <el-form-item label="密码" prop="password">
-        <el-input
-          v-model="updatePwdForm.password"
-          type="password"
-          name="password"
-          show-password
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="重复密码" prop="rePassword">
-        <el-input
-          v-model="updatePwdForm.rePassword"
-          type="password"
-          show-password
-          name="rePassword"
-        ></el-input>
-      </el-form-item>
-    </el-form>
-  </MyDrawer>
 </template>
 
 <script setup>
-import { logout, updateMsg, updatePassword, getUserInfo } from "~/api/user";
+import { logout } from "~/api/user";
 const router = useRouter();
 const imgPre = useRuntimeConfig().public.imgAvatarBase;
-
-const drawerRefForUpdateInfo = ref(null);
-const drawerRefForRetPwd = ref(null);
 
 const ifLogin = ref(false);
 
@@ -108,131 +54,8 @@ const userInfo = reactive({
   avatar: "",
 });
 
-const updateInfoFormRef = ref(null);
-const updatePwdFormRef = ref(null);
-const updateInfoForm = reactive({
-  name: "",
-  imgData: null,
-});
-
-const updatePwdForm = reactive({
-  password: "",
-  rePassword: "",
-});
-
-const updateInfoRules = reactive({
-  imgData: [
-    {
-      required: true,
-      message: "请上传图片,内容大小不得超过2MB",
-      trigger: "blur",
-    },
-  ],
-  name: [
-    {
-      required: true,
-      message: "请输入昵称,宽度应在2-15之间",
-      trigger: "blur",
-      min: 2,
-      max: 15,
-    },
-  ],
-});
-
-const validatePass = (rule, value, callback) => {
-  if (value === "") {
-    return callback(new Error("请输入密码"));
-  } else if (value.length > 30 || value.length < 6) {
-    return callback(new Error("密码长度应在6-30之间"));
-  } else if (updatePwdForm.rePassword !== "") {
-    if (!updatePwdFormRef.value) return;
-    updatePwdFormRef.value.validateField("rePassword");
-  }
-  callback();
-};
-
-const validateRepassword = (rule, value, callback) => {
-  if (value === "") {
-    callback(new Error("请再次输入密码"));
-  } else if (value !== updatePwdForm.password) {
-    callback(new Error("两次输入密码不一致"));
-  } else if (value.length > 30 || value.length < 6) {
-    callback(new Error("密码长度应在6-30之间"));
-  } else {
-    callback();
-  }
-};
-
-const updatePwdRules = reactive({
-  password: [
-    {
-      required: true,
-      validator: validatePass,
-      trigger: "change",
-    },
-  ],
-  rePassword: [
-    {
-      required: true,
-      validator: validateRepassword,
-      trigger: "blur",
-    },
-  ],
-});
-
-const updateInfoPre = () => {
-  for (const key in userInfo) {
-    updateInfoForm[key] = userInfo[key];
-  }
-  drawerRefForUpdateInfo.value.open();
-};
-
-const submitUpdateInfo = async () => {
-  if (!updateInfoFormRef) return;
-  updateInfoFormRef.value.validate((valid) => {
-    if (valid) {
-      handleUpdateInfo();
-    }
-  });
-};
-
-const submitUpdatePwd = () => {
-  if (!updatePwdFormRef) return;
-  updatePwdFormRef.value.validate((valid) => {
-    if (valid) {
-      handleUpdatePwd();
-    }
-  });
-};
-
-const handleUpdateInfo = async () => {
-  const formData = new FormData();
-  formData.append("img", updateInfoForm.imgData);
-  formData.append(
-    "info",
-    JSON.stringify({ ...updateInfoForm, imgData: undefined })
-  );
-  await updateMsg(formData)
-    .then(() => {
-      toast("修改信息成功");
-      updateaUserInfo();
-    })
-    .catch((err) => {
-      toast(err, "error");
-    });
-};
-
-const handleUpdatePwd = async () => {
-  await updatePassword(updatePwdForm)
-    .then(() => {
-      toast("修改密码成功");
-      removeUserAuth();
-      router.push("/user/auth");
-    })
-    .catch((err) => {
-      toast(err, "error");
-    });
-};
+const modifyInfoRef = ref(null);
+const modifyPwdRef = ref(null);
 
 const handleLogout = () => {
   logout().then(() => {
@@ -241,6 +64,23 @@ const handleLogout = () => {
     resetForm(userInfo);
     router.push("/user/auth");
   });
+};
+
+const handleModifyInfo = (info) => {
+  setUserInfoCookie(info);
+  for (const key in info) {
+    if (info[key]) {
+      userInfo[key] = info[key];
+    }
+  }
+  ifLogin.value = true;
+};
+
+const handleModifyPwd = () => {
+  toast("退出登录成功");
+  removeUserAuth();
+  resetForm(userInfo);
+  router.push("/user/auth");
 };
 
 const initUserInfo = async () => {
@@ -254,19 +94,6 @@ const initUserInfo = async () => {
     }
     ifLogin.value = true;
   }
-};
-
-const updateaUserInfo = async () => {
-  await getUserInfo().then((res) => {
-    const info = res.data;
-    setUserInfoCookie(info);
-    for (const key in info) {
-      if (info[key]) {
-        userInfo[key] = info[key];
-      }
-    }
-    ifLogin.value = true;
-  });
 };
 
 onMounted(() => {

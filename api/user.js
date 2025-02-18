@@ -6,8 +6,8 @@ export function signup(form) {
   return clientApi.post("/user/signup", form);
 }
 
-export function sentSignupValidationCode(form) {
-  return clientApi.post("/user/sentSignupValidationCode", form);
+export function sentSignupVC(form) {
+  return clientApi.post("/user/signupVC", form);
 }
 
 export function updateMsg(form) {
@@ -22,12 +22,12 @@ export function logout() {
   return clientApi.delete("/user/logout", "user");
 }
 
-export function resetPassword(form) {
+export function resetPwd(form) {
   return clientApi.put("/user/resetPwd", form);
 }
 
-export function sentResetPasswordValidationCode(form) {
-  return clientApi.post("/user/sentResetPwdValidationCode", form);
+export function sentResetPwdVC(form) {
+  return clientApi.post("/user/resetPwdVC", form);
 }
 
 export function getUserInfo() {
