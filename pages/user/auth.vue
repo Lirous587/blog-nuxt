@@ -12,7 +12,7 @@
           v-if="isLogin && !isResetPwd"
           class="w-[85vw] md:w-[380px] shadow-xl px-4 mx-3"
         >
-          <UserLogin></UserLogin>
+          <UserAuthLogin></UserAuthLogin>
         </div>
         <div
           v-else
@@ -58,10 +58,10 @@
           v-else-if="!isResetPwd"
           class="w-[85vw] md:w-[380px] shadow-xl px-4 mx-3"
         >
-          <UserSignup @signup="handleSignup"></UserSignup>
+          <UserAuthSignup @signup="handleSignup"></UserAuthSignup>
         </div>
         <div v-else class="w-[85vw] md:w-[380px] shadow-xl px-4 mx-3">
-          <UserResetPwd @reset-password="handleResetPWd"></UserResetPwd>
+          <UserAuthResetPwd @reset-password="handleResetPWd"></UserAuthResetPwd>
         </div>
       </Transition>
     </div>

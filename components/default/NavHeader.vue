@@ -69,7 +69,7 @@
 
     <div class="pr-5 flex items-center gap-x-4 justify-end">
       <div class="pl-5">
-        <!-- <UserSearchEssay></UserSearchEssay> -->
+        <!-- <SearchEssay></SearchEssay> -->
       </div>
 
       <!-- 设置mode -->
@@ -86,7 +86,7 @@
       </div>
 
       <!-- 用户相关 -->
-      <UserInfo></UserInfo>
+      <UserNav></UserNav>
     </div>
   </div>
 </template>

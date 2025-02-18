@@ -7,7 +7,9 @@
     <div
       class="flex flex-col relative gap-y-3 p-5 bg-gray-50 dark:bg-gray-900 rounded-lg font-bold font-serif"
     >
-      <LeftBorder></LeftBorder>
+      <div
+        class="absolute top-0 left-0 w-[5px] h-full bg-pink-300 dark:bg-blue-800 rounded-tl-2xl rounded-bl-2xl"
+      ></div>
       <p class="text-pink-300 dark:text-pink-500">网站名称: Lirous的日记本</p>
       <p class="text-blue-300 dark:text-blue-500">
         网址: <span class="underline">https://lirous.com</span>
@@ -26,15 +28,24 @@
     <div
       class="flex flex-col relative gap-y-3 p-5 bg-gray-50 dark:bg-gray-900 rounded-lg font-bold font-serif"
     >
-      <LeftBorder></LeftBorder>
+      <div
+        class="absolute top-0 left-0 w-[5px] h-full bg-pink-300 dark:bg-blue-800 rounded-tl-2xl rounded-bl-2xl"
+      ></div>
       <p class="text-pink-300 dark:text-pink-500">
-        申请之前请将本网站添加为您的友链哦 ❤ ❤ ❤
+        申请之前请将本网站添加为您的友链 ❤ ❤ ❤
       </p>
       <p class="text-blue-300 dark:text-blue-500">
-        不会添加带有广告营销和没有实质性内容的友链 🙅‍🙅🙅
+        不会添加违规或无实际内容的友链 🙅‍🙅🙅
       </p>
       <p class="text-green-400 dark:text-green-600">
-        于右上用户信息内填写相关内容✨✨✨
+        点击上方信封填写相关内容✨✨✨
+        <br />
+      </p>
+      <p class="text-blue-300 dark:text-blue-500">
+        审核结果将以邮箱形式发送 ✉ ✉ ✉
+      </p>
+      <p class="text-pink-300 dark:text-pink-500">
+        本站将定期清除已失效友链，请确保网站的可连通性
       </p>
     </div>
   </div>

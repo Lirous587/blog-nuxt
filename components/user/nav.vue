@@ -24,16 +24,9 @@
               ></UserModifyPassword>
               修改密码
             </el-dropdown-item>
+
             <el-dropdown-item>
-              <el-popconfirm
-                title="是否退出登录"
-                :hide-after="0"
-                confirm-button-text="确认"
-                cancel-button-text="取消"
-                @confirm="handleLogout"
-              >
-                <template #reference> 退出登录 </template>
-              </el-popconfirm>
+              <UserAuthLogout></UserAuthLogout>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -43,8 +36,8 @@
 </template>
 
 <script setup>
-import { logout } from "~/api/user";
 const router = useRouter();
+
 const imgPre = useRuntimeConfig().public.imgAvatarBase;
 
 const ifLogin = ref(false);
@@ -56,16 +49,6 @@ const userInfo = reactive({
 
 const modifyInfoRef = ref(null);
 const modifyPwdRef = ref(null);
-
-const handleLogout = () => {
-  logout().then(() => {
-    toast("退出登录成功");
-    removeUserAuth();
-    resetForm(userInfo);
-    router.push("/user/auth");
-  });
-};
-
 const handleModifyInfo = (info) => {
   setUserInfoCookie(info);
   for (const key in info) {
@@ -77,9 +60,8 @@ const handleModifyInfo = (info) => {
 };
 
 const handleModifyPwd = () => {
-  toast("退出登录成功");
+  toast("修改密码成功");
   removeUserAuth();
-  resetForm(userInfo);
   router.push("/user/auth");
 };
 
