@@ -14,12 +14,6 @@
     <IndexGuide class="!rounded-2xl" v-if="showList.includes('friendAndMe')">
     </IndexGuide>
 
-    <IndexKinds
-      class="!rounded-2xl"
-      v-if="showList.includes('kind')"
-      :list="kinds"
-    ></IndexKinds>
-
     <IndexLabels
       class="!rounded-2xl"
       v-if="showList.includes('label')"
@@ -33,14 +27,13 @@ import { useMyIndexStore } from "~/store";
 
 const indexStore = useMyIndexStore();
 const labels = indexStore.getLabels();
-const kinds = indexStore.getKinds();
 const recommentEssays = indexStore.getRecommentEssays();
 const statisticsData = indexStore.getStatisticsData();
 
 const props = defineProps({
   showList: {
     type: Array,
-    default: ["statistics", "recommentEssay", "friendAndMe", "label", "kind"],
+    default: ["statistics", "recommentEssay", "friendAndMe", "label"],
   },
 });
 </script>

@@ -5,7 +5,3 @@
     <FriendLinkList></FriendLinkList>
   </div>
 </template>
-
-<script setup></script>
-
-<style scoped></style>

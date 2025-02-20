@@ -16,15 +16,6 @@
 
       <div class="select-none flex mt-2 flex-wrap items-center ml-2">
         <el-tag
-          type="primary"
-          size="small"
-          class="dark:!bg-black dark:text-gray-500 dark:border-gray-700"
-        >
-          <NuxtLink :to="'/kind/' + data.kindID + '/1'">
-            {{ data.kindName }}
-          </NuxtLink>
-        </el-tag>
-        <el-tag
           type="info"
           size="small"
           class="mx-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"

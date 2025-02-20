@@ -39,19 +39,6 @@
           <div class="flex flex-wrap items-center">
             <span class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3">
               <el-tag
-                type="primary"
-                class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
-              >
-                <NuxtLink :to="'/kind/' + item.kindID + '/1'">
-                  <div class="flex items-center text-xs">
-                    <el-icon><Menu /></el-icon>
-                    <span>
-                      {{ item.kindName }}
-                    </span>
-                  </div>
-                </NuxtLink>
-              </el-tag>
-              <el-tag
                 type="info"
                 class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
                 v-for="label in item.labelList"

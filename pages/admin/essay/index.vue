@@ -30,8 +30,6 @@
         ></el-table-column>
         <el-table-column label="文章名" prop="name" align="center">
         </el-table-column>
-        <el-table-column label="分类" prop="kindName" align="center">
-        </el-table-column>
         <el-table-column
           label="简介"
           prop="introduction"
@@ -99,10 +97,6 @@
       >
         <el-form-item label="文章名" prop="name">
           <el-input v-model="form.name" placeholder="文章名" />
-        </el-form-item>
-        <el-form-item label="分类">
-          <AdminEssaySelectKind v-model:id="form.kindID">
-          </AdminEssaySelectKind>
         </el-form-item>
         <el-form-item label="标签" prop="labelIds">
           <AdminEssaySelectLabels
@@ -217,7 +211,6 @@ const {
   form: reactive({
     id: 0,
     name: "",
-    kindID: 0,
     labelIds: [],
     introduction: "",
     content: "",

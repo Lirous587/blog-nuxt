@@ -3,7 +3,6 @@ import { getIndexInfo } from "~/api";
 
 export const useMyIndexStore = defineStore("myIndexStore", () => {
   const ifInit = ref(false);
-  const kinds = ref([]);
   const labels = ref([]);
   const recommendEssays = ref([]);
   const heartWords = ref([]);
@@ -18,10 +17,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
       name: "标签",
       count: 0,
     },
-    kind: {
-      name: "分类",
-      count: 0,
-    },
   });
 
   const initData = async () => {
@@ -29,18 +24,16 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
     await getIndexInfo().then((res) => {
       const data = res.data;
-      kinds.value = data.kinds;
       labels.value = data.labels;
       recommendEssays.value = data.recommendEssays;
       heartWords.value = shuffleArray(data.heartWords);
       carousels.value = shuffleArray(data.carousels);
 
       statisticsData.label.count = labels.value.length;
-      statisticsData.kind.count = kinds.value.length;
-      statisticsData.essay.count = kinds.value.reduce(
-        (accumulator, kind) => accumulator + kind.essayCount,
-        0
-      );
+      // statisticsData.essay.count = kinds.value.reduce(
+      //   (accumulator, kind) => accumulator + kind.essayCount,
+      //   0
+      // );
     });
 
     ifInit.value = true;
@@ -48,10 +41,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
 
   const getInitStatus = () => {
     return ifInit.value;
-  };
-
-  const getKinds = () => {
-    return kinds.value;
   };
 
   const getLabels = () => {
@@ -77,14 +66,12 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   return {
     ifInit,
     labels,
-    kinds,
     recommendEssays,
     heartWords,
     carousels,
     statisticsData,
     initData,
     getInitStatus,
-    getKinds,
     getLabels,
     getRecommentEssays,
     getHeartWords,

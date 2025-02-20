@@ -44,12 +44,12 @@ useSeoMeta({
 });
 
 const list = ref([]);
-const getList = () => {
-  getFriendLinkRandom20().then((res) => {
+const getList = async () => {
+  await getFriendLinkRandom20().then((res) => {
     list.value = res.data;
   });
 };
-getList();
+await getList();
 </script>
 
 <style scoped>

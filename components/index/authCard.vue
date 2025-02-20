@@ -40,7 +40,6 @@ const props = defineProps({
     default: {
       essayCount: 0,
       labelCount: 0,
-      kindCount: 0,
     },
   },
 });

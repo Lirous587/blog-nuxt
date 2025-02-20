@@ -65,14 +65,6 @@
           </template>
         </el-menu-item>
       </NuxtLink>
-      <NuxtLink to="/admin/essay/kind">
-        <el-menu-item index="/admin/essay/kind">
-          <el-icon><Folder /></el-icon>
-          <template #title>
-            <span>分类</span>
-          </template>
-        </el-menu-item>
-      </NuxtLink>
       <NuxtLink to="/admin/essay/label">
         <el-menu-item index="/admin/essay/label">
           <el-icon><Files /></el-icon>
@@ -122,7 +114,7 @@
         </template>
       </el-menu-item>
     </NuxtLink>
-    
+
     <!-- 邮件 -->
     <NuxtLink to="/admin/email">
       <el-menu-item index="/admin/email">
