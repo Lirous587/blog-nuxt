@@ -24,30 +24,36 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="网站名" prop="siteName">
           <el-input
-            placeholder="网站名"
-            :maxlength="10"
+            placeholder="网站名/15字符"
             v-model="form.siteName"
+            :maxlength="15"
           ></el-input>
         </el-form-item>
         <el-form-item label="简介" prop="introduction">
           <el-input
-            placeholder="简介"
+            placeholder="简介/70字符"
             v-model="form.introduction"
-            :maxlength="30"
+            type="textarea"
+            :maxlength="70"
           ></el-input>
         </el-form-item>
         <el-form-item label="地址" prop="url">
           <el-input
-            placeholder="地址/仅支持https"
+            placeholder="地址/仅支持https/40字符"
             v-model="form.url"
             type="url"
+            :maxlength="40"
           ></el-input>
         </el-form-item>
         <el-form-item label="logo" prop="logo">
           <el-input
-            placeholder="logo/仅支持https"
+            placeholder="logo/仅支持https/80字符"
             v-model="form.logo"
             type="url"
+            :maxlength="80"
+          >
+            <template #prefix>
+              <el-avatar :src="form.logo"></el-avatar> </template
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -88,12 +94,15 @@ const form = reactive({
   status: "",
 });
 const rules = reactive({
-  siteName: [{ required: true, message: "请输入网站名称", trigger: "blur" }],
+  siteName: [
+    { required: true, message: "请输入网站名称", trigger: "blur", max: 15 },
+  ],
   url: [
     {
       required: true,
       validator: urlValidator,
       trigger: "blur",
+      max: 40,
     },
   ],
   logo: [
@@ -101,10 +110,16 @@ const rules = reactive({
       required: true,
       validator: urlValidator,
       trigger: "blur",
+      max: 80,
     },
   ],
   introduction: [
-    { required: true, message: "请输入网站介绍", trigger: "blur" },
+    {
+      required: true,
+      message: "请输入网站介绍",
+      trigger: "blur",
+      max: 70,
+    },
   ],
 });
 

@@ -56,7 +56,10 @@
         </el-table-column>
         <el-table-column label="操作" align="center" width="140">
           <template #default="scope">
-            <div class="flex justify-around items-center gap-x-4">
+            <div
+              class="flex justify-around items-center gap-x-4"
+              v-loading="scope.row.btnLoading"
+            >
               <span
                 v-if="scope.row.ifAudit"
                 class="text-blue-400 dark:text-pink-400 text-xs"
@@ -68,18 +71,18 @@
                   <el-button
                     type="warning"
                     size="small"
-                    @click="handleAuditPre(scope.row.id, true)"
+                    @click="handleAuditPre(scope.row, true)"
                     >通过</el-button
                   >
                 </div>
                 <el-button
                   type="warning"
                   size="small"
-                  @click="handleAuditPre(scope.row.id, false)"
+                  @click="handleAuditPre(scope.row, false)"
                   >拒绝</el-button
                 >
               </div>
-              <div class="ml-auto">
+              <div class="ml-auto" v-if="scope.row.status != 'waitAudit'">
                 <el-popconfirm
                   title="确定删除?"
                   confirm-button-text="确定"
@@ -121,7 +124,9 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="warning" @click="handleAudit">提交</el-button>
+          <el-button type="warning" @click="handleAudit" :loading="btnLoding"
+            >提交</el-button
+          >
         </el-form-item>
       </el-form>
     </MyDialog>
@@ -159,6 +164,18 @@ const {
     limit: 10,
     keyword: "",
   }),
+  onGetListSuccess: (data) => {
+    if (Array.isArray(data.list)) {
+      data.list = data.list.map((o) => {
+        return {
+          btnLoading: false,
+          ...o,
+        };
+      });
+    }
+    tableData.value = data.list;
+    pages.value = data.pages;
+  },
 });
 
 const form = reactive({
@@ -189,17 +206,21 @@ const rules = reactive({
   ],
 });
 
-const handleAuditPre = (id, status) => {
-  form.id = id;
+const handleAuditPre = (row, status) => {
+  form.id = row.id;
   form.status = status;
   if (ifPass.value) {
-    handleAudit();
+    handleAudit(row);
   } else {
     dialogRef.value.open();
   }
 };
 
-const handleAudit = () => {
+const btnLoding = ref(false);
+
+const handleAudit = (row) => {
+  row.btnLoading = true;
+  btnLoding.value = true;
   auditFriendLink(form.id, form)
     .then((res) => {
       toast("审核成功");
@@ -207,6 +228,8 @@ const handleAudit = () => {
     })
     .finally(() => {
       dialogRef.value.close();
+      row.btnLoading = false;
+      btnLoding.value = false;
     });
 };
 
