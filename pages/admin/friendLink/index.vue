@@ -47,14 +47,11 @@
           align="center"
           show-overflow-tooltip
         />
-        <el-table-column label="状态" align="center" show-overflow-tooltip>
+        <el-table-column label="状态" prop="status" align="center">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.status"
-              :active-value="true"
-              :inactive-value="false"
-              disabled
-            ></el-switch>
+            <span class="text-blue-400 dark:text-yellow-400 text-xs">
+              {{ getStatus(scope.row.status) }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" width="140">
@@ -71,14 +68,14 @@
                   <el-button
                     type="warning"
                     size="small"
-                    @click="handleChangeStatus(scope.row, true)"
+                    @click="handleAuditPre(scope.row.id, true)"
                     >通过</el-button
                   >
                 </div>
                 <el-button
                   type="warning"
                   size="small"
-                  @click="handleChangeStatus(scope.row, false)"
+                  @click="handleAuditPre(scope.row.id, false)"
                   >拒绝</el-button
                 >
               </div>
@@ -114,6 +111,20 @@
         </div>
       </template>
     </el-card>
+    <MyDialog ref="dialogRef" title="请填写原因" :draggable="true">
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="原因" prop="reason">
+          <el-input
+            type="textarea"
+            placeholder="请填写原因"
+            v-model="form.reason"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="warning" @click="handleAudit">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </MyDialog>
   </div>
 </template>
 
@@ -121,12 +132,14 @@
 import {
   deleteFriendLink,
   getFriendLinkList,
-  changeFriendLinkStatus,
+  auditFriendLink,
 } from "~/api/friendLink";
 
 definePageMeta({
   layout: "admin",
 });
+
+const dialogRef = ref(null);
 
 //  table
 const {
@@ -138,15 +151,76 @@ const {
   pages,
   getData,
   handleDelete,
-  handleChangeStatus,
 } = useInitTable({
   getList: getFriendLinkList,
   delete: deleteFriendLink,
-  changeStatus: changeFriendLinkStatus,
   searchForm: reactive({
     page: 1,
     limit: 10,
     keyword: "",
   }),
 });
+
+const form = reactive({
+  id: 0,
+  status: false,
+  reason: "",
+});
+
+const formRef = ref(null);
+
+const validateReason = (rule, value, callback) => {
+  if (ifPass) {
+    return callback();
+  } else {
+    if (value === "") {
+      return callback(new Error("请填写拒绝原因"));
+    }
+    callback();
+  }
+};
+
+const rules = reactive({
+  reason: [
+    {
+      validator: validateReason,
+      trigger: "blur",
+    },
+  ],
+});
+
+const handleAuditPre = (id, status) => {
+  form.id = id;
+  form.status = status;
+  if (ifPass.value) {
+    handleAudit();
+  } else {
+    dialogRef.value.open();
+  }
+};
+
+const handleAudit = () => {
+  auditFriendLink(form.id, form)
+    .then((res) => {
+      toast("审核成功");
+      getData();
+    })
+    .finally(() => {
+      dialogRef.value.close();
+    });
+};
+
+const ifPass = computed(() => {
+  return form.status ? true : false;
+});
+
+const getStatus = (status) => {
+  if (status === "waitAudit") {
+    return "正在审核";
+  } else if (status === "accept") {
+    return "申请成功";
+  } else {
+    return "申请失败";
+  }
+};
 </script>

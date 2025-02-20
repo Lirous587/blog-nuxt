@@ -23,6 +23,6 @@ export function getFriendLinkRandom20() {
   return api.get(`/friendLink/random20`);
 }
 
-export function changeFriendLinkStatus(id, status) {
-  return clientApi.put(`/friendLink/status/${id}`, { status }, "admin");
+export function auditFriendLink(id, form) {
+  return clientApi.put(`/friendLink/audit/${id}`, form, "admin");
 }

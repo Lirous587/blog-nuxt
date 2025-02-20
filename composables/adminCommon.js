@@ -68,7 +68,8 @@ export function useInitTable(opt = {}) {
       .changeStatus(row.id, status)
       .then(() => {
         toast("修改状态成功");
-        getData();
+        row.status = status;
+        // getData()
       })
       .finally(() => {
         row.statusLoading = false;

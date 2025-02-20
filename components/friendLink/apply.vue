@@ -15,44 +15,50 @@
         ></MyIconEnvelope>
       </div>
     </div>
-    <el-dialog :title="title" width="70%" v-model="dialogVisible" center>
-      <div>
-        <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-          <el-form-item label="网站名" prop="siteName">
-            <el-input
-              placeholder="网站名"
-              :maxlength="10"
-              v-model="form.siteName"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="简介" prop="introduction">
-            <el-input
-              placeholder="简介"
-              v-model="form.introduction"
-              :maxlength="30"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="地址" prop="url">
-            <el-input
-              placeholder="地址/仅支持https"
-              v-model="form.url"
-              type="url"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="logo" prop="logo">
-            <el-input
-              placeholder="logo/仅支持https"
-              v-model="form.logo"
-              type="url"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="success" @click="sliderValidationRef.open()"
-              >提交</el-button
-            >
-          </el-form-item>
-        </el-form>
-      </div>
+    <el-dialog
+      :title="title + status"
+      width="70%"
+      v-model="dialogVisible"
+      center
+    >
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="网站名" prop="siteName">
+          <el-input
+            placeholder="网站名"
+            :maxlength="10"
+            v-model="form.siteName"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="简介" prop="introduction">
+          <el-input
+            placeholder="简介"
+            v-model="form.introduction"
+            :maxlength="30"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="地址" prop="url">
+          <el-input
+            placeholder="地址/仅支持https"
+            v-model="form.url"
+            type="url"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="logo" prop="logo">
+          <el-input
+            placeholder="logo/仅支持https"
+            v-model="form.logo"
+            type="url"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="sliderValidationRef.open()"
+            :disabled="status === '(正在审核)'"
+            >提交
+          </el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
 
     <SliderValidation
@@ -79,6 +85,7 @@ const form = reactive({
   url: "",
   introduction: "",
   logo: "",
+  status: "",
 });
 const rules = reactive({
   siteName: [{ required: true, message: "请输入网站名称", trigger: "blur" }],
@@ -127,8 +134,7 @@ const handleSubmitPre = async () => {
 const handleSubmit = () => {
   const fun = form.id
     ? updateFriendLink(form.id, form)
-    : opt.createFriendLink(form);
-
+    : createFriendLink(form);
   fun.then((res) => {
     toast("提交成功，请耐心等待审核");
     resetForm(form);
@@ -149,4 +155,22 @@ const initInfo = async () => {
 };
 
 const ifLogin = userIfLogin();
+
+const status = computed(() => {
+  if (form.status === "waitAudit") {
+    return "(正在审核)";
+  } else if (form.status === "accept") {
+    return "(申请成功)";
+  } else if (form.status === "refuse") {
+    return "(申请失败)";
+  } else {
+    return "";
+  }
+});
 </script>
+
+<style scoped>
+:deep(.el-dialog__header span) {
+  color: rgb(231, 211, 29) !important;
+}
+</style>
