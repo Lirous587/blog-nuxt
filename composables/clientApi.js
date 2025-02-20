@@ -108,7 +108,7 @@ const apiCore = (url, opt, authType) => {
               })
               .catch((err) => {
                 if (authType === "admin") {
-                  removeAdminAuth();
+                  // removeAdminAuth();
                 } else {
                   removeUserAuth();
                 }
@@ -116,11 +116,11 @@ const apiCore = (url, opt, authType) => {
                 reject(err);
               });
           } else {
-            if (authType === "admin") {
-              removeAdminAuth();
-            } else if (authType === "user") {
-              removeUserAuth();
-            }
+            // if (authType === "admin") {
+            //   removeAdminAuth();
+            // } else if (authType === "user") {
+            //   removeUserAuth();
+            // }
             reject(errData || err);
           }
           return;

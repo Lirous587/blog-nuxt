@@ -57,23 +57,47 @@
             ></el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="280">
+        <el-table-column label="操作" align="center" width="140">
           <template #default="scope">
-            <el-button type="warning" size="small">通过 </el-button>
-            <el-button type="warning" size="small">拒绝 </el-button>
-            <el-popconfirm
-              title="确定删除?"
-              confirm-button-text="确定"
-              confirm-button-type="danger"
-              cancel-button-text="取消"
-              cancel-button-type="primary"
-              icon-color="rgb(245,108,108)"
-              @confirm="handleDelete(scope.row.id)"
-            >
-              <template #reference>
-                <el-button type="danger" size="small">删除 </el-button>
-              </template>
-            </el-popconfirm>
+            <div class="flex justify-around items-center gap-x-4">
+              <span
+                v-if="scope.row.ifAudit"
+                class="text-blue-400 dark:text-pink-400 text-xs"
+              >
+                已审核
+              </span>
+              <div v-else class="flex flex-col gap-y-2">
+                <div>
+                  <el-button
+                    type="warning"
+                    size="small"
+                    @click="handleChangeStatus(scope.row, true)"
+                    >通过</el-button
+                  >
+                </div>
+                <el-button
+                  type="warning"
+                  size="small"
+                  @click="handleChangeStatus(scope.row, false)"
+                  >拒绝</el-button
+                >
+              </div>
+              <div class="ml-auto">
+                <el-popconfirm
+                  title="确定删除?"
+                  confirm-button-text="确定"
+                  confirm-button-type="danger"
+                  cancel-button-text="取消"
+                  cancel-button-type="primary"
+                  icon-color="rgb(245,108,108)"
+                  @confirm="handleDelete(scope.row.id)"
+                >
+                  <template #reference>
+                    <el-button type="danger" size="small">删除 </el-button>
+                  </template>
+                </el-popconfirm>
+              </div>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -95,10 +119,9 @@
 
 <script setup>
 import {
-  createFriendLink,
   deleteFriendLink,
   getFriendLinkList,
-  updateFriendLink,
+  changeFriendLinkStatus,
 } from "~/api/friendLink";
 
 definePageMeta({
@@ -115,29 +138,15 @@ const {
   pages,
   getData,
   handleDelete,
+  handleChangeStatus,
 } = useInitTable({
   getList: getFriendLinkList,
   delete: deleteFriendLink,
+  changeStatus: changeFriendLinkStatus,
   searchForm: reactive({
     page: 1,
     limit: 10,
     keyword: "",
   }),
 });
-
-// form
-const { drawerRef, form, formRef, drawerTitle, handleSubmit, rules } =
-  useInitForm({
-    form: reactive({
-      id: "",
-      siteName: "",
-      url: "",
-      introduction: "",
-      logo: "",
-      uid: 0,
-    }),
-    getData,
-    create: createFriendLink,
-    update: updateFriendLink,
-  });
 </script>

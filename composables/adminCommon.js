@@ -62,13 +62,13 @@ export function useInitTable(opt = {}) {
   };
 
   //修改状态
-  const handleStatusChange = async (status, row) => {
+  const handleChangeStatus = async (row, status) => {
     row.statusLoading = true;
     await opt
-      .updateStatus(row.id, status)
+      .changeStatus(row.id, status)
       .then(() => {
         toast("修改状态成功");
-        row.status = status;
+        getData();
       })
       .finally(() => {
         row.statusLoading = false;
@@ -134,7 +134,7 @@ export function useInitTable(opt = {}) {
     pages,
     getData,
     handleDelete,
-    handleStatusChange,
+    handleChangeStatus,
     multipleTableRef,
     handleSelectionChange,
     handleMultipleDelete,
