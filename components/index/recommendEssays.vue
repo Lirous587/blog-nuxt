@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="always" class="!rounded-xl cursor-pointer hover:!shadow-lg">
+  <el-card shadow="hover">
     <div class="flex items-center mb-2">
       <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
       <span class="text-blue-500">推荐文章</span>

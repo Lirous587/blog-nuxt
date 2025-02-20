@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="always">
+    <el-card shadow="hover">
       <template #header>
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>

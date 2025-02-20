@@ -1,18 +1,18 @@
 export function getFriendLinkList(query = {}) {
   let q = queryToUrl(query);
-  return api.get(`/friendLink${q}`);
+  return clientApi.get(`/friendLink/list${q}`, "admin");
 }
 
 export function createFriendLink(form) {
-  return clientApi.post(`/friendLink`, form, "both");
+  return clientApi.post(`/friendLink`, form, "user");
 }
 
 export function updateFriendLink(id, form) {
-  return clientApi.put(`/friendLink/${id}`, form, "both");
+  return clientApi.put(`/friendLink/${id}`, form, "user");
 }
 
 export function deleteFriendLink(id) {
-  return clientApi.delete(`/friendLink/${id}`, "both");
+  return clientApi.delete(`/friendLink/${id}`, "admin");
 }
 
 export function getFriendLink() {
@@ -20,5 +20,5 @@ export function getFriendLink() {
 }
 
 export function getFriendLinkRandom20() {
-  return clientApi.get(`/friendLink/random20`);
+  return api.get(`/friendLink/random20`);
 }

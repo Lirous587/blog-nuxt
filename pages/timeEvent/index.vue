@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mr-2">
           <div v-for="record in item.records">
             <el-card
-              shadow="always"
+              shadow="hover"
               class="min-w-[300px] overflow-hidden relative hover:!shadow-lg transition-all duration-300 transform mb-4"
             >
               <div class="flex justify-between">

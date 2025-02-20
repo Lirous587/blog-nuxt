@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-4 mt-5 mx-5">
     <div v-for="(item, index) in list" :key="item.id">
       <el-card
-        shadow="always"
+        shadow="hover"
         class="relative !rounded-md hover:!shadow-lg p-4 transition-all duration-300 ease-in-out transform hover:scale-105"
         :class="
           index % 2 == 0

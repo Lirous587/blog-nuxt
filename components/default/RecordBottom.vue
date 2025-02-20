@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[30px] pb-[40px] bg-white dark:text-neutral-300 dark:bg-black">
+  <div class="pt-[30px] pb-[40px] dark:text-neutral-300">
     <el-footer class="font-mono flex flex-col justify-center items-center">
       <a class="text-xs" target="_blank" href="https://github.com/Lirous587"
         >© 2024 Lirous的日记本 By Lirous.本站博客未经授权禁止转载.

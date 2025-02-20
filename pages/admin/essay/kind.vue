@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="always">
+    <el-card shadow="hover">
       <template #header>
         <AdminSearch @search="getData" @reset="resetSearchForm">
           <template #default>
@@ -24,7 +24,12 @@
         ></el-table-column>
         <el-table-column label="名称" prop="name" align="center">
         </el-table-column>
-        <el-table-column label="介绍" prop="introduction" align="center" show-overflow-tooltip>
+        <el-table-column
+          label="介绍"
+          prop="introduction"
+          align="center"
+          show-overflow-tooltip
+        >
         </el-table-column>
         <el-table-column label="图标" width="180" align="center">
           <template #default="scope">

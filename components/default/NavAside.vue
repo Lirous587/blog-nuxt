@@ -1,31 +1,28 @@
 <template>
   <div class="select-none flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0">
     <IndexAuthCard
+      class="!rounded-2xl"
       v-if="showList.includes('statistics')"
-      class="bg-gradient-to-br from-green-200 to-blue-100 dark:from-green-950 dark:to-blue-950"
       :data="statisticsData"
     ></IndexAuthCard>
     <IndexRecommendEssays
+      class="!rounded-2xl"
       v-if="showList.includes('recommentEssay')"
-      class="bg-gradient-to-br from-pink-50 to-green-50 dark:from-pink-950 dark:to-green-950"
       :list="recommentEssays"
     ></IndexRecommendEssays>
 
-    <IndexGuide
-      v-if="showList.includes('friendAndMe')"
-      class="lg:hidden bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-slate-800 dark:to-blue-950"
-    >
+    <IndexGuide class="!rounded-2xl" v-if="showList.includes('friendAndMe')">
     </IndexGuide>
 
     <IndexKinds
+      class="!rounded-2xl"
       v-if="showList.includes('kind')"
-      class="bg-gradient-to-br from-cyan-100 to-green-50 dark:from-cyan-950 dark:to-green-950"
       :list="kinds"
     ></IndexKinds>
 
     <IndexLabels
+      class="!rounded-2xl"
       v-if="showList.includes('label')"
-      class="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-950 dark:to-cyan-950"
       :list="labels"
     ></IndexLabels>
   </div>

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="bg-[rgb(247,249,254)] dark:bg-black">
     <DefaultNavHeader></DefaultNavHeader>
 
     <DefaultBackground>
       <DefaultTypeHeartWord />
     </DefaultBackground>
 
-    <div class="pt-10 transition-all duration-300 dark:bg-black flex">
+    <div class="flex pt-10 transition-all duration-300">
       <aside class="sticky-aside">
         <DefaultNavAside></DefaultNavAside>
       </aside>

@@ -1,6 +1,6 @@
 <template>
   <div class="pr-5">
-    <el-card shadow="always">
+    <el-card shadow="hover">
       <template #header>
         <div class="flex justify-between">
           <span class="text-sm">关键字排行</span>
@@ -23,7 +23,7 @@
       <div class="h-[300px]"></div>
     </el-card>
 
-    <el-card shadow="always" class="mt-10">
+    <el-card shadow="hover" class="mt-10">
       <template #header>
         <div class="flex justify-between items-center">
           <span class="text-sm">用户访问量</span>
