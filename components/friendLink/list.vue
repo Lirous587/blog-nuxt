@@ -46,7 +46,7 @@ useSeoMeta({
 const list = ref([]);
 const getList = async () => {
   await getFriendLinkRandom20().then((res) => {
-    list.value = res.data;
+    list.value = res.data || [];
   });
 };
 await getList();

@@ -1,9 +1,6 @@
 <template>
-  <el-card shadow="hover">
-    <div class="flex items-center mb-2">
-      <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
-      <span class="text-blue-500">推荐文章</span>
-    </div>
+  <div>
+    <slot></slot>
     <div class="flex flex-col gap-y-2">
       <div v-for="item in list">
         <NuxtLink
@@ -34,7 +31,7 @@
         <div class="h-[1px] bg-pink-100 dark:bg-gray-600 border-dotted"></div>
       </div>
     </div>
-  </el-card>
+  </div>
 </template>
 
 <script setup>

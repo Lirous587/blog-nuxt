@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[rgb(247,249,254)] dark:bg-black">
+  <div class="bg-[rgb(255,255,255)] dark:bg-black">
     <DefaultNavHeader></DefaultNavHeader>
 
     <DefaultBackground>
@@ -35,9 +35,10 @@ const route = useRoute();
 @reference "assets/css/tailwind.css";
 
 .sticky-aside {
-  @apply float-left flex-shrink-0  overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[280px];
+  @apply float-left flex-shrink-0  overflow-y-scroll overscroll-y-contain top-[60px] pt-[15px] px-3 pb-[150px] hidden ml-5 flex-col lg:mx-3 lg:flex lg:w-[300px];
 }
 .sticky-aside::-webkit-scrollbar {
   display: none;
 }
+
 </style>

@@ -44,16 +44,16 @@ nuxtApp.hook("page:finish", () => {
 
 ::-webkit-scrollbar {
   width: 2px;
-  height: 2px;
+  width: 0;
 }
 
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   @apply bg-gray-400 dark:bg-gray-700 rounded-md;
 }
 
 ::-webkit-scrollbar-track {
   @apply bg-neutral-100 dark:bg-gray-900;
-}
+} */
 
 body,
 html {

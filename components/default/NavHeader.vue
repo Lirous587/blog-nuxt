@@ -22,7 +22,6 @@
           title="相关导航"
           direction="ltr"
           size="300px"
-          class="dark:bg-black"
           :open-delay="250"
           ref="drawerRef"
           @close="iconRef.close()"
@@ -164,5 +163,10 @@ onBeforeUnmount(() => {
 }
 .nav:hover::after {
   @apply w-full;
+}
+
+.nav:focus {
+  outline: none;
+  box-shadow: none;
 }
 </style>

@@ -8,17 +8,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
   const heartWords = ref([]);
   const carousels = ref([]);
 
-  const statisticsData = reactive({
-    essay: {
-      name: "文章",
-      count: 0,
-    },
-    label: {
-      name: "标签",
-      count: 0,
-    },
-  });
-
   const initData = async () => {
     ifInit.value = false;
 
@@ -28,12 +17,6 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
       recommendEssays.value = data.recommendEssays;
       heartWords.value = shuffleArray(data.heartWords);
       carousels.value = shuffleArray(data.carousels);
-
-      statisticsData.label.count = labels.value.length;
-      // statisticsData.essay.count = kinds.value.reduce(
-      //   (accumulator, kind) => accumulator + kind.essayCount,
-      //   0
-      // );
     });
 
     ifInit.value = true;
@@ -59,23 +42,17 @@ export const useMyIndexStore = defineStore("myIndexStore", () => {
     return carousels.value;
   };
 
-  const getStatisticsData = () => {
-    return statisticsData;
-  };
-
   return {
     ifInit,
     labels,
     recommendEssays,
     heartWords,
     carousels,
-    statisticsData,
     initData,
     getInitStatus,
     getLabels,
     getRecommentEssays,
     getHeartWords,
     getCarousels,
-    getStatisticsData,
   };
 });
