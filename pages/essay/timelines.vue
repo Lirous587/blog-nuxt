@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex flex-col gap-4 mt-5">
+  <div class="mx-auto flex flex-col gap-4 mt-5 select-none">
     <el-timeline>
       <el-timeline-item
         v-for="item in list"
@@ -7,20 +7,40 @@
         placement="top"
       >
         <div class="flex flex-col gap-y-5">
-          <div v-for="record in item.records" class="flex items-center gap-x-5">
-            <NuxtLink :to="'/essay/' + record.id">
-              <div class="font-bold text-lg text-pink-400 dark:text-yellow-600">
-                {{ record.name }}
+          <div v-for="record in item.records">
+            <div class="flex" :to="'/essay/' + record.id">
+              <NuxtLink class="flex items-center" :to="'/essay/' + record.id">
+                <el-image
+                  :src="imgPre + record.img.url"
+                  lazy
+                  :fit="cover"
+                  class="h-[90px] w-[160px] overflow-hidden rounded-lg"
+                ></el-image>
+              </NuxtLink>
+
+              <div class="ml-4 flex flex-col justify-center">
+                <NuxtLink class="flex items-center" :to="'/essay/' + record.id">
+                  <h3
+                    class="font-bold text-lg dark:text-gray-500 text-blue-300"
+                  >
+                    {{ record.name }}
+                  </h3>
+                </NuxtLink>
+                <samll class="text-pink-200 dark:text-gray-600">
+                  {{ record.introduction }}
+                </samll>
+                <samll class="text-pink-300 dark:text-gray-600">
+                  {{ formateDate(record.createdTime).split(" ")[0] }}
+                </samll>
               </div>
-            </NuxtLink>
-            <el-text type="info">
-              {{ formateDate(record.createdTime).split(" ")[0] }}
-            </el-text>
+            </div>
           </div>
         </div>
       </el-timeline-item>
     </el-timeline>
+
     <el-skeleton :rows="3" animated :loading="isLoadingMore"></el-skeleton>
+
     <div
       ref="loadMoreTrigger"
       class="w-full h-[50px] flex items-center justify-center"
@@ -30,6 +50,8 @@
 
 <script setup>
 import { getEssayTimelines } from "~/api/essay";
+
+const imgPre = useRuntimeConfig().public.imgGalleryBase;
 
 definePageMeta({
   scrollToTop: true,
