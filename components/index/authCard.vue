@@ -5,7 +5,7 @@
     </div>
 
     <div
-      class="auth-card my-5 h-[80px] w-full relative flex items-center justify-center"
+      class="auth-card hover:cursor-pointer my-5 h-[80px] w-full relative flex items-center justify-center"
     >
       <div
         class="absolute opacity-0 transition-all duration-500 text-sm text-gray-400 flex flex-col items-center"
@@ -17,7 +17,7 @@
         </div>
         <span class="font-bold text-black dark:text-white/80"> 记录生活</span>
         <span class="font-bold text-black dark:text-white/80">学习技术</span>
-        <div>本站对你有帮助</div>
+        <div>希望本站对你有帮助</div>
       </div>
       <el-avatar
         :size="78"

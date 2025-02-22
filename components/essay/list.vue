@@ -1,73 +1,57 @@
 <template>
-  <div
-    class="select-none grid grid-cols-1 min-w-[300px] md:grid-cols-2 md:min-w-[600px] gap-3 overflow-auto"
-  >
+  <div class="flex flex-col gap-y-5 select-none px-5">
     <div v-for="item in list" :key="item.id">
-      <div
-        class="relative border border-pink-300 hover:!border-yellow-200 rounded-md overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg dark:bg-black dark:border-gray-800"
-      >
-        <NuxtLink
-          :to="'/essay/' + item.id"
-          class="flex justify-center w-full h-[180px] md:h-[250px] lg:h-[200px] overflow-hidden"
-        >
+      <div class="flex justify-between">
+        <div class="flex-1 flex flex-col gap-y-1 mr-2">
+          <NuxtLink :to="'/essay/' + item.id">
+            <h2
+              class="text-[rgb(152,192,246)] dark:text-pink-400 text-lg font-bold hover:underline font-serif"
+            >
+              {{ item.name }}
+            </h2>
+          </NuxtLink>
+
+          <small
+            class="text-xs text-gray-500 dark:text-gray-500 line-clamp-2 font-serif"
+          >
+            {{ item.introduction }}
+          </small>
+
+          <div class="flex items-center gap-x-2">
+            <small class="flex items-center text-gray-300 dark:text-gray-600">
+              <MyIconView></MyIconView>
+              <span class="mx-1">
+                {{ item.visitedTimes }}
+              </span>
+            </small>
+
+            <NuxtLink
+              class="ml-auto mr-10 hidden md:flex items-center text-xs px-1.5 py-1 rounded bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-pink-800"
+              :to="'/label/' + label.id + '/1'"
+              v-for="label in item.labelList"
+            >
+              {{ label.name }}
+            </NuxtLink>
+          </div>
+          <small class="text-gray-400 dark:text-gray-700">
+            <span class="line-clamp-1">
+              {{ formateDate(item.createdTime) }}
+            </span>
+          </small>
+        </div>
+
+        <NuxtLink :to="'/essay/' + item.id">
           <el-image
             :src="imgPre + item.img.url"
-            class="w-full lg:h-auto shadow-lg bg-cyan-100 dark:bg-gray-800 ease-in-out dark:opacity-60 hover:animate-pulse hover:scale-120 transition-transform duration-500"
+            class="h-[63px] w-[112px] md:h-[90px] md:w-[160px] overflow-hidden rounded-lg dark:opacity-60"
             fit="cover"
             :key="genRandomKey()"
             lazy
           >
           </el-image>
         </NuxtLink>
-
-        <div class="flex flex-col mx-3 gap-y-1 flex-wrap py-2">
-          <NuxtLink
-            :to="'/essay/' + item.id"
-            class="text-black dark:text-neutral-300"
-          >
-            <span
-              class="text-lg text-ellipsis transition-transform duration-300 hover:scale-105 hover:text-blue-500 dark:hover:text-blue-950 hover:underline"
-            >
-              {{ item.name }}
-            </span>
-          </NuxtLink>
-
-          <div class="text-sm text-gray-500 line-clamp-1">
-            {{ item.introduction }}
-          </div>
-
-          <div class="flex flex-wrap items-center">
-            <span class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3">
-              <el-tag
-                type="info"
-                class="mr-2 mb-1 dark:!bg-black dark:text-gray-500 dark:border-gray-700"
-                v-for="label in item.labelList"
-              >
-                <NuxtLink
-                  class="line-clamp-1 md:line-clamp-2 lg:line-clamp-3"
-                  :to="'/label/' + label.id + '/1'"
-                >
-                  {{ label.name }}
-                </NuxtLink>
-              </el-tag>
-            </span>
-          </div>
-
-          <small class="justify-between text-xs text-gray-400 flex">
-            <div class="flex items-center gap-x-1">
-              <el-icon><Calendar /></el-icon>
-              <span class="line-clamp-1 number-font">
-                {{ formateDate(item.createdTime) }}
-              </span>
-              <span class="mx-1">|</span>
-              <el-icon size="14"><View /></el-icon>
-              <span class="number-font">
-                {{ item.visitedTimes }}
-              </span>
-            </div>
-          </small>
-        </div>
       </div>
+      <div class="h-[1px] my-2 bg-gray-100 dark:bg-gray-700"></div>
     </div>
   </div>
 </template>
@@ -82,15 +66,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<style scoped>
-@reference "assets/css/tailwind.css";
-
-* {
-  @apply font-serif;
-}
-
-.number-font {
-  @apply font-sans;
-}
-</style>

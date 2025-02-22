@@ -33,7 +33,7 @@
         <el-collapse-item title="导航" name="1">
           <IndexGuide> </IndexGuide>
         </el-collapse-item>
-        <el-collapse-item title="云标签" name="2">
+        <el-collapse-item title="标签云" name="2">
           <IndexLabels :list="labels"></IndexLabels>
         </el-collapse-item>
         <el-collapse-item title="推荐文章" name="3">
