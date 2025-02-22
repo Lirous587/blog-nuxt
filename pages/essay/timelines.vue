@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex flex-col gap-4 mt-5 select-none">
+  <div class="p-1 select-none">
     <el-timeline>
       <el-timeline-item
         v-for="item in list"
@@ -14,19 +14,19 @@
                   :src="imgPre + record.img.url"
                   lazy
                   :fit="cover"
-                  class="h-[90px] w-[160px] overflow-hidden rounded-lg"
+                  class="h-[63px] w-[112px] md:h-[90px] md:w-[160px] overflow-hidden rounded-lg"
                 ></el-image>
               </NuxtLink>
 
               <div class="ml-4 flex flex-col justify-center">
                 <NuxtLink class="flex items-center" :to="'/essay/' + record.id">
                   <h3
-                    class="font-bold text-lg dark:text-gray-500 text-blue-300"
+                    class="font-bold text-lg dark:text-gray-500 text-blue-300 line-clamp-1"
                   >
                     {{ record.name }}
                   </h3>
                 </NuxtLink>
-                <samll class="text-pink-200 dark:text-gray-600">
+                <samll class="text-pink-200 dark:text-gray-600 line-clamp-2">
                   {{ record.introduction }}
                 </samll>
                 <samll class="text-pink-300 dark:text-gray-600">
@@ -39,8 +39,26 @@
       </el-timeline-item>
     </el-timeline>
 
-    <el-skeleton :rows="3" animated :loading="isLoadingMore"></el-skeleton>
-
+    <el-skeleton
+      :loading="isLoadingMore"
+      animated
+      :count="3"
+      class="flex flex-col gap-y-5"
+    >
+      <template #template>
+        <div class="flex ml-7">
+          <el-skeleton-item
+            variant="image"
+            class="!h-[63px] !w-[112px] md:!h-[90px] md:!w-[160px] !rounded-lg"
+          />
+          <div class="flex flex-col gap-y-3">
+            <el-skeleton-item variant="text" class="!ml-5 !w-[150px]" />
+            <el-skeleton-item variant="text" class="!ml-5 !w-[120px]" />
+            <el-skeleton-item variant="text" class="!ml-5 !w-[100px]" />
+          </div>
+        </div>
+      </template>
+    </el-skeleton>
     <div
       ref="loadMoreTrigger"
       class="w-full h-[50px] flex items-center justify-center"
