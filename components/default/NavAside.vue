@@ -4,22 +4,20 @@
       class="hidden lg:flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0 font-serif"
     >
       <IndexAuthCard
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-all duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
       ></IndexAuthCard>
       <IndexLabels
         :list="labels"
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-all duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
       >
         <div class="flex items-center mb-2">
-          <span
-            class="w-1 h-[0.875rem] inline-block ml-2 mr-1 bg-blue-400"
-          ></span>
+          <span class="w-1 h-[0.875rem] inline-block mx-2 bg-blue-400"></span>
           <span class="text-blue-500 text-sm">标签云</span>
         </div>
       </IndexLabels>
       <IndexRecommendEssays
         :list="recommentEssays"
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-all duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
       >
         <div class="flex items-center mb-2">
           <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>
@@ -27,6 +25,7 @@
         </div>
       </IndexRecommendEssays>
     </div>
+
     <div class="block lg:hidden">
       <IndexAuthCard class="mb-3"></IndexAuthCard>
       <el-collapse accordion>
@@ -51,11 +50,3 @@ const indexStore = useMyIndexStore();
 const labels = indexStore.getLabels();
 const recommentEssays = indexStore.getRecommentEssays();
 </script>
-
-<style scoped>
-/* @reference "assets/css/tailwind.css";
-
-* {
-  @apply font-serif;
-} */
-</style>

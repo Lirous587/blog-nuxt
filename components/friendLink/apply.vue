@@ -53,7 +53,9 @@
             :maxlength="80"
           >
             <template #prefix>
-              <el-avatar :src="form.logo"></el-avatar> </template
+              <div class="py-[2px] flex items-center">
+                <el-avatar :src="form.logo"></el-avatar>
+              </div> </template
           ></el-input>
         </el-form-item>
         <el-form-item>

@@ -77,6 +77,7 @@
 import { getEssay } from "~/api/essay";
 definePageMeta({
   scrollToTop: true,
+  layout: "essay",
 });
 const mdRef = ref(null);
 const mobileAnchorShow = ref(false);

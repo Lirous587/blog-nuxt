@@ -89,10 +89,12 @@ const open = () => {
   visible.value = true;
 };
 const close = () => {
-  bodyFixedStore.release();
-  document.body.style.borderRight = "none";
-  document.body.style.overflow = "";
-  visible.value = false;
+  setTimeout(() => {
+    bodyFixedStore.release();
+    document.body.style.borderRight = "none";
+    document.body.style.overflow = "";
+    visible.value = false;
+  }, props.closeDelay);
 };
 
 defineExpose({

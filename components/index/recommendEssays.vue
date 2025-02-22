@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot></slot>
-    <div class="flex flex-col gap-y-2">
+    <div class="flex flex-col gap-y-2 p-2">
       <div v-for="item in list">
         <NuxtLink
           :key="item.id"

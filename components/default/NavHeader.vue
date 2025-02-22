@@ -27,9 +27,10 @@
           @close="iconRef.close()"
           mode="user"
         >
-          <DefaultNavAside class="overflow-hidden"></DefaultNavAside>
+          <DefaultNavAside></DefaultNavAside>
         </MyDrawer>
       </div>
+
       <NuxtLink to="/" class="nav flex items-center justify-center lg:hidden">
         <MyIconHome />
       </NuxtLink>

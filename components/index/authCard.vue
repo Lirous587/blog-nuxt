@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-around gap-y-3">
-    <div class="text-xs p-2 rounded-lg text-yellow-500">
-      表独立兮山之上,云容容兮而在下
+    <div class="text-xs p-2 rounded-lg text-blue-400 dark:text-pink-300">
+      表独立兮山之上 云容容兮而在下
     </div>
 
     <div
@@ -35,13 +35,13 @@
       <div class="flex gap-x-2">
         <NuxtLink target="_blank" :to="githubUrl" class="p-1">
           <MyIconGithub
-            class="text-black dark:text-yellow-600 hover:scale-110 transition-transform duration-500"
+            class="text-black dark:text-gray-500 hover:scale-110 transition-transform duration-500"
           >
           </MyIconGithub>
         </NuxtLink>
         <NuxtLink target="_blank" :to="bilibiliUrl" class="p-1">
           <MyIconBilibili
-            class="text-black dark:text-yellow-600 hover:scale-110 transition-transform duration-500"
+            class="text-black dark:text-gray-500 hover:scale-110 transition-transform duration-500"
           >
           </MyIconBilibili>
         </NuxtLink>

@@ -44,7 +44,6 @@ nuxtApp.hook("page:finish", () => {
 
 ::-webkit-scrollbar {
   width: 2px;
-  width: 0;
 }
 
 /* ::-webkit-scrollbar-thumb {

@@ -18,18 +18,20 @@
                 ></el-image>
               </NuxtLink>
 
-              <div class="ml-4 flex flex-col justify-center">
-                <NuxtLink class="flex items-center" :to="'/essay/' + record.id">
+              <div class="ml-4 flex flex-col gap-y-1">
+                <NuxtLink :to="'/essay/' + record.id">
                   <h3
-                    class="font-bold text-lg dark:text-gray-500 text-blue-300 line-clamp-1"
+                    class="text-lg font-bold dark:text-gray-500 text-blue-300 line-clamp-1"
                   >
                     {{ record.name }}
                   </h3>
                 </NuxtLink>
-                <samll class="text-pink-200 dark:text-gray-600 line-clamp-2">
+                <samll
+                  class="text-sm text-pink-200 dark:text-gray-600 line-clamp-2"
+                >
                   {{ record.introduction }}
                 </samll>
-                <samll class="text-pink-300 dark:text-gray-600">
+                <samll class="text-xs text-pink-300 dark:text-gray-600">
                   {{ formateDate(record.createdTime).split(" ")[0] }}
                 </samll>
               </div>
