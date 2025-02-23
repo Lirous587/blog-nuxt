@@ -1,14 +1,14 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 mt-5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-5">
     <div
       v-for="item in list"
-      class="parent rounded-lg py-5 px-2 h-[6rem] bg-white dark:bg-gray-800 relative hover:bg-blue-400 dark:hover:bg-pink-700 transition-colors duration-300"
+      class="parent rounded-lg py-3 px-1 h-[5rem] bg-white dark:bg-gray-800 relative hover:bg-blue-400 dark:hover:bg-pink-700 transition-colors duration-300"
+      :title="item.introduction"
     >
       <a
         :href="item.url"
         target="_blank"
-        class="flex items-start justify-start"
-        :title="item.introduction"
+        class="flex items-center justify-start"
       >
         <el-avatar
           size="large"

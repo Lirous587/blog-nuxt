@@ -1,6 +1,6 @@
 <template>
   <div
-    class="headerContainer select-none fixed left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-white/70 dark:bg-black/70 transition-transform duration-300 z-[100] backdrop-blur-sm"
+    class="headerContainer select-none fixed left-0 right-0 top-0 flex justify-between shadow-lg h-[60px] bg-white/70 dark:bg-black/70 transition-transform duration-500 z-[100] backdrop-blur-sm"
     :style="{
       borderRight: bodyFixedStore?.ifFixed
         ? `${bodyFixedStore.barWidth} solid transparent`
@@ -62,7 +62,7 @@
         to="/essay/timelines"
         class="nav flex items-center justify-center"
       >
-        <MyIconBook />
+        <MyIconBookmark />
         <span>归档</span>
       </NuxtLink>
     </div>
@@ -94,6 +94,7 @@
 <script setup>
 import { useMyThemeStore } from "~/store/theme";
 import { useMyBodyFiexedStore } from "./store/bodyFixed";
+import { useMyDefaultHeaderStore } from "~/store/defaultHeader";
 
 const drawerRef = ref(null);
 const iconRef = ref(null);
@@ -111,6 +112,7 @@ watch(route, () => {
   drawerRef.value.close();
 });
 
+const headerStore = useMyDefaultHeaderStore();
 const translateY = ref("0");
 
 let lastTop = 0;
@@ -118,9 +120,14 @@ let nowTop = 0;
 
 const scroll = (event) => {
   nowTop = event.target.scrollingElement.scrollTop;
+  // 向下滚动
   if (nowTop > lastTop && nowTop > 60) {
+    headerStore.fold();
     translateY.value = "-60px";
-  } else {
+  }
+  // 向上滚动
+  else {
+    headerStore.unfold();
     translateY.value = "0px";
   }
   lastTop = nowTop;

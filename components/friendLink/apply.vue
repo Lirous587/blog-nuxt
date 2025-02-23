@@ -49,14 +49,14 @@
           <el-input
             placeholder="logo/仅支持https/80字符"
             v-model="form.logo"
-            type="url"
             :maxlength="80"
           >
             <template #prefix>
               <div class="py-[2px] flex items-center">
                 <el-avatar :src="form.logo"></el-avatar>
-              </div> </template
-          ></el-input>
+              </div>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button

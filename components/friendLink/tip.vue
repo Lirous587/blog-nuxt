@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex gap-x-2 mt-5 mb-2 text-blue-400">
-      <MyIconBook />
+      <MyIconBookmark />
       本站信息
     </div>
     <div

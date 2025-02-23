@@ -4,11 +4,11 @@
       class="hidden lg:flex flex-col gap-y-5 lg:gap-y-10 flex-shrink-0 font-serif"
     >
       <IndexAuthCard
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-shadow duration-300"
       ></IndexAuthCard>
       <IndexLabels
         :list="labels"
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-shadow duration-300"
       >
         <div class="flex items-center mb-2">
           <span class="w-1 h-[0.875rem] inline-block mx-2 bg-blue-400"></span>
@@ -17,7 +17,7 @@
       </IndexLabels>
       <IndexRecommendEssays
         :list="recommentEssays"
-        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-[shadow] duration-300"
+        class="px-4 pb-6 pt-3 rounded-lg bg-white dark:bg-[rgb(29,30,34)] shadow-sm hover:shadow-lg transition-shadow duration-300"
       >
         <div class="flex items-center mb-2">
           <span class="w-1 h-[1em] inline-block mx-2 bg-blue-400"></span>

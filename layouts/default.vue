@@ -8,7 +8,9 @@
         <DefaultNavAside></DefaultNavAside>
       </aside>
       <!-- 此处加一个w-0 通知子元素可以在父元素发生溢出 -->
-      <main class="w-0 flex-1 p-5 rounded-md bg-white dark:bg-[rgb(29,30,34)]">
+      <main
+        class="w-0 flex-1 p-5 rounded-md bg-white dark:bg-[rgb(29,30,34)] shadow-md"
+      >
         <slot />
       </main>
     </div>
@@ -19,7 +21,7 @@
       <Wave />
     </div>
 
-    <FixedTool v-if="route.path.split('/')[1] != 'essay'"></FixedTool>
+    <FixedTool></FixedTool>
     <DefaultRecordBottom></DefaultRecordBottom>
   </div>
 </template>

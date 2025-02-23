@@ -3,58 +3,18 @@
     class="fixed bottom-[60px] right-[20px] flex flex-col gap-y-3 z-50 transition-all duration-500"
     :class="tollOpcity"
   >
-    <!-- top -->
     <div
-      class="tool-container"
-      v-if="toolList.includes('top')"
-      @click="scrollToTop"
+      class="flex items-center justify-center px-1 py-2 rounded-lg bg-blue-100 dark:bg-neutral-200"
     >
-      <svg viewBox="0 0 24 24" width="24px" height="24px">
-        <path
-          fill="white"
-          d="M12 2l-6 6h4v12h4V8h4z"
-          stroke="white"
-          stroke-width="2"
-        />
-      </svg>
+      <MyIconToTop class="scale-125 text-gray-500" @click="scrollToTop">
+      </MyIconToTop>
     </div>
 
-    <!-- menu -->
-    <div
-      class="tool-container lg:!hidden"
-      v-if="toolList.includes('menu')"
-      @click.stop="props.menuFunc"
-    >
-      <el-icon size="24" color="white"><Memo /></el-icon>
-    </div>
-
-    <!-- chat -->
-    <div
-      class="tool-container"
-      v-if="toolList.includes('chat')"
-      @click.stop="props.chatFunc"
-    >
-      <el-icon size="24" color="white"><ChatDotRound /></el-icon>
-    </div>
+    <slot />
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
-  toolList: {
-    type: Array,
-    default: ["top"],
-  },
-  menuFunc: {
-    type: Function,
-    default: () => {},
-  },
-  chatFunc: {
-    type: Function,
-    default: () => {},
-  },
-});
-
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -82,11 +42,3 @@ onBeforeUnmount(() => {
   window.removeEventListener("scroll", throttleScroll);
 });
 </script>
-
-<style scoped>
-@reference "assets/css/tailwind.css";
-
-.tool-container {
-  @apply bg-[rgb(53,212,244)] dark:bg-[rgb(129,199,213)]  rounded-lg w-[28px] h-[28px] md:w-[32px] md:h-[32px] flex items-center justify-center hover:cursor-pointer;
-}
-</style>

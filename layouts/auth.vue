@@ -1,9 +1,7 @@
 <template>
-  <div class="bg-[rgb(242,243,245)] dark:bg-black">
+  <div>
     <DefaultNavHeader></DefaultNavHeader>
-    <DefaultBackground>
-      <DefaultTypeHeartWord />
-    </DefaultBackground>
+    <DefaultBackground :showIcon="false"> </DefaultBackground>
 
     <div>
       <slot />

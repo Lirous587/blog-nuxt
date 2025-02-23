@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-      <path
-        d="M34 10V4H8V38L14 35"
-        stroke="#23e92d"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M14 44V10H40V44L27 37.7273L14 44Z"
-        fill="#42d186"
-        stroke="#23e92d"
-        stroke-width="2"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </div>
+  <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+    <path
+      d="M5 7H16C20.4183 7 24 10.5817 24 15V42C24 38.6863 21.3137 36 18 36H5V7Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M43 7H32C27.5817 7 24 10.5817 24 15V42C24 38.6863 26.6863 36 30 36H43V7Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+  </svg>
 </template>
