@@ -113,7 +113,7 @@ const formRef = ref(null);
 const validateContent = (rule, value, callback) => {
   if (!value || value.trim().length === 0) {
     form.content = "";
-    callback(new Error("评论内容不能为空或全为空格"));
+    callback(new Error("评论内容不能为空"));
   } else {
     callback();
   }

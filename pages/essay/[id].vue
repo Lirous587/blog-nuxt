@@ -32,6 +32,10 @@
         @click="mobileAnchorShow = false"
       ></MdPreview>
 
+      <small class="text-right block font-bold text-blue-600 dark:text-yellow-300 mr-5">
+        于{{ formateDate(data.updatedTime) }}更新
+      </small>
+
       <div id="chatArea" class="dark:bg-black dark:text-neutral-300 p-3">
         <EssayComment :eid="id"></EssayComment>
       </div>
@@ -69,8 +73,7 @@
         <MyIconBook class="scale-90 dark:text-green-200"></MyIconBook>
       </div>
       <div
-        class="flex items-center justify-center p-1 py-2 rounded-lg text-blue-400 dark:text-gray-200
-         bg-yellow-100 dark:bg-pink-300"
+        class="flex items-center justify-center p-1 py-2 rounded-lg text-blue-400 dark:text-gray-200 bg-yellow-100 dark:bg-pink-300"
         @click="scrollToChatArea()"
       >
         <MyIconComment class="scale-110"> </MyIconComment>

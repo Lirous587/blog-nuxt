@@ -124,15 +124,6 @@
         <el-form-item label="文章图片" prop="img">
           <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
         </el-form-item>
-        <el-form-item label="关键词" prop="keywords">
-          <DynamicAddTag
-            :str="form.keywords"
-            @change="
-              (value) =>
-                Array.isArray(value) ? (form.keywords = value.join(',')) : null
-            "
-          ></DynamicAddTag>
-        </el-form-item>
         <el-form-item label="优先级">
           <el-input-number
             v-model="form.priority"
@@ -216,7 +207,6 @@ const {
     content: "",
     priority: 100,
     theme: "default",
-    keywords: "",
     img: {
       id: 0,
       url: "",
@@ -227,23 +217,8 @@ const {
   update: updateEssay,
   rules: {
     name: [{ required: true, message: "请输入文章名", trigger: "blur" }],
-    labelIds: [{ required: true, message: "请选择标签", trigger: "blur" }],
     introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
-    img: [
-      {
-        required: true,
-        validator: (rule, value, callback) => {
-          if (!value.id) {
-            callback(new Error("请选择图片"));
-          } else {
-            callback();
-          }
-        },
-        trigger: "blur",
-      },
-    ],
     content: [{ required: true, message: "请输入内容", trigger: "blur" }],
-    keywords: [{ required: true, message: "请输入关键词", trigger: "blur" }],
   },
 });
 </script>

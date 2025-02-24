@@ -7,36 +7,7 @@
         placement="top"
       >
         <div class="flex flex-col gap-y-5">
-          <div v-for="record in item.records">
-            <div class="flex" :to="'/essay/' + record.id">
-              <NuxtLink class="flex items-center" :to="'/essay/' + record.id">
-                <el-image
-                  :src="imgPre + record.img.url"
-                  lazy
-                  :fit="cover"
-                  class="h-[63px] w-[112px] md:h-[90px] md:w-[160px] overflow-hidden rounded-lg"
-                ></el-image>
-              </NuxtLink>
-
-              <div class="ml-4 flex flex-col gap-y-1">
-                <NuxtLink :to="'/essay/' + record.id">
-                  <h3
-                    class="text-lg font-bold dark:text-gray-500 text-blue-300 line-clamp-1"
-                  >
-                    {{ record.name }}
-                  </h3>
-                </NuxtLink>
-                <samll
-                  class="text-sm text-pink-200 dark:text-gray-600 line-clamp-2"
-                >
-                  {{ record.introduction }}
-                </samll>
-                <samll class="text-xs text-pink-300 dark:text-gray-600">
-                  {{ formateDate(record.createdTime).split(" ")[0] }}
-                </samll>
-              </div>
-            </div>
-          </div>
+          <EssayList :list="item.records"></EssayList>
         </div>
       </el-timeline-item>
     </el-timeline>
@@ -48,16 +19,16 @@
       class="flex flex-col gap-y-5"
     >
       <template #template>
-        <div class="flex ml-7">
-          <el-skeleton-item
-            variant="image"
-            class="!h-[63px] !w-[112px] md:!h-[90px] md:!w-[160px] !rounded-lg"
-          />
+        <div class="flex justify-between px-5">
           <div class="flex flex-col gap-y-3">
             <el-skeleton-item variant="text" class="!ml-5 !w-[150px]" />
             <el-skeleton-item variant="text" class="!ml-5 !w-[120px]" />
             <el-skeleton-item variant="text" class="!ml-5 !w-[100px]" />
           </div>
+          <el-skeleton-item
+            variant="image"
+            class="!h-[82px] !w-[128px] md:!h-[90px] md:!w-[160px] overflow-hidden !rounded-lg"
+          />
         </div>
       </template>
     </el-skeleton>
@@ -70,8 +41,6 @@
 
 <script setup>
 import { getEssayTimelines } from "~/api/essay";
-
-const imgPre = useRuntimeConfig().public.imgGalleryBase;
 
 definePageMeta({
   scrollToTop: true,

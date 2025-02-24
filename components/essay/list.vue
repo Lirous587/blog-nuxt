@@ -18,7 +18,10 @@
           </small>
 
           <div class="flex items-center my-0.5">
-            <small class="flex items-center text-gray-300 dark:text-gray-600">
+            <small
+              class="flex items-center text-gray-300 dark:text-gray-600"
+              v-if="item.visitedTimes"
+            >
               <MyIconView></MyIconView>
               <span class="ml-[2px]">
                 {{ item.visitedTimes }}
@@ -27,6 +30,7 @@
 
             <small
               class="flex ml-2 items-center text-gray-300 dark:text-gray-600"
+              v-if="item.visitedTimes"
             >
               <MyIconComment></MyIconComment>
               <span class="ml-[2px]">
@@ -47,14 +51,12 @@
             </div>
           </div>
 
-          <small class="text-gray-400 dark:text-gray-700">
-            <span class="line-clamp-1">
-              {{ formateDate(item.createdTime) }}
-            </span>
+          <small class="text-gray-400 dark:text-gray-700 line-clamp-1">
+            {{ formateDate(item.createdTime) }}
           </small>
         </div>
 
-        <NuxtLink :to="'/essay/' + item.id">
+        <NuxtLink :to="'/essay/' + item.id" v-if="!!item.img?.url">
           <el-image
             :src="imgPre + item.img.url"
             class="h-[82px] w-[128px] md:h-[90px] md:w-[160px] overflow-hidden rounded-lg dark:opacity-60"
