@@ -19,7 +19,7 @@
       <el-button
         class="ml-auto mt-2 !rounded-md"
         :type="hadLogin ? 'primary' : 'warning'"
-        @click="submitCreate"
+        @click="hadLogin ? submitCreate() : gotoLogin(`/essay/${eid}`)"
         :loading="btnLoading"
       >
         {{ hadLogin ? "评论" : "请先登录" }}

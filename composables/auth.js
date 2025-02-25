@@ -86,3 +86,16 @@ export const userStatusAuth = async () => {
       });
   }
 };
+
+export const gotoLogin = (preUrl) => {
+  const router = useRouter();
+  router.push(`/user/auth?from=${preUrl}`);
+};
+
+export const gotoLoginPreUrl = () => {
+  const router = useRouter();
+  const route = useRoute();
+  const preUrl = route.query.from;
+  console.log(route.query);
+  router.push(preUrl ? preUrl : "/");
+};

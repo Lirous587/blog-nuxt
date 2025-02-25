@@ -79,6 +79,7 @@ const rules = reactive({
 
 const handleSlideConfirm = () => {
   handleLogin();
+  gotoLoginPreUrl();
 };
 
 const handleLogin = () => {

@@ -25,7 +25,13 @@
         </ImgUpload>
       </el-form-item>
       <el-form-item prop="name" for="name">
-        <el-input v-model="form.name" name="name" placeholder="用户名">
+        <el-input
+          v-model="form.name"
+          name="name"
+          placeholder="用户名"
+          :maxlength="15"
+          show-word-limit
+        >
           <template #prefix>
             <el-icon><User /></el-icon>
           </template>

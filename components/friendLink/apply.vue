@@ -134,7 +134,7 @@ let fun;
 const handleSubmitPre = async () => {
   if (!ifLogin) {
     toast("请先登录", "warning");
-    router.push("/user/auth");
+    gotoLogin("/friendLink");
     return;
   }
   await initInfo();

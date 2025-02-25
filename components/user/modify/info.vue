@@ -21,7 +21,11 @@
       </el-form-item>
 
       <el-form-item label="用户名" prop="name" for="name">
-        <el-input v-model="form.name"></el-input>
+        <el-input
+          v-model="form.name"
+          :maxlength="15"
+          show-word-limit
+        ></el-input>
       </el-form-item>
     </el-form>
   </MyDrawer>
