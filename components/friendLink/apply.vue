@@ -24,32 +24,35 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="网站名" prop="siteName">
           <el-input
-            placeholder="网站名/15字符"
+            placeholder="网站名"
             v-model="form.siteName"
             :maxlength="15"
+            show-word-limit
           ></el-input>
         </el-form-item>
         <el-form-item label="简介" prop="introduction">
           <el-input
-            placeholder="简介/70字符"
+            placeholder="简介"
             v-model="form.introduction"
             type="textarea"
             :maxlength="70"
+            show-word-limit
           ></el-input>
         </el-form-item>
         <el-form-item label="地址" prop="url">
           <el-input
-            placeholder="地址/仅支持https/40字符"
+            placeholder="地址"
             v-model="form.url"
-            type="url"
             :maxlength="40"
+            show-word-limit
           ></el-input>
         </el-form-item>
         <el-form-item label="logo" prop="logo">
           <el-input
-            placeholder="logo/仅支持https/80字符"
+            placeholder="logo"
             v-model="form.logo"
-            :maxlength="80"
+            :maxlength="100"
+            show-word-limit
           >
             <template #prefix>
               <div class="py-[2px] flex items-center">
@@ -104,7 +107,6 @@ const rules = reactive({
       required: true,
       validator: urlValidator,
       trigger: "blur",
-      max: 40,
     },
   ],
   logo: [
@@ -112,7 +114,6 @@ const rules = reactive({
       required: true,
       validator: urlValidator,
       trigger: "blur",
-      max: 80,
     },
   ],
   introduction: [
@@ -120,7 +121,6 @@ const rules = reactive({
       required: true,
       message: "请输入网站介绍",
       trigger: "blur",
-      max: 70,
     },
   ],
 });

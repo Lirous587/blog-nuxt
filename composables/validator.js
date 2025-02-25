@@ -87,7 +87,7 @@ export const initUserValidator = () => {
 
 export const urlValidator = (rule, value, callback) => {
   const urlPattern =
-    /^(https?:\/\/)[\w.-]+(?:\.[\w\.-]+)+(?:[\/\w\.-]*)*(?:\?[^\s]*)?\/?$/;
+    /^(https?:\/\/)(?:[\w.-]+(?:\.[\w\.-]+)+)(?::\d+)?(?:\/[^\s?#]*)*(?:\?[^\s#]*)?(?:#[^\s]*)?\/?$/;
   if (!urlPattern.test(value)) {
     callback(new Error("请输入有效的 URL"));
   } else {

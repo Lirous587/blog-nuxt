@@ -86,7 +86,13 @@
         :rules="rules"
       >
         <el-form-item label="名称" prop="name">
-          <el-input placeholder="请输入名称" size="large" v-model="form.name">
+          <el-input
+            placeholder="请输入名称"
+            size="large"
+            v-model="form.name"
+            show-word-limit
+            :maxlength="20"
+          >
           </el-input>
         </el-form-item>
 
@@ -96,6 +102,8 @@
             v-model="form.introduction"
             type="textarea"
             :rows="3"
+            show-word-limit
+            :maxlength="50"
           >
           </el-input>
         </el-form-item>

@@ -117,10 +117,20 @@
         </ImgUpload>
       </el-form-item>
       <el-form-item label="图片url" v-if="drawerTitle !== '新增'">
-        <el-input placeholder="" v-model="form.url"></el-input>
+        <el-input
+          placeholder=""
+          v-model="form.url"
+          show-word-limit
+          :maxlength="120"
+        ></el-input>
       </el-form-item>
       <el-form-item label="备注">
-        <el-input placeholder="" v-model="form.introduction"></el-input>
+        <el-input
+          placeholder=""
+          v-model="form.introduction"
+          show-word-limit
+          :maxlength="30"
+        ></el-input>
       </el-form-item>
     </el-form>
   </MyDrawer>

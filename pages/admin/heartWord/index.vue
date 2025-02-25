@@ -84,17 +84,20 @@
         <el-form-item label="内容" prop="content">
           <el-input
             placeholder="请输入心语内容"
-            size="large"
+            type="textarea"
+            :rows="3"
             v-model="form.content"
+            :maxlength="80"
+            show-word-limit
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="出处" prop="source">
+        <el-form-item label="出处" show-word-limit>
           <el-input
             placeholder="请输入心语出处"
             v-model="form.source"
-            type="textarea"
-            :rows="3"
+            prop="source"
+            :maxlength="20"
           >
           </el-input>
         </el-form-item>

@@ -12,6 +12,7 @@
 const theme = defineModel("theme", {
   type: String,
   required: true,
+  default: "default",
 });
 
 const themeOptions = [

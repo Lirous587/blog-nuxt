@@ -96,7 +96,12 @@
         :inline="false"
       >
         <el-form-item label="文章名" prop="name">
-          <el-input v-model="form.name" placeholder="文章名" />
+          <el-input
+            v-model="form.name"
+            placeholder="文章名"
+            :maxlength="30"
+            show-word-limit
+          />
         </el-form-item>
         <el-form-item label="标签" prop="labelIds">
           <AdminEssaySelectLabels
@@ -118,6 +123,8 @@
             v-model="form.introduction"
             placeholder="介绍"
             class="input"
+            :maxlength="160"
+            show-word-limit
           />
         </el-form-item>
         <el-form-item label="文章图片" prop="img">

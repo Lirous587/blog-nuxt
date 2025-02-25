@@ -92,7 +92,9 @@
             placeholder="请输入介绍"
             v-model="form.introduction"
             type="textarea"
-            :rows="3"
+            :maxlength="30"
+            :rows="2"
+            show-word-limit
           >
           </el-input>
         </el-form-item>

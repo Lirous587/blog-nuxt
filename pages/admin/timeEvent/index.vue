@@ -76,7 +76,13 @@
         :rules="rules"
       >
         <el-form-item label="主题" prop="topic">
-          <el-input placeholder="请输入主题" v-model="form.topic"> </el-input>
+          <el-input
+            placeholder="请输入主题"
+            v-model="form.topic"
+            :maxlength="25"
+            show-word-limit
+          >
+          </el-input>
         </el-form-item>
         <el-form-item label="介绍" prop="introduction">
           <el-input
@@ -84,6 +90,8 @@
             v-model="form.introduction"
             type="textarea"
             :rows="3"
+            :maxlength="120"
+            show-word-limit
           >
           </el-input>
         </el-form-item>
@@ -149,7 +157,7 @@ const {
     topic: "",
     introduction: "",
     content: "",
-    theme: "",
+    theme: "default",
   }),
   getData,
   create: createTimeEvent,

@@ -11,7 +11,9 @@
             v-model="form.content"
             type="textarea"
             :autosize="{ minRows: 5, maxRows: 15 }"
-          ></el-input>
+            show-word-limit
+          >
+          </el-input>
         </el-form-item>
       </el-form>
       <el-button

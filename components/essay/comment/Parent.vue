@@ -60,6 +60,8 @@
               v-model="form.content"
               type="textarea"
               :autosize="{ minRows: 5, maxRows: 15 }"
+              show-word-limit
+              :maxlength="800"
             ></el-input>
           </el-form-item>
         </el-form>
