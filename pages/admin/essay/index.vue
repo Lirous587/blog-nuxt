@@ -104,8 +104,7 @@
           ></AdminEssaySelectLabels>
         </el-form-item>
         <el-form-item label="代码主题">
-          <AdminEssaySelectTheme v-model:theme="form.theme">
-          </AdminEssaySelectTheme>
+          <MdSelectTheme v-model:theme="form.theme"> </MdSelectTheme>
         </el-form-item>
         <el-form-item label="文章内容" prop="content">
           <AdminEssayEditContent

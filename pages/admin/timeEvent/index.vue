@@ -23,24 +23,6 @@
           align="center"
           show-overflow-tooltip
         />
-        <el-table-column label="图片" align="center">
-          <template #default="scope">
-            <el-avatar :src="imgPre + scope.row.img.url"></el-avatar>
-          </template>
-        </el-table-column>
-        <el-table-column label="链接" align="center">
-          <template #default="scope">
-            <el-text v-if="!scope.row.relatedLink" type="info">无</el-text>
-            <el-link
-              v-else
-              type="info"
-              :href="scope.row.relatedLink"
-              target="_blank"
-            >
-              相关链接
-            </el-link>
-          </template>
-        </el-table-column>
         <el-table-column label="操作" align="center" width="180">
           <template #default="scope">
             <el-button type="warning" @click="handleEdit(scope.row)"
@@ -105,16 +87,14 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="相关链接" prop="relatedLink">
-          <el-input
-            placeholder="请输入相关链接（可选）"
-            v-model="form.relatedLink"
-            type="url"
-          >
-          </el-input>
+        <el-form-item label="md主题" prop="theme">
+          <MdSelectTheme v-model:theme="form.theme"> </MdSelectTheme>
         </el-form-item>
-        <el-form-item label="图片" prop="img">
-          <ImgSelect v-model:id="form.img.id" :url="form.img.url"></ImgSelect>
+        <el-form-item label="内容" prop="content">
+          <AdminTimeEventEditContent
+            :id="form.id"
+            v-model:content="form.content"
+          ></AdminTimeEventEditContent>
         </el-form-item>
       </el-form>
     </MyDrawer>
@@ -132,9 +112,6 @@ import {
 definePageMeta({
   layout: "admin",
 });
-
-const config = useRuntimeConfig();
-const imgPre = config.public.imgGalleryBase;
 
 //  table
 const {
@@ -171,11 +148,8 @@ const {
     id: 0,
     topic: "",
     introduction: "",
-    relatedLink: "",
-    img: {
-      id: 0,
-      url: "",
-    },
+    content: "",
+    theme: "",
   }),
   getData,
   create: createTimeEvent,
@@ -183,19 +157,7 @@ const {
   rules: {
     topic: [{ required: true, message: "请输入主题", trigger: "blur" }],
     introduction: [{ required: true, message: "请输入介绍", trigger: "blur" }],
-    img: [
-      {
-        required: true,
-        validator: (rule, value, callback) => {
-          if (!value.id) {
-            callback(new Error("请选择图片"));
-          } else {
-            callback();
-          }
-        },
-        trigger: "blur",
-      },
-    ],
+    content: [{ required: true, message: "请输入内容", trigger: "blur" }],
   },
 });
 </script>
