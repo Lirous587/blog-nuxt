@@ -37,7 +37,7 @@
       <div class="flex gap-x-3" v-if="hadLogin || ifAdmin">
         <small
           @click="handleChoose(data)"
-          v-if="data.id && data.fromUser.uid != userInfo?.id && !ifAdmin"
+          v-if="data.id && data.fromUser.id != userInfo?.id && !ifAdmin"
           class="text-green-700 hover:cursor-pointer hover:text-blue-300"
         >
           {{ data.replayStatus ? "回复中" : "回复" }}
@@ -81,15 +81,15 @@ const hadLogin = userIfLogin();
 const emits = defineEmits(["choose", "delete"]);
 
 const emitData = reactive({
-  toUID: "",
   toUserName: "",
   parentID: 0,
+  replyID: 0,
 });
 
 const handleChoose = (item) => {
-  emitData.toUID = item.fromUser.uid;
   emitData.toUserName = item.fromUser.name;
   emitData.parentID = item.parentID;
+  emitData.replyID = item.id;
   emits("choose", emitData);
   item.replayStatus = true;
 };

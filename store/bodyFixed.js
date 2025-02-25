@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useMyBodyFiexedStore = defineStore("myScrollBarStore", () => {
+export const useMyBodyFiexedStore = defineStore("myBodyFiexedStore", () => {
   const ifFixed = ref(true);
 
   const barWidth = ref("2px");

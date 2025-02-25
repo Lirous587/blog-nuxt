@@ -103,12 +103,13 @@ const userInfo = getUserInfoFromCookie();
 const hadLogin = userIfLogin();
 
 const form = reactive({
-  toUid: "0",
-  parentID: 0,
   content: "",
+  parentID: 0,
+  replyID: 0,
   // 这里是非必须的 写下来方便后续unshift加
   toUserName: "",
 });
+
 const formRef = ref(null);
 const validateContent = (rule, value, callback) => {
   if (!value || value.trim().length === 0) {
@@ -146,6 +147,7 @@ const handleChoose = () => {
 };
 
 const handleRepliesChoose = (emitData) => {
+  console.log(emitData);
   for (const key in emitData) {
     form[key] = emitData[key];
   }
