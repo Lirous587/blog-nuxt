@@ -25,14 +25,17 @@
         </NuxtLink>
       </div>
 
-      <MdPreview
+      <MdView
         ref="mdRef"
         :previewTheme="data.theme"
+        :codeTheme="data.codeTheme"
         :content="data.content"
         @click="mobileAnchorShow = false"
-      ></MdPreview>
+      />
 
-      <small class="text-right block font-bold text-blue-600 dark:text-yellow-300 mr-5">
+      <small
+        class="text-right block font-bold text-blue-600 dark:text-yellow-300 mr-5"
+      >
         于{{ formateDate(data.updatedTime) }}更新
       </small>
 

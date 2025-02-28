@@ -4,12 +4,31 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
 
-  devtools: { enabled: false },
+  devtools: { enabled: true },
 
   ssr: true,
 
   app: {
     pageTransition: { name: "page", mode: "out-in" },
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://unpkg.com/md-editor-v3@5.3.2/lib/style.css",
+        },
+        // 添加预览样式
+        {
+          rel: "stylesheet",
+          href: "https://unpkg.com/md-editor-v3@5.3.2/lib/preview.css",
+        },
+      ],
+      script: [
+        {
+          src: "https://unpkg.com/md-editor-v3@5.3.2/lib/umd/index.js",
+          defer: true,
+        },
+      ],
+    },
   },
 
   runtimeConfig: {
@@ -31,7 +50,7 @@ export default defineNuxtConfig({
 
   modules: ["@element-plus/nuxt", "@pinia/nuxt"],
 
-  css: ["~/assets/css/tailwind.css", "~/assets/scss/index.scss"],
+  css: ["~/assets/css/tailwind.css"],
 
   routeRules: {
     // 管理仪表板仅在客户端渲染
@@ -46,25 +65,17 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: "modern-compiler",
-          additionalData: `@use "@/assets/scss/element/index.scss" as element;`,
-        },
-      },
-    },
   },
-  postcss: {
-    plugins: {
-      cssnano: {
-        plugins: [],
-      },
-    },
-  },
+  // postcss: {
+  //   plugins: {
+  //     cssnano: {
+  //       plugins: [],
+  //     },
+  //   },
+  // },
   elementPlus: {
     icon: "ElIcon",
-    importStyle: "scss",
+    importStyle: "css",
     themes: ["dark"],
   },
 });
