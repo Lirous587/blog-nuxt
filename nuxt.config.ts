@@ -5,8 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
 
   devtools: { enabled: true },
-
-  ssr: true,
+  ssr: false,
 
   app: {
     pageTransition: { name: "page", mode: "out-in" },
@@ -66,16 +65,11 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  // postcss: {
-  //   plugins: {
-  //     cssnano: {
-  //       plugins: [],
-  //     },
-  //   },
-  // },
+
   elementPlus: {
-    icon: "ElIcon",
+    // icon: "ElIcon",
     importStyle: "css",
     themes: ["dark"],
+    components: ["ElInput", "ElForm", "ElFormItem"],
   },
 });

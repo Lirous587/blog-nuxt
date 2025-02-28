@@ -1,7 +1,5 @@
-import { defineStore } from "pinia";
-
 export const useMyThemeStore = defineStore("myThemeStore", () => {
-  const theme = ref("dark");
+  const theme = ref("light");
 
   const initMode = () => {
     if (localStorage.theme === "dark") {
@@ -12,13 +10,19 @@ export const useMyThemeStore = defineStore("myThemeStore", () => {
   };
 
   const darkMode = () => {
+    // 设置 data-theme 为 dark
+    document.documentElement.setAttribute("data-theme", "dark");
     document.documentElement.classList.add("dark");
+
     localStorage.theme = "dark";
     theme.value = "dark";
   };
 
   const lightMode = () => {
+    // 设置 data-theme 为 light
+    document.documentElement.setAttribute("data-theme", "light");
     document.documentElement.classList.remove("dark");
+
     localStorage.theme = "light";
     theme.value = "light";
   };
@@ -26,6 +30,10 @@ export const useMyThemeStore = defineStore("myThemeStore", () => {
   const getMode = () => {
     return theme;
   };
+
+  onMounted(() => {
+    initMode();
+  });
 
   return {
     theme,

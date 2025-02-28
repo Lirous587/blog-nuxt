@@ -1,9 +1,9 @@
 <template>
   <div class="min-w-[320px] md:min-w-[600px]">
-    <FullLoading
+    <!-- <FullLoading
       v-if="isFullLoading || !isAnimationComplete"
       v-model:ifLoad="isFullLoading"
-    />
+    /> -->
     <TopLoading></TopLoading>
     <NuxtLayout>
       <NuxtPage />
@@ -19,28 +19,28 @@ useHead({
       : "Liros的日记本 | 全栈开发";
   },
 });
-const nuxtApp = useNuxtApp();
+// const nuxtApp = useNuxtApp();
 
 // 是否首次加载
-const isFullLoading = ref(true);
+// const isFullLoading = ref(true);
 
-const isAnimationComplete = ref(false);
+// const isAnimationComplete = ref(false);
 
-nuxtApp.hook("page:start", () => {
-  isFullLoading.value = true;
-  isAnimationComplete.value = false;
-});
+// nuxtApp.hook("page:start", () => {
+//   isFullLoading.value = true;
+//   isAnimationComplete.value = false;
+// });
 
-nuxtApp.hook("page:finish", () => {
-  isFullLoading.value = false;
-  setTimeout(() => {
-    isAnimationComplete.value = true;
-  }, 500);
-});
+// nuxtApp.hook("page:finish", () => {
+//   isFullLoading.value = false;
+//   setTimeout(() => {
+//     isAnimationComplete.value = true;
+//   }, 500);
+// });
 </script>
 
 <style>
-@reference "assets/css/tailwind.css";
+/* @reference "assets/css/tailwind.css"; */
 
 ::-webkit-scrollbar {
   width: 2px;
